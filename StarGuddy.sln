@@ -17,17 +17,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Repository.Interf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Repository.Configuration", "Repository\StarGuddy.Repository.Configuration\StarGuddy.Repository.Configuration.csproj", "{072BE5F2-C55B-4FCE-AEDF-0B07D315E383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGuddy.Data.Entities.Interface", "Core\StarGuddy.Data.Entities.Interface\StarGuddy.Data.Entities.Interface.csproj", "{0D65CA81-1709-4B7E-A067-E0CB6933DEA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Data.Entities.Interface", "Core\StarGuddy.Data.Entities.Interface\StarGuddy.Data.Entities.Interface.csproj", "{0D65CA81-1709-4B7E-A067-E0CB6933DEA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGuddy.Data.Entities", "Core\StarGuddy.Data.Entities\StarGuddy.Data.Entities.csproj", "{2744C1F8-81E6-43CC-9E0D-25EE0A033A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Data.Entities", "Core\StarGuddy.Data.Entities\StarGuddy.Data.Entities.csproj", "{2744C1F8-81E6-43CC-9E0D-25EE0A033A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGuddy.Api.Models", "Core\StarGuddy.Api.Models\StarGuddy.Api.Models.csproj", "{0CDA6FAC-6748-4482-86A3-E6399ACB804A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Api.Models", "Core\StarGuddy.Api.Models\StarGuddy.Api.Models.csproj", "{0CDA6FAC-6748-4482-86A3-E6399ACB804A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Business.Interface", "Business\StarGuddy.Business.Interface\StarGuddy.Business.Interface.csproj", "{A15806F0-6411-4DD6-AF67-136CDBA18329}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGuddy.Business.Modules", "Business\StarGuddy.Business.Modules\StarGuddy.Business.Modules.csproj", "{6DE0FD92-90A4-417B-93B4-2F687BB0BB90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Business.Modules", "Business\StarGuddy.Business.Modules\StarGuddy.Business.Modules.csproj", "{6DE0FD92-90A4-417B-93B4-2F687BB0BB90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGuddy.Api.Models.Interface", "Core\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj", "{2072BF2C-DB73-45F1-84E1-68E1A0E6EEC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Api.Models.Interface", "Core\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj", "{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +71,10 @@ Global
 		{6DE0FD92-90A4-417B-93B4-2F687BB0BB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DE0FD92-90A4-417B-93B4-2F687BB0BB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DE0FD92-90A4-417B-93B4-2F687BB0BB90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2072BF2C-DB73-45F1-84E1-68E1A0E6EEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2072BF2C-DB73-45F1-84E1-68E1A0E6EEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2072BF2C-DB73-45F1-84E1-68E1A0E6EEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2072BF2C-DB73-45F1-84E1-68E1A0E6EEC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,7 +88,7 @@ Global
 		{0CDA6FAC-6748-4482-86A3-E6399ACB804A} = {CF6DE25C-E4D1-4BD3-82E8-5A8207CBB625}
 		{A15806F0-6411-4DD6-AF67-136CDBA18329} = {F5521429-25DE-466A-A231-7DAA9A791476}
 		{6DE0FD92-90A4-417B-93B4-2F687BB0BB90} = {F5521429-25DE-466A-A231-7DAA9A791476}
-		{2072BF2C-DB73-45F1-84E1-68E1A0E6EEC3} = {CF6DE25C-E4D1-4BD3-82E8-5A8207CBB625}
+		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807} = {CF6DE25C-E4D1-4BD3-82E8-5A8207CBB625}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA45275B-FD4B-414C-8A7A-181AF07CC517}

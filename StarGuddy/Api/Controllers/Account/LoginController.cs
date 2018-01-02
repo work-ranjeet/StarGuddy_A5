@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Common;
+using StarGuddy.Api.Models.Account;
 using StarGuddy.Api.Models.Interface.Account;
 using StarGuddy.Business.Interface.Account;
 
@@ -22,7 +23,7 @@ namespace StarGuddy.Api.Controllers.Account
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] ILoginData loginData)
+        public async Task<IActionResult> Login([FromBody] LoginData loginData)
         {
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true

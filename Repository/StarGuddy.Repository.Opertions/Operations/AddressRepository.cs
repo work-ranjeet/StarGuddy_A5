@@ -24,6 +24,7 @@ namespace StarGuddy.Repository.Operations
     using System.Linq;
     using System.Threading.Tasks;
     using Dapper;
+    using StarGuddy.Data.Entities;
     using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
@@ -36,7 +37,7 @@ namespace StarGuddy.Repository.Operations
     /// <seealso cref="StarGuddy.Data.Repository.RepositoryAbstract{StarGuddy.Data.Entities.UserAddress}" />
     /// <seealso cref="StarGuddy.Data.Repository.RepositoryAbstract" />
     /// <seealso cref="StarGuddy.Data.Repository.Interfaces.IAddressRepository" />
-    public class AddressRepository : RepositoryAbstract<IUserAddress>, IAddressRepository
+    public class AddressRepository : RepositoryAbstract<UserAddress>, IAddressRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddressRepository" /> class.

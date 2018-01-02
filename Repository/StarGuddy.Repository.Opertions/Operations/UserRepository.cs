@@ -20,6 +20,7 @@ namespace StarGuddy.Repository.Operations
 {
     #region Imports
     using System.Collections.Generic;
+    using StarGuddy.Data.Entities;
     using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
@@ -32,7 +33,7 @@ namespace StarGuddy.Repository.Operations
     /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{User}" />
     /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{User}" />
     /// <seealso cref="StarGuddy.Repository.Interfaces.IUserRepository" />
-    public class UserRepository : RepositoryAbstract<IUser>, IUserRepository
+    public class UserRepository : RepositoryAbstract<User>, IUserRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository" /> class.

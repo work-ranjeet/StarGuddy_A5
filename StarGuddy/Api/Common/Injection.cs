@@ -18,8 +18,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StarGuddy.Api.Common;
+using StarGuddy.Api.Models.Account;
+using StarGuddy.Api.Models.Interface.Account;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Modules.Account;
+using StarGuddy.Data.Entities;
+using StarGuddy.Data.Entities.Interface;
 using StarGuddy.Repository.Configuration;
 using StarGuddy.Repository.Interfaces;
 using StarGuddy.Repository.Operations;
@@ -43,6 +47,8 @@ namespace StarGuddy.Api
 
             //// API Injection
             services.AddTransient<IJwtPacketManager, JwtPacketManager>();
+            //services.AddTransient<ILoginData, LoginData>();
+            //services.AddTransient<IUser, User>();
 
             //// Repository Injection
             services.AddTransient<IUserRepository, UserRepository>();
@@ -51,4 +57,5 @@ namespace StarGuddy.Api
             services.AddTransient<IAccountManager, AccountManager>();
         }
     }
+    
 }

@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj" />
     <ProjectReference Include="..\..\Core\StarGuddy.Api.Models\StarGuddy.Api.Models.csproj" />
     <ProjectReference Include="..\..\Repository\StarGuddy.Repository.Interface\StarGuddy.Repository.Interface.csproj" />
     <ProjectReference Include="..\StarGuddy.Business.Interface\StarGuddy.Business.Interface.csproj" />
