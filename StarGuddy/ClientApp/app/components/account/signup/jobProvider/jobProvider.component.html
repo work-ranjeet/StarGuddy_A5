@@ -1,0 +1,77 @@
+
+    <div class="signup-container  job-provider-container">
+        <div class="container-box">
+            <div class="form-wrapper">
+                <div class="form-section">
+                    <h1>Discover talents or be discovered</h1>
+                </div>
+                <h3> Get started - it's free. It takes few minutes to create your profile.</h3>
+                <h3>Already a member? <a [routerLink]="['/login']">Sign in</a></h3>
+            </div>
+
+            <div class="form">
+                <div class="row form-group">
+                    <div class="col-xs-6 col-md-6">
+                        <span for="FirstName" class="text-danger"></span>
+                        <input id="FirstName" name="FirstName" placeholder="First Name" type="text" class="form-control" />
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <span for="LastName" class="text-danger"></span>
+                        <input id="LastName" class="form-control" placeholder="Last Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span for="Email" class="text-danger"></span>
+                    <input id="Email" class="form-control" placeholder="Your Email" />
+                </div>
+                <div class="form-group">
+                    <span  for="Password" class="text-danger"></span>
+                    <input id="Password" class="form-control" placeholder="Enter Password" />
+                </div>
+                <div class="form-group">
+                    <span for="ConfirmPassword" class="text-danger"></span>
+                    <input id="ConfirmPassword" class="form-control" placeholder="Re-enter Password" />
+                </div>
+                <div class="form-group">
+                    <label for="">Birth Date</label>
+                    <span for="Dob" class="text-danger"></span>
+                    <input id="Dob" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Gender <span class="req">*</span></label>
+                    <span for="Gender" class="text-danger"></span>
+                    <div class="row">
+                        <div class="btn-group" data-toggle="buttons" style="padding: 15px; padding-top: 0px;">
+                            <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="M" checked="checked" />Male</label>
+                            <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="F" />Female</label>
+                            <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="O" />Others</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span for="OrganizationName" class="text-danger"></span>
+                    <input id="OrganizationName" class="form-control" placeholder="Enter your company name (Optional)" />
+                </div>
+
+                <div class="form-group">
+                    <span for="OrganizationWeb" class="text-danger"></span>
+                    <input id="OrganizationWeb" class="form-control" placeholder="Your company website  (Optional)" />
+                </div>
+
+                <div class="form-group">
+                    <span for="Desiganation" class="text-danger"></span>
+                    <input id="Desiganation" class="form-control" placeholder="Your Desiganation (Optional)" />
+                </div>
+
+                <p class="disclosure-text">
+                    By clicking
+                    <span id="disclosure-cta">Join now</span>, you agree to StarIn's
+                    <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/user-agreement?trk=uno-reg-guest-home-user-agreement">User Agreement</a>,
+                    <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/privacy-policy?trk=uno-reg-guest-home-privacy-policy">Privacy Policy</a>, and
+                    <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/cookie-policy?trk=uno-reg-guest-home-cookie-policy">Cookie Policy</a>.
+                </p>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Sign up</button>             
+            </div>
+        </div>
+    </div>

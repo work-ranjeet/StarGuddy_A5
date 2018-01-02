@@ -1,0 +1,11 @@
+﻿
+.job-provider-container {
+   
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+    .job-provider-container .container-box {
+        margin: 20px auto;
+        padding: 10px;
+    }

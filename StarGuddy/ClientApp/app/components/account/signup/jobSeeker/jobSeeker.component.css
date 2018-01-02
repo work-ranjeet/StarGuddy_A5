@@ -1,0 +1,10 @@
+﻿
+.job-seeker-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+    .job-seeker-container .container-box {
+        margin: 50px auto;
+        padding: 15px;
+    }

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\StarGuddy.Data.Entities.Interface\StarGuddy.Data.Entities.Interface.csproj" />
+    <ProjectReference Include="..\StarGuddy.Repository.Configuration\StarGuddy.Repository.Configuration.csproj" />
+    <ProjectReference Include="..\StarGuddy.Repository.Interface\StarGuddy.Repository.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
