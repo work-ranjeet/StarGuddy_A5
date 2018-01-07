@@ -6,11 +6,15 @@ import { RouterModule } from "@angular/router";
 //import { MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule } from "@angular/material";
 //import { MatInputModule } from "@angular/material/input";
 
+// Directives
+
+
 //// Providers
 import { AppConstant } from "../Constants/AppConstant";
-import { AccountService } from "./components/account/Account.Service";
 import { DataConverter } from "../Helper/DataConverter";
+import { DataValidator } from "../Helper/DataValidator";
 import { BaseService } from "../Services/BaseService";
+import { AccountService } from "./components/account/Account.Service";
 
 //// shared Modules
 import { CommonModuleShared } from "./components/common/common.module.shared";
@@ -29,7 +33,7 @@ import { SignUpJobSeekerComponent } from "./components/account/signup/jobSeeker/
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent, 
         AccountLoginComponent, SignUpComponent, SignUpJobProviderComponent, SignUpJobSeekerComponent,
         CounterComponent, FetchDataComponent
     ],
@@ -49,7 +53,7 @@ import { SignUpJobSeekerComponent } from "./components/account/signup/jobSeeker/
             { path: "**", redirectTo: "home" }
         ])
     ],
-    providers: [AppConstant, BaseService, AccountService, DataConverter]
+    providers: [AppConstant, BaseService, AccountService, DataConverter, DataValidator]
 })
 export class AppModuleShared {
 }

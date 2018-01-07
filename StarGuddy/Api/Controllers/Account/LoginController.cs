@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Common;
 using StarGuddy.Api.Models.Account;
@@ -25,13 +26,15 @@ namespace StarGuddy.Api.Controllers.Account
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginData loginData)
         {
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var userResult = await _accountManager.PasswordSignInAsync(loginData.Email, loginData.Password, rememberMe: false, lockoutOnFailure: false);
-
-            if (userResult.Id == Guid.Empty)
+            if(loginData == null)
             {
-                return NotFound("email or password incorrect");
+                return BadRequest();
+            }
+           
+            var userResult = await _accountManager.PasswordSignInAsync(loginData.Email, loginData.Password, rememberMe: false, lockoutOnFailure: false);
+            if (userResult.Id == Guid.Empty)
+            {                
+                return  NotFound("Oops! Invalid entry. Please try again.");
             }
 
             return Ok(this._jwtPacketManager.CreateJwtPacketAsync(userResult));

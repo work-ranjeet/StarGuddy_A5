@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:65392/",
+      "applicationUrl": "http://StarGuddy.com:80/",
       "sslPort": 0
     }
   },

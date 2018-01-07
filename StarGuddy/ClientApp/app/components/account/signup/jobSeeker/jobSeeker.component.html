@@ -9,8 +9,10 @@
         <div id="signUpForm">
             <div class="row form-group">
                 <div class="col-xs-6 col-md-6">
-                    <input id="FirstName" name="FirstName" type="text" placeholder="First Name" class="form-control" required
-                           [(ngModel)]="applicationUser.FirstName" #firstName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"/>
+                    <input id="FirstName" type="text" class="form-control" autofocus
+                           placeholder="First Name" pattern="[a-zA-Z][a-zA-Z ]+" required
+                           [(ngModel)]="applicationUser.FirstName" 
+                           #firstName="ngModel" />
                     <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="error">
                         <div [hidden]="!firstName.hasError('required')">First name is required.</div>
                         <div [hidden]="!firstName.hasError('pattern')">Only alphabets allowed.</div>
@@ -35,7 +37,7 @@
             </div>
             <div class="form-group">
                 <input id="Password" type="password" class="form-control" placeholder="Enter Password" required
-                       [(ngModel)]="applicationUser.Password" #password="ngModel" />
+                       [(ngModel)]="applicationUser.Password" #password="ngModel"/>
                 <div *ngIf="password.errors && (password.dirty || password.touched)" class="error">
                     <div [hidden]="!password.hasError('required')">Password is required.</div>
                 </div>
@@ -47,6 +49,7 @@
                     <div [hidden]="!cnfpassword.hasError('required')">Password is required.</div>
                     <div [hidden]="!cnfpassword.hasError('validateequal')">Password and confirm-password are not matching.</div>
                 </div>
+                
             </div>
             <div class="form-group">
                 <label for="dateOfBirth" class="required">Birth Date</label>
@@ -57,9 +60,9 @@
                 <span asp-validation-for="Gender" class="text-danger"></span>
                 <div class="row">
                     <div class="btn-group" data-toggle="buttons" style="padding: 15px; padding-top: 0px;">
-                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="M" checked="checked" />Male</label>
-                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="F" />Female</label>
-                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="O" />Others</label>
+                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="M"  [(ngModel)]="applicationUser.Gender"checked="checked" />Male</label>
+                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="F"  [(ngModel)]="applicationUser.Gender"/>Female</label>
+                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="O"  [(ngModel)]="applicationUser.Gender"/>Others</label>
                     </div>
                 </div>
             </div>
@@ -72,7 +75,7 @@
                 <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/privacy-policy?trk=uno-reg-guest-home-privacy-policy">Privacy Policy</a>, and
                 <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/cookie-policy?trk=uno-reg-guest-home-cookie-policy">Cookie Policy</a>.
             </p>
-            <button type="submit" class="btn btn-lg btn-primary btn-block">Sign up</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" (click)="save()">Sign up</button>
         </div>
     </div>
 

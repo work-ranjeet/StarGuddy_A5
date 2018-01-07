@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AccountService } from "../Account.Service";
+import { DataValidator } from "../../../../Helper/DataValidator";
 import ILoginData = App.Client.Account.ILoginData;
 
 @Component({
@@ -15,10 +16,13 @@ export class AccountLoginComponent {
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
 
-    constructor(router: Router, authRoute: ActivatedRoute, accountService: AccountService) {
+    private readonly dataValidator: DataValidator
+
+    constructor(router: Router, authRoute: ActivatedRoute, accountService: AccountService, dataValidator: DataValidator) {
         this.router = router;
         this.authenticateRoute = authRoute;
         this.accountService = accountService;
+        this.dataValidator = dataValidator;
     }
 
     ngOnInit() {
@@ -29,11 +33,14 @@ export class AccountLoginComponent {
     }
 
     login() {
-        this.accountService.login(this.loginData).subscribe(
-            result => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-            });
+        if (this.dataValidator.IsValidObject(this.loginData)) {
+            this.accountService.login(this.loginData).subscribe(
+                result => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    console.error(error);
+                });
+        }
     }
 }

@@ -82,7 +82,9 @@ namespace StarGuddy.Business.Modules.Account
                         IsCastingProfessional = user.IsCastingProfessional,
                         Designation = user.Designation,
                         OrgName = user.OrgName,
-                        OrgWebsite = user.OrgWebsite
+                        OrgWebsite = user.OrgWebsite,
+                        UserName = user.UserName,
+                        Email = user.Email
                     };
                 }
 

@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
 import { AccountService } from "../../Account.Service";
+import { DataValidator } from "../../../../../Helper/DataValidator";
 import IApplicationUser = App.Client.Account.IApplicationUser;
 
 @Component({
@@ -9,15 +11,35 @@ import IApplicationUser = App.Client.Account.IApplicationUser;
 })
 
 export class SignUpJobSeekerComponent {
-  
-    private readonly accountService: AccountService;
 
+    private readonly accountService: AccountService;
+    private readonly dataValidator: DataValidator
+    router: Router;
     applicationUser: IApplicationUser;
 
-    constructor(accountService: AccountService) { this.accountService = accountService; }
+    constructor(router: Router, accountService: AccountService, dataValidator: DataValidator) {
+        this.router = router;
+        this.accountService = accountService;
+        this.dataValidator = dataValidator;
+    }
 
     ngOnInit() {
         this.applicationUser = {} as IApplicationUser;
     }
 
+    save( ) {
+        if (this.dataValidator.IsValidObject(this.applicationUser )) {
+            this.accountService.signup(this.applicationUser).subscribe(
+                result => {
+                    if (result != null) {
+                        this.router.navigate([""]);
+                    }
+                    else {
+                        this.router.navigate(["/error"]);
+                    }
+                },
+                error => {
+                });
+        }
+    }
 }

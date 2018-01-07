@@ -44,6 +44,22 @@ namespace StarGuddy.Api.Models.Interface.Account
         string UserName { get; set; }
 
         /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
+        string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CNF password.
+        /// </summary>
+        /// <value>
+        /// The CNF password.
+        /// </value>
+        string CnfPassword { get; set; }
+
+        /// <summary>
         /// Gets or sets the email.
         /// </summary>
         /// <value>

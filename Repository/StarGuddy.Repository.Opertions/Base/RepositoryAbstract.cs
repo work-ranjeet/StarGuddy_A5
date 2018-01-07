@@ -179,6 +179,21 @@ namespace StarGuddy.Repository.Base
         /// Gets the procedure data.
         /// </summary>
         /// <param name="storeProcedureName">Name of the store procedure.</param>
+        /// <returns>
+        /// Query to get all entities
+        /// </returns>
+        public virtual IEnumerable<T> GetProcedureData(string storeProcedureName)
+        {
+            using (var connection = this.GetOpenConnectionAsync)
+            {
+                return SqlMapper.Query<T>(connection, storeProcedureName, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        /// <summary>
+        /// Gets the procedure data.
+        /// </summary>
+        /// <param name="storeProcedureName">Name of the store procedure.</param>
         /// <param name="parameter">The parameter.</param>
         /// <returns>
         /// Query to get all entities
