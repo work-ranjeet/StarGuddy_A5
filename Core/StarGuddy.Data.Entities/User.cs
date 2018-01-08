@@ -29,188 +29,56 @@ namespace StarGuddy.Data.Entities
     /// <seealso cref="Object" />
     public class User : IUser
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
         public Guid Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the access failed count.
-        /// </summary>
-        /// <value>
-        /// The access failed count.
-        /// </value>
-        public int AccessFailedCount { get; set; }
+        public Boolean IsActive { get; set; }
 
-        /// <summary>
-        /// Gets or sets the concurrency stamp.
-        /// </summary>
-        /// <value>
-        /// The concurrency stamp.
-        /// </value>
-        public string ConcurrencyStamp { get; set; }
+        public Boolean IsDeleted { get; set; }
 
-        /// <summary>
-        /// Gets or sets the DOB.
-        /// </summary>
-        /// <value>
-        /// The DOB.
-        /// </value>
-        public DateTime Dob { get; set; }
+        public Int32 AccessFailedCount { get; set; }
 
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        /// <value>
-        /// The email.
-        /// </value>
-        public string Email { get; set; }
+        public String ConcurrencyStamp { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [email confirmed].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [email confirmed]; otherwise, <c>false</c>.
-        /// </value>
-        public bool EmailConfirmed { get; set; }
+        public String Email { get; set; }
 
-        /// <summary>
-        /// Gets or sets the first name.
-        /// </summary>
-        /// <value>
-        /// The first name.
-        /// </value>
-        public string FirstName { get; set; }
+        public Boolean EmailConfirmed { get; set; }
 
-        /// <summary>
-        /// Gets or sets the gender.
-        /// </summary>
-        /// <value>
-        /// The gender.
-        /// </value>
-        public string Gender { get; set; }
+        public String FirstName { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is casting professional.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is casting professional; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsCastingProfessional { get; set; }
+        public String Gender { get; set; }
 
-        /// <summary>
-        /// Gets or sets the last name.
-        /// </summary>
-        /// <value>
-        /// The last name.
-        /// </value>
-        public string LastName { get; set; }
+        public Boolean IsCastingProfessional { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [lockout enabled].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [lockout enabled]; otherwise, <c>false</c>.
-        /// </value>
-        public bool LockoutEnabled { get; set; }
+        public String LastName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the lockout end.
-        /// </summary>
-        /// <value>
-        /// The lockout end.
-        /// </value>
-        public DateTime LockoutEnd { get; set; }
+        public Boolean LockoutEnabled { get; set; }
 
-        /// <summary>
-        /// Gets or sets the normalized email.
-        /// </summary>
-        /// <value>
-        /// The normalized email.
-        /// </value>
-        public string NormalizedEmail { get; set; }
+        public DateTimeOffset? LockoutEnd { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the normalized user.
-        /// </summary>
-        /// <value>
-        /// The name of the normalized user.
-        /// </value>
-        public string NormalizedUserName { get; set; }
+        public String NormalizedEmail { get; set; }
 
-        /// <summary>
-        /// Gets or sets the designation.
-        /// </summary>
-        /// <value>
-        /// The designation.
-        /// </value>
-        public string Designation { get; set; }
+        public String NormalizedUserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the org.
-        /// </summary>
-        /// <value>
-        /// The name of the org.
-        /// </value>
-        public string OrgName { get; set; }
+        public String Designation { get; set; }
 
-        /// <summary>
-        /// Gets or sets the org website.
-        /// </summary>
-        /// <value>
-        /// The org website.
-        /// </value>
-        public string OrgWebsite { get; set; }
+        public String OrgName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the password hash.
-        /// </summary>
-        /// <value>
-        /// The password hash.
-        /// </value>
-        public string PasswordHash { get; set; }
+        public String OrgWebsite { get; set; }
 
-        /// <summary>
-        /// Gets or sets the phone number.
-        /// </summary>
-        /// <value>
-        /// The phone number.
-        /// </value>
-        public string PhoneNumber { get; set; }
+        public String PasswordHash { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [phone number confirmed].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [phone number confirmed]; otherwise, <c>false</c>.
-        /// </value>
-        public bool PhoneNumberConfirmed { get; set; }
+        public String PhoneNumber { get; set; }
 
-        /// <summary>
-        /// Gets or sets the security stamp.
-        /// </summary>
-        /// <value>
-        /// The security stamp.
-        /// </value>
-        public string SecurityStamp { get; set; }
+        public Boolean PhoneNumberConfirmed { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [two factor enabled].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [two factor enabled]; otherwise, <c>false</c>.
-        /// </value>
-        public bool TwoFactorEnabled { get; set; }
+        public String SecurityStamp { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the user.
-        /// </summary>
-        /// <value>
-        /// The name of the user.
-        /// </value>
-        public string UserName { get; set; }
+        public Boolean TwoFactorEnabled { get; set; }
+
+        public String UserName { get; set; }
+
+        public DateTime DttmCreated { get; set; }
+
+        public DateTime DttmModified { get; set; }
     }
 }

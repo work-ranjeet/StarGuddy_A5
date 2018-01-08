@@ -109,7 +109,6 @@ namespace StarGuddy.Repository.Operations
                 {
                     AccessFailedCount = 0,
                     ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
-                    Dob = user.Dob,
                     Email = user.Email,
                     EmailConfirmed = user.EmailConfirmed,
                     FirstName = user.FirstName,

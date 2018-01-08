@@ -54,12 +54,12 @@ IF EXISTS (
 	DROP PROCEDURE AddNewUser
 GO
 
-CREATE PROCEDURE AddNewUser (@AccessFailedCount INT, @ConcurrencyStamp VARCHAR(max), @Dob DATETIME, @Email NVARCHAR(256), @EmailConfirmed BIT, @FirstName NVARCHAR(100), @Gender NVARCHAR(10), @IsCastingProfessional BIT, @LastName NVARCHAR(100), @LockoutEnabled BIT, @LockoutEnd DATETIME, @NormalizedEmail NVARCHAR(256), @NormalizedUserName NVARCHAR(256), @Designation NVARCHAR(150), @OrgName NVARCHAR(150), @OrgWebsite NVARCHAR(150), @PasswordHash NVARCHAR(max), @PhoneNumber NVARCHAR(20), @PhoneNumberConfirmed BIT, @SecurityStamp NVARCHAR(max), @TwoFactorEnabled BIT, @UserName NVARCHAR(256))
+CREATE PROCEDURE AddNewUser (@AccessFailedCount INT, @ConcurrencyStamp VARCHAR(max),  @Email NVARCHAR(256), @EmailConfirmed BIT, @FirstName NVARCHAR(100), @Gender NVARCHAR(10), @IsCastingProfessional BIT, @LastName NVARCHAR(100), @LockoutEnabled BIT, @LockoutEnd DATETIME, @NormalizedEmail NVARCHAR(256), @NormalizedUserName NVARCHAR(256), @Designation NVARCHAR(150), @OrgName NVARCHAR(150), @OrgWebsite NVARCHAR(150), @PasswordHash NVARCHAR(max), @PhoneNumber NVARCHAR(20), @PhoneNumberConfirmed BIT, @SecurityStamp NVARCHAR(max), @TwoFactorEnabled BIT, @UserName NVARCHAR(256))
 AS
 BEGIN
 	BEGIN TRY
-		INSERT INTO Users (AccessFailedCount, ConcurrencyStamp, Dob, Email, EmailConfirmed, FirstName, Gender, IsCastingProfessional, LastName, LockoutEnabled, LockoutEnd, NormalizedEmail, NormalizedUserName, Designation, OrgName, OrgWebsite, PasswordHash, PhoneNumber, PhoneNumberConfirmed, SecurityStamp, TwoFactorEnabled, UserName)
-		VALUES (@AccessFailedCount, @ConcurrencyStamp, @Dob, @Email, @EmailConfirmed, @FirstName, @Gender, @IsCastingProfessional, @LastName, @LockoutEnabled, @LockoutEnd, @NormalizedEmail, @NormalizedUserName, @Designation, @OrgName, @OrgWebsite, @PasswordHash, @PhoneNumber, @PhoneNumberConfirmed, @SecurityStamp, @TwoFactorEnabled, @UserName)
+		INSERT INTO Users (AccessFailedCount, ConcurrencyStamp, Email, EmailConfirmed, FirstName, Gender, IsCastingProfessional, LastName, LockoutEnabled, LockoutEnd, NormalizedEmail, NormalizedUserName, Designation, OrgName, OrgWebsite, PasswordHash, PhoneNumber, PhoneNumberConfirmed, SecurityStamp, TwoFactorEnabled, UserName)
+		VALUES (@AccessFailedCount, @ConcurrencyStamp, @Email, @EmailConfirmed, @FirstName, @Gender, @IsCastingProfessional, @LastName, @LockoutEnabled, @LockoutEnd, @NormalizedEmail, @NormalizedUserName, @Designation, @OrgName, @OrgWebsite, @PasswordHash, @PhoneNumber, @PhoneNumberConfirmed, @SecurityStamp, @TwoFactorEnabled, @UserName)
 		END TRY
 
 	BEGIN CATCH
@@ -97,7 +97,6 @@ GO
 CREATE PROCEDURE UpdateUser (
 	@AccessFailedCount INT, 
 	@ConcurrencyStamp VARCHAR(max), 
-	@Dob DATETIME, 
 	@Email NVARCHAR(256), 
 	@EmailConfirmed BIT, 
 	@FirstName NVARCHAR(100), 
@@ -124,7 +123,6 @@ BEGIN
 		Update Users  
 		set AccessFailedCount = @AccessFailedCount, 
 		ConcurrencyStamp = @ConcurrencyStamp,
-		Dob = @Dob, 
 		Email = @Email, 
 		EmailConfirmed = @EmailConfirmed, 
 		FirstName = @FirstName, 

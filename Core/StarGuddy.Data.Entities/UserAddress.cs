@@ -28,108 +28,36 @@ namespace StarGuddy.Data.Entities
     /// </summary>
     public class UserAddress : IUserAddress
     {
-        /// <summary>
-        /// Gets or sets the user address identifier.
-        /// </summary>
-        /// <value>
-        /// The user address identifier.
-        /// </value>
         public Guid Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the flat.
-        /// </summary>
-        /// <value>
-        /// The flat.
-        /// </value>
-        public string Flat { get; set; }
+        public Guid UserId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the application or house.
-        /// </summary>
-        /// <value>
-        /// The name of the application or house.
-        /// </value>
-        public string AppOrHouseName { get; set; }
+        public Boolean IsActive { get; set; }
 
-        /// <summary>
-        /// Gets or sets the line one.
-        /// </summary>
-        /// <value>
-        /// The line one.
-        /// </value>
-        public string LineOne { get; set; }
+        public Boolean IsDeleted { get; set; }
 
-        /// <summary>
-        /// Gets or sets the line two.
-        /// </summary>
-        /// <value>
-        /// The line two.
-        /// </value>
-        public string LineTwo { get; set; }
+        public Int32 AccessFailedCount { get; set; }
 
-        /// <summary>
-        /// Gets or sets the city or town.
-        /// </summary>
-        /// <value>
-        /// The city or town.
-        /// </value>
-        public string CityOrTown { get; set; }
+        public String AppOrHouseName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the state or province.
-        /// </summary>
-        /// <value>
-        /// The state or province.
-        /// </value>
-        public string StateOrProvince { get; set; }
+        public String CityOrTown { get; set; }
 
-        /// <summary>
-        /// Gets or sets the zip or postal code.
-        /// </summary>
-        /// <value>
-        /// The zip or postal code.
-        /// </value>
-        public string ZipOrPostalCode { get; set; }
+        public String Country { get; set; }
 
-        /// <summary>
-        /// Gets or sets the country.
-        /// </summary>
-        /// <value>
-        /// The country.
-        /// </value>
-        public string Country { get; set; }
+        public String Flat { get; set; }
 
-        /// <summary>
-        /// Gets or sets the land mark.
-        /// </summary>
-        /// <value>
-        /// The land mark.
-        /// </value>
-        public string LandMark { get; set; }
+        public String LandMark { get; set; }
 
-        /// <summary>
-        /// Gets or sets the DTTM created.
-        /// </summary>
-        /// <value>
-        /// The DTTM created.
-        /// </value>
-        public DateTime DttmCreated { get; set; } = DateTime.UtcNow;
+        public String LineOne { get; set; }
 
-        /// <summary>
-        /// Gets or sets the DTTM modified.
-        /// </summary>
-        /// <value>
-        /// The DTTM modified.
-        /// </value>
-        public DateTime DttmModified { get; set; } = DateTime.UtcNow;
+        public String LineTwo { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        /// <value>
-        /// The user identifier.
-        /// </value>
-        public string UserId { get; set; }
+        public String StateOrProvince { get; set; }
+
+        public String ZipOrPostalCode { get; set; }
+
+        public DateTime DttmCreated { get; set; }
+
+        public DateTime DttmModified { get; set; }
     }
 }

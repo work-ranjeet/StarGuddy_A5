@@ -77,7 +77,6 @@ namespace StarGuddy.Business.Modules.Account
                         Id = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
-                        Dob = user.Dob,
                         Gender = user.Gender,
                         IsCastingProfessional = user.IsCastingProfessional,
                         Designation = user.Designation,
