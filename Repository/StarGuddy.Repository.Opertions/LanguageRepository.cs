@@ -1,5 +1,6 @@
-﻿// -------------------------------------------------------------------------------
-// <copyright file="AccentsRepository.cs" company="StarGuddy India">
+﻿using System;
+// -------------------------------------------------------------------------------
+// <copyright file="LanguageRepository.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -17,28 +18,27 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Repository.Opertions
 {
+    using System.Collections.Generic;
+    using System.Text;
     using StarGuddy.Data.Entities;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
     using StarGuddy.Repository.Interface;
     using StarGuddy.Repository.Opertions.Helper;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
-    /// Accents Repository
+    /// Language Repository
     /// </summary>
-    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Data.Entities.Accents}" />
-    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Repository.Opertions.AccentsRepository}" />
-    /// <seealso cref="StarGuddy.Repository.Interface.IAccentsRepository" />
-    public class AccentsRepository : RepositoryAbstract<Accents>, IAccentsRepository
+    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Data.Entities.Language}" />
+    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Repository.Opertions.LanguageRepository}" />
+    /// <seealso cref="StarGuddy.Repository.Interface.ILanguageRepository" />
+    public class LanguageRepository : RepositoryAbstract<Language>, ILanguageRepository
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccentsRepository" /> class.
+        /// Initializes a new instance of the <see cref="LanguageRepository" /> class.
         /// </summary>
         /// <param name="configurationSingleton">The configuration singleton.</param>
-        public AccentsRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.Accents)
+        public LanguageRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.Languages)
         {
         }
     }

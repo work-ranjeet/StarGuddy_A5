@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="AccentsRepository.cs" company="StarGuddy India">
+// <copyright file="PhysicalAppearanceRepository.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -17,28 +17,27 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Repository.Opertions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
     using StarGuddy.Data.Entities;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
     using StarGuddy.Repository.Interface;
     using StarGuddy.Repository.Opertions.Helper;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
-    /// Accents Repository
+    /// Physical Appearance Repository
     /// </summary>
-    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Data.Entities.Accents}" />
-    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Repository.Opertions.AccentsRepository}" />
-    /// <seealso cref="StarGuddy.Repository.Interface.IAccentsRepository" />
-    public class AccentsRepository : RepositoryAbstract<Accents>, IAccentsRepository
+    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Data.Entities.PhysicalAppearance}" />
+    /// <seealso cref="StarGuddy.Repository.Interface.IPhysicalAppearanceRepository" />
+    public class PhysicalAppearanceRepository : RepositoryAbstract<PhysicalAppearance>, IPhysicalAppearanceRepository
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccentsRepository" /> class.
+        /// Initializes a new instance of the <see cref="PhysicalAppearanceRepository"/> class.
         /// </summary>
         /// <param name="configurationSingleton">The configuration singleton.</param>
-        public AccentsRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.Accents)
+        public PhysicalAppearanceRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.PhysicalAppearance)
         {
         }
     }

@@ -29,11 +29,14 @@ namespace StarGuddy.Repository.Operations
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
     using StarGuddy.Repository.Interfaces;
+    using StarGuddy.Repository.Opertions.Helper;
     #endregion
 
     /// <summary>
     /// Address Repository
     /// </summary>
+    /// <seealso cref="StarGuddy.Repository.Base.RepositoryAbstract{StarGuddy.Data.Entities.UserAddress}" />
+    /// <seealso cref="StarGuddy.Repository.Interfaces.IAddressRepository" />
     /// <seealso cref="StarGuddy.Data.Repository.RepositoryAbstract{StarGuddy.Data.Entities.UserAddress}" />
     /// <seealso cref="StarGuddy.Data.Repository.RepositoryAbstract" />
     /// <seealso cref="StarGuddy.Data.Repository.Interfaces.IAddressRepository" />
@@ -43,7 +46,7 @@ namespace StarGuddy.Repository.Operations
         /// Initializes a new instance of the <see cref="AddressRepository" /> class.
         /// </summary>
         /// <param name="configurationSingleton">The configuration singleton.</param>
-        public AddressRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, "UserAddresses")
+        public AddressRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.UserAddress)
         {
         }
 

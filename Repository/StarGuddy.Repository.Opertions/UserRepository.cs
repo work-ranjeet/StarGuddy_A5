@@ -44,7 +44,7 @@ namespace StarGuddy.Repository.Operations
         /// </summary>
         /// <param name="configurationSingleton">The configuration singleton.</param>
         /// <inheritdoc />
-        public UserRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, "Users")
+        public UserRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.Users)
         {
         }
 

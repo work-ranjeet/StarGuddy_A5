@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="SpNames.cs" company="StarGuddy India">
+// <copyright file="ILanguageRepository.cs" company="StarGuddy India">
 // Copyright (c) 2017. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,36 +15,16 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Opertions.Helper
+namespace StarGuddy.Repository.Interface
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
 
     /// <summary>
-    /// Store Procedure Name
+    /// ILanguage Repository
     /// </summary>
-    public class SpNames
+    public interface ILanguageRepository
     {
-        /// <summary>
-        /// User Structure
-        /// </summary>
-        public struct User
-        {
-            /// <summary>
-            /// The add new user
-            /// </summary>
-            public const string AddNewUser = "AddNewUser";
-
-            /// <summary>
-            /// The update user
-            /// </summary>
-            public const string UpdateUser = "UpdateUser";
-
-            /// <summary>
-            /// The get verified user
-            /// </summary>
-            public const string GetVarifiedUser = "GetVarifiedUser";
-        }
     }
 }
