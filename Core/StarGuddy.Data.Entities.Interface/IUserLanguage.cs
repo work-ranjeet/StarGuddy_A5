@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="UserAscent.cs" company="StarGuddy India">
+// <copyright file="UserLanguage.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,15 +15,14 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
-    using StarGuddy.Data.Entities.Interface;
 
     /// <summary>
-    /// User Ascent
+    /// User Language
     /// </summary>
-    public class UserAscent: IUserAscent
+    public class IUserLanguage
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -42,12 +41,12 @@ namespace StarGuddy.Data.Entities
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the accents identifier.
+        /// Gets or sets the languages identifier.
         /// </summary>
         /// <value>
-        /// The accents identifier.
+        /// The languages identifier.
         /// </value>
-        public Int64 AccentsId { get; set; }
+        public Int64 LanguagesId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="UserAscent.cs" company="StarGuddy India">
+// <copyright file="PhysicalAppearance.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,16 +15,18 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
-    using StarGuddy.Data.Entities.Interface;
+    using System.Collections.Generic;
+    using System.Text;
 
     /// <summary>
-    /// User Ascent
+    /// Physical Appearance
     /// </summary>
-    public class UserAscent: IUserAscent
+    public class IPhysicalAppearance
     {
+
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -42,12 +44,84 @@ namespace StarGuddy.Data.Entities
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the accents identifier.
+        /// Gets or sets the type of the body.
         /// </summary>
         /// <value>
-        /// The accents identifier.
+        /// The type of the body.
         /// </value>
-        public Int64 AccentsId { get; set; }
+        public Int32 BodyType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the chest.
+        /// </summary>
+        /// <value>
+        /// The chest.
+        /// </value>
+        public Int32 Chest { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color of the eye.
+        /// </summary>
+        /// <value>
+        /// The color of the eye.
+        /// </value>
+        public Int32 EyeColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color of the hair.
+        /// </summary>
+        /// <value>
+        /// The color of the hair.
+        /// </value>
+        public Int32 HairColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the length of the hair.
+        /// </summary>
+        /// <value>
+        /// The length of the hair.
+        /// </value>
+        public Int32 HairLength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the hair.
+        /// </summary>
+        /// <value>
+        /// The type of the hair.
+        /// </value>
+        public Int32 HairType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color of the skin.
+        /// </summary>
+        /// <value>
+        /// The color of the skin.
+        /// </value>
+        public Int32 SkinColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
+        public Int32 Height { get; set; }
+
+        /// <summary>
+        /// Gets or sets the weight.
+        /// </summary>
+        /// <value>
+        /// The weight.
+        /// </value>
+        public Int32 Weight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the west.
+        /// </summary>
+        /// <value>
+        /// The west.
+        /// </value>
+        public Int32 West { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -82,4 +156,3 @@ namespace StarGuddy.Data.Entities
         public DateTime DttmModified { get; set; }
     }
 }
-

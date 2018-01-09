@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="UserAscent.cs" company="StarGuddy India">
+// <copyright file="Language.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,15 +15,14 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
-    using StarGuddy.Data.Entities.Interface;
 
     /// <summary>
-    /// User Ascent
+    /// Languages class
     /// </summary>
-    public class UserAscent: IUserAscent
+    public class ILanguage
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -31,23 +30,31 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        public Int64 Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the user identifier.
+        /// Gets or sets the code.
         /// </summary>
         /// <value>
-        /// The user identifier.
+        /// The code.
         /// </value>
-        public Guid UserId { get; set; }
+        public String Code { get; set; }
 
         /// <summary>
-        /// Gets or sets the accents identifier.
+        /// Gets or sets the language.
         /// </summary>
         /// <value>
-        /// The accents identifier.
+        /// The language.
         /// </value>
-        public Int64 AccentsId { get; set; }
+        public String LANGUAGE { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public Int32 STATUS { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -64,22 +71,6 @@ namespace StarGuddy.Data.Entities
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
         public Boolean IsDeleted { get; set; }
-
-        /// <summary>
-        /// Gets or sets the DTTM created.
-        /// </summary>
-        /// <value>
-        /// The DTTM created.
-        /// </value>
-        public DateTime DttmCreated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the DTTM modified.
-        /// </summary>
-        /// <value>
-        /// The DTTM modified.
-        /// </value>
-        public DateTime DttmModified { get; set; }
     }
 }
 

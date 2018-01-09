@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="UserAscent.cs" company="StarGuddy India">
+// <copyright file="UserSocialAddress.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,15 +15,14 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
-    using StarGuddy.Data.Entities.Interface;
 
     /// <summary>
-    /// User Ascent
+    /// User Social Address
     /// </summary>
-    public class UserAscent: IUserAscent
+    public class IUserSocialAddress
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -42,12 +41,28 @@ namespace StarGuddy.Data.Entities
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the accents identifier.
+        /// Gets or sets the social address identifier.
         /// </summary>
         /// <value>
-        /// The accents identifier.
+        /// The social address identifier.
         /// </value>
-        public Int64 AccentsId { get; set; }
+        public Int64 SocialAddressId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the social user.
+        /// </summary>
+        /// <value>
+        /// The name of the social user.
+        /// </value>
+        public String SocialUserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public Int32 Status { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

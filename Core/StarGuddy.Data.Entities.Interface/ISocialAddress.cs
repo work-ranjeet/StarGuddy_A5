@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="Language.cs" company="StarGuddy India">
+// <copyright file="SocialAddress.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,15 +15,14 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
-    using StarGuddy.Data.Entities.Interface;
 
     /// <summary>
-    /// Languages class
+    /// Social Address
     /// </summary>
-    public class Language : ILanguage
+    public class ISocialAddress
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -34,20 +33,52 @@ namespace StarGuddy.Data.Entities
         public Int64 Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the code.
+        /// Gets or sets the help URL.
         /// </summary>
         /// <value>
-        /// The code.
+        /// The help URL.
         /// </value>
-        public String Code { get; set; }
+        public String HelpUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the language.
+        /// Gets or sets the icon class.
         /// </summary>
         /// <value>
-        /// The language.
+        /// The icon class.
         /// </value>
-        public String LANGUAGE { get; set; }
+        public String IconClass { get; set; }
+
+        /// <summary>
+        /// Gets or sets the post label.
+        /// </summary>
+        /// <value>
+        /// The post label.
+        /// </value>
+        public String PostLabel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the post URL.
+        /// </summary>
+        /// <value>
+        /// The post URL.
+        /// </value>
+        public String PostUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pre URL.
+        /// </summary>
+        /// <value>
+        /// The pre URL.
+        /// </value>
+        public String PreUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the social.
+        /// </summary>
+        /// <value>
+        /// The name of the social.
+        /// </value>
+        public String SocialName { get; set; }
 
         /// <summary>
         /// Gets or sets the status.
@@ -55,7 +86,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The status.
         /// </value>
-        public Int32 STATUS { get; set; }
+        public Int32 Status { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

@@ -15,17 +15,16 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using StarGuddy.Data.Entities.Interface;
 
     /// <summary>
     /// User Detail
     /// </summary>
-    public class UserDetail: IUserDetail
+    public class IUserDetail
     {
         /// <summary>
         /// Gets or sets the identifier.
