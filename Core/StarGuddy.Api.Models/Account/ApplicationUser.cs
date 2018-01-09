@@ -85,14 +85,6 @@ namespace StarGuddy.Api.Models.Account
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the DOB.
-        /// </summary>
-        /// <value>
-        /// The DOB.
-        /// </value>
-        public DateTime Dob { get; set; }
-
-        /// <summary>
         /// Gets or sets the gender.
         /// </summary>
         /// <value>

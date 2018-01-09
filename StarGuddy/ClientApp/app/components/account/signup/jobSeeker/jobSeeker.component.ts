@@ -24,11 +24,11 @@ export class SignUpJobSeekerComponent {
     }
 
     ngOnInit() {
-        this.applicationUser = {} as IApplicationUser;
+        this.applicationUser = { Gender: 'M' } as IApplicationUser;
     }
 
-    save( ) {
-        if (this.dataValidator.IsValidObject(this.applicationUser )) {
+    save() {
+        if (this.dataValidator.IsValidObject(this.applicationUser)) {
             this.accountService.signup(this.applicationUser).subscribe(
                 result => {
                     if (result != null) {

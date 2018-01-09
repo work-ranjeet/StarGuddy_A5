@@ -65,6 +65,7 @@
     font-size: 11px;
 }
 
+input.ng-valid,
 input.ng-valid[required] {
     border-left: 5px solid #42A948; /* green */
 }
@@ -72,4 +73,6 @@ input.ng-valid[required] {
 input.ng-invalid {
     border-left: 5px solid #a94442; /* red */
 }
+
+   
 /*------------------------------------------------------End Validation color ---------------------------------------------*/

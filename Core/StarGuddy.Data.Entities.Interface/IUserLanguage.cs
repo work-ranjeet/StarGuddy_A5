@@ -22,7 +22,7 @@ namespace StarGuddy.Data.Entities.Interface
     /// <summary>
     /// User Language
     /// </summary>
-    public class IUserLanguage
+    public interface IUserLanguage
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -30,7 +30,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -38,7 +38,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The user identifier.
         /// </value>
-        public Guid UserId { get; set; }
+        Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the languages identifier.
@@ -46,7 +46,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The languages identifier.
         /// </value>
-        public Int64 LanguagesId { get; set; }
+        Int64 LanguagesId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -54,7 +54,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsActive { get; set; }
+        Boolean IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is deleted.
@@ -62,7 +62,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsDeleted { get; set; }
+        Boolean IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM created.
@@ -70,7 +70,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM created.
         /// </value>
-        public DateTime DttmCreated { get; set; }
+        DateTime DttmCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM modified.
@@ -78,7 +78,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM modified.
         /// </value>
-        public DateTime DttmModified { get; set; }
+        DateTime DttmModified { get; set; }
     }
 }
 

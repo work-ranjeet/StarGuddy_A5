@@ -24,7 +24,7 @@ namespace StarGuddy.Data.Entities.Interface
     /// <summary>
     /// User Detail
     /// </summary>
-    public class IUserDetail
+    public interface IUserDetail
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -32,7 +32,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -40,7 +40,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The user identifier.
         /// </value>
-        public Guid UserId { get; set; }
+        Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the about.
@@ -48,7 +48,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The about.
         /// </value>
-        public String About { get; set; }
+        String About { get; set; }
 
         /// <summary>
         /// Gets or sets the age.
@@ -56,7 +56,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The age.
         /// </value>
-        public Int32 Age { get; set; }
+        Int32 Age { get; set; }
 
         /// <summary>
         /// Gets or sets the blood group.
@@ -64,7 +64,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The blood group.
         /// </value>
-        public Int32 BloodGroup { get; set; }
+        Int32 BloodGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the date of birth.
@@ -72,7 +72,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The date of birth.
         /// </value>
-        public DateTime DateOfBirth { get; set; }
+        DateTime DateOfBirth { get; set; }
 
         /// <summary>
         /// Gets or sets the disability.
@@ -80,7 +80,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The disability.
         /// </value>
-        public String Disability { get; set; }
+        String Disability { get; set; }
 
         /// <summary>
         /// Gets or sets the health information.
@@ -88,7 +88,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The health information.
         /// </value>
-        public String HealthInfo { get; set; }
+        String HealthInfo { get; set; }
 
         /// <summary>
         /// Gets or sets the marital status.
@@ -96,7 +96,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The marital status.
         /// </value>
-        public Int32 MaritalStatus { get; set; }
+        Int32 MaritalStatus { get; set; }
 
         /// <summary>
         /// Gets or sets the mother tongue.
@@ -104,7 +104,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The mother tongue.
         /// </value>
-        public String MotherTongue { get; set; }
+        String MotherTongue { get; set; }
 
         /// <summary>
         /// Gets or sets the nickname.
@@ -112,7 +112,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The nickname.
         /// </value>
-        public String Nickname { get; set; }
+        String Nickname { get; set; }
 
         /// <summary>
         /// Gets or sets the profile address.
@@ -120,7 +120,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The profile address.
         /// </value>
-        public String ProfileAddress { get; set; }
+        String ProfileAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the religion.
@@ -128,7 +128,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The religion.
         /// </value>
-        public String Religion { get; set; }
+        String Religion { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -136,7 +136,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsActive { get; set; }
+        Boolean IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is deleted.
@@ -144,7 +144,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsDeleted { get; set; }
+        Boolean IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM created.
@@ -152,7 +152,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM created.
         /// </value>
-        public DateTime DttmCreated { get; set; }
+        DateTime DttmCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM modified.
@@ -160,7 +160,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM modified.
         /// </value>
-        public DateTime DttmModified { get; set; }
+        DateTime DttmModified { get; set; }
     }
 
 }

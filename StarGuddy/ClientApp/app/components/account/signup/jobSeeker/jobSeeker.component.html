@@ -11,7 +11,7 @@
                 <div class="col-xs-6 col-md-6">
                     <input id="FirstName" type="text" class="form-control" autofocus
                            placeholder="First Name" pattern="[a-zA-Z][a-zA-Z ]+" required
-                           [(ngModel)]="applicationUser.FirstName" 
+                           [(ngModel)]="applicationUser.FirstName"
                            #firstName="ngModel" />
                     <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="error">
                         <div [hidden]="!firstName.hasError('required')">First name is required.</div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-xs-6 col-md-6">
                     <input id="LastName" name="LastName" type="text" class="form-control" placeholder="Last Name" required
-                           [(ngModel)]="applicationUser.LastName" #lastname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"/>
+                           [(ngModel)]="applicationUser.LastName" #lastname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" />
                     <div *ngIf="lastname.errors && (lastname.dirty || lastname.touched)" class="error">
                         <div [hidden]="!lastname.hasError('required')">Last name is required.</div>
                         <div [hidden]="!lastname.hasError('pattern')">Only alphabets allowed.</div>
@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
                 <input id="Password" type="password" class="form-control" placeholder="Enter Password" required
-                       [(ngModel)]="applicationUser.Password" #password="ngModel"/>
+                       [(ngModel)]="applicationUser.Password" #password="ngModel" />
                 <div *ngIf="password.errors && (password.dirty || password.touched)" class="error">
                     <div [hidden]="!password.hasError('required')">Password is required.</div>
                 </div>
@@ -49,20 +49,20 @@
                     <div [hidden]="!cnfpassword.hasError('required')">Password is required.</div>
                     <div [hidden]="!cnfpassword.hasError('validateequal')">Password and confirm-password are not matching.</div>
                 </div>
-                
-            </div>
-            <div class="form-group">
-                <label for="dateOfBirth" class="required">Birth Date</label>
-                <input id="dateOfBirth" class="form-control" />
             </div>
             <div class="form-group">
                 <label class="required">Gender</label>
-                <span asp-validation-for="Gender" class="text-danger"></span>
                 <div class="row">
                     <div class="btn-group" data-toggle="buttons" style="padding: 15px; padding-top: 0px;">
-                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="M"  [(ngModel)]="applicationUser.Gender"checked="checked" />Male</label>
-                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="F"  [(ngModel)]="applicationUser.Gender"/>Female</label>
-                        <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="O"  [(ngModel)]="applicationUser.Gender"/>Others</label>
+                        <label class="btn btn-default" style="width: 100px;" [ngClass]="{'active': applicationUser.Gender == 'M'}">
+                            <input type="radio" name="Gender" id="Gender" [(ngModel)]="applicationUser.Gender" (click)="applicationUser.Gender = 'M'" [checked]="applicationUser.Gender == 'M'" />Male
+                        </label>
+                        <label class="btn btn-default" style="width: 100px;" >
+                            <input type="radio" name="Gender" id="Gender" [(ngModel)]="applicationUser.Gender" (click)="applicationUser.Gender = 'F'" [checked]="applicationUser.Gender == 'F'"/>Female
+                        </label>
+                        <label class="btn btn-default" style="width: 100px;" >
+                            <input type="radio" name="Gender" id="Gender" [(ngModel)]="applicationUser.Gender" (click)="applicationUser.Gender = 'O'" [checked]="applicationUser.Gender == 'O'"/>Others
+                        </label>
                     </div>
                 </div>
             </div>

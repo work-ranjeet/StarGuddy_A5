@@ -22,7 +22,7 @@ namespace StarGuddy.Data.Entities.Interface
     /// <summary>
     /// User Social Address
     /// </summary>
-    public class IUserSocialAddress
+    public interface IUserSocialAddress
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -30,7 +30,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -38,7 +38,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The user identifier.
         /// </value>
-        public Guid UserId { get; set; }
+        Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the social address identifier.
@@ -46,7 +46,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The social address identifier.
         /// </value>
-        public Int64 SocialAddressId { get; set; }
+        Int64 SocialAddressId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the social user.
@@ -54,7 +54,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The name of the social user.
         /// </value>
-        public String SocialUserName { get; set; }
+        String SocialUserName { get; set; }
 
         /// <summary>
         /// Gets or sets the status.
@@ -62,7 +62,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The status.
         /// </value>
-        public Int32 Status { get; set; }
+        Int32 Status { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -70,7 +70,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsActive { get; set; }
+        Boolean IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is deleted.
@@ -78,7 +78,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsDeleted { get; set; }
+        Boolean IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM created.
@@ -86,7 +86,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM created.
         /// </value>
-        public DateTime DttmCreated { get; set; }
+        DateTime DttmCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM modified.
@@ -94,7 +94,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM modified.
         /// </value>
-        public DateTime DttmModified { get; set; }
+        DateTime DttmModified { get; set; }
     }
 }
 

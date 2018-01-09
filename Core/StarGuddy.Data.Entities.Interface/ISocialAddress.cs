@@ -22,7 +22,7 @@ namespace StarGuddy.Data.Entities.Interface
     /// <summary>
     /// Social Address
     /// </summary>
-    public class ISocialAddress
+    public interface ISocialAddress
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -30,7 +30,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The identifier.
         /// </value>
-        public Int64 Id { get; set; }
+        Int64 Id { get; set; }
 
         /// <summary>
         /// Gets or sets the help URL.
@@ -38,7 +38,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The help URL.
         /// </value>
-        public String HelpUrl { get; set; }
+        String HelpUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the icon class.
@@ -46,7 +46,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The icon class.
         /// </value>
-        public String IconClass { get; set; }
+        String IconClass { get; set; }
 
         /// <summary>
         /// Gets or sets the post label.
@@ -54,7 +54,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The post label.
         /// </value>
-        public String PostLabel { get; set; }
+        String PostLabel { get; set; }
 
         /// <summary>
         /// Gets or sets the post URL.
@@ -62,7 +62,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The post URL.
         /// </value>
-        public String PostUrl { get; set; }
+        String PostUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the pre URL.
@@ -70,7 +70,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The pre URL.
         /// </value>
-        public String PreUrl { get; set; }
+        String PreUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the social.
@@ -78,7 +78,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The name of the social.
         /// </value>
-        public String SocialName { get; set; }
+        String SocialName { get; set; }
 
         /// <summary>
         /// Gets or sets the status.
@@ -86,7 +86,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The status.
         /// </value>
-        public Int32 Status { get; set; }
+        Int32 Status { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -94,7 +94,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsActive { get; set; }
+        Boolean IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is deleted.
@@ -102,7 +102,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsDeleted { get; set; }
+        Boolean IsDeleted { get; set; }
     }
 }
 

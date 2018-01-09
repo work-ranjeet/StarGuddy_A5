@@ -24,7 +24,7 @@ namespace StarGuddy.Data.Entities.Interface
     /// <summary>
     /// Physical Appearance
     /// </summary>
-    public class IPhysicalAppearance
+    public interface IPhysicalAppearance
     {
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -41,7 +41,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The user identifier.
         /// </value>
-        public Guid UserId { get; set; }
+        Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the body.
@@ -49,7 +49,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The type of the body.
         /// </value>
-        public Int32 BodyType { get; set; }
+        Int32 BodyType { get; set; }
 
         /// <summary>
         /// Gets or sets the chest.
@@ -57,7 +57,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The chest.
         /// </value>
-        public Int32 Chest { get; set; }
+        Int32 Chest { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the eye.
@@ -65,7 +65,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The color of the eye.
         /// </value>
-        public Int32 EyeColor { get; set; }
+        Int32 EyeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the hair.
@@ -73,7 +73,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The color of the hair.
         /// </value>
-        public Int32 HairColor { get; set; }
+        Int32 HairColor { get; set; }
 
         /// <summary>
         /// Gets or sets the length of the hair.
@@ -81,7 +81,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The length of the hair.
         /// </value>
-        public Int32 HairLength { get; set; }
+        Int32 HairLength { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the hair.
@@ -89,7 +89,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The type of the hair.
         /// </value>
-        public Int32 HairType { get; set; }
+        Int32 HairType { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the skin.
@@ -97,7 +97,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The color of the skin.
         /// </value>
-        public Int32 SkinColor { get; set; }
+        Int32 SkinColor { get; set; }
 
         /// <summary>
         /// Gets or sets the height.
@@ -105,7 +105,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The height.
         /// </value>
-        public Int32 Height { get; set; }
+        Int32 Height { get; set; }
 
         /// <summary>
         /// Gets or sets the weight.
@@ -113,7 +113,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The weight.
         /// </value>
-        public Int32 Weight { get; set; }
+        Int32 Weight { get; set; }
 
         /// <summary>
         /// Gets or sets the west.
@@ -121,7 +121,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The west.
         /// </value>
-        public Int32 West { get; set; }
+        Int32 West { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -129,7 +129,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsActive { get; set; }
+        Boolean IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is deleted.
@@ -137,7 +137,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsDeleted { get; set; }
+        Boolean IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM created.
@@ -145,7 +145,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM created.
         /// </value>
-        public DateTime DttmCreated { get; set; }
+        DateTime DttmCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM modified.
@@ -153,6 +153,6 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The DTTM modified.
         /// </value>
-        public DateTime DttmModified { get; set; }
+        DateTime DttmModified { get; set; }
     }
 }

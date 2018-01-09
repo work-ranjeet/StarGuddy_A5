@@ -34,10 +34,10 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'UserAsent')
+		WHERE object_id = OBJECT_ID(N'UserAccent')
 			AND type IN (N'U')
 		)
-	DROP TABLE UserAsent
+	DROP TABLE UserAccent
 GO
 IF EXISTS (
 		SELECT *

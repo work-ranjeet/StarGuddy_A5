@@ -14,7 +14,6 @@
         LastName: string;
         Password: string;
         CnfPassword:string;
-        Dob: string;
         Gender: string;
         IsCastingProfessional: boolean;
         OrgName: string;

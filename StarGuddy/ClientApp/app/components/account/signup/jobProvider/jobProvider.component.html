@@ -1,77 +1,113 @@
 
-    <div class="signup-container  job-provider-container">
-        <div class="container-box">
-            <div class="form-wrapper">
-                <div class="form-section">
-                    <h1>Discover talents or be discovered</h1>
+<div class="signup-container  job-provider-container">
+    <div class="container-box">
+        <div class="form-wrapper">
+            <div class="form-section">
+                <h1>Discover talents or be discovered</h1>
+            </div>
+            <h3> Get started - it's free. It takes few minutes to create your profile.</h3>
+            <h3>Already a member? <a [routerLink]="['/login']">Sign in</a></h3>
+        </div>
+
+        <div id="signUpForm" class="form">
+            <div class="row form-group">
+                <div class="col-xs-6 col-md-6">
+                    <input id="FirstName" type="text" class="form-control" autofocus
+                           placeholder="First Name" pattern="[a-zA-Z][a-zA-Z ]+" required
+                           [(ngModel)]="applicationUser.FirstName"
+                           #firstName="ngModel" />
+                    <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="error">
+                        <div [hidden]="!firstName.hasError('required')">First name is required.</div>
+                        <div [hidden]="!firstName.hasError('pattern')">Only alphabets allowed.</div>
+                    </div>
                 </div>
-                <h3> Get started - it's free. It takes few minutes to create your profile.</h3>
-                <h3>Already a member? <a [routerLink]="['/login']">Sign in</a></h3>
+                <div class="col-xs-6 col-md-6">
+                    <input id="LastName" name="LastName" type="text" class="form-control" placeholder="Last Name" required
+                           [(ngModel)]="applicationUser.LastName" #lastname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" />
+                    <div *ngIf="lastname.errors && (lastname.dirty || lastname.touched)" class="error">
+                        <div [hidden]="!lastname.hasError('required')">Last name is required.</div>
+                        <div [hidden]="!lastname.hasError('pattern')">Only alphabets allowed.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Your Email" required
+                       [(ngModel)]="applicationUser.Email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="error">
+                    <div [hidden]="!email.hasError('required')">Email is required.</div>
+                    <div [hidden]="!email.hasError('pattern')">Email format should be &nbsp;<small><b>joe@abc.com</b></small></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="Password" type="password" class="form-control" placeholder="Enter Password" required
+                       [(ngModel)]="applicationUser.Password" #password="ngModel" />
+                <div *ngIf="password.errors && (password.dirty || password.touched)" class="error">
+                    <div [hidden]="!password.hasError('required')">Password is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="ConfirmPassword" type="password" class="form-control" placeholder="Re-enter Password" required
+                       [(ngModel)]="applicationUser.CnfPassword" #cnfpassword="ngModel" validateEqual="password" />
+                <div *ngIf="cnfpassword.errors && (cnfpassword.dirty || cnfpassword.touched)" class="error">
+                    <div [hidden]="!cnfpassword.hasError('required')">Password is required.</div>
+                    <div [hidden]="!cnfpassword.hasError('validateequal')">Password and confirm-password are not matching.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="required">Gender</label>
+                <div class="row">
+                    <div class="btn-group" data-toggle="buttons" style="padding: 15px; padding-top: 0px;">
+                        <label class="btn btn-default" style="width: 100px;" [ngClass]="{'active': applicationUser.Gender == 'M'}">
+                            <input type="radio" name="Gender" id="Gender" [(ngModel)]="applicationUser.Gender" (click)="applicationUser.Gender = 'M'" [checked]="applicationUser.Gender == 'M'" />Male
+                        </label>
+                        <label class="btn btn-default" style="width: 100px;">
+                            <input type="radio" name="Gender" id="Gender" [(ngModel)]="applicationUser.Gender" (click)="applicationUser.Gender = 'F'" [checked]="applicationUser.Gender == 'F'" />Female
+                        </label>
+                        <label class="btn btn-default" style="width: 100px;">
+                            <input type="radio" name="Gender" id="Gender" [(ngModel)]="applicationUser.Gender" (click)="applicationUser.Gender = 'O'" [checked]="applicationUser.Gender == 'O'" />Others
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <div class="form">
-                <div class="row form-group">
-                    <div class="col-xs-6 col-md-6">
-                        <span for="FirstName" class="text-danger"></span>
-                        <input id="FirstName" name="FirstName" placeholder="First Name" type="text" class="form-control" />
-                    </div>
-                    <div class="col-xs-6 col-md-6">
-                        <span for="LastName" class="text-danger"></span>
-                        <input id="LastName" class="form-control" placeholder="Last Name" />
-                    </div>
+            <div class="form-group">
+                <input id="OrganizationName" type="text" class="form-control" placeholder="Enter your company name (Optional)"
+                       pattern="[a-zA-Z][a-zA-Z ]+"
+                       [(ngModel)]="applicationUser.OrgName"
+                       #OrgName="ngModel" />
+                <div *ngIf="OrgName.errors && (OrgName.dirty || OrgName.touched)" class="error">
+                    <div [hidden]="!OrgName.hasError('pattern')">Only alphabets allowed.</div>
                 </div>
-                <div class="form-group">
-                    <span for="Email" class="text-danger"></span>
-                    <input id="Email" class="form-control" placeholder="Your Email" />
-                </div>
-                <div class="form-group">
-                    <span  for="Password" class="text-danger"></span>
-                    <input id="Password" class="form-control" placeholder="Enter Password" />
-                </div>
-                <div class="form-group">
-                    <span for="ConfirmPassword" class="text-danger"></span>
-                    <input id="ConfirmPassword" class="form-control" placeholder="Re-enter Password" />
-                </div>
-                <div class="form-group">
-                    <label for="">Birth Date</label>
-                    <span for="Dob" class="text-danger"></span>
-                    <input id="Dob" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Gender <span class="req">*</span></label>
-                    <span for="Gender" class="text-danger"></span>
-                    <div class="row">
-                        <div class="btn-group" data-toggle="buttons" style="padding: 15px; padding-top: 0px;">
-                            <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="M" checked="checked" />Male</label>
-                            <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="F" />Female</label>
-                            <label class="btn btn-default" style="width: 100px;"><input type="radio" name="Gender" id="Gender" value="O" />Others</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <span for="OrganizationName" class="text-danger"></span>
-                    <input id="OrganizationName" class="form-control" placeholder="Enter your company name (Optional)" />
-                </div>
-
-                <div class="form-group">
-                    <span for="OrganizationWeb" class="text-danger"></span>
-                    <input id="OrganizationWeb" class="form-control" placeholder="Your company website  (Optional)" />
-                </div>
-
-                <div class="form-group">
-                    <span for="Desiganation" class="text-danger"></span>
-                    <input id="Desiganation" class="form-control" placeholder="Your Desiganation (Optional)" />
-                </div>
-
-                <p class="disclosure-text">
-                    By clicking
-                    <span id="disclosure-cta">Join now</span>, you agree to StarIn's
-                    <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/user-agreement?trk=uno-reg-guest-home-user-agreement">User Agreement</a>,
-                    <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/privacy-policy?trk=uno-reg-guest-home-privacy-policy">Privacy Policy</a>, and
-                    <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/cookie-policy?trk=uno-reg-guest-home-cookie-policy">Cookie Policy</a>.
-                </p>
-                <button type="submit" class="btn btn-lg btn-primary btn-block">Sign up</button>             
             </div>
+
+            <div class="form-group">
+                <input id="OrganizationWeb" type="text" class="form-control" placeholder="Your company website  (Optional)"
+                       pattern="[a-zA-Z][a-zA-Z ]+"
+                       [(ngModel)]="applicationUser.OrgWebsite"
+                       #OrgWebsite="ngModel" />
+                <div *ngIf="OrgWebsite.errors && (OrgWebsite.dirty || OrgWebsite.touched)" class="error">
+                    <div [hidden]="!OrgWebsite.hasError('pattern')">Only alphabets allowed.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input id="Desiganation" type="text" class="form-control" placeholder="Your Desiganation (Optional)"
+                       pattern="[a-zA-Z][a-zA-Z ]+"
+                       [(ngModel)]="applicationUser.Designation"
+                       #Designation="ngModel" />
+                <div *ngIf="Designation.errors && (Designation.dirty || Designation.touched)" class="error">
+                    <div [hidden]="!Designation.hasError('pattern')">Only alphabets allowed.</div>
+                </div>
+            </div>
+
+            <p class="disclosure-text">
+                By clicking
+                <span id="disclosure-cta">Join now</span>, you agree to StarIn's
+                <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/user-agreement?trk=uno-reg-guest-home-user-agreement">User Agreement</a>,
+                <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/privacy-policy?trk=uno-reg-guest-home-privacy-policy">Privacy Policy</a>, and
+                <a target="_blank" class="tapable" href="https://www.linkedin.com/legal/cookie-policy?trk=uno-reg-guest-home-cookie-policy">Cookie Policy</a>.
+            </p>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" (click)="save()">Sign up</button>
         </div>
     </div>
+</div>

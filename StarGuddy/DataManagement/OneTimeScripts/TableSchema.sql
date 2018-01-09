@@ -1,12 +1,12 @@
 
 CREATE TABLE Users (
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL DEFAULT NEWID(),
-	IsActive BIT NOT NULL DEFAULT(0),
+	IsActive BIT NOT NULL DEFAULT(1),
 	IsDeleted BIT NOT NULL DEFAULT(0),
 	AccessFailedCount INT NOT NULL,
 	ConcurrencyStamp NVARCHAR(max) NULL,
 	Email NVARCHAR(256) NULL,
-	EmailConfirmed BIT NOT NULL,
+	EmailConfirmed BIT NOT NULL DEFAULT(0),
 	FirstName NVARCHAR(100) NULL,
 	Gender NVARCHAR(10) NULL,
 	IsCastingProfessional BIT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Users (
 	OrgWebsite NVARCHAR(150) NULL,
 	PasswordHash NVARCHAR(max) NULL,
 	PhoneNumber NVARCHAR(max) NULL,
-	PhoneNumberConfirmed BIT NOT NULL,
+	PhoneNumberConfirmed BIT NOT NULL DEFAULT(0),
 	SecurityStamp NVARCHAR(max) NULL,
 	TwoFactorEnabled BIT NOT NULL DEFAULT(0),
 	UserName NVARCHAR(256) NULL,	
