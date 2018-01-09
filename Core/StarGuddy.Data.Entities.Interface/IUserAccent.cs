@@ -15,15 +15,14 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Data.Entities
+namespace StarGuddy.Data.Entities.Interface
 {
     using System;
-    using StarGuddy.Data.Entities.Interface;
 
     /// <summary>
     /// User Ascent
     /// </summary>
-    public class UserAscent: IUserAscent
+    public class IUserAccent
     {
         /// <summary>
         /// Gets or sets the identifier.

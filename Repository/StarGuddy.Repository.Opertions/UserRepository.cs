@@ -105,30 +105,36 @@ namespace StarGuddy.Repository.Operations
         {
             using (var conn = this.GetOpenConnectionAsync)
             {
-                var parameter = new
-                {
-                    AccessFailedCount = 0,
-                    ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
-                    Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
-                    FirstName = user.FirstName,
-                    Gender = user.Gender,
-                    IsCastingProfessional = user.IsCastingProfessional,
-                    LastName = user.LastName,
-                    LockoutEnabled = user.LockoutEnabled,
-                    LockoutEnd = DateTime.UtcNow,
-                    NormalizedEmail = user.NormalizedEmail,
-                    NormalizedUserName = user.NormalizedUserName,
-                    Designation = user.Designation,
-                    OrgName = user.OrgName,
-                    OrgWebsite = user.OrgWebsite,
-                    PasswordHash = user.PasswordHash,
-                    PhoneNumber = user.PhoneNumber,
-                    PhoneNumberConfirmed = false,
-                    SecurityStamp = user.SecurityStamp,
-                    TwoFactorEnabled = false,
-                    UserName = user.UserName
-                };
+                var parameter = user;
+                parameter.AccessFailedCount = 0;
+                parameter.ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708";
+                parameter.LockoutEnd = DateTime.UtcNow;
+                parameter.TwoFactorEnabled = false;
+
+                //var parameter = new
+                //{
+                //    AccessFailedCount = 0,
+                //    ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
+                //    Email = user.Email,
+                //    EmailConfirmed = user.EmailConfirmed,
+                //    FirstName = user.FirstName,
+                //    Gender = user.Gender,
+                //    IsCastingProfessional = user.IsCastingProfessional,
+                //    LastName = user.LastName,
+                //    LockoutEnabled = user.LockoutEnabled,
+                //    LockoutEnd = DateTime.UtcNow,
+                //    NormalizedEmail = user.NormalizedEmail,
+                //    NormalizedUserName = user.NormalizedUserName,
+                //    Designation = user.Designation,
+                //    OrgName = user.OrgName,
+                //    OrgWebsite = user.OrgWebsite,
+                //    PasswordHash = user.PasswordHash,
+                //    PhoneNumber = user.PhoneNumber,
+                //    PhoneNumberConfirmed = false,
+                //    SecurityStamp = user.SecurityStamp,
+                //    TwoFactorEnabled = false,
+                //    UserName = user.UserName
+                //};
 
                 return conn.Execute(SpNames.User.AddNewUser, param: parameter, commandType: CommandType.StoredProcedure);
             }
@@ -148,31 +154,36 @@ namespace StarGuddy.Repository.Operations
         {           
             using (var conn = this.GetOpenConnectionAsync)
             {
-                var parameter = new
-                {
-                    AccessFailedCount = 0,
-                    ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
-                    Dob = DateTime.UtcNow,
-                    Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
-                    FirstName = user.FirstName,
-                    Gender = user.Gender,
-                    IsCastingProfessional = user.IsCastingProfessional,
-                    LastName = user.LastName,
-                    LockoutEnabled = user.LockoutEnabled,
-                    LockoutEnd = DateTime.UtcNow,
-                    NormalizedEmail = user.NormalizedEmail,
-                    NormalizedUserName = user.NormalizedUserName,
-                    Designation = user.Designation,
-                    OrgName = user.OrgName,
-                    OrgWebsite = user.OrgWebsite,
-                    PasswordHash = user.PasswordHash,
-                    PhoneNumber = user.PhoneNumber,
-                    PhoneNumberConfirmed = false,
-                    SecurityStamp = user.SecurityStamp,
-                    TwoFactorEnabled = false,
-                    UserName = user.UserName
-                };
+                var parameter = user;
+                parameter.AccessFailedCount = 0;
+                parameter.ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708";
+                parameter.LockoutEnd = DateTime.UtcNow;
+                parameter.TwoFactorEnabled = false;
+
+                //var parameter = new
+                //{
+                //    AccessFailedCount = 0,
+                //    ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
+                //    //Email = user.Email,
+                //    //EmailConfirmed = user.EmailConfirmed,
+                //    //FirstName = user.FirstName,
+                //    //Gender = user.Gender,
+                //    //IsCastingProfessional = user.IsCastingProfessional,
+                //    //LastName = user.LastName,
+                //    //LockoutEnabled = user.LockoutEnabled,
+                //    LockoutEnd = DateTime.UtcNow,
+                //    //NormalizedEmail = user.NormalizedEmail,
+                //    //NormalizedUserName = user.NormalizedUserName,
+                //    //Designation = user.Designation,
+                //    //OrgName = user.OrgName,
+                //    //OrgWebsite = user.OrgWebsite,
+                //    //PasswordHash = user.PasswordHash,
+                //    //PhoneNumber = user.PhoneNumber,
+                //    //PhoneNumberConfirmed = false,
+                //    //SecurityStamp = user.SecurityStamp,
+                //    TwoFactorEnabled = false,
+                //    //UserName = user.UserName
+                //};
 
                 return conn.Execute(SpNames.User.UpdateUser, param: parameter, commandType: CommandType.StoredProcedure);
             }
