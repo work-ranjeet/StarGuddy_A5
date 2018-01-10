@@ -30,6 +30,7 @@ import { Router, ActivatedRoute } from "@angular/router";
                     </div>
                 </div>`
 })
+
 export class SignUpComponent {
 
     router: Router;
