@@ -17,7 +17,10 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\app\components\navmenu\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
+    <None Remove="ClientApp\app\components\navmenu\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +51,12 @@
     <Content Update="wwwroot\css\theme.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\app\components\common\navmenu\navmenu.component.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

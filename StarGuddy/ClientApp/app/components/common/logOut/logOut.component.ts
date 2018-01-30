@@ -5,7 +5,8 @@ import { AccountService } from "../../account/Account.Service";
 
 @Component({
     selector: "log-out",
-    templateUrl: "./logOut.component.html"
+    templateUrl: "./logOut.component.html",
+    styleUrls: ["./logOut.component.css"]
 })
 
 export class LogOutComponent {
@@ -26,6 +27,7 @@ export class LogOutComponent {
 
     ngOnInit() {
         this.subscription = this.accountService.IsLoggedIn.subscribe(val => this.isLoggedIn = val);
+        this.isLoggedIn = true;
     }
 
     ngOnDestroy() {

@@ -1,14 +1,57 @@
 <div id="logInOut" class="padding-top-15" style="color: white">
-
     <div *ngIf="!isLoggedIn" class="nav-sign-in">
         <span class="fa fa-sign-in"></span>
         <a class="" [routerLink]="['/login']">Log In</a>
     </div>
-
-    <div *ngIf="isLoggedIn" style="color: #CECECE;">
-        <span>Welcome &nbsp;{{UserFirstName}}</span>
-        |
-        <span class="fa fa-sign-out"></span>
-        <button type="submit" class="padding-0" style="background: transparent; border: none; font-size: 14px; color: #CC0000;" (click)="logOut()">Log Out</button>
+    <div *ngIf="isLoggedIn">
+        <ul class="pull-right nav-logout-menu">
+            <!--<li>
+                <a class="menu-link-button" href="#">
+                    <div class="fa fa-briefcase">
+                        <span class="menu-link-count-container">
+                            <span class="counter" id="requestsCountValue">1</span>
+                        </span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a class="menu-link-button" href="#">
+                    <div class="fa fa-envelope-o">
+                        <span class="menu-link-count-container">
+                            <span class="counter" id="requestsCountValue">1</span>
+                        </span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a class="menu-link-button" href="#">
+                    <div class="fa fa-comment-o">
+                        <span class="menu-link-count-container">
+                            <span class="counter" id="requestsCountValue">1</span>
+                        </span>
+                    </div>
+                </a>
+            </li>-->
+            <li class="user-setting-menu-opener">
+                <span style="color: #CECECE; cursor:pointer;">Welcome &nbsp;Ranjeet</span><!--{{UserFirstName}}-->
+                <div class="user-setting-menu">
+                    <div class="heading">
+                        <span class="fa fa-gears"></span>&nbsp;<span>Account & Settings</span>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li><a class="fa fa-user">&nbsp;Manage Profile</a></li>
+                            <li><a class="fa fa-gear">&nbsp;Manage Account</a></li>
+                            <li><a class="fa fa-money">&nbsp;Manage Membership</a></li>
+                            <li><a class="fa fa-unlock-alt">&nbsp;Manage Privacy</a></li>
+                            <li>
+                                <span class="fa fa-sign-out"></span>
+                                <a style="font-size: 13px; color: #CC0000;" (click)="logOut()">Log Out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>

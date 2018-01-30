@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj" />
+    <ProjectReference Include="..\..\Core\StarGuddy.Api.Models\StarGuddy.Api.Models.csproj" />
   </ItemGroup>
 
 </Project>
