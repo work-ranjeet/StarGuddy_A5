@@ -18,6 +18,7 @@ BEGIN
 		FROM Users
 		WHERE Email = @Email
 			AND PasswordHash = @Password
+			AND IsActive = 1
 	END TRY
 
 	BEGIN CATCH

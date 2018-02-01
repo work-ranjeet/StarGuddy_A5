@@ -16,12 +16,13 @@ namespace StarGuddy.Business.Modules.Files
     using StarGuddy.Api.Models.ActionResult;
     using StarGuddy.Api.Models.Files;
     using StarGuddy.Api.Models.Interface.ActionResult;
+    using StarGuddy.Business.Interface.Files;
     #endregion
 
     /// <summary>
     /// Image Manager
     /// </summary>
-    public class ImageManager
+    public class ImageManager : IImageManager
     {
         /// <summary>
         /// Gets or sets the working folder.
@@ -106,29 +107,29 @@ namespace StarGuddy.Business.Modules.Files
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        public async Task<IEnumerable<ImageModel>> Add(HttpRequestMessage request)
-        {
-            var provider = new ImageMultipartFormDataStreamProvider(this.WorkingFolder);
+        //public async Task<IEnumerable<ImageModel>> Add(HttpRequestMessage request)
+        //{
+        //    var provider = new ImageMultipartFormDataStreamProvider(this.WorkingFolder);
 
-            //await request.Content.ReadAsMultipartAsync(provider);
+        //    //await request.Content.ReadAsMultipartAsync(provider);
 
-            var photos = new List<ImageModel>();
+        //    var photos = new List<ImageModel>();
 
-            //foreach (var file in provider.FileData)
-            //{
-            //    var fileInfo = new FileInfo(file.LocalFileName);
+        //    //foreach (var file in provider.FileData)
+        //    //{
+        //    //    var fileInfo = new FileInfo(file.LocalFileName);
 
-            //    photos.Add(new ImageModel
-            //    {
-            //        Name = fileInfo.Name,
-            //        Created = fileInfo.CreationTime,
-            //        Modified = fileInfo.LastWriteTime,
-            //        Size = fileInfo.Length / 1024
-            //    });
-            //}
+        //    //    photos.Add(new ImageModel
+        //    //    {
+        //    //        Name = fileInfo.Name,
+        //    //        Created = fileInfo.CreationTime,
+        //    //        Modified = fileInfo.LastWriteTime,
+        //    //        Size = fileInfo.Length / 1024
+        //    //    });
+        //    //}
 
-            return photos;
-        }
+        //    return photos;
+        //}
 
         /// <summary>
         /// Files the exists.
@@ -153,6 +154,11 @@ namespace StarGuddy.Business.Modules.Files
             {
                 throw new ArgumentException("the destination path " + this.WorkingFolder + " could not be found");
             }
+        }
+
+        public Task<IEnumerable<ImageModel>> Add(HttpRequestMessage request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

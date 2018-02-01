@@ -21,7 +21,9 @@ using StarGuddy.Api.Common;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Api.Models.Interface.Account;
 using StarGuddy.Business.Interface.Account;
+using StarGuddy.Business.Interface.Files;
 using StarGuddy.Business.Modules.Account;
+using StarGuddy.Business.Modules.Files;
 using StarGuddy.Data.Entities;
 using StarGuddy.Data.Entities.Interface;
 using StarGuddy.Repository.Configuration;
@@ -57,6 +59,7 @@ namespace StarGuddy.Api
             services.AddTransient<IAccountManager, AccountManager>();
             services.AddTransient<ISignupManager, SignupManager>();
             services.AddTransient<IPasswordManager, PasswordManager>();
+            services.AddTransient<IImageManager, ImageManager>();
         }
     }
     

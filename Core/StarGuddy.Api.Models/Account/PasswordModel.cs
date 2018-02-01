@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------------------
-// <copyright file="ChangePasswordModel.cs" company="StarGuddy India">
+// <copyright file="PasswordModel.cs" company="StarGuddy India">
 // Copyright (c) 2017. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -19,12 +19,37 @@ namespace StarGuddy.Api.Models.Account
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using StarGuddy.Api.Models.Interface.Account;
 
     /// <summary>
     /// Change Password Model
     /// </summary>
-    public class ChangePasswordModel
+    public class PasswordModel: IPasswordModel
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        public string Email { get; set; }
+
         /// <summary>
         /// Gets or sets the old password.
         /// </summary>

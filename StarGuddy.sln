@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy", "StarGuddy\StarGuddy.csproj", "{466B1E81-DF49-4EA2-B6CC-A5F22B5178D5}"
 EndProject
@@ -28,6 +28,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Business.Modules", "Business\StarGuddy.Business.Modules\StarGuddy.Business.Modules.csproj", "{6DE0FD92-90A4-417B-93B4-2F687BB0BB90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Api.Models.Interface", "Core\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj", "{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3FE5174B-0B3D-4801-8102-B50D1A50C390}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Api.Test", "Test\StarGuddy.Api.Test\StarGuddy.Api.Test.csproj", "{069C27C9-D480-4260-BA49-3CCCC95716DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,10 @@ Global
 		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +97,7 @@ Global
 		{A15806F0-6411-4DD6-AF67-136CDBA18329} = {F5521429-25DE-466A-A231-7DAA9A791476}
 		{6DE0FD92-90A4-417B-93B4-2F687BB0BB90} = {F5521429-25DE-466A-A231-7DAA9A791476}
 		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807} = {CF6DE25C-E4D1-4BD3-82E8-5A8207CBB625}
+		{069C27C9-D480-4260-BA49-3CCCC95716DA} = {3FE5174B-0B3D-4801-8102-B50D1A50C390}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA45275B-FD4B-414C-8A7A-181AF07CC517}

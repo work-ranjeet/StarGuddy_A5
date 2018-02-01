@@ -183,6 +183,21 @@ namespace StarGuddy.Repository.Operations
             }
 
         }
+
+        /// <summary>
+        /// Updates the password.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public int UpdatePassword(string userName, string password)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                var query = string.Format("update Users set PasswordHash='{0}' where UserName = '{1}'", password, userName);
+                return conn.Execute(query, commandType: CommandType.Text);
+            }
+        }
         #endregion
     }
 }

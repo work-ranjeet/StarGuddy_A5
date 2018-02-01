@@ -72,5 +72,14 @@ namespace StarGuddy.Repository.Interfaces
         /// Application User
         /// </returns>
         int UpdateUser(IUser user);
+
+
+        /// <summary>
+        /// Updates the password.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        int UpdatePassword(string userName, string password);
     }
 }
