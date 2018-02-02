@@ -10,7 +10,11 @@ import { SignUpJobProviderComponent } from "./signup/jobProvider/jobProvider.com
 import { SignUpJobSeekerComponent } from "./signup/jobSeeker/jobSeeker.component";
 
 //Account Management
+import { AddEmailComponent } from "./management/addEmail/addEmail.component";
+import { AddPhoneNumberComponent } from "./management/addPhoneNumber/addPhoneNumber.component";
+import { ChangeAddressComponent } from "./management/changeAddress/changeAddress.component";
 import { ChangePwdComponent } from "./management/changePassword/changePwd.component";
+import { VerifyPhoneNumberComponent } from "./management/verifyPhoneNumber/verifyPhoneNumber.component";
 
 @NgModule({
     declarations: [
@@ -18,7 +22,7 @@ import { ChangePwdComponent } from "./management/changePassword/changePwd.compon
         SignUpComponent,
         SignUpJobProviderComponent,
         SignUpJobSeekerComponent,
-        ChangePwdComponent
+        AddEmailComponent, AddPhoneNumberComponent, ChangeAddressComponent, ChangePwdComponent, VerifyPhoneNumberComponent
     ],
     imports: [
         RouterModule,
@@ -29,7 +33,11 @@ import { ChangePwdComponent } from "./management/changePassword/changePwd.compon
             { path: "signup", component: SignUpComponent },
             { path: "jobseeker", component: SignUpJobSeekerComponent },
             { path: "jobprovider", component: SignUpJobProviderComponent },
-            { path: "changePwd", component: ChangePwdComponent }
+            { path: "addEmail", component: AddEmailComponent },
+            { path: "addPhoneNumber", component: AddPhoneNumberComponent },
+            { path: "changeAddress", component: ChangeAddressComponent },
+            { path: "changePwd", component: ChangePwdComponent },
+            { path: "verifyPhoneNumber", component: VerifyPhoneNumberComponent }
         ])
     ],
     providers: [AccountService],
@@ -38,7 +46,7 @@ import { ChangePwdComponent } from "./management/changePassword/changePwd.compon
         SignUpComponent,
         SignUpJobProviderComponent,
         SignUpJobSeekerComponent,
-        ChangePwdComponent
+        AddEmailComponent, AddPhoneNumberComponent, ChangeAddressComponent, ChangePwdComponent, VerifyPhoneNumberComponent
     ]
 })
 
