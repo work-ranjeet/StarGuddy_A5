@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\account\account.module.shared.ts" />
+    <None Remove="ClientApp\app\components\manageAccount\manage.account.module.shared.ts" />
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
     <None Remove="ClientApp\Helper\DataValidator.ts" />
   </ItemGroup>
@@ -40,6 +41,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\account\account.module.shared.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\manageAccount\manage.account.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />
   </ItemGroup>

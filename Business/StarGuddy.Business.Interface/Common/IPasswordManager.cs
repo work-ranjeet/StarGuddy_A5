@@ -1,10 +1,7 @@
 ﻿
-namespace StarGuddy.Business.Interface.Account
+namespace StarGuddy.Business.Interface.Common
 {
     using StarGuddy.Api.Models.Interface.Account;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Password Manager Interface
