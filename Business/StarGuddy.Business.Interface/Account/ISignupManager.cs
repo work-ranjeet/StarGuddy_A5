@@ -29,21 +29,15 @@ namespace StarGuddy.Business.Interface.Account
     public interface ISignupManager
     {
         /// <summary>
-        /// Adds the new user.
+        /// Passwords the sign in asynchronous.
         /// </summary>
-        /// <param name="user">The user.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="rememberMe">if set to <c>true</c> [remember me].</param>
+        /// <param name="lockoutOnFailure">if set to <c>true</c> [lockout on failure].</param>
         /// <returns>
-        /// User Object
+        /// Application User
         /// </returns>
-        Task<int> CreateAsync(IApplicationUser applicationUser);
-
-        /// <summary>
-        /// Adds the new user.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <returns>
-        /// User Object
-        /// </returns>
-        Task<int> UpdateUser(IApplicationUser applicationUser);
+        Task<IApplicationUser> PasswordSignInAsync(string email, string password, bool rememberMe = false, bool lockoutOnFailure = false);
     }
 }

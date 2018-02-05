@@ -15,28 +15,28 @@ namespace StarGuddy.Api.Controllers.Account
     [Produces("application/json")]
     public class SignupController : Controller
     {
-        private readonly IAccountManager _accountManager;
         private readonly ISignupManager _signUpManager;
+        private readonly IUserManager _userManager;
         private readonly IJwtPacketManager _jwtPacketManager;
 
-        public SignupController(IAccountManager accountManager, ISignupManager signupManager, IJwtPacketManager jwtPacketManager)
+        public SignupController(ISignupManager signupManager, IUserManager userManager, IJwtPacketManager jwtPacketManager)
         {
-            this._accountManager = accountManager;
             this._signUpManager = signupManager;
+            this._userManager = userManager;
             this._jwtPacketManager = jwtPacketManager;
         }
 
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]ApplicationUser applicationUser)
         {
-            var result = await this._signUpManager.CreateAsync(applicationUser);
+            var result = await this._userManager.CreateAsync(applicationUser);
             if (result > 0)
             {
-                var userResult = await this._accountManager.PasswordSignInAsync(applicationUser.Email, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
+                var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.Email, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
 
                 if (userResult.Id == Guid.Empty)
                 {
-                    return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect")); 
+                    return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));
                 }
 
                 return Ok(this._jwtPacketManager.CreateJwtPacketAsync(userResult));

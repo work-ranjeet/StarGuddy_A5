@@ -15,26 +15,26 @@ namespace StarGuddy.Api.Controllers.Account
     [Route("api/Account")]
     public class LoginController : Controller
     {
-        private readonly IAccountManager _accountManager;
+        private readonly ISignupManager _signUpManager;
         private readonly IJwtPacketManager _jwtPacketManager;
-        public LoginController(IAccountManager accountManager, IJwtPacketManager jwtPacketManager)
+        public LoginController(ISignupManager signUpManager, IJwtPacketManager jwtPacketManager)
         {
-            this._accountManager = accountManager;
+            this._signUpManager = signUpManager;
             this._jwtPacketManager = jwtPacketManager;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginData loginData)
         {
-            if(loginData == null)
+            if (loginData == null)
             {
                 return BadRequest();
             }
-           
-            var userResult = await _accountManager.PasswordSignInAsync(loginData.Email, loginData.Password, rememberMe: false, lockoutOnFailure: false);
+
+            var userResult = await _signUpManager.PasswordSignInAsync(loginData.Email, loginData.Password, rememberMe: false, lockoutOnFailure: false);
             if (userResult.Id == Guid.Empty)
-            {                
-                return  NotFound("Oops! Invalid entry. Please try again.");
+            {
+                return NotFound("Oops! Invalid entry. Please try again.");
             }
 
             return Ok(this._jwtPacketManager.CreateJwtPacketAsync(userResult));

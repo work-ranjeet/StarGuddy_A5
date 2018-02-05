@@ -21,8 +21,6 @@ namespace StarGuddy.Business.Modules.Account
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using StarGuddy.Api.Models.Account;
-    using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Account;
     using StarGuddy.Repository.Interfaces;
 
@@ -44,51 +42,6 @@ namespace StarGuddy.Business.Modules.Account
         public AccountManager(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
-        }
-
-        /// <summary>
-        /// Passwords the sign in asynchronous.
-        /// </summary>
-        /// <param name="email">The email.</param>
-        /// <param name="password">The password.</param>
-        /// <param name="rememberMe">if set to <c>true</c> [remember me].</param>
-        /// <param name="lockoutOnFailure">if set to <c>true</c> [lockout on failure].</param>
-        /// <returns>
-        /// Application User
-        /// </returns>
-        public async Task<IApplicationUser> PasswordSignInAsync(string email, string password, bool rememberMe = false, bool lockoutOnFailure = false)
-        {
-            return await Task.Factory.StartNew(() =>
-            {
-                var result = new ApplicationUser();
-
-                var userResult = this.userRepository.GetVerifiedUser(email, password).Where(x => x.LockoutEnabled == false);
-                if (userResult.Any())
-                {
-                    ////result.Succeeded = true;
-                    ////result.RequiresTwoFactor = userResult.FirstOrDefault().TwoFactorEnabled;
-                    ////result.IsLockedOut = userResult.FirstOrDefault().LockoutEnabled;
-                    //// result.IsNotAllowed = userResult.FirstOrDefault().n
-                    ////result.IsCastingProfessionals = userResult.FirstOrDefault().IsCastingProfessional;
-
-                    var user = userResult.FirstOrDefault();
-                    return new ApplicationUser
-                    {
-                        Id = user.Id,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Gender = user.Gender,
-                        IsCastingProfessional = user.IsCastingProfessional,
-                        Designation = user.Designation,
-                        OrgName = user.OrgName,
-                        OrgWebsite = user.OrgWebsite,
-                        UserName = user.UserName,
-                        Email = user.Email
-                    };
-                }
-
-                return result;
-            });
         }
     }
 }

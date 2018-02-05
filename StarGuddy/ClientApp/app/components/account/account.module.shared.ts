@@ -9,12 +9,26 @@ import { SignUpComponent } from "./signup/signup.component";
 import { SignUpJobProviderComponent } from "./signup/jobProvider/jobProvider.component";
 import { SignUpJobSeekerComponent } from "./signup/jobSeeker/jobSeeker.component";
 
+import { AccountConfirmEmailComponent } from "./confirmEmail/confirmEmail.component";
+import { AccountConfirmEmailSentComponent } from "./confirmEmail/confirmEmailSent.component";
+import { AccountForgotPwdComponent } from "./forgotPwd/forgotPwd.component";
+import { AccountForgotPwdConfirmationComponent } from "./forgotPwdConfirmation/forgotPwdConfirmation.component";
+import { AccountSendCodeComponent } from "./sendCode/sendCode.component";
+import { AccountVerifyCodeComponent } from "./verifyCode/verifyCode.component";
+
+
 @NgModule({
     declarations: [
         AccountLoginComponent,
         SignUpComponent,
         SignUpJobProviderComponent,
-        SignUpJobSeekerComponent
+        SignUpJobSeekerComponent,
+        AccountConfirmEmailComponent,
+        AccountConfirmEmailSentComponent,
+        AccountForgotPwdComponent,
+        AccountForgotPwdConfirmationComponent,
+        AccountSendCodeComponent,
+        AccountVerifyCodeComponent
     ],
     imports: [
         RouterModule,
@@ -24,7 +38,13 @@ import { SignUpJobSeekerComponent } from "./signup/jobSeeker/jobSeeker.component
             { path: "login", component: AccountLoginComponent },
             { path: "signup", component: SignUpComponent },
             { path: "jobseeker", component: SignUpJobSeekerComponent },
-            { path: "jobprovider", component: SignUpJobProviderComponent }
+            { path: "jobprovider", component: SignUpJobProviderComponent },
+            { path: "acc-cnf-email", component: AccountConfirmEmailComponent },
+            { path: "acc-cnf-email-sent", component: AccountConfirmEmailSentComponent },
+            { path: "acc-forgot-pwd", component: AccountForgotPwdComponent },
+            { path: "acc-forgot-pwd-cnf", component: AccountForgotPwdConfirmationComponent },
+            { path: "acc-send-code", component: AccountSendCodeComponent },
+            { path: "acc-verify-code", component: AccountVerifyCodeComponent }
         ])
     ],
     providers: [AccountService],
@@ -32,7 +52,13 @@ import { SignUpJobSeekerComponent } from "./signup/jobSeeker/jobSeeker.component
         AccountLoginComponent,
         SignUpComponent,
         SignUpJobProviderComponent,
-        SignUpJobSeekerComponent
+        SignUpJobSeekerComponent,
+        AccountConfirmEmailComponent,
+        AccountConfirmEmailSentComponent,
+        AccountForgotPwdComponent,
+        AccountForgotPwdConfirmationComponent,
+        AccountSendCodeComponent,
+        AccountVerifyCodeComponent
     ]
 })
 

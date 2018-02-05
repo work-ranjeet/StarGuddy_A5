@@ -19,12 +19,12 @@ namespace StarGuddy.Business.Modules.Account
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Account;
-    using StarGuddy.Data.Entities;
-    using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Interfaces;
 
     /// <summary>
@@ -48,69 +48,47 @@ namespace StarGuddy.Business.Modules.Account
         }
 
         /// <summary>
-        /// Adds the new user.
+        /// Passwords the sign in asynchronous.
         /// </summary>
-        /// <param name="user">The user.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="rememberMe">if set to <c>true</c> [remember me].</param>
+        /// <param name="lockoutOnFailure">if set to <c>true</c> [lockout on failure].</param>
         /// <returns>
-        /// User Object
+        /// Application User
         /// </returns>
-        public async Task<int> CreateAsync(IApplicationUser applicationUser)
+        public async Task<IApplicationUser> PasswordSignInAsync(string email, string password, bool rememberMe = false, bool lockoutOnFailure = false)
         {
             return await Task.Factory.StartNew(() =>
             {
-                var user = new User
+                var result = new ApplicationUser();
+
+                var userResult = this.userRepository.GetVerifiedUser(email, password).Where(x => x.LockoutEnabled == false);
+                if (userResult.Any())
                 {
-                    Id = applicationUser.Id,
-                    FirstName = applicationUser.FirstName,
-                    LastName = applicationUser.LastName,
-                    Gender = applicationUser.Gender,
-                    IsCastingProfessional = applicationUser.IsCastingProfessional,
-                    Designation = applicationUser.Designation,
-                    OrgName = applicationUser.OrgName,
-                    OrgWebsite = applicationUser.OrgWebsite,
-                    UserName = applicationUser.Email,                   
-                    Email = applicationUser.Email,
-                    NormalizedEmail = applicationUser.Email,
-                    NormalizedUserName = applicationUser.UserName,
-                    PasswordHash =applicationUser.Password,
-                    SecurityStamp = "39d292dc-8713-4f03-9cfb-90784159f854",
+                    ////result.Succeeded = true;
+                    ////result.RequiresTwoFactor = userResult.FirstOrDefault().TwoFactorEnabled;
+                    ////result.IsLockedOut = userResult.FirstOrDefault().LockoutEnabled;
+                    //// result.IsNotAllowed = userResult.FirstOrDefault().n
+                    ////result.IsCastingProfessionals = userResult.FirstOrDefault().IsCastingProfessional;
 
-                };
+                    var user = userResult.FirstOrDefault();
+                    return new ApplicationUser
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Gender = user.Gender,
+                        IsCastingProfessional = user.IsCastingProfessional,
+                        Designation = user.Designation,
+                        OrgName = user.OrgName,
+                        OrgWebsite = user.OrgWebsite,
+                        UserName = user.UserName,
+                        Email = user.Email
+                    };
+                }
 
-                return this.userRepository.AddNewUser(user);
-            });
-        }
-
-        /// <summary>
-        /// Adds the new user.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        /// <returns>
-        /// User Object
-        /// </returns>
-        public async Task<int> UpdateUser(IApplicationUser applicationUser)
-        {
-            return await Task.Factory.StartNew(() =>
-            {
-                var user = new User
-                {
-                    Id = applicationUser.Id,
-                    FirstName = applicationUser.FirstName,
-                    LastName = applicationUser.LastName,
-                    Gender = applicationUser.Gender,
-                    IsCastingProfessional = applicationUser.IsCastingProfessional,
-                    Designation = applicationUser.Designation,
-                    OrgName = applicationUser.OrgName,
-                    OrgWebsite = applicationUser.OrgWebsite,
-                    UserName = applicationUser.Email,
-                    Email = applicationUser.Email,
-                    NormalizedEmail = applicationUser.Email,
-                    NormalizedUserName = applicationUser.UserName,
-                    PasswordHash = applicationUser.Password,
-                    SecurityStamp = "39d292dc-8713-4f03-9cfb-90784159f854",
-                };
-
-                return this.userRepository.UpdateUser(user);
+                return result;
             });
         }
     }
