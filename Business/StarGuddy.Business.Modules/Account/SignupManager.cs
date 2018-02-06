@@ -50,28 +50,22 @@ namespace StarGuddy.Business.Modules.Account
         /// <summary>
         /// Passwords the sign in asynchronous.
         /// </summary>
-        /// <param name="email">The email.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <param name="rememberMe">if set to <c>true</c> [remember me].</param>
         /// <param name="lockoutOnFailure">if set to <c>true</c> [lockout on failure].</param>
         /// <returns>
         /// Application User
         /// </returns>
-        public async Task<IApplicationUser> PasswordSignInAsync(string email, string password, bool rememberMe = false, bool lockoutOnFailure = false)
+        public async Task<IApplicationUser> PasswordSignInAsync(string userName, string password, bool rememberMe = false, bool lockoutOnFailure = false)
         {
             return await Task.Factory.StartNew(() =>
             {
                 var result = new ApplicationUser();
 
-                var userResult = this.userRepository.GetVerifiedUser(email, password).Where(x => x.LockoutEnabled == false);
+                var userResult = this.userRepository.GetVerifiedUser(userName, password).Where(x => x.LockoutEnabled == false);
                 if (userResult.Any())
                 {
-                    ////result.Succeeded = true;
-                    ////result.RequiresTwoFactor = userResult.FirstOrDefault().TwoFactorEnabled;
-                    ////result.IsLockedOut = userResult.FirstOrDefault().LockoutEnabled;
-                    //// result.IsNotAllowed = userResult.FirstOrDefault().n
-                    ////result.IsCastingProfessionals = userResult.FirstOrDefault().IsCastingProfessional;
-
                     var user = userResult.FirstOrDefault();
                     return new ApplicationUser
                     {
@@ -83,8 +77,7 @@ namespace StarGuddy.Business.Modules.Account
                         Designation = user.Designation,
                         OrgName = user.OrgName,
                         OrgWebsite = user.OrgWebsite,
-                        UserName = user.UserName,
-                        Email = user.Email
+                        UserName = user.UserName
                     };
                 }
 

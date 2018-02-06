@@ -29,10 +29,12 @@ namespace StarGuddy.Api.Controllers.Account
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]ApplicationUser applicationUser)
         {
+            applicationUser.UserName = applicationUser.Email;
+
             var result = await this._userManager.CreateAsync(applicationUser);
             if (result > 0)
             {
-                var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.Email, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
+                var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.UserName, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
 
                 if (userResult.Id == Guid.Empty)
                 {

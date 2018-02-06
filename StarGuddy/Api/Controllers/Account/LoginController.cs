@@ -31,7 +31,7 @@ namespace StarGuddy.Api.Controllers.Account
                 return BadRequest();
             }
 
-            var userResult = await _signUpManager.PasswordSignInAsync(loginData.Email, loginData.Password, rememberMe: false, lockoutOnFailure: false);
+            var userResult = await _signUpManager.PasswordSignInAsync(loginData.UserName, loginData.Password, rememberMe: false, lockoutOnFailure: false);
             if (userResult.Id == Guid.Empty)
             {
                 return NotFound("Oops! Invalid entry. Please try again.");

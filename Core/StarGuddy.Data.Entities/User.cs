@@ -38,20 +38,12 @@ namespace StarGuddy.Data.Entities
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
+        /// Gets or sets the name of the user.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        /// The name of the user.
         /// </value>
-        public Boolean IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean IsDeleted { get; set; }
+        public String UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the access failed count.
@@ -70,22 +62,6 @@ namespace StarGuddy.Data.Entities
         public String ConcurrencyStamp { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        /// <value>
-        /// The email.
-        /// </value>
-        public String Email { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [email confirmed].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [email confirmed]; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean EmailConfirmed { get; set; }
-
-        /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         /// <value>
@@ -100,14 +76,6 @@ namespace StarGuddy.Data.Entities
         /// The gender.
         /// </value>
         public String Gender { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is casting professional.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is casting professional; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean IsCastingProfessional { get; set; }
 
         /// <summary>
         /// Gets or sets the last name.
@@ -134,22 +102,6 @@ namespace StarGuddy.Data.Entities
         public DateTimeOffset? LockoutEnd { get; set; }
 
         /// <summary>
-        /// Gets or sets the normalized email.
-        /// </summary>
-        /// <value>
-        /// The normalized email.
-        /// </value>
-        public String NormalizedEmail { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the normalized user.
-        /// </summary>
-        /// <value>
-        /// The name of the normalized user.
-        /// </value>
-        public String NormalizedUserName { get; set; }
-
-        /// <summary>
         /// Gets or sets the designation.
         /// </summary>
         /// <value>
@@ -158,18 +110,18 @@ namespace StarGuddy.Data.Entities
         public String Designation { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the organization.
+        /// Gets or sets the name of the ORG.
         /// </summary>
         /// <value>
-        /// The name of the organization.
+        /// The name of the ORG.
         /// </value>
         public String OrgName { get; set; }
 
         /// <summary>
-        /// Gets or sets the organization website.
+        /// Gets or sets the ORG website.
         /// </summary>
         /// <value>
-        /// The organization website.
+        /// The ORG website.
         /// </value>
         public String OrgWebsite { get; set; }
 
@@ -182,22 +134,6 @@ namespace StarGuddy.Data.Entities
         public String PasswordHash { get; set; }
 
         /// <summary>
-        /// Gets or sets the phone number.
-        /// </summary>
-        /// <value>
-        /// The phone number.
-        /// </value>
-        public String PhoneNumber { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [phone number confirmed].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [phone number confirmed]; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean PhoneNumberConfirmed { get; set; }
-
-        /// <summary>
         /// Gets or sets the security stamp.
         /// </summary>
         /// <value>
@@ -206,20 +142,60 @@ namespace StarGuddy.Data.Entities
         public String SecurityStamp { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [two factor enabled].
+        /// Gets or sets a value indicating whether this instance is casting professional.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [two factor enabled]; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance is casting professional; otherwise, <c>false</c>.
         /// </value>
-        public Boolean TwoFactorEnabled { get; set; }
+        public Boolean IsCastingProfessional { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the user.
+        /// Gets or sets a value indicating whether this instance is two factor enabled.
         /// </summary>
         /// <value>
-        /// The name of the user.
+        ///   <c>true</c> if this instance is two factor enabled; otherwise, <c>false</c>.
         /// </value>
-        public String UserName { get; set; }
+        public Boolean IsTwoFactorEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        /// </value>
+        public Boolean IsActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is deleted.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
+        /// </value>
+        public Boolean IsDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the address detail.
+        /// </summary>
+        /// <value>
+        /// The address detail.
+        /// </value>
+        public IUserAddress AddressDetail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email detail.
+        /// </summary>
+        /// <value>
+        /// The email detail.
+        /// </value>
+        public IUserEmails EmailDetail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the phone details.
+        /// </summary>
+        /// <value>
+        /// The phone details.
+        /// </value>
+        public IUserPhones PhoneDetails { get; set; }
 
         /// <summary>
         /// Gets or sets the DTTM created.

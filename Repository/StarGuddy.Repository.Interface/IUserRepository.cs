@@ -48,12 +48,12 @@ namespace StarGuddy.Repository.Interfaces
         /// <summary>
         /// Gets the verified user.
         /// </summary>
-        /// <param name="email">The email.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <returns>
         /// Application User
         /// </returns>
-        IEnumerable<IUser> GetVerifiedUser(string email, string password);
+        IEnumerable<IUser> GetVerifiedUser(string userName, string password);
 
         /// <summary>
         /// Adds the new user.

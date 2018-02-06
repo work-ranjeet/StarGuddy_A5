@@ -1,4 +1,19 @@
-
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserEmails')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserEmails
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserPhones')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserPhones
+GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -34,10 +49,10 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'UserAccent')
+		WHERE object_id = OBJECT_ID(N'UserAccents')
 			AND type IN (N'U')
 		)
-	DROP TABLE UserAccent
+	DROP TABLE UserAccents
 GO
 IF EXISTS (
 		SELECT *

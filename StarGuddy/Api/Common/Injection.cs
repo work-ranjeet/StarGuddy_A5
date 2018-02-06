@@ -60,6 +60,7 @@ namespace StarGuddy.Api
             //// Business Injection
             services.AddTransient<IAccountManager, AccountManager>();
             services.AddTransient<ISignupManager, SignupManager>();
+            services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<IPasswordManager, PasswordManager>();
             services.AddTransient<IImageManager, ImageManager>();
         }

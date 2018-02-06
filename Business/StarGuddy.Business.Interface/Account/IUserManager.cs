@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="LoginData.cs" company="StarGuddy India">
+// <copyright file="IUserManager.cs" company="StarGuddy India">
 // Copyright (c) 2017. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,40 +15,44 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Api.Models.Interface.Account
+namespace StarGuddy.Business.Interface.Account
 {
+    using StarGuddy.Api.Models.Interface.Account;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Login Data
+    /// Sign up Manager Interface
     /// </summary>
-    public interface ILoginData
+    public interface IUserManager
     {
         /// <summary>
-        /// Gets or sets the email.
+        /// Adds the new user.
         /// </summary>
-        /// <value>
-        /// The email.
-        /// </value>
-        string UserName { get; set; }
+        /// <param name="user">The user.</param>
+        /// <returns>
+        /// User Object
+        /// </returns>
+        Task<int> CreateAsync(IApplicationUser applicationUser);
 
         /// <summary>
-        /// Gets or sets the password.
+        /// Adds the new user.
         /// </summary>
-        /// <value>
-        /// The password.
-        /// </value>
-        string Password { get; set; }
+        /// <param name="user">The user.</param>
+        /// <returns>
+        /// User Object
+        /// </returns>
+        Task<int> UpdateUser(IApplicationUser applicationUser);
 
         /// <summary>
-        /// Gets or sets a value indicating whether [remember me].
+        /// Finds the by identifier asynchronous.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [remember me]; otherwise, <c>false</c>.
-        /// </value>
-        bool RememberMe { get; set; }
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>
+        /// IApplication User
+        /// </returns>
+        Task<IApplicationUser> FindByIdAsync(string userId);
     }
 }

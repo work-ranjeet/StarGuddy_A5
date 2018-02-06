@@ -1,7 +1,7 @@
 ﻿namespace App.Client.Account {
 
     export interface ILoginData {
-        Email: string;
+        UserName: string;
         Password: string;
         RememberMe: boolean;
     }

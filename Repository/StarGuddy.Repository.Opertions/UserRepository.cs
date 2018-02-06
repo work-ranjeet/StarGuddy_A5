@@ -76,16 +76,16 @@ namespace StarGuddy.Repository.Operations
         /// <summary>
         /// Gets the verified user.
         /// </summary>
-        /// <param name="email">The email.</param>
+        /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <returns>
         /// Application User
         /// </returns>
-        public IEnumerable<IUser> GetVerifiedUser(string email, string password)
+        public IEnumerable<IUser> GetVerifiedUser(string userName, string password)
         {
             var parameter = new
             {
-                Email = email,
+                UserName = userName,
                 Password = password
             };
 
@@ -110,22 +110,17 @@ namespace StarGuddy.Repository.Operations
                     AccessFailedCount = 0,
                     ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
                     LockoutEnd = DateTime.UtcNow,
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    user.Email,
-                    user.EmailConfirmed,
+                    IsTwoFactorEnabled = false,
+                    user.EmailDetail.Email,
                     user.FirstName,
                     user.Gender,
                     user.IsCastingProfessional,
                     user.LastName,
                     user.LockoutEnabled,
-                    user.NormalizedEmail,
-                    user.NormalizedUserName,
                     user.Designation,
                     user.OrgName,
                     user.OrgWebsite,
                     user.PasswordHash,
-                    user.PhoneNumber,
                     user.SecurityStamp,
                     user.UserName
                 };
@@ -152,7 +147,7 @@ namespace StarGuddy.Repository.Operations
                 parameter.AccessFailedCount = 0;
                 parameter.ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708";
                 parameter.LockoutEnd = DateTime.UtcNow;
-                parameter.TwoFactorEnabled = false;
+                parameter.IsTwoFactorEnabled = false;
 
                 //var parameter = new
                 //{

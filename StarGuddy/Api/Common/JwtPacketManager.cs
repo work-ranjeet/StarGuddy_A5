@@ -60,8 +60,7 @@ namespace StarGuddy.Api.Common
                     Id = user.Id.ToString(),
                     Token = encodedJwt,
                     FirstName = user.FirstName,
-                    UserName = user.UserName,
-                    Email =user.Email
+                    UserName = user.UserName
                 };
             });
         }

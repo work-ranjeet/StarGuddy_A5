@@ -34,7 +34,7 @@ namespace StarGuddy.Api.Models.Account
         /// <value>
         /// The email.
         /// </value>
-        public string Email { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the password.
