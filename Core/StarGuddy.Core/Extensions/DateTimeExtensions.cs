@@ -1,34 +1,64 @@
 ﻿namespace System
 {
-  public static class DateTimeEx
-  {
-    public static Int64? ToUnixEpochDate(this DateTime? dateTime)
+    /// <summary>
+    /// Date Time Extension
+    /// </summary>
+    public static class DateTimeExtensions
     {
-      var result = dateTime.HasValue ? ToUnixEpochDate(dateTime.Value) : (Int64?)null;
+        /// <summary>
+        /// To the UNIX epoch date.
+        /// </summary>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns>
+        /// Int64 values
+        /// </returns>
+        public static Int64? ToUnixEpochDate(this DateTime? dateTime)
+        {
+            var result = dateTime.HasValue ? ToUnixEpochDate(dateTime.Value) : (Int64?)null;
 
-      return result;
+            return result;
+        }
+
+        /// <summary>
+        /// To the UNIX epoch date.
+        /// </summary>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns>
+        /// Int64 values
+        /// </returns>
+        public static Int64 ToUnixEpochDate(this DateTime dateTime)
+        {
+            var result = (Int64)Math.Round((dateTime.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+            return result;
+        }
+
+        /// <summary>
+        /// To the UNIX epoch date.
+        /// </summary>
+        /// <param name="unixTime">The UNIX time.</param>
+        /// <returns>
+        /// Date Time
+        /// </returns>
+        public static DateTime ToUnixEpochDate(this Int64 unixTime)
+        {
+            var result = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTime);
+
+            return result;
+        }
+
+        /// <summary>
+        /// To the UNIX epoch date.
+        /// </summary>
+        /// <param name="unixTime">The UNIX time.</param>
+        /// <returns>
+        /// Null able Date Time
+        /// </returns>
+        public static DateTime? ToUnixEpochDate(this Int64? unixTime)
+        {
+            var result = unixTime.HasValue ? ToUnixEpochDate(unixTime.Value) : (DateTime?)null;
+
+            return result;
+        }
     }
-
-    public static Int64 ToUnixEpochDate(this DateTime dateTime)
-    {
-      var result = (Int64)Math.Round((dateTime.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
-
-      return result;
-    }
-
-    public static DateTime ToUnixEpochDate(this Int64 unixTime)
-    {
-      var result = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTime);
-
-      return result;
-    }
-
-
-    public static DateTime? ToUnixEpochDate(this Int64? unixTime)
-    {
-      var result = unixTime.HasValue ? ToUnixEpochDate(unixTime.Value) : (DateTime?)null;
-
-      return result;
-    }
-  }
 }

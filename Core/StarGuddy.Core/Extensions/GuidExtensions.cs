@@ -1,16 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace System
 {
-  public static class GuidExtensions
-  {
-    public static Boolean IsNullOrEmpty(this Guid guid)
-    {
-      var result = guid == null || guid == Guid.Empty;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
 
-      return result;
+    /// <summary>
+    /// GUID Extensions
+    /// </summary>
+    public static class GuidExtensions
+    {
+        /// <summary>
+        /// Determines whether [is null or empty].
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <returns>
+        ///   <c>true</c> if [is null or empty] [the specified unique identifier]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsNullOrEmpty(this Guid guid)
+        {
+            return guid == null || guid == Guid.Empty;
+        }
     }
-  }
 }
