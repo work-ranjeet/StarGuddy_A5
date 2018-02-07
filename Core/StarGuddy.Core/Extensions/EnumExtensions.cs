@@ -77,28 +77,6 @@
         }
 
         /// <summary>
-        /// To the database value.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>
-        /// ENUM Values
-        /// </returns>
-        public static dynamic ToDbValue(this Enum instance)
-        {
-            if (instance.IsNull())
-                return DBNull.Value;
-
-            var intValue = instance.ToInt32();
-
-            if (IsCharEnum(instance.GetType()))
-            {
-                return Convert.ToString((Char)intValue); ;
-            }
-
-            return intValue;
-        }
-
-        /// <summary>
         /// To the ENUM list.
         /// </summary>
         /// <param name="instance">The instance.</param>
@@ -146,58 +124,6 @@
                 throw new Exception(String.Format("{0} must be an enum type", enumType));
 
             return ((Enum)Activator.CreateInstance(enumType)).ToEnumList();
-        }
-
-        /// <summary>
-        /// To the character.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>
-        /// ENUM Values
-        /// </returns>
-        public static Char ToChar(this Enum instance)
-        {
-            return (Char)instance.ToInt32();
-        }
-
-        /// <summary>
-        /// Parses the nullable.
-        /// </summary>
-        /// <typeparam name="TEnum">The type of the enum.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// ENUM Values
-        /// </returns>
-        public static Nullable<TEnum> ParseNullable<TEnum>(Object value) where TEnum : struct
-        {
-            Nullable<TEnum> result = null;
-
-            if (value == null || value == DBNull.Value)
-                result = null;
-
-            else if (value is String)
-                result = EnumEx.Parse<TEnum>((String)value);
-
-            else if (value is Char)
-                result = EnumEx.Parse<TEnum>((Char)value);
-
-            else if (value is Int32)
-                result = EnumEx.Parse<TEnum>((Int32)value);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Parses the specified value.
-        /// </summary>
-        /// <typeparam name="TEnum">The type of the enum.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// ENUM Values
-        /// </returns>
-        public static TEnum Parse<TEnum>(Object value) where TEnum : struct
-        {
-            return EnumEx.ParseNullable<TEnum>(value).Value;
         }
 
         /// <summary>

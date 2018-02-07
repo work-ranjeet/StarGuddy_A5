@@ -16,13 +16,12 @@ namespace StarGuddy.Business.Interface.Common
     public interface ISecurityManager
     {
         /// <summary>
-        /// Creates the JWT packet asynchronous.
+        /// Encrypts the JWT security token asynchronous.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        /// <param name="securityStamp">The security stamp.</param>
         /// <returns>
         /// JWT Packet
         /// </returns>
-        Task<string> CreateJwtSecurityTokenAsync(string userId, string securityStamp);
+        Task<string> GetJwtSecurityTokenAsync(string userId);
     }
 }

@@ -11,9 +11,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\StarGuddy.Api.Models\StarGuddy.Api.Models.csproj" />
+    <ProjectReference Include="..\..\Core\StarGuddy.Core\StarGuddy.Core.csproj" />
     <ProjectReference Include="..\..\Core\StarGuddy.Data.Entities\StarGuddy.Data.Entities.csproj" />
     <ProjectReference Include="..\..\Repository\StarGuddy.Repository.Interface\StarGuddy.Repository.Interface.csproj" />
     <ProjectReference Include="..\StarGuddy.Business.Interface\StarGuddy.Business.Interface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

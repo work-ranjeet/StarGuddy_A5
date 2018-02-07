@@ -51,7 +51,7 @@ namespace StarGuddy.Api.Common
             return new JwtPacket()
             {
                 Id = applicationUser.Id.ToString(),
-                Token = await this._securityManager.CreateJwtSecurityTokenAsync(applicationUser.Id.ToString(), applicationUser.SecurityStamp),
+                Token = await this._securityManager.GetJwtSecurityTokenAsync(applicationUser.Id.ToString()),
                 FirstName = applicationUser.FirstName,
                 UserName = applicationUser.UserName
             };

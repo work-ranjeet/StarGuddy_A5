@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Business\StarGuddy.Business.Interface\StarGuddy.Business.Interface.csproj" />
     <ProjectReference Include="..\Business\StarGuddy.Business.Modules\StarGuddy.Business.Modules.csproj" />
+    <ProjectReference Include="..\Core\StarGuddy.Core\StarGuddy.Core.csproj" />
     <ProjectReference Include="..\Core\StarGuddy.Data.Entities\StarGuddy.Data.Entities.csproj" />
     <ProjectReference Include="..\Repository\StarGuddy.Repository.Interface\StarGuddy.Repository.Interface.csproj" />
     <ProjectReference Include="..\Repository\StarGuddy.Repository.Opertions\StarGuddy.Repository.Opertions.csproj" />

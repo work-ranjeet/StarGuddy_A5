@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using StarGuddy.Core.Constants;
 using StarGuddy.Repository.Configuration;
 
 namespace StarGuddy
@@ -63,12 +64,14 @@ namespace StarGuddy
                 cfg.RequireHttpsMetadata = false;
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    IssuerSigningKey = signingKey,
+                {                   
                     ValidateAudience = false,
                     ValidateIssuer = false,
                     ValidateLifetime = false,
-                    ValidateIssuerSigningKey = true
+                    ValidateIssuerSigningKey = false,
+                    ValidIssuer = Configuration.GetAppSettingValue(AppSettings.JwtIssuer),
+                    ValidAudience = Configuration.GetAppSettingValue(AppSettings.JwtAudience),
+                    IssuerSigningKey = signingKey,
                 };
             });
 
