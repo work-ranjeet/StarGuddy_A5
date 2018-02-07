@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\DateTimeExtensions.cs" />
+    <Compile Remove="Extensions\EnumExtensions.cs" />
+    <Compile Remove="Extensions\GuidExtensions.cs" />
+    <Compile Remove="Extensions\NumberFormatInfoEx.cs" />
+    <Compile Remove="Extensions\ObjectExtension.cs" />
+    <Compile Remove="Extensions\StringExtension.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+</Project>

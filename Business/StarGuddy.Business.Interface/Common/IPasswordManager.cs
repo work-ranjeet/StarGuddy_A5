@@ -1,4 +1,8 @@
-﻿
+﻿// -------------------------------------------------------------------------------
+// <copyright file="ImageManager.cs" company="StarGuddy India">
+// Copyright (c) 2017. All rights reserved.
+// </copyright>
+// -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Interface.Common
 {
     using StarGuddy.Api.Models.Interface.Account;

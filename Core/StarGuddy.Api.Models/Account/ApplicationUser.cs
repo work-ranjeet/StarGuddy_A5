@@ -123,5 +123,13 @@ namespace StarGuddy.Api.Models.Account
         /// The designation.
         /// </value>
         public string Designation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the security stamp.
+        /// </summary>
+        /// <value>
+        /// The security stamp.
+        /// </value>
+        public string SecurityStamp { get; set; }
     }
 }

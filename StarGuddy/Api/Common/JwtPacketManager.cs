@@ -26,6 +26,7 @@ namespace StarGuddy.Api.Common
     using Models;
     using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
+    using StarGuddy.Business.Interface.Common;
     #endregion
 
     /// <summary>
@@ -33,36 +34,27 @@ namespace StarGuddy.Api.Common
     /// </summary>
     public class JwtPacketManager : IJwtPacketManager
     {
+        private ISecurityManager _securityManager;
+        public JwtPacketManager(ISecurityManager securityManager)
+        {
+            this._securityManager = securityManager;
+        }
+
         /// <summary>
         /// Creates the JWT packet asynchronous.
         /// </summary>
-        /// <param name="user">The user.</param>
+        /// <param name="applicationUser">The user.</param>
+        /// <param name="securityStamp">The security stamp.</param>
         /// <returns></returns>
-        public async Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser user)
+        public async Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser applicationUser)
         {
-            return await Task.Factory.StartNew(() =>
+            return new JwtPacket()
             {
-                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(ApiConstants.SecurityKeyPhrase));
-
-                var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
-
-                var claims = new Claim[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
-                };
-
-                var jwt = new JwtSecurityToken(claims: claims, signingCredentials: signingCredentials);
-
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-                return new JwtPacket()
-                {
-                    Id = user.Id.ToString(),
-                    Token = encodedJwt,
-                    FirstName = user.FirstName,
-                    UserName = user.UserName
-                };
-            });
+                Id = applicationUser.Id.ToString(),
+                Token = await this._securityManager.CreateJwtSecurityTokenAsync(applicationUser.Id.ToString(), applicationUser.SecurityStamp),
+                FirstName = applicationUser.FirstName,
+                UserName = applicationUser.UserName
+            };
         }
     }
 
@@ -74,8 +66,8 @@ namespace StarGuddy.Api.Common
         /// <summary>
         /// Creates the JWT packet asynchronous.
         /// </summary>
-        /// <param name="user">The user.</param>
+        /// <param name="applicationUser">The application user.</param>
         /// <returns></returns>
-        Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser user);
+        Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser applicationUser);
     }
 }

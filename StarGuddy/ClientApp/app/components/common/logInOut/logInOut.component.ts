@@ -4,12 +4,12 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AccountService } from "../../account/Account.Service";
 
 @Component({
-    selector: "log-out",
-    templateUrl: "./logOut.component.html",
-    styleUrls: ["./logOut.component.css"]
+    selector: "log-in-out",
+    templateUrl: "./logInOut.component.html",
+    styleUrls: ["./logInOut.component.css"]
 })
 
-export class LogOutComponent {
+export class LogInOutComponent {
     private readonly router: Router;
     private readonly accountService: AccountService;
     private readonly authenticateRoute: ActivatedRoute;

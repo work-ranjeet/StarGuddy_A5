@@ -71,7 +71,7 @@ namespace StarGuddy.Business.Modules.Account
                     OrgWebsite = applicationUser.OrgWebsite,
                     UserName = applicationUser.Email,
                     PasswordHash = applicationUser.Password,
-                    SecurityStamp = "39d292dc-8713-4f03-9cfb-90784159f854",
+                    SecurityStamp = Convert.ToString(Guid.NewGuid()),
                     IsActive = true,
                     EmailDetail = new UserEmails
                     {

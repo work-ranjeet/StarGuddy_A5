@@ -77,7 +77,8 @@ namespace StarGuddy.Business.Modules.Account
                         Designation = user.Designation,
                         OrgName = user.OrgName,
                         OrgWebsite = user.OrgWebsite,
-                        UserName = user.UserName
+                        UserName = user.UserName,
+                        SecurityStamp = user.SecurityStamp
                     };
                 }
 

@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3FE5174B-0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Api.Test", "Test\StarGuddy.Api.Test\StarGuddy.Api.Test.csproj", "{069C27C9-D480-4260-BA49-3CCCC95716DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGuddy.Core", "Core\StarGuddy.Core\StarGuddy.Core.csproj", "{CDC94D9B-3B61-46D8-B987-554BDA8B6ABC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{069C27C9-D480-4260-BA49-3CCCC95716DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC94D9B-3B61-46D8-B987-554BDA8B6ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC94D9B-3B61-46D8-B987-554BDA8B6ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC94D9B-3B61-46D8-B987-554BDA8B6ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC94D9B-3B61-46D8-B987-554BDA8B6ABC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +104,7 @@ Global
 		{6DE0FD92-90A4-417B-93B4-2F687BB0BB90} = {F5521429-25DE-466A-A231-7DAA9A791476}
 		{92FE89CF-9CDE-4B9F-A458-FD44FB3F2807} = {CF6DE25C-E4D1-4BD3-82E8-5A8207CBB625}
 		{069C27C9-D480-4260-BA49-3CCCC95716DA} = {3FE5174B-0B3D-4801-8102-B50D1A50C390}
+		{CDC94D9B-3B61-46D8-B987-554BDA8B6ABC} = {CF6DE25C-E4D1-4BD3-82E8-5A8207CBB625}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA45275B-FD4B-414C-8A7A-181AF07CC517}

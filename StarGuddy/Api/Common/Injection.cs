@@ -18,14 +18,14 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StarGuddy.Api.Common;
-using StarGuddy.Api.Models.Account;
-using StarGuddy.Api.Models.Interface.Account;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Files;
+using StarGuddy.Business.Interface.Network;
 using StarGuddy.Business.Modules.Account;
 using StarGuddy.Business.Modules.Common;
 using StarGuddy.Business.Modules.Files;
+using StarGuddy.Business.Modules.Network;
 using StarGuddy.Data.Entities;
 using StarGuddy.Data.Entities.Interface;
 using StarGuddy.Repository.Configuration;
@@ -35,7 +35,7 @@ using StarGuddy.Repository.Operations;
 namespace StarGuddy.Api
 {
     /// <summary>
-    /// Api Injection
+    /// API Injection
     /// </summary>
     public static class Injection
     {
@@ -47,7 +47,7 @@ namespace StarGuddy.Api
         public static void Inject(IServiceCollection services, IConfiguration configuration)
         {
             // Creating an singleton object and configuration file to this class
-            services.AddSingleton<IConfigurationSingleton>(x => new ConfigurationSingleton(configuration));   
+            services.AddSingleton<IConfigurationSingleton>(x => new ConfigurationSingleton(configuration));
 
             //// API Injection
             services.AddTransient<IJwtPacketManager, JwtPacketManager>();
@@ -63,7 +63,10 @@ namespace StarGuddy.Api
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<IPasswordManager, PasswordManager>();
             services.AddTransient<IImageManager, ImageManager>();
+            services.AddTransient<ISecurityManager, SecurityManager>();
+            services.AddTransient<IEmailManager, EmailManager>();
+            services.AddTransient<IPhoneManager, PhoneManager>();
         }
     }
-    
+
 }
