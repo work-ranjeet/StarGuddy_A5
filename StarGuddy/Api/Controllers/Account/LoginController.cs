@@ -10,13 +10,19 @@ using StarGuddy.Api.Models.Interface.Account;
 using StarGuddy.Business.Interface.Account;
 
 namespace StarGuddy.Api.Controllers.Account
-{
-    [Produces("application/json")]
+{   
     [Route("api/Account")]
+    [Produces("application/json")]
     public class LoginController : Controller
     {
         private readonly ISignupManager _signUpManager;
         private readonly IJwtPacketManager _jwtPacketManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginController"/> class.
+        /// </summary>
+        /// <param name="signUpManager">The sign up manager.</param>
+        /// <param name="jwtPacketManager">The JWT packet manager.</param>
         public LoginController(ISignupManager signUpManager, IJwtPacketManager jwtPacketManager)
         {
             this._signUpManager = signUpManager;

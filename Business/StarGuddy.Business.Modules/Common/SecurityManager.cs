@@ -6,11 +6,13 @@
 namespace StarGuddy.Business.Modules.Common
 {
     using System;
-    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Runtime.CompilerServices;
     using System.Security.Claims;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Cryptography.KeyDerivation;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
     using StarGuddy.Business.Interface.Common;
@@ -22,6 +24,13 @@ namespace StarGuddy.Business.Modules.Common
     /// <seealso cref="StarGuddy.Business.Interface.Common.ISecurityManager" />
     public class SecurityManager : ISecurityManager
     {
+        #region /// Variables
+        private const int pbkdf2IterCount = 10000;
+        private const int pbkdf2SubkeyLength = 256 / 8; // 256 bits
+        private const int saltSize = 128 / 8; // 128 bits 
+        #endregion
+
+        #region /// Properties
         /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
@@ -29,7 +38,9 @@ namespace StarGuddy.Business.Modules.Common
         /// The configuration.
         /// </value>
         private IConfiguration _configuration { get; set; }
+        #endregion
 
+        #region /// Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="SecurityManager"/> class.
         /// </summary>
@@ -38,7 +49,9 @@ namespace StarGuddy.Business.Modules.Common
         {
             this._configuration = configuration;
         }
+        #endregion
 
+        #region /// JWT Tokens
         /// <summary>
         /// Encrypts the JWT security token asynchronous.
         /// </summary>
@@ -71,7 +84,13 @@ namespace StarGuddy.Business.Modules.Common
             });
         }
 
-        public async Task<string> DecryptJwtSecurityTokenAsync(string userId, string securityStamp)
+        /// <summary>
+        /// Validates the JWT security token asynchronous.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns>string value</returns>
+        public async Task<string> ValidateJwtSecurityTokenAsync(string userId, string securityStamp)
         {
             return await Task.Factory.StartNew(() =>
             {
@@ -89,6 +108,221 @@ namespace StarGuddy.Business.Modules.Common
                 return new JwtSecurityTokenHandler().WriteToken(jwt);
             });
         }
+        #endregion
 
+        #region /// Password Hashing
+        #region /// Public Methods
+        /// <summary>
+        /// Hashes the password.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// String Value
+        /// </returns>
+        public async Task<string> GetHashPassword(string password)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                if (password == null)
+                {
+                    throw new ArgumentNullException(nameof(password));
+                }
+
+                return HashPasswordInternal(password);
+            });
+        }
+
+        /// <summary>
+        /// Verifies the hashed password.
+        /// </summary>
+        /// <param name="hashedPassword">The hashed password.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// String Value
+        /// </returns>
+        public async Task<bool> VerifyHashedPassword(string hashedPassword, string password)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                if (hashedPassword == null)
+                {
+                    throw new ArgumentNullException(nameof(hashedPassword));
+                }
+                if (password == null)
+                {
+                    throw new ArgumentNullException(nameof(password));
+                }
+
+                return this.VerifyHashedPasswordInternal(hashedPassword, password);
+            });
+        }
+        #endregion
+
+        #region /// Private methods
+        /// <summary>
+        /// Hashes the password internal.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// string values
+        /// </returns>
+        private string HashPasswordInternal(string password)
+        {
+            var salt = new byte[saltSize];
+            var _rng = RandomNumberGenerator.Create();
+            _rng.GetBytes(salt);
+
+            var subkey = KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA256, pbkdf2IterCount, pbkdf2SubkeyLength);
+
+            var outputBytes = new byte[13 + salt.Length + subkey.Length];
+
+            // Write format marker.
+            outputBytes[0] = 0x01;
+
+            // Write hashing algorithm version.
+            this.WriteNetworkByteOrder(outputBytes, 1, (uint)KeyDerivationPrf.HMACSHA256);
+
+            // Write iteration count of the algorithm.
+            this.WriteNetworkByteOrder(outputBytes, 5, (uint)pbkdf2IterCount);
+
+            // Write size of the salt.
+            this.WriteNetworkByteOrder(outputBytes, 9, (uint)saltSize);
+
+            // Write the salt.
+            Buffer.BlockCopy(salt, 0, outputBytes, 13, salt.Length);
+
+            // Write the SUBKEY.
+            Buffer.BlockCopy(subkey, 0, outputBytes, 13 + saltSize, subkey.Length);
+
+            return Convert.ToBase64String(outputBytes);
+        }
+
+        /// <summary>
+        /// Verifies the hashed password internal.
+        /// </summary>
+        /// <param name="hashedPassword">The hashed password.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// boolean values
+        /// </returns>
+        private bool VerifyHashedPasswordInternal(string hashedPassword, string password)
+        {
+            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+
+            if (decodedHashedPassword.Length == 0)
+            {
+                return false;
+            }
+
+            try
+            {
+                // Verify hashing format.
+                if (decodedHashedPassword[0] != 0x01)
+                {
+                    // Unknown format header.
+                    return false;
+                }
+
+                // Read hashing algorithm version.
+                var prf = (KeyDerivationPrf)this.ReadNetworkByteOrder(decodedHashedPassword, 1);
+
+                // Read iteration count of the algorithm.
+                var iterCount = (int)this.ReadNetworkByteOrder(decodedHashedPassword, 5);
+
+                // Read size of the salt.
+                var saltLength = (int)this.ReadNetworkByteOrder(decodedHashedPassword, 9);
+
+                // Verify the salt size: >= 128 bits.
+                if (saltLength < 128 / 8)
+                {
+                    return false;
+                }
+
+                // Read the salt.
+                var salt = new byte[saltLength];
+                Buffer.BlockCopy(decodedHashedPassword, 13, salt, 0, salt.Length);
+
+                // Verify the SUBKEY length >= 128 bits.
+                var subkeyLength = decodedHashedPassword.Length - 13 - salt.Length;
+                if (subkeyLength < 128 / 8)
+                {
+                    return false;
+                }
+
+                // Read the SUBKEY.
+                var expectedSubkey = new byte[subkeyLength];
+                Buffer.BlockCopy(decodedHashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
+
+                // Hash the given password and verify it against the expected SUBKEY.
+                var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
+
+                return ByteArraysEqual(actualSubkey, expectedSubkey);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Reads the network byte order.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns>
+        /// unit  values
+        /// </returns>
+        private uint ReadNetworkByteOrder(byte[] buffer, int offset)
+        {
+            return ((uint)(buffer[offset + 0]) << 24)
+                | ((uint)(buffer[offset + 1]) << 16)
+                | ((uint)(buffer[offset + 2]) << 8)
+                | ((uint)(buffer[offset + 3]));
+        }
+
+        /// <summary>
+        /// Writes the network byte order.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="value">The value.</param>
+        private void WriteNetworkByteOrder(byte[] buffer, int offset, uint value)
+        {
+            buffer[offset + 0] = (byte)(value >> 24);
+            buffer[offset + 1] = (byte)(value >> 16);
+            buffer[offset + 2] = (byte)(value >> 8);
+            buffer[offset + 3] = (byte)(value >> 0);
+        }
+
+        /// <summary>
+        /// Bytes the arrays equal.
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>
+        /// boolean values
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private bool ByteArraysEqual(byte[] first, byte[] second)
+        {
+            if (ReferenceEquals(first, second))
+            {
+                return true;
+            }
+
+            if (first == null || second == null || first.Length != second.Length)
+            {
+                return false;
+            }
+
+            var areEqual = true;
+            for (var counter = 0; counter < first.Length; counter++)
+            {
+                areEqual &= (first[counter] == second[counter]);
+            }
+            return areEqual;
+        }
+        #endregion
+        #endregion       
     }
 }

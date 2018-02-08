@@ -8,6 +8,7 @@ using StarGuddy.Api.Common;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Api.Models.Interface.Account;
 using StarGuddy.Business.Interface.Account;
+using StarGuddy.Business.Interface.Common;
 
 namespace StarGuddy.Api.Controllers.Account
 {
@@ -17,19 +18,39 @@ namespace StarGuddy.Api.Controllers.Account
     {
         private readonly ISignupManager _signUpManager;
         private readonly IUserManager _userManager;
+        private readonly IPasswordManager _passwordManager;
         private readonly IJwtPacketManager _jwtPacketManager;
 
-        public SignupController(ISignupManager signupManager, IUserManager userManager, IJwtPacketManager jwtPacketManager)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignupController"/> class.
+        /// </summary>
+        /// <param name="signupManager">The signup manager.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="passwordManager">The password manager.</param>
+        /// <param name="jwtPacketManager">The JWT packet manager.</param>
+        public SignupController(ISignupManager signupManager, IUserManager userManager, IPasswordManager passwordManager,IJwtPacketManager jwtPacketManager)
         {
             this._signUpManager = signupManager;
             this._userManager = userManager;
+            this._passwordManager = passwordManager;
             this._jwtPacketManager = jwtPacketManager;
         }
 
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]ApplicationUser applicationUser)
         {
+            if (applicationUser.IsNull())
+            {
+                return BadRequest();
+            }
+
+            if(applicationUser.Password != applicationUser.CnfPassword)
+            {
+                return StatusCode(StatusCodes.Status204NoContent, NotFound("Password and Confirm password is not matching."));
+            }
+
             applicationUser.UserName = applicationUser.Email;
+            applicationUser.Password = await this._passwordManager.GetHashedPassword(applicationUser.Password);
 
             var result = await this._userManager.CreateAsync(applicationUser);
             if (result > 0)

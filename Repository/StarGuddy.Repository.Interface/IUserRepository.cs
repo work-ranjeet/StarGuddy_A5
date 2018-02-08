@@ -30,6 +30,15 @@ namespace StarGuddy.Repository.Interfaces
     public interface IUserRepository
     {
         /// <summary>
+        /// Finds the by email identifier.
+        /// </summary>
+        /// <param name="emaiId">The email identifier.</param>
+        /// <returns>
+        /// Application User
+        /// </returns>
+        IUser FindById(string Id);
+
+        /// <summary>
         /// Finds the name of the by user.
         /// </summary>
         /// <param name="username">The user name.</param>

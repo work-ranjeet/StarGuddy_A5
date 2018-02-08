@@ -25,6 +25,7 @@ namespace StarGuddy.Business.Modules.Account
     using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Account;
+    using StarGuddy.Business.Interface.Common;
     using StarGuddy.Repository.Interfaces;
 
     /// <summary>
@@ -39,12 +40,19 @@ namespace StarGuddy.Business.Modules.Account
         private IUserRepository userRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SignupManager"/> class.
+        /// The security manager
         /// </summary>
-        /// <param name="signupManager">The user repository.</param>
-        public SignupManager(IUserRepository userRepository)
+        private ISecurityManager securityManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignupManager" /> class.
+        /// </summary>
+        /// <param name="securityManager">The security manager.</param>
+        /// <param name="userRepository">The user repository.</param>
+        public SignupManager(ISecurityManager securityManager, IUserRepository userRepository)
         {
             this.userRepository = userRepository;
+            this.securityManager = securityManager;
         }
 
         /// <summary>
@@ -59,31 +67,30 @@ namespace StarGuddy.Business.Modules.Account
         /// </returns>
         public async Task<IApplicationUser> PasswordSignInAsync(string userName, string password, bool rememberMe = false, bool lockoutOnFailure = false)
         {
-            return await Task.Factory.StartNew(() =>
+            var user = this.userRepository.FindByUserName(userName);
+            if (user.IsNull())
             {
-                var result = new ApplicationUser();
+                return null;
+            }
 
-                var userResult = this.userRepository.GetVerifiedUser(userName, password).Where(x => x.LockoutEnabled == false);
-                if (userResult.Any())
-                {
-                    var user = userResult.FirstOrDefault();
-                    return new ApplicationUser
-                    {
-                        Id = user.Id,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Gender = user.Gender,
-                        IsCastingProfessional = user.IsCastingProfessional,
-                        Designation = user.Designation,
-                        OrgName = user.OrgName,
-                        OrgWebsite = user.OrgWebsite,
-                        UserName = user.UserName,
-                        SecurityStamp = user.SecurityStamp
-                    };
-                }
+            if (!await this.securityManager.VerifyHashedPassword(user.PasswordHash, password))
+            {
+                return null;
+            }
 
-                return result;
-            });
+            return new ApplicationUser
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                IsCastingProfessional = user.IsCastingProfessional,
+                Designation = user.Designation,
+                OrgName = user.OrgName,
+                OrgWebsite = user.OrgWebsite,
+                UserName = user.UserName,
+                SecurityStamp = user.SecurityStamp
+            };
         }
     }
 }

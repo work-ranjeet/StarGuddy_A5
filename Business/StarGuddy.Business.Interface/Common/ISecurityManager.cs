@@ -23,5 +23,32 @@ namespace StarGuddy.Business.Interface.Common
         /// JWT Packet
         /// </returns>
         Task<string> GetJwtSecurityTokenAsync(string userId);
+
+        /// <summary>
+        /// Validates the JWT security token asynchronous.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns>string value</returns>
+        Task<string> ValidateJwtSecurityTokenAsync(string userId, string securityStamp);
+
+        /// <summary>
+        /// Hashes the password.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// String Value
+        /// </returns>
+        Task<string> GetHashPassword(string password);
+
+        /// <summary>
+        /// Verifies the hashed password.
+        /// </summary>
+        /// <param name="hashedPassword">The hashed password.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>
+        /// String Value
+        /// </returns>
+        Task<bool> VerifyHashedPassword(string hashedPassword, string password);
     }
 }

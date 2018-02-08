@@ -50,6 +50,18 @@ namespace StarGuddy.Repository.Operations
 
         #region /// Select
         /// <summary>
+        /// Finds the by identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns>
+        /// Application User
+        /// </returns>
+        public IUser FindById(string Id)
+        {
+            return this.FindSingle("SELECT * FROM Users WHERE Id=@Id", new { Id = Id });
+        }
+
+        /// <summary>
         /// Finds the by user name.
         /// </summary>
         /// <param name="userName">user name</param>

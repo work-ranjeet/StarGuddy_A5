@@ -19,6 +19,7 @@ namespace StarGuddy.Repository.Base
 {
     #region Imports
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
@@ -207,6 +208,18 @@ namespace StarGuddy.Repository.Base
         }
 
         /// <summary>
+        /// Finds the by identifier.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public virtual T FindById(Guid id)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                return SqlMapper.Query<T>(conn, "SELECT * FROM " + this.tableName + " WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
         /// The delete.
         /// </summary>
         /// <param name="id">The id.</param>
@@ -217,7 +230,7 @@ namespace StarGuddy.Repository.Base
                 conn.Execute("DELETE FROM " + this.tableName + " WHERE ID = @ID", new { ID = id });
             }
         }
-        
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
