@@ -24,5 +24,10 @@ namespace StarGuddy.Core.Constants
         /// The JWT secret
         /// </summary>
         public const string JwtSecret = "JwtSecret";
+
+        /// <summary>
+        /// The JWT secret
+        /// </summary>
+        public const string EncryptionKey = "EncryptionKey";
     }
 }

@@ -1,11 +1,11 @@
-<div id="logInOut" class="padding-top-15" style="color: white">
-    <div *ngIf="!isLoggedIn" class="nav-sign-in">
+<div id="logInOut" style="color: white;">
+    <div *ngIf="!isLoggedIn" class="nav-sign-in" style="height:50px; padding:14px;">
         <span class="fa fa-sign-in"></span>
         <a class="" [routerLink]="['/login']">Log In</a>
     </div>
     <div *ngIf="isLoggedIn">
         <ul class="pull-right nav-logout-menu">
-            <!--<li>
+            <li class="hidden-sm hidden-xs">
                 <a class="menu-link-button" href="#">
                     <div class="fa fa-briefcase">
                         <span class="menu-link-count-container">
@@ -14,7 +14,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li class="hidden-sm hidden-xs">
                 <a class="menu-link-button" href="#">
                     <div class="fa fa-envelope-o">
                         <span class="menu-link-count-container">
@@ -23,7 +23,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li class="hidden-sm hidden-xs">
                 <a class="menu-link-button" href="#">
                     <div class="fa fa-comment-o">
                         <span class="menu-link-count-container">
@@ -31,22 +31,22 @@
                         </span>
                     </div>
                 </a>
-            </li>-->
-            <li class="user-setting-menu-opener">
-                <span style="color: #CECECE; cursor:pointer;">Welcome &nbsp;Ranjeet</span><!--{{UserFirstName}}-->
-                <div class="user-setting-menu">
-                    <div class="heading">
+            </li>
+            <li (click)="toggleUserSettingMenu()" [style.background-color]="!showUserSettingMenu? 'white':null" [style.color]="!showUserSettingMenu? '#F88017':null">
+                <span>Ranjeet</span><!--{{UserFirstName}}-->
+                <div [hidden]="showUserSettingMenu" class="user-setting-menu">
+
+                    <!--<div class="heading">
                         <span class="fa fa-gears"></span>&nbsp;<span>Account & Settings</span>
-                    </div>
+                    </div>-->
                     <div class="content">
                         <ul>
-                            <li><a class="fa fa-user">&nbsp;Manage Profile</a></li>
-                            <li><a class="fa fa-gear">&nbsp;Manage Account</a></li>
-                            <li><a class="fa fa-money">&nbsp;Manage Membership</a></li>
-                            <li><a class="fa fa-unlock-alt">&nbsp;Manage Privacy</a></li>
+                            <li><a class="fa fa-user-o">&nbsp;&nbsp;My Profile</a></li>
+                            <li><a class="fa fa-bell-o">&nbsp;&nbsp;Notifications</a></li>
+                            <li><a class="fa fa-gears">&nbsp;&nbsp;Settings</a></li>
                             <li>
-                                <span class="fa fa-sign-out"></span>
-                                <a style="font-size: 13px; color: #CC0000;" (click)="logOut()">Log Out</a>
+                                <span class="fa fa-sign-out">&nbsp;</span>
+                                <a style="font-size: 13px; color: #CC0000;" (click)="logOut()">Sign Out</a>
                             </li>
                         </ul>
                     </div>

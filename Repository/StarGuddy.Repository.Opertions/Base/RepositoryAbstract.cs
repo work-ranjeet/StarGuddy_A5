@@ -141,8 +141,7 @@ namespace StarGuddy.Repository.Base
         {
             using (var conn = this.GetOpenConnectionAsync)
             {
-                ////var result = conn.Query(query, (object)parameter).SingleOrDefault();
-                return SqlMapper.Query<T>(conn, query, parameter, commandType: CommandType.Text).FirstOrDefault();
+               return conn.QueryFirstOrDefault<T>(query, (object)parameter);
             }
         }
 
@@ -156,7 +155,7 @@ namespace StarGuddy.Repository.Base
         {
             using (var connection = this.GetOpenConnectionAsync)
             {
-                return SqlMapper.Query<T>(connection, "SELECT * FROM " + this.tableName, null, commandType: CommandType.Text);
+                return connection.Query<T>("SELECT * FROM " + this.tableName);
             }
         }
 

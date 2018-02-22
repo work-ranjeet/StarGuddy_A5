@@ -11,7 +11,7 @@ import IUserData = App.Client.Account.IApplicationUser;
 
 
 @Injectable()
-export class ManageAccountService {
+export class UserProfileSettingsService {
 
     private isLoggedInSource = new BehaviorSubject<boolean>(false);
 

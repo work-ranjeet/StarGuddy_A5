@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ManageAccountService } from "../../manageAccount/manage.account.Service";
+import { UserProfileSettingsService } from "../../userProfileSettings/userProfileSettings.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
 import ILoginData = App.Client.Account.ILoginData;
 
@@ -12,14 +12,14 @@ import ILoginData = App.Client.Account.ILoginData;
 
 export class AddEmailComponent {
     loginData: ILoginData;
-    manageAccountService: ManageAccountService;
+    manageAccountService: UserProfileSettingsService;
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
 
     private readonly dataValidator: DataValidator
 
-    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: ManageAccountService, dataValidator: DataValidator) {
+    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: UserProfileSettingsService, dataValidator: DataValidator) {
         this.router = router;
         this.authenticateRoute = authRoute;
         this.manageAccountService = manageAccountService;

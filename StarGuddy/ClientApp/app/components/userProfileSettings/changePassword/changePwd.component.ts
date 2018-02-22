@@ -1,25 +1,25 @@
 import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ManageAccountService } from "../../manageAccount/manage.account.Service";
+import { UserProfileSettingsService } from "../../userProfileSettings/userProfileSettings.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
 import ILoginData = App.Client.Account.ILoginData;
 
 @Component({
-    selector: "account-management-change-address",
-    templateUrl: "././changeAddress.component.html",
-    styleUrls: ['././changeAddress.component.css']
+    selector: "account-management-change-password",
+    templateUrl: "././changePwd.component.html",
+    styleUrls: ['././changePwd.component.css']
 })
 
-export class ChangeAddressComponent {
+export class ChangePwdComponent {
     loginData: ILoginData;
-    manageAccountService: ManageAccountService;
+    manageAccountService: UserProfileSettingsService;
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
 
     private readonly dataValidator: DataValidator
 
-    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: ManageAccountService, dataValidator: DataValidator) {
+    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: UserProfileSettingsService, dataValidator: DataValidator) {
         this.router = router;
         this.authenticateRoute = authRoute;
         this.manageAccountService = manageAccountService;

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Common;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Api.Models.Interface.Account;
+using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
 
 namespace StarGuddy.Api.Controllers.Account
@@ -29,21 +31,22 @@ namespace StarGuddy.Api.Controllers.Account
             this._jwtPacketManager = jwtPacketManager;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginData loginData)
         {
-            if (loginData == null)
+            if (loginData.IsNull())
             {
                 return BadRequest();
             }
 
             var userResult = await _signUpManager.PasswordSignInAsync(loginData.UserName, loginData.Password, rememberMe: false, lockoutOnFailure: false);
-            if (userResult.Id == Guid.Empty)
+            if (userResult.IsNull())
             {
                 return NotFound("Oops! Invalid entry. Please try again.");
             }
 
-            return Ok(this._jwtPacketManager.CreateJwtPacketAsync(userResult));
+            return Ok(await this._jwtPacketManager.CreateJwtPacketAsync(userResult));
         }
     }
 }

@@ -5,6 +5,7 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Interface.Common
 {
+    using StarGuddy.Api.Models.Interface.Account;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -18,11 +19,11 @@ namespace StarGuddy.Business.Interface.Common
         /// <summary>
         /// Encrypts the JWT security token asynchronous.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
+        /// <param name="appUser">The application user.</param>
         /// <returns>
         /// JWT Packet
         /// </returns>
-        Task<string> GetJwtSecurityTokenAsync(string userId);
+        Task<string> GetJwtSecurityTokenAsync(IApplicationUser appUser);
 
         /// <summary>
         /// Validates the JWT security token asynchronous.
@@ -50,5 +51,41 @@ namespace StarGuddy.Business.Interface.Common
         /// String Value
         /// </returns>
         Task<bool> VerifyHashedPassword(string hashedPassword, string password);
+
+        /// <summary>
+        /// Encrypts the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns>
+        /// string value
+        /// </returns>
+        Task<string> EncryptText(string text, string securityStamp);
+
+        /// <summary>
+        /// Decrypts the text.
+        /// </summary>
+        /// <param name="encryptedText">The encrypted text.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns>
+        /// string value
+        /// </returns>
+        Task<string> DecryptText(string encryptedText, string securityStamp);
+
+        /// <summary>
+        /// Encrypts the object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>string value</returns>
+        string EncryptObject(dynamic value);
+
+        /// <summary>
+        /// Decrypts the object.
+        /// </summary>
+        /// <param name="base64">The base64.</param>
+        /// <returns>
+        /// dynamic object
+        /// </returns>
+        dynamic DecryptObject(string base64String);
     }
 }

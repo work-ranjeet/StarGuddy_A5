@@ -1,28 +1,28 @@
 import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ManageAccountService } from "../../manageAccount/manage.account.Service";
+import { UserProfileSettingsService } from "../../userProfileSettings/userProfileSettings.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
 import ILoginData = App.Client.Account.ILoginData;
 
 @Component({
-    selector: "account-management-add-phone-number",
-    templateUrl: "././addPhoneNumber.component.html",
-    styleUrls: ['././addPhoneNumber.component.css']
+    selector: "account-management-verify-phone-number",
+    templateUrl: "././verifyPhoneNumber.component.html",
+    styleUrls: ['././verifyPhoneNumber.component.css']
 })
 
-export class AddPhoneNumberComponent {
+export class VerifyPhoneNumberComponent {
     loginData: ILoginData;
-    manageAccountService: ManageAccountService;
+    userProfileSettingsService: UserProfileSettingsService;
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
 
     private readonly dataValidator: DataValidator
 
-    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: ManageAccountService, dataValidator: DataValidator) {
+    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: UserProfileSettingsService, dataValidator: DataValidator) {
         this.router = router;
         this.authenticateRoute = authRoute;
-        this.manageAccountService = manageAccountService;
+        this.userProfileSettingsService = manageAccountService;
         this.dataValidator = dataValidator;
     }
 

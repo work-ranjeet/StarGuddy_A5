@@ -15,6 +15,7 @@ export class LogInOutComponent {
     private readonly authenticateRoute: ActivatedRoute;
 
     private isLoggedIn: boolean;
+    private showUserSettingMenu: boolean;
     private subscription: Subscription;
 
     constructor(router: Router, authRoute: ActivatedRoute, accountService: AccountService) {
@@ -28,6 +29,11 @@ export class LogInOutComponent {
     ngOnInit() {
         this.subscription = this.accountService.IsLoggedIn.subscribe(val => this.isLoggedIn = val);
         this.isLoggedIn = true;
+        this.showUserSettingMenu = true;
+    }
+
+    toggleUserSettingMenu() {
+        this.showUserSettingMenu = !this.showUserSettingMenu;
     }
 
     ngOnDestroy() {

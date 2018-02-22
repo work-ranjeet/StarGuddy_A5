@@ -1,9 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -53,26 +55,53 @@ namespace StarGuddy
                 .AllowAnyHeader();
             }));
 
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is the secret phrase"));
-
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetAppSettingValue(AppSettings.JwtSecret)));
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(cfg =>
+
+            }).AddJwtBearer(jwtBearerCnfg =>
             {
-                cfg.RequireHttpsMetadata = false;
-                cfg.SaveToken = true;
-                cfg.TokenValidationParameters = new TokenValidationParameters()
-                {                   
-                    ValidateAudience = false,
-                    ValidateIssuer = false,
-                    ValidateLifetime = false,
-                    ValidateIssuerSigningKey = false,
+                jwtBearerCnfg.RequireHttpsMetadata = false;
+                jwtBearerCnfg.SaveToken = true;
+                jwtBearerCnfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration.GetAppSettingValue(AppSettings.JwtIssuer),
                     ValidAudience = Configuration.GetAppSettingValue(AppSettings.JwtAudience),
-                    IssuerSigningKey = signingKey,
+                    IssuerSigningKey = signingKey
                 };
+
+                jwtBearerCnfg.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
+            services.AddAuthorization(authOption =>
+            {
+                //options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                //    .RequireAuthenticatedUser().Build());
+
+                authOption.AddPolicy("Member", policy =>
+                {
+                    policy.RequireClaim(JwtRegisteredClaimNames.Sid);
+                    policy.RequireClaim(JwtRegisteredClaimNames.Email);
+                });
             });
 
             //// Dependency Injection

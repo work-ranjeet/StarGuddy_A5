@@ -3,11 +3,13 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "account-confirm-email-sent",
-    template: `<div>
-                    <p>
-                        <a asp-controller="Account" asp-action="Login">Please check your email and confirm your email address.</a>.
-                    </p>
-               </div>`
+    template: `<div style="padding-top:140px;">
+                    <div class="container-box">
+                        <p>
+                            <a asp-controller="Account" asp-action="Login">Please check your email and confirm your email address.</a>.
+                        </p>
+                   </div>
+                </div>`
 })
 
 export class AccountConfirmEmailSentComponent {

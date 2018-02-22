@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Api.Common
+namespace StarGuddy.Business.Security.Jwt
 {
     #region MyRegion
     using System.IdentityModel.Tokens.Jwt;
@@ -51,7 +51,7 @@ namespace StarGuddy.Api.Common
             return new JwtPacket()
             {
                 Id = applicationUser.Id.ToString(),
-                Token = await this._securityManager.GetJwtSecurityTokenAsync(applicationUser.Id.ToString()),
+                Token = await this._securityManager.GetJwtSecurityTokenAsync(applicationUser.Id.ToString(), applicationUser.SecurityStamp),
                 FirstName = applicationUser.FirstName,
                 UserName = applicationUser.UserName
             };

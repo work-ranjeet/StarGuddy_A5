@@ -18,6 +18,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StarGuddy.Api.Common;
+using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Files;

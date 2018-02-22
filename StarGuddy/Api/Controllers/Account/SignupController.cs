@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Common;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Api.Models.Interface.Account;
+using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
 
@@ -36,6 +38,8 @@ namespace StarGuddy.Api.Controllers.Account
             this._jwtPacketManager = jwtPacketManager;
         }
 
+
+        [AllowAnonymous]
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]ApplicationUser applicationUser)
         {

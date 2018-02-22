@@ -7,7 +7,9 @@ namespace StarGuddy.Business.Modules.Common
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.IO;
     using System.Runtime.CompilerServices;
+    using System.Runtime.Serialization.Formatters.Binary;
     using System.Security.Claims;
     using System.Security.Cryptography;
     using System.Text;
@@ -15,6 +17,7 @@ namespace StarGuddy.Business.Modules.Common
     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
+    using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Common;
     using StarGuddy.Core.Constants;
 
@@ -38,6 +41,14 @@ namespace StarGuddy.Business.Modules.Common
         /// The configuration.
         /// </value>
         private IConfiguration _configuration { get; set; }
+
+        /// <summary>
+        /// Gets the encryption byte.
+        /// </summary>
+        /// <value>
+        /// The encryption byte.
+        /// </value>
+        private byte[] EncryptionByte { get { return new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 }; } }
         #endregion
 
         #region /// Constructor
@@ -55,11 +66,11 @@ namespace StarGuddy.Business.Modules.Common
         /// <summary>
         /// Encrypts the JWT security token asynchronous.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
+        /// <param name="appUser">The application user.</param>
         /// <returns>
         /// JWT Packet
         /// </returns>
-        public async Task<string> GetJwtSecurityTokenAsync(string userId)
+        public async Task<string> GetJwtSecurityTokenAsync(IApplicationUser appUser)
         {
             return await Task.Factory.StartNew(() =>
             {
@@ -69,7 +80,8 @@ namespace StarGuddy.Business.Modules.Common
 
                 var claims = new Claim[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, userId)
+                    new Claim(JwtRegisteredClaimNames.Sid, appUser.Id.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, appUser.Email)
                 };
 
                 var jwt = new JwtSecurityToken(
@@ -256,7 +268,7 @@ namespace StarGuddy.Business.Modules.Common
                 // Hash the given password and verify it against the expected SUBKEY.
                 var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
 
-                return ByteArraysEqual(actualSubkey, expectedSubkey);
+                return this.ByteArraysEqual(actualSubkey, expectedSubkey);
             }
             catch
             {
@@ -323,6 +335,126 @@ namespace StarGuddy.Business.Modules.Common
             return areEqual;
         }
         #endregion
-        #endregion       
+        #endregion
+
+        #region /// Text Encryption
+        /// <summary>
+        /// Encrypts the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns>
+        /// string value
+        /// </returns>
+        public async Task<string> EncryptText(string text, string securityStamp)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                if (string.IsNullOrEmpty(securityStamp))
+                {
+                    securityStamp = this._configuration.GetAppSettingValue(AppSettings.EncryptionKey);
+                }
+
+                var clearBytes = Encoding.Unicode.GetBytes(text);
+                using (var encryptor = Aes.Create())
+                {
+                    var rfc2898DeriveBytes = new Rfc2898DeriveBytes(securityStamp, this.EncryptionByte);
+                    encryptor.Key = rfc2898DeriveBytes.GetBytes(32);
+                    encryptor.IV = rfc2898DeriveBytes.GetBytes(16);
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream(memoryStream, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(clearBytes, 0, clearBytes.Length);
+                            cs.Close();
+                        }
+
+                        text = Convert.ToBase64String(memoryStream.ToArray());
+                    }
+                }
+
+                return text;
+            });
+        }
+
+        /// <summary>
+        /// Decrypts the text.
+        /// </summary>
+        /// <param name="encryptedText">The encrypted text.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns>
+        /// string value
+        /// </returns>
+        public async Task<string> DecryptText(string encryptedText, string securityStamp)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                if (string.IsNullOrEmpty(securityStamp))
+                {
+                    securityStamp = this._configuration.GetAppSettingValue(AppSettings.EncryptionKey);
+                }
+
+                encryptedText = encryptedText.Replace(" ", "+");
+
+                var encryptionBytes = Convert.FromBase64String(encryptedText);
+                using (Aes encryptor = Aes.Create())
+                {
+                    var rfc2898DeriveBytes = new Rfc2898DeriveBytes(securityStamp, this.EncryptionByte);
+                    encryptor.Key = rfc2898DeriveBytes.GetBytes(32);
+                    encryptor.IV = rfc2898DeriveBytes.GetBytes(16);
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        using (var cryptoStream = new CryptoStream(memoryStream, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cryptoStream.Write(encryptionBytes, 0, encryptionBytes.Length);
+                            cryptoStream.Close();
+                        }
+
+                        encryptedText = Encoding.Unicode.GetString(memoryStream.ToArray());
+                    }
+                }
+
+                return encryptedText;
+            });
+        }
+        #endregion
+
+        #region /// Object Encryption
+        /// <summary>
+        /// Encrypts the object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>string value</returns>
+        public string EncryptObject(dynamic value)
+        {
+            using (var ms = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(ms, value);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+        }
+
+        /// <summary>
+        /// Decrypts the object.
+        /// </summary>
+        /// <param name="base64">The base64.</param>
+        /// <returns>
+        /// dynamic object
+        /// </returns>
+        public dynamic DecryptObject(string base64String)
+        {
+            var bytes = Convert.FromBase64String(base64String);
+            using (var ms = new MemoryStream(bytes, 0, bytes.Length))
+            {
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Position = 0;
+
+                return new BinaryFormatter().Deserialize(ms);
+            }
+        }
+        #endregion
     }
 }

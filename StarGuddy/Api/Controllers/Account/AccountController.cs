@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Common;
+using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
 
 namespace StarGuddy.Api.Controllers.Account

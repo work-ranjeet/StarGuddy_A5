@@ -1,7 +1,7 @@
 ﻿
 ul.nav-logout-menu {
     list-style: none;
-    border-radius: 0 0 5px 5px;
+    margin-bottom: 0px !important;
     -webkit-transition: opacity .25s ease .1s;
     -moz-transition: opacity .25s ease .1s;
     -o-transition: opacity .25s ease .1s;
@@ -11,8 +11,10 @@ ul.nav-logout-menu {
 
 .nav-logout-menu > li {
     display: inline;
+    cursor: pointer;
     float: left;
-    padding: 0 11px 0 15px;
+    height: 50px;
+    padding: 12px;
     -webkit-transition: height .25s ease .1s;
     -moz-transition: height .25s ease .1s;
     -o-transition: height .25s ease .1s;
@@ -20,7 +22,7 @@ ul.nav-logout-menu {
     transition: height .25s ease .1s;
 }
 
-    .user-setting-menu-opener > a,
+    /*.user-setting-menu-opener > a,*/
     .nav-logout-menu > li > a {
         color: #ebdfdf;
         -webkit-transition: color .2s ease-in-out;
@@ -30,9 +32,9 @@ ul.nav-logout-menu {
         transition: color .2s ease-in-out;
     }
 
-    .nav-logout-menu > li > span {
-        color: #ccc;
-    }
+.nav-logout-menu > li {
+    color: #ccc;
+}
 
     .nav-logout-menu > li > a {
         text-shadow: 1px 1px 1px rgba(0,0,0,.6);
@@ -46,11 +48,15 @@ ul.nav-logout-menu {
         border-right: none;
     }
 
-    .user-setting-menu-opener:hover > a,
+    /*.user-setting-menu-opener:hover > a,*/
     .nav-logout-menu > li:hover > a,
     .nav-logout-menu > li:hover > span {
         color: #F88017;
     }
+
+    /*.nav-logout-menu > li:hover {
+        background: white;
+    }*/
 
 .nav-logout-menu .login-img-link {
     width: 30px;
@@ -71,12 +77,12 @@ ul.nav-logout-menu {
 
 
 
-.user-setting-menu-opener {
+/*.user-setting-menu-opener {
 }
 
     .user-setting-menu-opener:hover .user-setting-menu {
         display: block;
-    }
+    }*/
 
 .user-setting-menu {
     /*display: none;*/
@@ -84,8 +90,8 @@ ul.nav-logout-menu {
     position: absolute;
     z-index: 999;
     background: white;
-    margin-top: 0px;
-    border: solid 2px #555555;
+    margin-top: 18px;
+    margin-left: -140px;
     border-top: none;
 }
 
@@ -97,20 +103,21 @@ ul.nav-logout-menu {
     }
 
     .user-setting-menu .content {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif!important;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     }
 
         .user-setting-menu .content > ul {
             list-style: none;
-            padding-left: 5px;
+            padding-left: 0px;
         }
 
             .user-setting-menu .content > ul > li {
                 border-bottom: solid 1px #ccc;
-                padding: 5px 5px 5px 5px;
+                padding: 15px 5px 15px 5px;
+                font-size: 15px;
             }
 
-                .user-setting-menu .content > ul > li > span,
+                .user-setting-menu .content > ul > li,
                 .user-setting-menu .content > ul > li > a {
                     text-decoration: none;
                     cursor: pointer;
@@ -121,7 +128,7 @@ ul.nav-logout-menu {
                     transition: color .2s ease-in-out;
                 }
 
-                .user-setting-menu .content > ul > li:hover > span,
-                .user-setting-menu .content > ul > li:hover > span {
-                    color: #F88017;
-                }
+                    .user-setting-menu .content > ul > li:hover {
+                        color: #F88017;
+                        background-color: #e9e7e7;
+                    }

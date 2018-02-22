@@ -5,6 +5,59 @@
     margin-bottom: 10px !important;
 }
 
+.form-center-small,
+.form-center-medium,
+.form-center-small {
+    margin: auto;
+    margin-top: 10% !important;
+    background: #fff;
+    padding: 10px;
+    border: solid 1px #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.form-center-small {
+    max-width: 450px;
+}
+
+.form-center-medium {
+    max-width: 550px;
+}
+
+.form-center-big {
+    max-width: 650px;
+}
+
+.page-heading {
+    padding: 5px 0px 0px 2px;
+    font-family: Papyrus, fantasy;
+}
+
+    .page-heading h1 {
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .page-heading h2 {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .page-heading h3 {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+.main-heading-container {
+    padding: 5px 0px 5px 0px;
+}
+
+.main-heading {
+    font-size: 22px;
+}
+
 .container-box {
     max-width: 500px;
     background: #fff;

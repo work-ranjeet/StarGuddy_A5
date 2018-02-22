@@ -16,14 +16,17 @@ body {
     margin-top: 52px;
 }
 
-a {
-    text-decoration: none;
+a,
+.nav-sign-in > a {
+    text-decoration: none !important;
 }
 
     a:hover,
-    a:focus {
+    a:focus,
+    .nav-sign-in > a:hover,
+    .nav-sign-in > a:focus {
         color: #F88017;
-        text-decoration: none;
+        text-decoration: none !important;
     }
 
     a:focus {
@@ -31,6 +34,10 @@ a {
         outline-offset: -2px;
     }
 
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 10px !important;
+    margin-bottom: -10px !important;
+}
 
 h1 {
     font-size: 24px;
@@ -60,6 +67,28 @@ dl {
 /*dd {
     margin-left:  calc(100% - 100px)!important;
 }*/
+
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+    ul > li {
+        display: inline;
+        float: left;
+        padding: 0px;
+        margin: 0px;
+    }
+
+        ul > li > a {
+            color: #ebdfdf;
+        }
+
+li.border-bottom {
+    border-bottom: solid 1px #ccc;
+}
+
 
 label {
     font-weight: normal;
@@ -123,6 +152,27 @@ table {
     border-collapse: collapse;
 }
 
+hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+hr.style-two {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+hr.style-three {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
 .text-bottom {
     display: block;
     font-size: 12px;
@@ -130,6 +180,8 @@ table {
     line-height: 22px;
     font-weight: normal;
     font-family: "Open Sans", Trebuchet, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 .fa {
@@ -193,11 +245,11 @@ table {
 }
 
 .padding-bottom-15 {
-    padding-bottom: 15px;
+    padding-bottom: 15px!important;
 }
 
 .padding-bottom-20 {
-    padding-bottom: 20px;
+    padding-bottom: 20px!important;
 }
 
 .padding-top-5 {
@@ -216,6 +268,22 @@ table {
     padding-top: 20px;
 }
 
+
+.padding-left-5 {
+    padding-left: 5px;
+}
+
+.padding-left-10 {
+    padding-left: 10px;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.padding-left-20 {
+    padding-left: 20px;
+}
 
 /****************************** Height *******************************/
 
@@ -434,3 +502,17 @@ margin-right-10 {
         .c-table .c-column .video-card .upload-time {
             font-size: 14px;
         }
+
+
+.cursor-hand {
+    cursor: pointer;
+}
+
+.border-bottom {
+    padding: 0px 2px 0px 2px;
+    border-bottom: solid 1px #ccc;
+}
+
+.width-per-100{
+    width:100%;
+}

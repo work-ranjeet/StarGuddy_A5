@@ -70,7 +70,7 @@ namespace StarGuddy.Repository.Operations
         /// </returns>
         public IUser FindByUserName(string userName)
         {
-            return this.FindSingle("SELECT * FROM Users WHERE UserName=@Username", new { Username = userName });
+            return this.FindSingle("SELECT * FROM Users WHERE UserName=@UserName", new { UserName = userName });
         }
 
         /// <summary>
@@ -120,8 +120,8 @@ namespace StarGuddy.Repository.Operations
                 var parameter = new
                 {
                     AccessFailedCount = 0,
-                    ConcurrencyStamp = "b8c6e4a2-fb40-4706-b608-f05a4a6ff708",
-                    LockoutEnd = DateTime.UtcNow,
+                    ConcurrencyStamp = Guid.NewGuid(),
+                    LockoutEnd = DateTime.UtcNow.AddSeconds(-1),
                     IsTwoFactorEnabled = false,
                     user.EmailDetail.Email,
                     user.FirstName,

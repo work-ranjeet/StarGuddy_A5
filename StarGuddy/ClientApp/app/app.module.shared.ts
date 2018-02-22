@@ -18,6 +18,7 @@ import { BaseService } from "../Services/BaseService";
 import { CommonModuleShared } from "./components/common/common.module.shared";
 import { HomeModuleShared } from "./components/home/home.module.shared";
 import { AccountModuleShared } from "./components/account/account.module.shared";
+import { UserProfileSettingModuleShared } from "./components/userProfileSettings/userProfileSettings.module.shared"
 
 
 import { AppComponent } from "./components/app/app.component";
@@ -37,6 +38,7 @@ import { CounterComponent } from "./components/counter/counter.component";
         CommonModuleShared,
         HomeModuleShared,
         AccountModuleShared,
+        UserProfileSettingModuleShared,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full" },
             { path: "counter", component: CounterComponent },

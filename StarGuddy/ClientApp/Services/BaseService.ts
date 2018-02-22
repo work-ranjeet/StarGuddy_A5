@@ -57,7 +57,7 @@ export class BaseService {
         if (!result.ok)
             return;
 
-        const authResponse = result.json().result;
+        const authResponse = result.json();
         localStorage.setItem(this.appConstant.USER_ID, authResponse.id);
         localStorage.setItem(this.appConstant.TOKEN_KEY, authResponse.token);
         localStorage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.firstName);
