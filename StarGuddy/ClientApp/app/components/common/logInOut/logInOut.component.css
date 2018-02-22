@@ -76,42 +76,23 @@ ul.nav-logout-menu {
         }
 
 
-
-/*.user-setting-menu-opener {
-}
-
-    .user-setting-menu-opener:hover .user-setting-menu {
-        display: block;
-    }*/
-
 .user-setting-menu {
-    /*display: none;*/
-    width: 200px;
+    width: 201px;
     position: absolute;
     z-index: 999;
     background: white;
     margin-top: 18px;
     margin-left: -140px;
+    border:solid 1px black;
     border-top: none;
 }
-
-    .user-setting-menu .heading {
-        height: 30px;
-        color: white;
-        padding: 5px;
-        background-color: #555555;
-    }
 
     .user-setting-menu .content {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     }
-
-        .user-setting-menu .content > ul {
-            list-style: none;
-            padding-left: 0px;
-        }
-
+    
             .user-setting-menu .content > ul > li {
+                width:100%;
                 border-bottom: solid 1px #ccc;
                 padding: 15px 5px 15px 5px;
                 font-size: 15px;

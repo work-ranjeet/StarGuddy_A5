@@ -41,9 +41,9 @@
                     </div>-->
                     <div class="content">
                         <ul>
-                            <li><a class="fa fa-user-o">&nbsp;&nbsp;My Profile</a></li>
-                            <li><a class="fa fa-bell-o">&nbsp;&nbsp;Notifications</a></li>
-                            <li><a class="fa fa-gears">&nbsp;&nbsp;Settings</a></li>
+                            <li><a class="fa fa-user-o" [routerLink]="['/profileSetting']"> &nbsp;&nbsp; My Profile</a></li>
+                            <li><a class="fa fa-bell-o" [routerLink]="['/profileSetting']"> &nbsp;&nbsp; Notifications</a></li>
+                            <li><a class="fa fa-gears"  [routerLink]="['/profileSetting']"> &nbsp;&nbsp; Settings</a></li>
                             <li>
                                 <span class="fa fa-sign-out">&nbsp;</span>
                                 <a style="font-size: 13px; color: #CC0000;" (click)="logOut()">Sign Out</a>
