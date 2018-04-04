@@ -1,39 +1,36 @@
-<div class="container">
-    <div class="row">
-        <div id="changPwdForm" class="form form-horizontal">
-            <div class="page-heading">
-                <h1>Change Password</h1>
-            </div>
-
-            <div asp-validation-summary="All" class="text-danger"></div>
+<div id="changePassword123" class="form  container-small margin-top-5Per">   
+    <div class="card">
+        <div class="card-title">
+            <page-heading text="Change Password"></page-heading>
+            <hr class="style-three" />
+        </div>
+        <div class="card-body">
             <div class="form-group">
-                <label asp-for="OldPassword" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="OldPassword" class="form-control" />
-                    <span asp-validation-for="OldPassword" class="text-danger"></span>
+                <!--<label class="required  label-control">Old Password</label>-->
+                <input type="password" id="OldPassword" class="form-control" [(ngModel)]="loginData.Email" #oldPassword="ngModel" placeholder="Enter Old Password" required />
+                <div *ngIf="oldPassword.errors && (oldPassword.dirty || oldPassword.touched)" class="error">
+                    <div [hidden]="!oldPassword.hasError('required')">Required.</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NewPassword" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="NewPassword" class="form-control" />
-                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+            <div class="form-group margin-top-20">
+                <!--<label class="required  label-control">New Password</label>-->
+                <input type="password" id="newPassword" class="form-control" [(ngModel)]="loginData.Email" #newPassword="ngModel" placeholder="Enter New Password" required />
+                <div *ngIf="newPassword.errors && (newPassword.dirty || newPassword.touched)" class="error">
+                    <div [hidden]="!newPassword.hasError('required')">Email is required.</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default">Change password</button>
+            <div class="form-group margin-top-20">
+                <!--<label class="required  label-control">Confirm Password</label>-->
+                <input type="Password" id="confirmPassword" class="form-control" [(ngModel)]="loginData.Email" #confirmPassword="ngModel" placeholder="Enter Confirm Password" required />
+                <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="error">
+                    <div [hidden]="!confirmPassword.hasError('required')">Email is required.</div>
                 </div>
             </div>
         </div>
+        <div class="card-footer text-center ">
+            <a class="btn btn-default" [routerLink]="['/profileSetting']">Cancel</a>
+            <button type="submit" class="btn btn-success">Change</button>
+        </div>
     </div>
 </div>
-
 

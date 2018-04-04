@@ -36,12 +36,12 @@
 }
 
     .page-heading h1 {
-        font-size: 28px;
+        font-size: 26px;
         font-weight: 700;
     }
 
     .page-heading h2 {
-        font-size: 25px;
+        font-size: 24px;
         font-weight: 700;
     }
 
@@ -51,12 +51,12 @@
     }
 
 .main-heading-container {
-    padding: 5px 0px 5px 0px;
+    padding: 1px;
 }
 
-.main-heading {
-    font-size: 22px;
-}
+    .main-heading-container .main-heading {
+        font-size: 20px;
+    }
 
 .container-box {
     max-width: 500px;

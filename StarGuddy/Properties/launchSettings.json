@@ -17,11 +17,10 @@
     },
     "StarGuddy": {
       "commandName": "Project",
-      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:65393/"
+      "applicationUrl": "http://localhost:65394/"
     }
   }
 }

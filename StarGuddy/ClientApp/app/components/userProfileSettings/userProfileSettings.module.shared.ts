@@ -9,6 +9,7 @@ import { AddEmailComponent } from "./addEmail/addEmail.component";
 import { AddPhoneNumberComponent } from "./addPhoneNumber/addPhoneNumber.component";
 import { ChangeAddressComponent } from "./changeAddress/changeAddress.component";
 import { ChangePwdComponent } from "./changePassword/changePwd.component";
+import { ChangeEmailComponent } from "./changeEmail/changeEmail.component";
 import { VerifyPhoneNumberComponent } from "./verifyPhoneNumber/verifyPhoneNumber.component";
 import { UserProfileSettingsIndex } from "./userProfileSettingsIndex/userProfileSettingsIndex.component";
 import { PageHeadingComponent } from "../common/pageHeading/pageHeadingComponent";
@@ -22,6 +23,7 @@ import { HeadingComponent } from "../common/headings/headingComponent";
         AddPhoneNumberComponent,
         ChangeAddressComponent,
         ChangePwdComponent,
+        ChangeEmailComponent,
         VerifyPhoneNumberComponent,
         UserProfileSettingsIndex
     ],
@@ -35,6 +37,7 @@ import { HeadingComponent } from "../common/headings/headingComponent";
             { path: "addPhoneNumber", component: AddPhoneNumberComponent },
             { path: "changeAddress", component: ChangeAddressComponent },
             { path: "changePwd", component: ChangePwdComponent },
+            { path: "changeEmail", component: ChangeEmailComponent },
             { path: "verifyPhoneNumber", component: VerifyPhoneNumberComponent }
         ])
     ],
@@ -46,6 +49,7 @@ import { HeadingComponent } from "../common/headings/headingComponent";
         AddPhoneNumberComponent,
         ChangeAddressComponent,
         ChangePwdComponent,
+        ChangeEmailComponent,
         VerifyPhoneNumberComponent,
         UserProfileSettingsIndex
     ]
