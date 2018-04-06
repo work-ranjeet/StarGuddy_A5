@@ -6,7 +6,7 @@ import { Http } from "@angular/http";
 import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
-import ILoginData = App.Client.Account.ILoginData;
+import IUserEmail = App.Client.Profile.Setting.IUserEmail;
 import IUserData = App.Client.Account.IApplicationUser;
 
 
@@ -19,6 +19,15 @@ export class UserProfileSettingsService {
         private readonly http: Http,
         private readonly router: Router,
         private readonly dataConverter: DataConverter) { }
+
+    updateEmail(userEmail: IUserEmail) {
+        var v = "";
+        return this.http.post(this.baseService.BaseApiUrl + "Profile/Setting/UpdateEmail", userEmail).map(response => {
+            if (response.ok) {
+               
+            }
+        });
+    }
 
 
     //get IsLoggedIn() { return this.isLoggedInSource.asObservable(); }

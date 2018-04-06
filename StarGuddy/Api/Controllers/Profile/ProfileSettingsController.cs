@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
+using StarGuddy.Business.Interface.Profile;
 
-namespace StarGuddy.Api.Controllers.Account
+namespace StarGuddy.Api.Controllers.Profile
 {
     [Produces("application/json")]
-    [Route("api/Account/Manage")]
-    public class ManageAccController : Controller
+    [Route("api/Profile/Setting")]
+    public class ProfileSettingsController : Controller
     {
         /// <summary>
         /// The account manager
@@ -23,15 +24,24 @@ namespace StarGuddy.Api.Controllers.Account
         /// </summary>
         private readonly IPasswordManager _passwordManager;
 
+        private readonly IProfileSettingManager _profileSettingManager;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="ManageAccController"/> class.
+        /// Initializes a new instance of the <see cref="ProfileSettingsController"/> class.
         /// </summary>
         /// <param name="accountManager">The account manager.</param>
         /// <param name="passwordManager">The password manager.</param>
-        public ManageAccController(IAccountManager accountManager, IPasswordManager passwordManager)
+        public ProfileSettingsController(IAccountManager accountManager, IPasswordManager passwordManager, IProfileSettingManager profileSettingManager)
         {
             this._accountManager = accountManager;
             this._passwordManager = passwordManager;
+            this._profileSettingManager = profileSettingManager;
+        }
+
+        [ActionName("UpdateEmail")]
+        public async Task<bool> UpdateEmail(Guid userId, string email)
+        {
+            return await this._profileSettingManager.UpdateEmail(userId, email);
         }
 
     }

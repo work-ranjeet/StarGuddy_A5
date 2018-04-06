@@ -130,3 +130,20 @@ BEGIN
 	END CATCH
 END
 	-------------------------------------------------------------------- End User Table ----------------------------------------------------------------------------------
+GO
+CREATE PROCEDURE UpdateEmail (@UserId UNIQUEIDENTIFIER, @UserEmail NVARCHAR(256))
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE @id UNIQUEIDENTIFIER
+
+		SELECT @id = id FROM UserEmails WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0 
+		UPDATE UserEmails SET IsActive = 0, IsDeleted = 0 WHERE id = @id
+		INSERT INTO UserEmails (UserId, Email) VALUES (@UserId, @UserEmail)
+	END TRY
+
+	BEGIN CATCH
+		
+	END CATCH
+END
+	-------------------------------------------------------------------- End UpdateEmail ----------------------------------------------------------------------------------

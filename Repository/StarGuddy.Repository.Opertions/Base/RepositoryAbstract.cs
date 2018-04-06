@@ -25,6 +25,7 @@ namespace StarGuddy.Repository.Base
     using System.Data.SqlClient;
     using Dapper;
     using StarGuddy.Repository.Configuration;
+    using System.Threading.Tasks;
     #endregion
 
     /// <summary>
@@ -139,9 +140,16 @@ namespace StarGuddy.Repository.Base
         /// </returns>
         public virtual T FindSingle(string query, dynamic parameter)
         {
+            using (var conn = this.GetOpenConnection)
+            {
+                return conn.QueryFirstOrDefault<T>(query, (object)parameter);
+            }
+        }
+        public virtual async Task<T> FindSingleAsync(string query, dynamic parameter)
+        {
             using (var conn = this.GetOpenConnectionAsync)
             {
-               return conn.QueryFirstOrDefault<T>(query, (object)parameter);
+                return await conn.QueryFirstOrDefaultAsync<T>(query, (object)parameter);
             }
         }
 
@@ -153,9 +161,16 @@ namespace StarGuddy.Repository.Base
         /// </returns>
         public virtual IEnumerable<T> GetAll()
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenConnection)
             {
                 return connection.Query<T>("SELECT * FROM " + this.tableName);
+            }
+        }
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        {
+            using (var connection = this.GetOpenConnectionAsync)
+            {
+                return await connection.QueryAsync<T>("SELECT * FROM " + this.tableName);
             }
         }
 
@@ -169,9 +184,16 @@ namespace StarGuddy.Repository.Base
         /// </returns>
         public virtual IEnumerable<T> GetAllByParameter(string query, dynamic parameter)
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenConnection)
             {
                 return SqlMapper.Query<T>(connection, query, parameter, commandType: CommandType.Text);
+            }
+        }
+        public virtual async Task<IEnumerable<T>> GetAllByParameterAsync(string query, dynamic parameter)
+        {
+            using (var connection = this.GetOpenConnectionAsync)
+            {
+                return await SqlMapper.QueryAsync<T>(connection, query, parameter, commandType: CommandType.Text);
             }
         }
 
@@ -184,9 +206,16 @@ namespace StarGuddy.Repository.Base
         /// </returns>
         public virtual IEnumerable<T> GetProcedureData(string storeProcedureName)
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenConnection)
             {
                 return SqlMapper.Query<T>(connection, storeProcedureName, commandType: CommandType.StoredProcedure);
+            }
+        }
+        public virtual async Task<IEnumerable<T>> GetProcedureDataAsync(string storeProcedureName)
+        {
+            using (var connection = this.GetOpenConnectionAsync)
+            {
+                return await SqlMapper.QueryAsync<T>(connection, storeProcedureName, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -200,9 +229,16 @@ namespace StarGuddy.Repository.Base
         /// </returns>
         public virtual IEnumerable<T> GetProcedureData(string storeProcedureName, dynamic parameter)
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenConnection)
             {
                 return SqlMapper.Query<T>(connection, storeProcedureName, parameter, commandType: CommandType.StoredProcedure);
+            }
+        }
+        public virtual async Task<IEnumerable<T>> GetProcedureDataAsync(string storeProcedureName, dynamic parameter)
+        {
+            using (var connection = this.GetOpenConnectionAsync)
+            {
+                return await SqlMapper.QueryAsync<T>(connection, storeProcedureName, parameter, commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -212,9 +248,31 @@ namespace StarGuddy.Repository.Base
         /// <param name="id">The id.</param>
         public virtual T FindById(Guid id)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenConnection)
             {
                 return SqlMapper.Query<T>(conn, "SELECT * FROM " + this.tableName + " WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text).FirstOrDefault();
+            }
+        }
+        public virtual async Task<T> FindByIdAsync(Guid id)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text)).FirstOrDefault();
+            }
+        }
+
+        public virtual T FindByUserId(Guid userId)
+        {
+            using (var conn = this.GetOpenConnection)
+            {
+                return SqlMapper.Query<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text).FirstOrDefault();
+            }
+        }
+        public virtual async Task<T> FindByUserIdAsync(Guid userId)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text)).FirstOrDefault();
             }
         }
 
@@ -224,7 +282,7 @@ namespace StarGuddy.Repository.Base
         /// <param name="id">The id.</param>
         public virtual void Delete(Guid id)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenConnection)
             {
                 conn.Execute("DELETE FROM " + this.tableName + " WHERE ID = @ID", new { ID = id });
             }

@@ -21,7 +21,7 @@ namespace StarGuddy.Repository.Opertions
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
     using StarGuddy.Repository.Interface;
-    using StarGuddy.Repository.Opertions.Helper;
+    using StarGuddy.Repository.Opertions.Constants;
     using System;
     using System.Collections.Generic;
     using System.Text;

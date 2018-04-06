@@ -22,7 +22,7 @@ namespace StarGuddy.Business.Modules.Account
     using System.Linq;
     using System.Threading.Tasks;
     using StarGuddy.Business.Interface.Account;
-    using StarGuddy.Repository.Interfaces;
+    using StarGuddy.Repository.Interface;
 
     /// <summary>
     /// Account Manager

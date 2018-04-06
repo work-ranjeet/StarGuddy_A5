@@ -9,7 +9,7 @@ namespace StarGuddy.Business.Modules.Common
     using System.Threading.Tasks;
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Common;
-    using StarGuddy.Repository.Interfaces;
+    using StarGuddy.Repository.Interface;
 
     /// <summary>
     /// Password Manager

@@ -35,6 +35,7 @@
     <None Remove="ClientApp\app\components\account\account.module.shared.ts" />
     <None Remove="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
     <None Remove="ClientApp\app\components\common\pageHeading\pageSubHeadingComponent.ts" />
+    <None Remove="ClientApp\app\components\userProfileSettings\ProfileSettings.Domain.ts" />
     <None Remove="ClientApp\app\components\userProfileSettings\userProfileSettings.module.shared.ts" />
     <None Remove="ClientApp\Directives\pageHeadingDirectives.ts" />
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
@@ -54,6 +55,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\account\account.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\common\headings\headingComponent.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\userProfileSettings\ProfileSettings.Domain.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\userProfileSettings\userProfileSettings.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />

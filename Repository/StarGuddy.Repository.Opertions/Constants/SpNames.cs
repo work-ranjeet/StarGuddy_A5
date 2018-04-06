@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Opertions.Helper
+namespace StarGuddy.Repository.Opertions.Constants
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace StarGuddy.Repository.Opertions.Helper
     /// <summary>
     /// Store Procedure Name
     /// </summary>
-    public class SpNames
+    public partial class SpNames
     {
         /// <summary>
         /// User Structure
@@ -45,6 +45,11 @@ namespace StarGuddy.Repository.Opertions.Helper
             /// The get verified user
             /// </summary>
             public const string GetVarifiedUser = "GetVarifiedUser";
+        }
+
+        public struct UserEmails
+        {
+            public const string UpdateEmail = "UpdateEmail";
         }
     }
 }

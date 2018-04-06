@@ -29,7 +29,7 @@ namespace StarGuddy.Repository.Operations
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
     using StarGuddy.Repository.Interfaces;
-    using StarGuddy.Repository.Opertions.Helper;
+    using StarGuddy.Repository.Opertions.Constants;
     #endregion
 
     /// <summary>

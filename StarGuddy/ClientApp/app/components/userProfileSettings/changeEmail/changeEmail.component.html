@@ -8,7 +8,7 @@
             <div class="form-group">
                 <label for="Email" class="required label-control">Email address</label>
                 <input type="email" id="Email" class="form-control"
-                       [(ngModel)]="emailId"
+                       [(ngModel)]="userEmail.Email"
                        #username="ngModel"
                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                        placeholder="Email address" required autofocus />
@@ -17,18 +17,18 @@
                     <div [hidden]="!username.hasError('pattern')">Email format should be &nbsp;<small><b>joe@abc.com</b></small></div>
                 </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label class="required  label-control">Password</label>
                 <input type="password" id="Password" class="form-control" [(ngModel)]="loginData.Password" #password="ngModel" placeholder="Password" required />
                 <div *ngIf="password.errors && (password.dirty || password.touched)" class="error">
                     <div [hidden]="!password.hasError('required')">Email is required.</div>
                 </div>
-            </div>
+            </div>-->
         </div>
         <!--<hr />-->
         <div class="card-footer text-center">
             <a class="btn btn-default" [routerLink]="['/profileSetting']">Cancel</a>
-            <button type="submit" class="btn btn-success">Update</button>
+            <button type="submit" class="btn btn-success" (click)="updateEmail()">Update</button>
         </div>
     </div>
 </div>

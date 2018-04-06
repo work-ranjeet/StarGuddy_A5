@@ -16,7 +16,7 @@
 // Change Description:
 // -------------------------------------------------------------------------------
 // ReSharper disable once CheckNamespace
-namespace StarGuddy.Repository.Operations
+namespace StarGuddy.Repository.Opertions
 {
     using System;
     #region Imports
@@ -27,8 +27,8 @@ namespace StarGuddy.Repository.Operations
     using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
-    using StarGuddy.Repository.Interfaces;
-    using StarGuddy.Repository.Opertions.Helper;
+    using StarGuddy.Repository.Interface;
+    using StarGuddy.Repository.Opertions.Constants;
     #endregion
 
     /// <summary>
@@ -52,13 +52,13 @@ namespace StarGuddy.Repository.Operations
         /// <summary>
         /// Finds the by identifier.
         /// </summary>
-        /// <param name="Id">The identifier.</param>
+        /// <param name="id">The identifier.</param>
         /// <returns>
         /// Application User
         /// </returns>
-        public IUser FindById(string Id)
+        public IUser FindById(string id)
         {
-            return this.FindSingle("SELECT * FROM Users WHERE Id=@Id", new { Id = Id });
+            return this.FindSingle("SELECT * FROM Users WHERE Id=@Id", new { Id = id });
         }
 
         /// <summary>

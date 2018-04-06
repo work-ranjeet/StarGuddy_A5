@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserProfileSettingsService } from "../../userProfileSettings/userProfileSettings.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
-import ILoginData = App.Client.Account.ILoginData;
+import IUserEmail = App.Client.Profile.Setting.IUserEmail;
 
 @Component({
     selector: "account-management-change-email",
@@ -11,37 +11,37 @@ import ILoginData = App.Client.Account.ILoginData;
 })
 
 export class ChangeEmailComponent {
-    loginData: ILoginData;
-    manageAccountService: UserProfileSettingsService;
+    userEmail: IUserEmail;
+    profileSettingService: UserProfileSettingsService;
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
 
     private readonly dataValidator: DataValidator
 
-    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: UserProfileSettingsService, dataValidator: DataValidator) {
+    constructor(router: Router, authRoute: ActivatedRoute, profileSettingService: UserProfileSettingsService, dataValidator: DataValidator) {
         this.router = router;
         this.authenticateRoute = authRoute;
-        this.manageAccountService = manageAccountService;
+        this.profileSettingService = profileSettingService;
         this.dataValidator = dataValidator;
     }
 
     ngOnInit() {
-        this.loginData = {} as ILoginData;
+        this.userEmail = {} as IUserEmail;
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 
-    //login() {
-    //    if (this.dataValidator.IsValidObject(this.loginData)) {
-    //        this.accountService.login(this.loginData).subscribe(
-    //            result => {
-    //                this.router.navigate([this.returnUrl]);
-    //            },
-    //            error => {
-    //                console.error(error);
-    //            });
-    //    }
-    //}
+    updateEmail() {
+        if (this.dataValidator.IsValidObject(this.userEmail)) {
+            this.profileSettingService.updateEmail(this.userEmail).subscribe(
+                result => {
+
+                },
+                error => {
+                    console.error(error);
+                });
+        }
+    }
 }

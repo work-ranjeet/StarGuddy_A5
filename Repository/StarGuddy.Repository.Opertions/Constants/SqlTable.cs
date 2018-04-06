@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Opertions.Helper
+namespace StarGuddy.Repository.Opertions.Constants
 {
     using System;
     using System.Collections.Generic;
@@ -75,6 +75,11 @@ namespace StarGuddy.Repository.Opertions.Helper
         /// The user social address
         /// </summary>
         public const string UserSocialAddress = "UserSocialAddress";
+
+        /// <summary>
+        /// The user emails
+        /// </summary>
+        public const string UserEmails = "UserEmails";
 
     }
 }

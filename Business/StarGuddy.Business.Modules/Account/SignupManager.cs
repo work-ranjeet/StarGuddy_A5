@@ -26,7 +26,7 @@ namespace StarGuddy.Business.Modules.Account
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Account;
     using StarGuddy.Business.Interface.Common;
-    using StarGuddy.Repository.Interfaces;
+    using StarGuddy.Repository.Interface;
 
     /// <summary>
     /// Sign-up Manager Class

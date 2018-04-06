@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Interfaces
+namespace StarGuddy.Repository.Interface
 {
     using System;
     using System.Collections.Generic;
