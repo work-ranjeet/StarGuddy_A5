@@ -4,7 +4,7 @@
 // </copyright>
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Modules.Common
-{    
+{
     using System.Linq;
     using System.Threading.Tasks;
     using StarGuddy.Api.Models.Interface.Account;
@@ -73,21 +73,24 @@ namespace StarGuddy.Business.Modules.Common
         /// </summary>
         /// <param name="pwdModel">The password model.</param>
         /// <returns></returns>
-        public bool ChangePassword(IPasswordModel pwdModel)
+        public async Task<bool> ChangePassword(IPasswordModel pwdModel)
         {
-            if (pwdModel.NewPassword != pwdModel.ConfirmPassword)
+            return await Task.Factory.StartNew(() =>
             {
+                if (pwdModel.NewPassword != pwdModel.ConfirmPassword)
+                {
+                    return false;
+                }
+
+                var isValidPwd = this.UserRepository.GetVerifiedUser(pwdModel.UserName, pwdModel.OldPassword).Where(x => !x.LockoutEnabled).Any();
+                if (isValidPwd)
+                {
+                    var result = this.UserRepository.UpdatePassword(pwdModel.UserName, pwdModel.NewPassword);
+                    return result > decimal.Zero;
+                }
+
                 return false;
-            }
-
-            var isValidPwd = this.UserRepository.GetVerifiedUser(pwdModel.Email, pwdModel.OldPassword).Where(x => x.LockoutEnabled == false).Any();
-            if (isValidPwd)
-            {
-                var result = this.UserRepository.UpdatePassword(pwdModel.UserName, pwdModel.NewPassword);
-                return result > decimal.Zero;
-            }
-
-            return false;
+            });
         }
     }
 }

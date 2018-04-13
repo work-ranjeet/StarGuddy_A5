@@ -2,6 +2,7 @@
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { CommonModuleShared } from "../common/common.module.shared";
 
 import { UserProfileSettingsService } from "./userProfileSettings.Service";
 
@@ -17,8 +18,6 @@ import { HeadingComponent } from "../common/headings/headingComponent";
 
 @NgModule({
     declarations: [
-        PageHeadingComponent,
-        HeadingComponent,
         AddEmailComponent,
         AddPhoneNumberComponent,
         ChangeAddressComponent,
@@ -31,6 +30,7 @@ import { HeadingComponent } from "../common/headings/headingComponent";
         RouterModule,
         CommonModule,
         FormsModule,
+        CommonModuleShared,
         RouterModule.forRoot([
             { path: "profileSetting", component: UserProfileSettingsIndex },
             { path: "addEmail", component: AddEmailComponent },
@@ -43,8 +43,6 @@ import { HeadingComponent } from "../common/headings/headingComponent";
     ],
     providers: [UserProfileSettingsService],
     exports: [
-        PageHeadingComponent,
-        HeadingComponent,
         AddEmailComponent,
         AddPhoneNumberComponent,
         ChangeAddressComponent,

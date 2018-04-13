@@ -37,6 +37,8 @@
     <None Remove="ClientApp\app\components\common\pageHeading\pageSubHeadingComponent.ts" />
     <None Remove="ClientApp\app\components\userProfileSettings\ProfileSettings.Domain.ts" />
     <None Remove="ClientApp\app\components\userProfileSettings\userProfileSettings.module.shared.ts" />
+    <None Remove="ClientApp\app\components\userProfile\UserProfile.Domain.ts" />
+    <None Remove="ClientApp\app\components\userProfile\UserProfile.module.shared.ts" />
     <None Remove="ClientApp\Directives\pageHeadingDirectives.ts" />
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
     <None Remove="ClientApp\Helper\DataValidator.ts" />
@@ -57,6 +59,8 @@
     <TypeScriptCompile Include="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\userProfileSettings\ProfileSettings.Domain.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\userProfileSettings\userProfileSettings.module.shared.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\userProfile\UserProfile.Domain.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\userProfile\UserProfile.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />
   </ItemGroup>
@@ -83,10 +87,6 @@
     <None Update="ClientApp\app\components\common\navmenu\navmenu.component.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\app\components\userProfile\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

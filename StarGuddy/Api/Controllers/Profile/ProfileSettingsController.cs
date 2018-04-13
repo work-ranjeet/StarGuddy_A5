@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StarGuddy.Api.Models.Account;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Profile;
@@ -44,5 +45,10 @@ namespace StarGuddy.Api.Controllers.Profile
             return await this._profileSettingManager.UpdateEmail(userId, email);
         }
 
+        [ActionName("ChangePassword")]
+        public async Task<bool> ChangePassword(PasswordModel changePassword)
+        {
+            return await this._passwordManager.ChangePassword(changePassword);
+        }
     }
 }

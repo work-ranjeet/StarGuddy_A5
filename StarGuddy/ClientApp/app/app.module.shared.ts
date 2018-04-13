@@ -19,7 +19,7 @@ import { CommonModuleShared } from "./components/common/common.module.shared";
 import { HomeModuleShared } from "./components/home/home.module.shared";
 import { AccountModuleShared } from "./components/account/account.module.shared";
 import { UserProfileSettingModuleShared } from "./components/userProfileSettings/userProfileSettings.module.shared"
-
+import { UserProfileModuleShared } from "./components/userProfile/UserProfile.module.shared";
 
 import { AppComponent } from "./components/app/app.component";
 import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
@@ -29,7 +29,7 @@ import { CounterComponent } from "./components/counter/counter.component";
 
 @NgModule({
     declarations: [
-        AppComponent, 
+        AppComponent,
         CounterComponent, FetchDataComponent
     ],
     imports: [
@@ -38,6 +38,7 @@ import { CounterComponent } from "./components/counter/counter.component";
         CommonModuleShared,
         HomeModuleShared,
         AccountModuleShared,
+        UserProfileModuleShared,
         UserProfileSettingModuleShared,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full" },
@@ -46,7 +47,7 @@ import { CounterComponent } from "./components/counter/counter.component";
             { path: "**", redirectTo: "home" }
         ])
     ],
-    providers: [AppConstant, BaseService, DataConverter, DataValidator] 
+    providers: [AppConstant, BaseService, DataConverter, DataValidator]
 })
 export class AppModuleShared {
 }

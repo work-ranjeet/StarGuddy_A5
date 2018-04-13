@@ -25,6 +25,6 @@ namespace StarGuddy.Business.Interface.Common
         /// </summary>
         /// <param name="pwdModel">The password model.</param>
         /// <returns></returns>
-        bool ChangePassword(IPasswordModel pwdModel);
+        Task<bool> ChangePassword(IPasswordModel pwdModel);
     }
 }
