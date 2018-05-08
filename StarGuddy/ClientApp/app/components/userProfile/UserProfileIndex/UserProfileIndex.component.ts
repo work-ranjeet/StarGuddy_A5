@@ -34,6 +34,15 @@ export class UserProfileIndex {
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 
+    //scrollTo(selector: string, parentSelector?: string, horizontal?: boolean) {
+    //    scrollTo(
+    //        selector,       // scroll to this
+    //        parentSelector, // scroll within (null if window scrolling)
+    //        horizontal,     // is it horizontal scrolling
+    //        0               // distance from top or left
+    //    );
+    //}
+
     //login() {
     //    if (this.dataValidator.IsValidObject(this.loginData)) {
     //        this.accountService.login(this.loginData).subscribe(

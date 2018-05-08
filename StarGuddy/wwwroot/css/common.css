@@ -6,7 +6,8 @@ body {
     font-family: 'Roboto Condensed', Helvetica Neue, Helvetica,'Roboto Condensed',Arial,sans-serif;
     background-color: #ebebeb !important;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 20px;
+    color: #383838;;
 }
 
 .body-content {

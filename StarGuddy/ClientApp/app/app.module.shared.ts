@@ -33,7 +33,7 @@ import { CounterComponent } from "./components/counter/counter.component";
         CounterComponent, FetchDataComponent
     ],
     imports: [
-        CommonModule, HttpModule, FormsModule,// MatInputModule,
+        CommonModule, HttpModule, FormsModule,  // MatInputModule,
         //MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule,
         CommonModuleShared,
         HomeModuleShared,
