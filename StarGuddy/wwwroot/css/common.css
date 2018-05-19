@@ -7,7 +7,8 @@ body {
     background-color: #ebebeb !important;
     font-size: 14px;
     line-height: 20px;
-    color: #383838;;
+    color: #383838;
+    ;
 }
 
 .body-content {
@@ -335,11 +336,11 @@ hr {
 }
 
 .padding-left-15 {
-    padding-left: 15px;
+    padding-left: 15px !important;
 }
 
 .padding-left-20 {
-    padding-left: 20px;
+    padding-left: 20px !important;
 }
 
 /****************************** Height *******************************/
@@ -380,6 +381,10 @@ hr {
 /****************************** Margin *******************************/
 .margin-auto {
     margin: auto;
+}
+
+.margin-0 {
+    margin: 0px!important;
 }
 
 .margin-5 {
@@ -433,6 +438,19 @@ hr {
 .margin-bottom-20 {
     margin-bottom: 20px;
 }
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-40 {
+    margin-bottom: 40px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px;
+}
+
 
 
 .margin-left-5 {
@@ -576,4 +594,24 @@ margin-right-10 {
 
 .width-per-100 {
     width: 100%;
+}
+
+.text-s {
+    font-size: 10px;
+}
+
+.text-m {
+    font-size: 12px;
+}
+
+.text-l {
+    font-size: 13px;
+}
+
+.text-bottom {
+    vertical-align: text-bottom;
+}
+
+.d-block {
+    display: block;
 }

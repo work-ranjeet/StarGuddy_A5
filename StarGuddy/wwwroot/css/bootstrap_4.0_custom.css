@@ -38,8 +38,18 @@
 }
 
 .card-title {
-    padding-left: 2px;
-    margin-bottom: 2px;
+    padding: 2px;
+    font-size:18px;
+}
+
+.card-title-s {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.card-title-m {
+    padding: 10px;
+    font-size: 22px;
 }
 
 .card-subtitle {
@@ -354,4 +364,4 @@ input[type=checkbox] {
         left: 43px;
     }
 
-/* end .slideCheckBox */ 
+/* end .slideCheckBox */

@@ -130,24 +130,6 @@
 /*==================================================
   Profile Album
   ==================================================*/
-.album-photos {
-    /*padding: 0;
-    margin: 0 auto 20px;
-    display: block;
-    font-size: 0;
-    text-align: center;*/
-}
-
-    .album-photos .image-container {
-        list-style: none;
-        display: inline-block;
-        min-width: 280px;
-        padding: 2px;
-    }
-
-         img.album-image {
-            max-width: 100%;
-        }
 
 .img-wrapper {
     position: relative;
@@ -166,4 +148,13 @@
 
     .img-wrapper:hover:after {
         background-color: rgba(0,0,0, 0.4);
+    }
+
+    .img-wrapper img.album-image {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        height: 350px;
+        border: solid 2px white;
+        padding: 1px;
     }

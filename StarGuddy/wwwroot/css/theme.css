@@ -76,3 +76,8 @@ input.ng-invalid {
 
    
 /*------------------------------------------------------End Validation color ---------------------------------------------*/
+
+.box-white {
+    border: solid #ccc 1px;
+    background-color: #fcf9f9 !important;
+}
