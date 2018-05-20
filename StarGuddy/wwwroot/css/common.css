@@ -130,17 +130,6 @@ li.border-bottom {
 }
 
 
-label {
-    font-weight: normal;
-}
-
-.label-control {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 5px;
-    color: #636363;
-    font-weight: normal !important;
-}
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
@@ -210,6 +199,11 @@ hr {
         margin: 1px !important;
     }
 
+    hr.seperator {
+        margin: 1px !important;
+        padding:10px 0 10px 0;
+    }
+
     hr.style-one {
         height: 1px;
         background: #333;
@@ -224,6 +218,12 @@ hr {
     hr.style-three {
         border-top: 1px solid rgba(0, 0, 0, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    hr.style-four {
+        height: 12px;
+        border: 0;
+        box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
     }
 
 
@@ -384,7 +384,7 @@ hr {
 }
 
 .margin-0 {
-    margin: 0px!important;
+    margin: 0px !important;
 }
 
 .margin-5 {
@@ -461,6 +461,7 @@ margin-left-10 {
     margin-left: 10px;
 }
 
+
 .margin-left-15 {
     margin-left: 15px;
 }
@@ -484,6 +485,11 @@ margin-right-10 {
 
 .margin-right-20 {
     margin-right: 20px;
+}
+
+.margin-left-right-minus-13 {
+    margin-left: -13px;
+    margin-right:-13px;
 }
 
 /****************************** custome table *******************************/
@@ -614,4 +620,18 @@ margin-right-10 {
 
 .d-block {
     display: block;
+}
+
+.shadow {
+    -moz-box-shadow: inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
+}
+
+.v-text-top {
+    vertical-align: text-top;
+}
+
+.v-text-bottom {
+    vertical-align: text-bottom;
 }

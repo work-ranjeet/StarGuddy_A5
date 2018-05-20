@@ -21,7 +21,6 @@ export class UserProfileService {
         private readonly dataConverter: DataConverter) { }
 
     updateEmail(userEmail: IUserEmail) {
-        var v = "";
         return this.http.post(this.baseService.BaseApiUrl + "Profile/Setting/UpdateEmail", userEmail).map(response => {
             if (response.ok) {
                

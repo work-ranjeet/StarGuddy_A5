@@ -3,10 +3,13 @@
         <div class="card">
             <div class="card-header card-title-m">
                 <span>Physical Details</span>
-                <a href="javascript:void(0);" class="pull-right"><i class="fa fa-edit"></i></a>
+                <a href="javascript:void(0);" class="pull-right">
+                    <i *ngIf="!showEditHtml" class="fa fa-edit text-success" (click)="edit()"></i>
+                    <i *ngIf="showEditHtml" class="fa fa-window-close-o text-danger" (click)="edit()"></i>
+                </a>
             </div>
             <div class="card-body">
-                <div class="row">
+                <div *ngIf="!showEditHtml" class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding-10">
                         <span class="padding-10">Height:</span> 162 cm / 5ft 4in
                     </div>
@@ -23,7 +26,269 @@
                         <span class="padding-10">Ethnicity:</span> Asian
                     </div>
                 </div>
+                <div *ngIf="showEditHtml">
+                    <section id="physicalAppreanceEdit" class="section-profile-edit text-muted">
 
+                        <div class="section row">
+                            <form action="#" method="post" class="form padding-10" role="form">
+                                <div class="col-sm-6">
+                                    <div class="form-group padding-bottom-15">
+                                        <label class="">Height</label>
+                                        <select name="dropDownHeight" id="dropDownHeight" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="24">Less than 132 cm / 4ft 4in </option>
+                                            <option value="25">132 cm / 4ft 4in </option>
+                                            <option value="26">134 cm / 4ft 5in </option>
+                                            <option value="27">137 cm / 4ft 6in </option>
+                                            <option value="28">139 cm / 4ft 7in </option>
+                                            <option value="29">142 cm / 4ft 8in </option>
+                                            <option value="30">144 cm / 4ft 9in </option>
+                                            <option value="31">147 cm / 4ft 10in </option>
+                                            <option value="32">149 cm / 4ft 11in </option>
+                                            <option value="33">152 cm / 5ft 0in </option>
+                                            <option value="34">154 cm / 5ft 1in </option>
+                                            <option value="35">157 cm / 5ft 2in </option>
+                                            <option value="36">160 cm / 5ft 3in </option>
+                                            <option selected="selected" value="37">162 cm / 5ft 4in </option>
+                                            <option value="38">165 cm / 5ft 5in </option>
+                                            <option value="39">167 cm / 5ft 6in </option>
+                                            <option value="40">170 cm / 5ft 7in </option>
+                                            <option value="41">172 cm / 5ft 8in </option>
+                                            <option value="42">175 cm / 5ft 9in </option>
+                                            <option value="43">177 cm / 5ft 10in </option>
+                                            <option value="44">180 cm / 5ft 11in </option>
+                                            <option value="45">182 cm / 6ft 0in </option>
+                                            <option value="46">185 cm / 6ft 1in </option>
+                                            <option value="47">187 cm / 6ft 2in </option>
+                                            <option value="48">190 cm / 6ft 3in </option>
+                                            <option value="49">193 cm / 6ft 4in </option>
+                                            <option value="50">195 cm / 6ft 5in </option>
+                                            <option value="51">198 cm / 6ft 6in </option>
+                                            <option value="52">200 cm / 6ft 7in </option>
+                                            <option value="53">203 cm / 6ft 8in </option>
+                                            <option value="54">205 cm / 6ft 9in </option>
+                                            <option value="55">208 cm / 6ft 10in </option>
+                                            <option value="56">over 208 cm / 6ft 10 </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Ethnicity</label>
+                                        <select name="dropDownEthnicity" id="dropDownEthnicity" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="648">Aboriginal / Torres Strait Islander</option>
+                                            <option selected="selected" value="15">Asian </option>
+                                            <option value="16">Black / African descent </option>
+                                            <option value="17">East Indian </option>
+                                            <option value="18">Latino / Hispanic </option>
+                                            <option value="647">Maori</option>
+                                            <option value="19">Middle Eastern </option>
+                                            <option value="20">Native American </option>
+                                            <option value="21">Pacific Islander </option>
+                                            <option value="22">White / Caucasian </option>
+                                            <option value="23">Other </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Eye color</label>
+                                        <select name="dropCtrlEyeColor" id="dropCtrlEyeColor" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option selected="selected" value="289">Black </option>
+                                            <option value="290">Blue </option>
+                                            <option value="291">Brown </option>
+                                            <option value="292">Green </option>
+                                            <option value="293">Grey </option>
+                                            <option value="294">Hazel </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Body Type</label>
+                                        <select name="dropDownBodyType" id="dropDownCtrlWaist" class="form-control  width-90">
+                                            <option value="162">Slim</option>
+                                            <option value="163">Average</option>
+                                            <option value="164">Faty</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Hair Type</label>
+                                        <select name="dropDownHairType" id="dropDownHairType" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="247">Straight</option>
+                                            <option value="248">Wavy</option>
+                                            <option value="249">Curly</option>
+                                            <option value="250">Afro</option>
+                                            <option value="251">Bald</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Weight</label>
+                                        <select name="dropDownWeight" id="dropDownWeight" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="57">Less than 40 kg / 88 lbs </option>
+                                            <option value="58">40 kg / 88 lbs </option>
+                                            <option value="59">41 kg / 90 lbs </option>
+                                            <option value="60">42 kg / 92 lbs </option>
+                                            <option value="61">43 kg / 94 lbs </option>
+                                            <option value="62">44 kg / 96 lbs </option>
+                                            <option value="63">45 kg / 99 lbs </option>
+                                            <option value="64">46 kg / 101 lbs </option>
+                                            <option value="65">47 kg / 103 lbs </option>
+                                            <option value="66">48 kg / 105 lbs </option>
+                                            <option value="67">49 kg / 107 lbs </option>
+                                            <option value="68">50 kg / 110 lbs </option>
+                                            <option value="69">51 kg / 112 lbs </option>
+                                            <option value="70">52 kg / 114 lbs </option>
+                                            <option value="71">53 kg / 116 lbs </option>
+                                            <option value="72">54 kg / 118 lbs </option>
+                                            <option value="73">55 kg / 121 lbs </option>
+                                            <option value="74">56 kg / 123 lbs </option>
+                                            <option value="75">57 kg / 125 lbs </option>
+                                            <option value="76">58 kg / 127 lbs </option>
+                                            <option value="77">59 kg / 129 lbs </option>
+                                            <option value="78">60 kg / 132 lbs </option>
+                                            <option value="79">61 kg / 134 lbs </option>
+                                            <option value="80">62 kg / 136 lbs </option>
+                                            <option value="81">63 kg / 138 lbs </option>
+                                            <option value="82">64 kg / 140 lbs </option>
+                                            <option value="83">65 kg / 143 lbs </option>
+                                            <option value="84">66 kg / 145 lbs </option>
+                                            <option value="85">67 kg / 147 lbs </option>
+                                            <option value="86">68 kg / 149 lbs </option>
+                                            <option value="87">69 kg / 151 lbs </option>
+                                            <option value="88">70 kg / 154 lbs </option>
+                                            <option value="89">71 kg / 156 lbs </option>
+                                            <option value="90">72 kg / 158 lbs </option>
+                                            <option value="91">73 kg / 160 lbs </option>
+                                            <option value="92">74 kg / 162 lbs </option>
+                                            <option selected="selected" value="93">75 kg / 165 lbs </option>
+                                            <option value="94">76 kg / 167 lbs </option>
+                                            <option value="95">77 kg / 169 lbs </option>
+                                            <option value="96">78 kg / 171 lbs </option>
+                                            <option value="97">79 kg / 173 lbs </option>
+                                            <option value="98">80 kg / 176 lbs </option>
+                                            <option value="99">81 kg / 178 lbs </option>
+                                            <option value="100">82 kg / 180 lbs </option>
+                                            <option value="101">83 kg / 182 lbs </option>
+                                            <option value="102">84 kg / 184 lbs </option>
+                                            <option value="103">85 kg / 187 lbs </option>
+                                            <option value="104">86 kg / 189 lbs </option>
+                                            <option value="105">87 kg / 191 lbs </option>
+                                            <option value="106">88 kg / 193 lbs </option>
+                                            <option value="107">89 kg / 195 lbs </option>
+                                            <option value="108">90 kg / 198 lbs </option>
+                                            <option value="109">91 kg / 200 lbs </option>
+                                            <option value="110">92 kg / 202 lbs </option>
+                                            <option value="111">93 kg / 204 lbs </option>
+                                            <option value="112">94 kg / 206 lbs </option>
+                                            <option value="113">95 kg / 209 lbs </option>
+                                            <option value="114">96 kg / 211 lbs </option>
+                                            <option value="115">97 kg / 213 lbs </option>
+                                            <option value="116">98 kg / 215 lbs </option>
+                                            <option value="117">99 kg / 217 lbs </option>
+                                            <option value="118">100 kg / 220 lbs </option>
+                                            <option value="119">101 kg / 222 lbs </option>
+                                            <option value="120">102 kg / 224 lbs </option>
+                                            <option value="121">103 kg / 226 lbs </option>
+                                            <option value="122">104 kg / 228 lbs </option>
+                                            <option value="123">105 kg / 231 lbs </option>
+                                            <option value="124">106 kg / 233 lbs </option>
+                                            <option value="125">107 kg / 235 lbs </option>
+                                            <option value="126">108 kg / 237 lbs </option>
+                                            <option value="127">109 kg / 239 lbs </option>
+                                            <option value="128">110 kg / 242 lbs </option>
+                                            <option value="129">111 kg / 244 lbs </option>
+                                            <option value="130">112 kg / 246 lbs </option>
+                                            <option value="131">113 kg / 248 lbs </option>
+                                            <option value="132">114 kg / 250 lbs </option>
+                                            <option value="133">115 kg / 253 lbs </option>
+                                            <option value="134">116 kg / 255 lbs </option>
+                                            <option value="135">117 kg / 257 lbs </option>
+                                            <option value="136">118 kg / 259 lbs </option>
+                                            <option value="137">119 kg / 261 lbs </option>
+                                            <option value="138">120 kg / 264 lbs </option>
+                                            <option value="139">over 120 kg / 264 lbs</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Skin color</label>
+                                        <select name="dropDownSkinColor" id="dropDownSkinColor" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="10">Black</option>
+                                            <option value="465">Brown</option>
+                                            <option value="12">Olive</option>
+                                            <option value="13">Tanned</option>
+                                            <option selected="selected" value="11">White</option>
+                                            <option value="14">Other</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Chest</label>
+                                        <select name="dropDownChest" id="dropDownChest" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="140">Less than 73 cm / 29 in </option>
+                                            <option value="141">73 cm / 29 in </option>
+                                            <option value="142">76 cm / 30 in </option>
+                                            <option value="143">78 cm / 31 in </option>
+                                            <option value="144">81 cm / 32 in </option>
+                                            <option value="145">83 cm / 33 in </option>
+                                            <option value="146">86 cm / 34 in </option>
+                                            <option value="147">88 cm / 35 in </option>
+                                            <option value="148">91 cm / 36 in </option>
+                                            <option value="149">93 cm / 37 in </option>
+                                            <option value="150">96 cm / 38 in </option>
+                                            <option value="151">99 cm / 39 in </option>
+                                            <option value="152">101 cm / 40 in </option>
+                                            <option value="153">104 cm / 41 in </option>
+                                            <option value="154">106 cm / 42 in </option>
+                                            <option value="155">109 cm / 43 in </option>
+                                            <option value="156">111 cm / 44 in </option>
+                                            <option value="157">114 cm / 45 in </option>
+                                            <option value="158">116 cm / 46 in </option>
+                                            <option value="159">119 cm / 47 in </option>
+                                            <option value="160">over 119 cm / 47 in </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Hair Length</label>
+                                        <select name="dropDownHairLength" id="dropDownHairLength" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="243">None </option>
+                                            <option value="244">Short </option>
+                                            <option value="245">Medium </option>
+                                            <option value="246">Long </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group padding-bottom-15">
+                                        <label>Hair color</label>
+                                        <select name="dropDownHairColor" id="dropDownHairColor" class="form-control  width-90">
+                                            <option value="0">(optional)</option>
+                                            <option value="236">Auburn </option>
+                                            <option value="237">Black </option>
+                                            <option value="238">Blonde </option>
+                                            <option value="239">Brown </option>
+                                            <option value="240">Grey </option>
+                                            <option value="241">Red </option>
+                                            <option value="242">Other </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 text-center padding-15">
+                                    <button id="btnSave" class="btn-profile-save btn btn-success">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>

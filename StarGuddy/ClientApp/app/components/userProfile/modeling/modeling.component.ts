@@ -12,9 +12,10 @@ import ILoginData = App.Client.Account.ILoginData;
 
 
 export class ModelingComponent {
-
     private readonly dataValidator: DataValidator;
     private userProfileService: UserProfileService;
+
+    public showEditHtml: boolean;
 
     constructor(userProfileService: UserProfileService, dataValidator: DataValidator) {
         this.userProfileService = userProfileService;
@@ -22,8 +23,10 @@ export class ModelingComponent {
     }
 
     ngOnInit() {
-       
+        this.showEditHtml = false;
     }
 
-    
+    edit() {
+        this.showEditHtml = !this.showEditHtml;
+    }
 }

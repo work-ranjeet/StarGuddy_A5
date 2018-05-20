@@ -3,9 +3,12 @@
         <div class="card">
             <div class="card-header card-title-m">
                 <span>Dancing</span>
-                <a href="javascript:void(0);" class="pull-right"><i class="fa fa-edit"></i></a>
+                <a href="javascript:void(0);" class="pull-right">
+                    <i *ngIf="!showEditHtml" class="fa fa-edit text-success" (click)="edit()"></i>
+                    <i *ngIf="showEditHtml" class="fa fa-window-close-o text-danger" (click)="edit()"></i>
+                </a>
             </div>
-            <div class="card-body">
+            <div *ngIf="!showEditHtml" class="card-body">
                 <div class="experiance">Dancing ability</div>
                 <div class="padding-top-5 padding-left-20 text-l">Beginner</div>
                 <hr />
@@ -22,6 +25,159 @@
                 </div>
                 <hr />
                 <p class="padding-top-10 text-l text-muted">DASadslD;oaj oAIDJS IOajds OIADSJ Oiadsj oIADJS OIajds i </p>
+            </div>
+            <div *ngIf="showEditHtml" class="card-body text-muted">
+
+              
+                <form action="#" method="post" class="form" role="form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <span class="required">Auditions & Jobs I'm interested in</span>
+                                <div class="padding-top-10">
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">Agencies</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="actingCategories" class="padding-5 v-text-top" type="checkbox" name="actingCategories" checked="checked" value="32" />
+                                        <span class="padding-5 text-l">Choreographers</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">Companies</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">Competitions</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="profile-edit-label">Styles of dancing</label>
+                                <div class="padding-top-10">
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">Ballet</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="actingCategories" class="padding-5 v-text-top" type="checkbox" name="actingCategories" checked="checked" value="32" />
+                                        <span class="padding-5 text-l">Bollywood</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">Country</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">Hip Hop</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3 ">
+                            <div class="form-group">
+                                <label class="profile-edit-label">Dance ability</label>
+                                <div class="profile-edit-container">
+                                    <select name="musicianBanjoAbility" id="musicianBanjoAbility" class="form-control">
+                                        <option value="0">Please select...</option>
+                                        <option selected="selected" value="357">Beginner</option>
+                                        <option value="358">Intermediate</option>
+                                        <option value="359">Expert</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <span>Dance school</span>
+                                <div class="padding-top-10">
+                                    <div class="col-xs-12 col-sm-6 form-group">
+                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">I have attended a dance school</span>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="fa fa-border padding-top-15">
+                                    <span class="padding-bottom-10">Enter your most recent school</span>
+                                    <div class="col-xs-12  form-group padding-top-15">
+                                        <span class="required">School</span>
+                                        <input type="text" placeholder="Enter your latest school name..." class="form-control" />
+                                    </div>
+                                    <div class="col-xs-12  form-group">
+                                        <span>Course name</span>
+                                        <input type="text" placeholder="Enter Course name..." class="form-control" />
+                                    </div>
+                                    <div class="col-xs-12  form-group">
+                                        <span class="required">year</span>
+                                        <input type="text" placeholder="Enter year..." class="form-control" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="profile-edit-label">Agent</label>
+                                <div class="profile-edit-container row">
+                                    <div class="col-xs-6 col-sm-3">
+                                        <input id="checkbox2" name="agent" type="radio" checked="checked" class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">I don't have an agent</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <input id="actingCategories"  name="agent" class="padding-5 v-text-top" type="radio" />
+                                        <span class="padding-5 text-l">I want an agent</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        <input id="checkbox2" type="radio" name="agent"  class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">I have an agent</span>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-3">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="profile-edit-label">Dancing experience</label>
+                                <div class="profile-edit-container">
+                                    <textarea style="width:100%; min-height:100px;" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-center padding-15">
+                        <a asp-controller="Profile" asp-action="TalentProfileViewAs" id="btnCancle" class="btn-profile-edit-cancle btn btn-danger">Cancle</a>
+                        <button id="btnSave" class="btn-profile-edit-save btn btn-success">Save</button>
+                    </div>
+                </form>
+                            
+
+
+
             </div>
         </div>
     </div>

@@ -3,9 +3,12 @@
         <div class="card">
             <div class="card-header card-title-m">
                 <span>Acting</span>
-                <a href="javascript:void(0);" class="pull-right"><i class="fa fa-edit"></i></a>
+                <a href="javascript:void(0);" class="pull-right">
+                    <i *ngIf="!showEditHtml" class="fa fa-edit text-success" (click)="edit()"></i>
+                    <i *ngIf="showEditHtml" class="fa fa-window-close-o text-danger" (click)="edit()"></i>
+                </a>
             </div>
-            <div class="card-body">
+            <div *ngIf="!showEditHtml" class="card-body">
                 <div class="experiance">Acting experience</div>
                 <div class="padding-top-5 padding-left-20 text-l">No previous acting experience</div>
                 <hr />
@@ -34,6 +37,135 @@
                 </div>
                 <hr />
                 <p class="padding-top-10 text-l text-muted">DASadslD;oaj oAIDJS IOajds OIADSJ Oiadsj oIADJS OIajds i </p>
+            </div>
+            <div id="physicalAppreanceEdit" *ngIf="showEditHtml" class="card-body text-muted">
+
+                <form action="#" method="post" class="form" role="form">
+
+                    <div class="form-group padding-top-10">
+                        <span class="required">Auditions & Jobs I'm interested in</span>
+                        <div class="text-l">
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Primary</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="actingCategories" class="padding-5 v-text-top" type="checkbox" name="actingCategories" checked="checked" value="32" />
+                                <span class="padding-5">test</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Primary</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Primary</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
+
+                    <div class="row">
+                        <div class="form-group col-md-4 col-sm-4">
+                            <span>Acting experience</span>
+                            <select name="dropDownactingExperience" id="dropDownactingExperience" class="form-control margin-top-5">
+                                <option value="0">Please select...</option>
+                                <option selected="selected" value="620">No previous acting experience</option>
+                                <option value="7">Extra</option>
+                                <option value="8">Previous unpaid speaking roles</option>
+                                <option value="9">Previous paid speaking roles</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="seperator" />
+
+                    <div class="form-group">
+                        <span>Languages</span>
+                        <div class="text-l">
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Hindi</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="actingCategories" class="padding-5 v-text-top" type="checkbox" name="actingCategories" checked="checked" value="32" />
+                                <span class="padding-5">English</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Marathi</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Panjabi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="seperator" />
+
+                    <div class="form-group">
+                        <span>Accents</span>
+                        <div class="text-l">
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Indian</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="actingCategories" class="padding-5 v-text-top" type="checkbox" name="actingCategories" checked="checked" value="32" />
+                                <span class="padding-5">Indian</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Indian</span>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                <span class="padding-5">Indian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="seperator" />
+
+                    <div class="form-group">
+                        <span>Agent</span>
+                        <div class="row text-l">
+                            <div class="col-xs-6 col-sm-3">
+                                <input id="agent1" type="radio" name="agent"  class="v-text-bottom" checked="checked">
+                                <span class="">I don't have an agent</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <input id="agent2" class="v-text-bottom" type="radio" name="agent" />
+                                <span class="">I want an agent</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <input id="agent3" type="radio" name="agent" class="v-text-bottom">
+                                <span class="">I have an agent</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="seperator" />
+
+                    <div class="form-group">
+                        <label class="profile-edit-label">Acting experience</label>
+                        <div class="profile-edit-container row">
+                            <div class="col-xs-6 col-sm-12">
+                                <textarea style="width:100%; min-height:100px;" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="col-sm-12 text-center padding-15">
+        <a asp-controller="Profile" asp-action="TalentProfileViewAs" id="btnCancle" class="btn-profile-edit-cancle btn btn-danger">Cancle</a>
+        <button id="btnSave" class="btn-profile-edit-save btn btn-success">Save</button>
+    </div>-->
+                </form>
+
+
+
             </div>
         </div>
     </div>

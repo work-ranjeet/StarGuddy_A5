@@ -3,9 +3,12 @@
         <div class="card">
             <div class="card-header card-title-m">
                 <span>Credits</span>
-                <a href="javascript:void(0);" class="pull-right"><i class="fa fa-edit"></i></a>
+                <a href="javascript:void(0);" class="pull-right">
+                    <i *ngIf="!showEditHtml" class="fa fa-edit text-success" (click)="edit()"></i>
+                    <i *ngIf="showEditHtml" class="fa fa-window-close-o text-danger" (click)="edit()"></i>
+                </a>
             </div>
-            <div class="card-body">
+            <div *ngIf="!showEditHtml" class="card-body">
                 <div class="padding-10 margin-bottom-10">
                     <strong class="padding-5">2008</strong>
                     <ul class="padding-left-20">
@@ -20,6 +23,105 @@
                     </ul>
                 </div>
             </div>
+
+            <div id="physicalAppreanceEdit" *ngIf="showEditHtml" class="card-body text-muted">
+
+
+                <form action="#" method="post" class="form" role="form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Year</label>
+                                <select name="dropDownYear" id="dropDownYear" class="form-control width-90">
+                                    <option value="">-- Please select --</option>
+                                    <option selected="selected" value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1999">1999</option>
+                                    <option value="1998">1998</option>
+                                    <option value="1997">1997</option>
+                                    <option value="1996">1996</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1994">1994</option>
+                                    <option value="1993">1993</option>
+                                    <option value="1992">1992</option>
+                                    <option value="1991">1991</option>
+                                    <option value="1990">1990</option>
+                                    <option value="1989">1989</option>
+                                    <option value="1988">1988</option>
+                                    <option value="1987">1987</option>
+                                    <option value="1986">1986</option>
+                                    <option value="1985">1985</option>
+                                    <option value="1984">1984</option>
+                                    <option value="1983">1983</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>workplace or school *</label>
+                                <input id="txtWorkPlace" class="form-control" placeholder="Enter you work place..." />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Role, job education or course</label>
+                                <textarea id="txtWorkPlace" name="txtWorkPlace" class="form-control" style="min-height:100px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <button id="btnPhysicalAppearance" class="btn btn-success" style="width:250px;">Add to Credit list</button>
+                        </div>
+                    </div>
+                </form>
+                <hr class="style-four margin-left-right-minus-13"/>
+                <form action="#" method="post" class="form padding-10" role="form">
+                    <div class="row">
+                        <div class="padding-15" style="border-bottom:solid 1px #ccc;">
+                            <h4>2016</h4>
+                            <span style="font-size:14px;">werwer :<i>werwerwer</i></span>
+                            <div style="float:right;">
+                                <i class="fa fa-edit btn btn-success padding-5"></i>
+                                <i class="fa fa-remove btn btn-danger padding-5"></i>
+                            </div>
+                        </div>
+
+                        <div class="padding-15" style="border-bottom:solid 1px #ccc;">
+                            <h4>2016</h4>
+                            <span style="font-size:14px;">werwer :<i>werwerwer</i></span>
+                            <div style="float:right;">
+                                <i class="fa fa-edit btn btn-success padding-5"></i>
+                                <i class="fa fa-remove btn btn-danger padding-5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-center padding-15">
+                        <button id="btnSave" class="btn-profile-save btn btn-success">Finish Editing</button>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
     </div>
 </div>
