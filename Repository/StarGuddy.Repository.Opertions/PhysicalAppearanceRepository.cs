@@ -19,8 +19,12 @@ namespace StarGuddy.Repository.Opertions
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Text;
+    using System.Threading.Tasks;
+    using Dapper;
     using StarGuddy.Data.Entities;
+    using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
     using StarGuddy.Repository.Interface;
@@ -39,6 +43,42 @@ namespace StarGuddy.Repository.Opertions
         /// <param name="configurationSingleton">The configuration singleton.</param>
         public PhysicalAppearanceRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.PhysicalAppearance)
         {
+
+        }
+
+        public async Task<bool> PerformSaveOperation(IPhysicalAppearance physicalAppearance)
+        {
+            try
+            {
+                using (var conn = base.GetOpenConnectionAsync)
+                {
+                    var param = new
+                    {
+                        physicalAppearance.BodyType,
+                        physicalAppearance.Chest,
+                        physicalAppearance.EyeColor,
+                        physicalAppearance.HairColor,
+                        physicalAppearance.HairLength,
+                        physicalAppearance.HairType,
+                        physicalAppearance.SkinColor,
+                        physicalAppearance.Height,
+                        physicalAppearance.Weight,
+                        physicalAppearance.West
+                    };
+
+                    var result = await SqlMapper.QueryAsync<IUserEmails>(conn, SpNames.PhysicalAppearance.SavePhysicalAppearance, param, commandType: CommandType.StoredProcedure);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void PerformUpdateOperation(IPhysicalAppearance physicalAppearance)
+        {
+
         }
     }
 }

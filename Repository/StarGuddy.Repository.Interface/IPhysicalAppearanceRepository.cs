@@ -17,14 +17,17 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Repository.Interface
 {
+    using StarGuddy.Data.Entities.Interface;
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// IPhysical Appearance Repository
     /// </summary>
     public interface IPhysicalAppearanceRepository
     {
+        Task<bool> PerformSaveOperation(IPhysicalAppearance physicalAppearance);
     }
 }

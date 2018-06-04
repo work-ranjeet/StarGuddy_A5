@@ -11,7 +11,6 @@ namespace StarGuddy.Business.Interface.Files
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using StarGuddy.Api.Models.Files;
     using StarGuddy.Api.Models.Interface.ActionResult;
     #endregion
 
@@ -24,7 +23,7 @@ namespace StarGuddy.Business.Interface.Files
         /// Gets this instance.
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ImageModel>> Get();
+        //Task<IEnumerable<ImageModel>> Get();
 
         /// <summary>
         /// Deletes the specified file name.
@@ -38,7 +37,7 @@ namespace StarGuddy.Business.Interface.Files
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        Task<IEnumerable<ImageModel>> Add(HttpRequestMessage request);
+        //Task<IEnumerable<ImageModel>> Add(HttpRequestMessage request);
 
         /// <summary>
         /// Files the exists.

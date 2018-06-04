@@ -9,7 +9,7 @@ import { RouterModule } from "@angular/router";
 // Directives
 
 //// Providers
-import { AppConstant } from "../Constants/AppConstant";
+import { AppConstant, DbOperation } from "../Constants/AppConstant";
 import { DataConverter } from "../Helper/DataConverter";
 import { DataValidator } from "../Helper/DataValidator";
 import { BaseService } from "../Services/BaseService";
@@ -47,7 +47,7 @@ import { CounterComponent } from "./components/counter/counter.component";
             { path: "**", redirectTo: "home" }
         ])
     ],
-    providers: [AppConstant, BaseService, DataConverter, DataValidator]
+    providers: [AppConstant, DbOperation, BaseService, DataConverter, DataValidator]
 })
 export class AppModuleShared {
 }

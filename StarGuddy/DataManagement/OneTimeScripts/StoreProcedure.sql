@@ -131,6 +131,17 @@ BEGIN
 END
 	-------------------------------------------------------------------- End User Table ----------------------------------------------------------------------------------
 GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UpdateEmail')
+			AND type IN (
+				N'P',
+				N'PC'
+				)
+		)
+	DROP PROCEDURE UpdateEmail
+GO
 CREATE PROCEDURE UpdateEmail (@UserId UNIQUEIDENTIFIER, @UserEmail NVARCHAR(256))
 AS
 BEGIN
@@ -146,4 +157,44 @@ BEGIN
 		
 	END CATCH
 END
+GO
 	-------------------------------------------------------------------- End UpdateEmail ----------------------------------------------------------------------------------
+	-------------------------------------------------------------------- PhysicalAppreance --------------------------------------------------------------------------------
+	IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'PhysicalAppearanceSave')
+			AND type IN (
+				N'P',
+				N'PC'
+				)
+		)
+	DROP PROCEDURE PhysicalAppearanceSave
+GO
+CREATE PROCEDURE PhysicalAppearanceSave (@BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT)
+AS
+BEGIN
+	INSERT INTO PhysicalAppearance (BodyType, Chest, EyeColor, HairColor, HairLength, HairType, SkinColor, Height, Weight, West)
+	VALUES (@BodyType, @Chest, @EyeColor, @HairColor, @HairLength, @HairType, @SkinColor, @Height, @Weight, @West)
+END
+GO
+-------------------------------------
+	IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'PhysicalAppearanceUpdate')
+			AND type IN (
+				N'P',
+				N'PC'
+				)
+		)
+	DROP PROCEDURE PhysicalAppearanceUpdate
+GO
+CREATE PROCEDURE PhysicalAppearanceUpdate (@Id AS UNIQUEIDENTIFIER, @UserId AS UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @IsActive AS BIT, @IsDeleted AS BIT, @DttmModified AS DATETIME2)
+AS
+BEGIN
+	UPDATE PhysicalAppearance
+	SET UserId = @UserId, BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, IsActive = @IsActive, IsDeleted = @IsDeleted, DttmModified = @DttmModified
+	WHERE Id = @Id
+END
+	-------------------------------------------------------------------- End PhysicalAppreance ----------------------------------------------------------------------------

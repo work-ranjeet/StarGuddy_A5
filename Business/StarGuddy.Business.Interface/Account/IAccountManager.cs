@@ -16,8 +16,7 @@
 // Change Description:
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Interface.Account
-{
-    using StarGuddy.Api.Models.Interface.Account;
+{   
     using System;
     using System.Collections.Generic;
     using System.Linq;

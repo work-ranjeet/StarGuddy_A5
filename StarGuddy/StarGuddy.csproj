@@ -41,15 +41,16 @@
     <None Remove="ClientApp\app\components\userProfile\UserProfile.module.shared.ts" />
     <None Remove="ClientApp\Directives\pageHeadingDirectives.ts" />
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
+    <None Remove="ClientApp\Extension\StringExtension.ts" />
     <None Remove="ClientApp\Helper\DataValidator.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Business\StarGuddy.Business.Interface\StarGuddy.Business.Interface.csproj" />
     <ProjectReference Include="..\Business\StarGuddy.Business.Modules\StarGuddy.Business.Modules.csproj" />
+    <ProjectReference Include="..\Core\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj" />
+    <ProjectReference Include="..\Core\StarGuddy.Api.Models\StarGuddy.Api.Models.csproj" />
     <ProjectReference Include="..\Core\StarGuddy.Core\StarGuddy.Core.csproj" />
-    <ProjectReference Include="..\Core\StarGuddy.Data.Entities\StarGuddy.Data.Entities.csproj" />
-    <ProjectReference Include="..\Repository\StarGuddy.Repository.Interface\StarGuddy.Repository.Interface.csproj" />
     <ProjectReference Include="..\Repository\StarGuddy.Repository.Opertions\StarGuddy.Repository.Opertions.csproj" />
   </ItemGroup>
 
@@ -62,6 +63,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\userProfile\UserProfile.Domain.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\userProfile\UserProfile.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
+    <TypeScriptCompile Include="ClientApp\Extension\StringExtension.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />
   </ItemGroup>
 

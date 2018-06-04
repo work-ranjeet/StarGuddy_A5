@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
 import IUserEmail = App.Client.Profile.Setting.IUserEmail;
-import IUserData = App.Client.Account.IApplicationUser;
+import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearance;
 
 
 @Injectable()
@@ -23,11 +23,18 @@ export class UserProfileService {
     updateEmail(userEmail: IUserEmail) {
         return this.http.post(this.baseService.BaseApiUrl + "Profile/Setting/UpdateEmail", userEmail).map(response => {
             if (response.ok) {
-               
+
             }
         });
     }
 
+    saveUserPhysicalAppreance(physicalAppearance: IPhysicalAppearance) {
+        return this.http.post(this.baseService.BaseApiUrl + "api/Profile/Operations/SavePhysicalApperance", physicalAppearance).map(response => {
+            if (response.ok) {
+
+            }
+        });
+    }
 
     //get IsLoggedIn() { return this.isLoggedInSource.asObservable(); }
 

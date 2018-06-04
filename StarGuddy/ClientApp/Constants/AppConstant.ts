@@ -6,3 +6,9 @@ export class AppConstant {
     USER_ID: string = "Id";
     USER_EMAIL: string = "Email";
 }
+
+export class DbOperation {
+    Insert: string = "INSERT";
+    Update: string = "UPDATE";
+    Delete: string = "DELETE";
+}
