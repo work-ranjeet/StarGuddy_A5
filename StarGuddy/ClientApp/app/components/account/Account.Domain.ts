@@ -1,4 +1,11 @@
 ﻿namespace App.Client.Account {
+    export interface IJwtPacket {
+        UserId: string;
+        Token: string;
+        FirstName: string;
+        UserName: string;
+        Email: string;
+    }
 
     export interface ILoginData {
         UserName: string;

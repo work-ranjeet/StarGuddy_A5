@@ -33,7 +33,7 @@ namespace StarGuddy.Api.Models.Interface.Account
         /// <value>
         /// The identifier.
         /// </value>
-        string Id { get; set; }
+        string UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the token.

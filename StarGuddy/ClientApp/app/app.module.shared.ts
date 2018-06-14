@@ -2,7 +2,9 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+//import { HttpClientModule } from "@angular/common/http"
 import { RouterModule } from "@angular/router";
+import { StorageServiceModule } from 'angular-webstorage-service';
 //import { MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule } from "@angular/material";
 //import { MatInputModule } from "@angular/material/input";
 
@@ -22,6 +24,7 @@ import { UserProfileSettingModuleShared } from "./components/userProfileSettings
 import { UserProfileModuleShared } from "./components/userProfile/UserProfile.module.shared";
 
 import { AppComponent } from "./components/app/app.component";
+import { HttpService } from "../Services/HttpClient";
 import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
 import { CounterComponent } from "./components/counter/counter.component";
 
@@ -29,11 +32,11 @@ import { CounterComponent } from "./components/counter/counter.component";
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent, 
         CounterComponent, FetchDataComponent
     ],
     imports: [
-        CommonModule, HttpModule, FormsModule,  // MatInputModule,
+        CommonModule, HttpModule, FormsModule, StorageServiceModule, // MatInputModule,
         //MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule,
         CommonModuleShared,
         HomeModuleShared,
@@ -47,7 +50,7 @@ import { CounterComponent } from "./components/counter/counter.component";
             { path: "**", redirectTo: "home" }
         ])
     ],
-    providers: [AppConstant, DbOperation, BaseService, DataConverter, DataValidator]
+    providers: [AppConstant, DbOperation, HttpService, BaseService, DataConverter, DataValidator]
 })
 export class AppModuleShared {
 }

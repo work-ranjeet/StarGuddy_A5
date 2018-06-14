@@ -2,7 +2,6 @@
 import "rxjs/add/operator/map";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Injectable, Inject } from "@angular/core";
-import { Http } from "@angular/http";
 import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
@@ -12,28 +11,18 @@ import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearance;
 
 @Injectable()
 export class UserProfileService {
-
+    public UserId: string;
     private isLoggedInSource = new BehaviorSubject<boolean>(false);
 
-    constructor( @Inject(BaseService) private readonly baseService: BaseService,
-        private readonly http: Http,
+    constructor(
+        @Inject(BaseService) private readonly baseService: BaseService,
         private readonly router: Router,
-        private readonly dataConverter: DataConverter) { }
-
-    updateEmail(userEmail: IUserEmail) {
-        return this.http.post(this.baseService.BaseApiUrl + "Profile/Setting/UpdateEmail", userEmail).map(response => {
-            if (response.ok) {
-
-            }
-        });
+        private readonly dataConverter: DataConverter) {
+        this.UserId = baseService.UserId
     }
 
     saveUserPhysicalAppreance(physicalAppearance: IPhysicalAppearance) {
-        return this.http.post(this.baseService.BaseApiUrl + "api/Profile/Operations/SavePhysicalApperance", physicalAppearance).map(response => {
-            if (response.ok) {
-
-            }
-        });
+        return this.baseService.HttpClient.post("Profile/Operations/SavePhysicalApperance", physicalAppearance);
     }
 
     //get IsLoggedIn() { return this.isLoggedInSource.asObservable(); }

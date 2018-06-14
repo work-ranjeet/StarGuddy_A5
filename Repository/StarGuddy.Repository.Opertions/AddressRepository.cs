@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Operations
+namespace StarGuddy.Repository.Operation
 {
     #region Imports
     using System;
@@ -28,7 +28,7 @@ namespace StarGuddy.Repository.Operations
     using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Base;
     using StarGuddy.Repository.Configuration;
-    using StarGuddy.Repository.Interfaces;
+    using StarGuddy.Repository.Interface;
     using StarGuddy.Repository.Opertions.Constants;
     #endregion
 

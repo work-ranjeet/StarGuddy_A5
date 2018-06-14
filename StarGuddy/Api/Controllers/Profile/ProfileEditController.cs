@@ -14,7 +14,7 @@ namespace StarGuddy.Api.Controllers.Profile
 {
     [Produces("application/json")]
     [Route("api/Profile/Operations")]
-    public class ProfileEditController : Controller
+    public class ProfileEditController : BaseApiController
     {
         /// <summary>
         /// The account manager
@@ -34,10 +34,16 @@ namespace StarGuddy.Api.Controllers.Profile
             this._profileManager = profileManager;
         }
 
-        [ActionName("SavePhysicalApperance")]
-        public async Task<bool> SavePhysicalApperance(PhysicalAppearance physicalAppearance)
+       
+        [HttpPost("SavePhysicalApperance")]
+        public async Task<string> SavePhysicalApperance(PhysicalAppearance physicalAppearance)
         {
-            return await this._profileManager.PerformSave(physicalAppearance);
+            return await Task.Factory.StartNew(() =>
+            {
+                //UserId();
+                return "test";// await this._profileManager.PerformSave(physicalAppearance);
+            });
         }
+        
     }
 }

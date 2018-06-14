@@ -1,6 +1,14 @@
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserSettings')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserSettings
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
 		WHERE object_id = OBJECT_ID(N'UserEmails')
 			AND type IN (N'U')
 		)

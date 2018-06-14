@@ -2,10 +2,10 @@
 import "rxjs/add/operator/map";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Injectable, Inject } from "@angular/core";
-import { Http } from "@angular/http";
 import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
+import IJwtPacket = App.Client.Account.IJwtPacket;
 import ILoginData = App.Client.Account.ILoginData;
 import IUserData = App.Client.Account.IApplicationUser;
 
@@ -16,7 +16,6 @@ export class AccountService {
     private isLoggedInSource = new BehaviorSubject<boolean>(false);
 
     constructor( @Inject(BaseService) private readonly baseService: BaseService,
-        private readonly http: Http,
         private readonly router: Router,
         private readonly dataConverter: DataConverter) { }
 
@@ -30,8 +29,7 @@ export class AccountService {
     }
 
     login(loginData: ILoginData) {
-        var v = "";
-        return this.http.post(this.baseService.BaseApiUrl + "Account/login", loginData).map(response => {
+        return this.baseService.HttpClient.post("Account/login", loginData).map(response => {
             if (response.ok) {
                 this.isLoggedInSource.next(true);
                 this.baseService.authenticate(response);
@@ -45,7 +43,7 @@ export class AccountService {
     }
 
     signup(userData: IUserData) {
-        return this.http.post(this.baseService.BaseApiUrl + "Account/signup", userData).map(response => {
+        return this.baseService.HttpClient.post("Account/signup", userData).map(response => {
             if (response.ok) {
                 this.isLoggedInSource.next(true);
                 this.baseService.authenticate(response);

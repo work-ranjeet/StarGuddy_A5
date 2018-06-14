@@ -6,12 +6,14 @@
 namespace StarGuddy.Business.Modules.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.IO;
     using System.Runtime.CompilerServices;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Security.Claims;
     using System.Security.Cryptography;
+    using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
@@ -41,6 +43,8 @@ namespace StarGuddy.Business.Modules.Common
         /// The configuration.
         /// </value>
         private IConfiguration _configuration { get; set; }
+
+        private string SeceretKey => this._configuration.GetAppSettingValue(AppSettings.JwtSecret);
 
         /// <summary>
         /// Gets the encryption byte.
@@ -74,14 +78,13 @@ namespace StarGuddy.Business.Modules.Common
         {
             return await Task.Factory.StartNew(() =>
             {
-                var seceretKey = this._configuration.GetAppSettingValue(AppSettings.JwtSecret);
-                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(seceretKey));
+                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(this.SeceretKey));
                 var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
                 var claims = new Claim[]
                 {
                     new Claim(JwtRegisteredClaimNames.Sid, appUser.Id.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, appUser.Email)
+                    new Claim(JwtRegisteredClaimNames.Email, appUser.UserName)
                 };
 
                 var jwt = new JwtSecurityToken(
@@ -102,23 +105,66 @@ namespace StarGuddy.Business.Modules.Common
         /// <param name="userId">The user identifier.</param>
         /// <param name="securityStamp">The security stamp.</param>
         /// <returns>string value</returns>
-        public async Task<string> ValidateJwtSecurityTokenAsync(string userId, string securityStamp)
+        public async Task<bool> ValidateJwtSecurityTokenAsync(string jwtToken, string securityStamp)
         {
             return await Task.Factory.StartNew(() =>
             {
-                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityStamp));
+                var simplePrinciple = this.GetPrincipal(jwtToken);
+                var identity = simplePrinciple.Identity as ClaimsIdentity;
+                if (identity == null)
+                    return false;
 
-                var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+                if (!identity.IsAuthenticated)
+                    return false;
 
-                var claims = new Claim[]
+                var userIdClaim = identity.FindFirst(ClaimTypes.Sid);
+
+
+                if (userIdClaim.IsNull())
+                    return false;
+
+                return true;
+            });
+        }
+        
+        //private Task<IPrincipal> AuthenticateJwtToken(string token)
+        //{
+        //    if (await ValidateJwtSecurityTokenAsync(token, out Guid userId))
+        //    {
+                
+        //        var claims = new List<Claim> { new Claim(ClaimTypes.Sid, userId.ToString()) };
+        //        var identity = new ClaimsIdentity(claims, "Jwt");
+        //        IPrincipal user = new ClaimsPrincipal(identity);
+        //        return Task.FromResult(user);
+        //    }
+        //    return Task.FromResult<IPrincipal>(null);
+        //}
+
+        private ClaimsPrincipal GetPrincipal(string token)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+                if (jwtToken == null) return null;
+                var symmetricKey = Convert.FromBase64String(this.SeceretKey);
+                var validationParameters = new TokenValidationParameters()
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, userId)
+                    RequireExpirationTime = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
                 };
 
-                var jwt = new JwtSecurityToken(claims: claims, signingCredentials: signingCredentials);
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
 
-                return new JwtSecurityTokenHandler().WriteToken(jwt);
-            });
+                return principal;
+            }
+            catch (Exception)
+            {
+                //should write log  
+                return null;
+            }
         }
         #endregion
 

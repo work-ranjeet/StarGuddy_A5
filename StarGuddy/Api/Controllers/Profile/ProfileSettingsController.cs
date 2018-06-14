@@ -39,12 +39,14 @@ namespace StarGuddy.Api.Controllers.Profile
             this._profileSettingManager = profileSettingManager;
         }
 
+        [HttpPost]
         [ActionName("UpdateEmail")]
         public async Task<bool> UpdateEmail(Guid userId, string email)
         {
             return await this._profileSettingManager.UpdateEmail(userId, email);
         }
 
+        [HttpPost]
         [ActionName("ChangePassword")]
         public async Task<bool> ChangePassword(PasswordModel changePassword)
         {

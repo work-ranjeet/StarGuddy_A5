@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Opertions
+namespace StarGuddy.Repository.Operation
 {
     using System;
     using System.Collections.Generic;
@@ -54,6 +54,7 @@ namespace StarGuddy.Repository.Opertions
                 {
                     var param = new
                     {
+                        physicalAppearance.UserId,
                         physicalAppearance.BodyType,
                         physicalAppearance.Chest,
                         physicalAppearance.EyeColor,
@@ -63,10 +64,11 @@ namespace StarGuddy.Repository.Opertions
                         physicalAppearance.SkinColor,
                         physicalAppearance.Height,
                         physicalAppearance.Weight,
-                        physicalAppearance.West
+                        physicalAppearance.West,
+                        physicalAppearance.Ethnicity
                     };
 
-                    var result = await SqlMapper.QueryAsync<IUserEmails>(conn, SpNames.PhysicalAppearance.SavePhysicalAppearance, param, commandType: CommandType.StoredProcedure);
+                    var result = await SqlMapper.QueryAsync<IPhysicalAppearance>(conn, SpNames.PhysicalAppearance.SavePhysicalAppearance, param, commandType: CommandType.StoredProcedure);
                     return true;
                 }
             }

@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +43,7 @@
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
     <None Remove="ClientApp\Extension\StringExtension.ts" />
     <None Remove="ClientApp\Helper\DataValidator.ts" />
+    <None Remove="ClientApp\Services\HttpClient.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +66,7 @@
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
     <TypeScriptCompile Include="ClientApp\Extension\StringExtension.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />
+    <TypeScriptCompile Include="ClientApp\Services\HttpClient.ts" />
   </ItemGroup>
 
   <ItemGroup>

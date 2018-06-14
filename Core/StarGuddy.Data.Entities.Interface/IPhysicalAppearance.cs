@@ -124,6 +124,14 @@ namespace StarGuddy.Data.Entities.Interface
         Int32 West { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance Ethnicity.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance Ethnicity; otherwise, <c>false</c>.
+        /// </value>
+        string Ethnicity { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
         /// <value>

@@ -29,11 +29,9 @@ using StarGuddy.Business.Modules.Common;
 using StarGuddy.Business.Modules.Files;
 using StarGuddy.Business.Modules.Network;
 using StarGuddy.Business.Modules.Profile;
-using StarGuddy.Data.Entities;
-using StarGuddy.Data.Entities.Interface;
 using StarGuddy.Repository.Configuration;
 using StarGuddy.Repository.Interface;
-using StarGuddy.Repository.Opertions;
+using StarGuddy.Repository.Operation;
 
 namespace StarGuddy.Api
 {
@@ -60,6 +58,11 @@ namespace StarGuddy.Api
             //// Repository Injection
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserEmailsRepository, UserEmailsRepository>();
+            services.AddTransient<IAccentsRepository, AccentsRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+            services.AddTransient<ILanguageRepository, LanguageRepository>();
+            services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
+            
 
             //// Business Injection
             services.AddTransient<IAccountManager, AccountManager>();
@@ -69,6 +72,7 @@ namespace StarGuddy.Api
             services.AddTransient<IImageManager, ImageManager>();
             services.AddTransient<ISecurityManager, SecurityManager>();
             services.AddTransient<IEmailManager, EmailManager>();
+            services.AddTransient<IProfileManager, ProfileManager>();
             services.AddTransient<IProfileSettingManager, ProfileSettingManager>();
         }
     }

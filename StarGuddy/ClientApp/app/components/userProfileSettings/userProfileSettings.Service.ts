@@ -2,7 +2,6 @@
 import "rxjs/add/operator/map";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Injectable, Inject } from "@angular/core";
-import { Http } from "@angular/http";
 import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
@@ -16,17 +15,11 @@ export class UserProfileSettingsService {
     private isLoggedInSource = new BehaviorSubject<boolean>(false);
 
     constructor( @Inject(BaseService) private readonly baseService: BaseService,
-        private readonly http: Http,
         private readonly router: Router,
         private readonly dataConverter: DataConverter) { }
 
     updateEmail(userEmail: IUserEmail) {
-        var v = "";
-        return this.http.post(this.baseService.BaseApiUrl + "Profile/Setting/UpdateEmail", userEmail).map(response => {
-            if (response.ok) {
-               
-            }
-        });
+        return this.baseService.HttpClient.post("Profile/Setting/UpdateEmail", userEmail);
     }
 
 

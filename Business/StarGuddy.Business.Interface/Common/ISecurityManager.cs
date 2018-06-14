@@ -31,7 +31,7 @@ namespace StarGuddy.Business.Interface.Common
         /// <param name="userId">The user identifier.</param>
         /// <param name="securityStamp">The security stamp.</param>
         /// <returns>string value</returns>
-        Task<string> ValidateJwtSecurityTokenAsync(string userId, string securityStamp);
+        Task<bool> ValidateJwtSecurityTokenAsync(string userId, string securityStamp);
 
         /// <summary>
         /// Hashes the password.

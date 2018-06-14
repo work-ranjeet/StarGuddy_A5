@@ -73,26 +73,19 @@ export class PhysicalDetailsComponent {
     }
 
     saveChanges() {
+
         if (this.PhysicalAppearance != undefined) {
             this.userProfileService.saveUserPhysicalAppreance(this.PhysicalAppearance).subscribe(result => {
                 if (result != null) {
-
                 }
-                else {
 
-                }
-            },
-                error => {
-                });
-
-
-            this.edit();
+                this.edit();
+            });
         }
     }
 
 
     public heightJson = [
-        { key: "0", value: "(optional)" },
         { key: "24", value: "Less than 132 cm / 4ft 4in" },
         { key: "25", value: "132 cm / 4ft 4in" },
         { key: "26", value: "134 cm / 4ft 5in" },

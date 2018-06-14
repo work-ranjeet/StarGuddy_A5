@@ -1,4 +1,4 @@
-﻿namespace StarGuddy.Repository.Opertions
+﻿namespace StarGuddy.Repository.Operation
 {
     using Dapper;
     using StarGuddy.Data.Entities;

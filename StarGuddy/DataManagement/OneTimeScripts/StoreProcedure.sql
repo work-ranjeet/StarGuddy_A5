@@ -171,11 +171,11 @@ GO
 		)
 	DROP PROCEDURE PhysicalAppearanceSave
 GO
-CREATE PROCEDURE PhysicalAppearanceSave (@BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT)
+CREATE PROCEDURE PhysicalAppearanceSave (@UserId AS UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @Ethnicity NVARCHAR(500))
 AS
 BEGIN
-	INSERT INTO PhysicalAppearance (BodyType, Chest, EyeColor, HairColor, HairLength, HairType, SkinColor, Height, Weight, West)
-	VALUES (@BodyType, @Chest, @EyeColor, @HairColor, @HairLength, @HairType, @SkinColor, @Height, @Weight, @West)
+	INSERT INTO PhysicalAppearance (UserId, BodyType, Chest, EyeColor, HairColor, HairLength, HairType, SkinColor, Height, [Weight], West, Ethnicity)
+	VALUES (@UserId, @BodyType, @Chest, @EyeColor, @HairColor, @HairLength, @HairType, @SkinColor, @Height, @Weight, @West, @Ethnicity)
 END
 GO
 -------------------------------------
@@ -190,11 +190,11 @@ GO
 		)
 	DROP PROCEDURE PhysicalAppearanceUpdate
 GO
-CREATE PROCEDURE PhysicalAppearanceUpdate (@Id AS UNIQUEIDENTIFIER, @UserId AS UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @IsActive AS BIT, @IsDeleted AS BIT, @DttmModified AS DATETIME2)
+CREATE PROCEDURE PhysicalAppearanceUpdate (@UserId AS UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @IsActive AS BIT, @IsDeleted AS BIT, @DttmModified AS DATETIME2)
 AS
 BEGIN
 	UPDATE PhysicalAppearance
-	SET UserId = @UserId, BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, IsActive = @IsActive, IsDeleted = @IsDeleted, DttmModified = @DttmModified
-	WHERE Id = @Id
+	SET BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, IsActive = @IsActive, IsDeleted = @IsDeleted, DttmModified = @DttmModified
+	WHERE UserId = @UserId
 END
 	-------------------------------------------------------------------- End PhysicalAppreance ----------------------------------------------------------------------------
