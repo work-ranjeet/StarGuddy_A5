@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 //import { HttpClientModule } from "@angular/common/http"
 import { RouterModule } from "@angular/router";
-import { StorageServiceModule } from 'angular-webstorage-service';
+//import { StorageServiceModule } from 'angular-webstorage-service';
 //import { MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule } from "@angular/material";
 //import { MatInputModule } from "@angular/material/input";
 
@@ -36,7 +36,7 @@ import { CounterComponent } from "./components/counter/counter.component";
         CounterComponent, FetchDataComponent
     ],
     imports: [
-        CommonModule, HttpModule, FormsModule, StorageServiceModule, // MatInputModule,
+        CommonModule, HttpModule, FormsModule, //StorageServiceModule, // MatInputModule,
         //MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule,
         CommonModuleShared,
         HomeModuleShared,

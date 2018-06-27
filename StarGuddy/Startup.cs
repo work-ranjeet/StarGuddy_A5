@@ -47,13 +47,7 @@ namespace StarGuddy
         {
             services.AddMvc();
 
-            services.AddCors(options => options.AddPolicy("Cors", builder =>
-            {
-                builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            }));
+            services.AddCors(options => options.AddPolicy("Cors", builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetAppSettingValue(AppSettings.JwtSecret)));
             services.AddAuthentication(options =>
@@ -76,33 +70,35 @@ namespace StarGuddy
                     IssuerSigningKey = signingKey
                 };
 
-                jwtBearerCnfg.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = context =>
-                    {
-                        Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
-                        return Task.CompletedTask;
-                    },
-                    OnTokenValidated = context =>
-                    {
-                        Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
-                        return Task.CompletedTask;
-                    }
-                };
+                //jwtBearerCnfg.Events = new JwtBearerEvents
+                //{
+                //    OnAuthenticationFailed = context =>
+                //    {
+                //        Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                //        return Task.CompletedTask;
+                //    },
+                //    OnTokenValidated = context =>
+                //    {
+                //        Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+                //        return Task.CompletedTask;
+                //    }
+                //};
             });
 
-            services.AddAuthorization(authOption =>
-            {
-                //options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-                //    .RequireAuthenticatedUser().Build());
+            //services.AddAuthorization(authOption =>
+            //{
+            //    //options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            //    //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+            //    //    .RequireAuthenticatedUser().Build());
 
-                authOption.AddPolicy("Member", policy =>
-                {
-                    policy.RequireClaim(JwtRegisteredClaimNames.Sid);
-                    policy.RequireClaim(JwtRegisteredClaimNames.Email);
-                });
-            });
+            //    authOption.AddPolicy("Member", policy =>
+            //    {
+            //        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+            //        policy.RequireAuthenticatedUser();
+            //        policy.RequireClaim(JwtRegisteredClaimNames.Sid);
+            //        policy.RequireClaim(JwtRegisteredClaimNames.Email);
+            //    });
+            //});
 
             //// Dependency Injection
             Api.Injection.Inject(services, Configuration);

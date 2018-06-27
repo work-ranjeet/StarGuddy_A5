@@ -29,7 +29,7 @@ export class AccountService {
     }
 
     login(loginData: ILoginData) {
-        return this.baseService.HttpClient.post("Account/login", loginData).map(response => {
+        return this.baseService.HttpService.post("Account/login", loginData).map(response => {
             if (response.ok) {
                 this.isLoggedInSource.next(true);
                 this.baseService.authenticate(response);
@@ -43,10 +43,10 @@ export class AccountService {
     }
 
     signup(userData: IUserData) {
-        return this.baseService.HttpClient.post("Account/signup", userData).map(response => {
+        return this.baseService.HttpService.post("Account/signup", userData).map(response => {
             if (response.ok) {
                 this.isLoggedInSource.next(true);
-                this.baseService.authenticate(response);
+                this.baseService.authenticate(response.json);
             }
         });
     }

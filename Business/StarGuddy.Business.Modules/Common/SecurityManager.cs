@@ -9,14 +9,19 @@ namespace StarGuddy.Business.Modules.Common
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
     using System.Runtime.CompilerServices;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Security.Claims;
     using System.Security.Cryptography;
     using System.Security.Principal;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
     using StarGuddy.Api.Models.Interface.Account;
@@ -78,8 +83,8 @@ namespace StarGuddy.Business.Modules.Common
         {
             return await Task.Factory.StartNew(() =>
             {
-                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(this.SeceretKey));
-                var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+                var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.SeceretKey));
+                var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
 
                 var claims = new Claim[]
                 {
@@ -87,15 +92,24 @@ namespace StarGuddy.Business.Modules.Common
                     new Claim(JwtRegisteredClaimNames.Email, appUser.UserName)
                 };
 
-                var jwt = new JwtSecurityToken(
-                        issuer: this._configuration.GetAppSettingValue(AppSettings.JwtIssuer),
-                        audience: this._configuration.GetAppSettingValue(AppSettings.JwtAudience),
-                        claims: claims,
-                        expires: DateTime.UtcNow.AddHours(1),
-                        signingCredentials: signingCredentials
-                    );
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.UtcNow.AddMinutes(20),
+                    SigningCredentials = signingCredentials,
+                    Issuer = this._configuration.GetAppSettingValue(AppSettings.JwtIssuer),
+                    Audience = this._configuration.GetAppSettingValue(AppSettings.JwtAudience)
+                };
 
-                return new JwtSecurityTokenHandler().WriteToken(jwt);
+                var jwtTokenHandler = new JwtSecurityTokenHandler();
+
+                if(jwtTokenHandler.CanWriteToken)
+                {
+                    var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+                    return jwtTokenHandler.WriteToken(token);
+                }
+
+                return string.Empty;
             });
         }
 
@@ -126,12 +140,12 @@ namespace StarGuddy.Business.Modules.Common
                 return true;
             });
         }
-        
+
         //private Task<IPrincipal> AuthenticateJwtToken(string token)
         //{
         //    if (await ValidateJwtSecurityTokenAsync(token, out Guid userId))
         //    {
-                
+
         //        var claims = new List<Claim> { new Claim(ClaimTypes.Sid, userId.ToString()) };
         //        var identity = new ClaimsIdentity(claims, "Jwt");
         //        IPrincipal user = new ClaimsPrincipal(identity);

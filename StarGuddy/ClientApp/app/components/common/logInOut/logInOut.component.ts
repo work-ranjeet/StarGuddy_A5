@@ -28,7 +28,7 @@ export class LogInOutComponent {
 
     ngOnInit() {
         this.subscription = this.accountService.IsLoggedIn.subscribe(val => this.isLoggedIn = val);
-        this.isLoggedIn = true;
+        this.isLoggedIn = false;
         this.showUserSettingMenu = true;
     }
 

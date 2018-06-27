@@ -40,7 +40,7 @@ export class BaseService {
         return "";//.getItem(this.appConstant.USER_EMAIL);
     }
 
-    get HttpClient() {
+    get HttpService() {
         return this.httpService;
     }
 
@@ -48,20 +48,20 @@ export class BaseService {
         if (!result.ok)
             return;
 
-        const authResponse = result.json() as IJwtPacket;
-        //localStorage.setItem(this.appConstant.USER_ID, authResponse.UserId);
-        //localStorage.setItem(this.appConstant.TOKEN_KEY, authResponse.Token);
-        //localStorage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.FirstName);
-        //localStorage.setItem(this.appConstant.USER_NAME, authResponse.UserName);
-        //localStorage.setItem(this.appConstant.USER_EMAIL, authResponse.Email);
+        const authResponse = result.json() ;
+        localStorage.setItem(this.appConstant.USER_ID, authResponse.userId);
+        localStorage.setItem(this.appConstant.TOKEN_KEY, authResponse.token);
+        localStorage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.firstName);
+        localStorage.setItem(this.appConstant.USER_NAME, authResponse.userName);
+        localStorage.setItem(this.appConstant.USER_EMAIL, authResponse.email);
     }
 
     cancleAuthention() {
-        //localStorage.removeItem(this.appConstant.USER_ID);
-        //localStorage.removeItem(this.appConstant.TOKEN_KEY);
-        //localStorage.removeItem(this.appConstant.USER_FIRST_NAME);
-        //localStorage.removeItem(this.appConstant.USER_NAME);
-        //localStorage.removeItem(this.appConstant.USER_EMAIL);
+        localStorage.removeItem(this.appConstant.USER_ID);
+        localStorage.removeItem(this.appConstant.TOKEN_KEY);
+        localStorage.removeItem(this.appConstant.USER_FIRST_NAME);
+        localStorage.removeItem(this.appConstant.USER_NAME);
+        localStorage.removeItem(this.appConstant.USER_EMAIL);
     }
 
 }

@@ -44,7 +44,7 @@ namespace StarGuddy.Api.Controllers
         /// <returns>
         /// Weather Forecast
         /// </returns>
-        [Authorize(Policy = "Member")]
+        //[Authorize(Policy = "Member")]
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {

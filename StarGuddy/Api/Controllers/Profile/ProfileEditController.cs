@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Models.Account;
@@ -12,6 +14,7 @@ using StarGuddy.Data.Entities;
 
 namespace StarGuddy.Api.Controllers.Profile
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Profile/Operations")]
     public class ProfileEditController : BaseApiController
@@ -34,16 +37,16 @@ namespace StarGuddy.Api.Controllers.Profile
             this._profileManager = profileManager;
         }
 
-       
+
         [HttpPost("SavePhysicalApperance")]
         public async Task<string> SavePhysicalApperance(PhysicalAppearance physicalAppearance)
         {
             return await Task.Factory.StartNew(() =>
             {
-                //UserId();
+                this.DecodeJwtToken(this.JwtToken);
                 return "test";// await this._profileManager.PerformSave(physicalAppearance);
             });
         }
-        
+
     }
 }

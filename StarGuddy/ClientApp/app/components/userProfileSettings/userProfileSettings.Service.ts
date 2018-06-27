@@ -19,7 +19,7 @@ export class UserProfileSettingsService {
         private readonly dataConverter: DataConverter) { }
 
     updateEmail(userEmail: IUserEmail) {
-        return this.baseService.HttpClient.post("Profile/Setting/UpdateEmail", userEmail);
+        return this.baseService.HttpService.post("Profile/Setting/UpdateEmail", userEmail);
     }
 
 
