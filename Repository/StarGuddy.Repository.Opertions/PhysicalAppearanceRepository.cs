@@ -68,8 +68,7 @@ namespace StarGuddy.Repository.Operation
                         physicalAppearance.Ethnicity
                     };
 
-                    var result = await SqlMapper.QueryAsync<IPhysicalAppearance>(conn, SpNames.PhysicalAppearance.SavePhysicalAppearance, param, commandType: CommandType.StoredProcedure);
-                    return true;
+                    return await SqlMapper.ExecuteAsync(conn, SpNames.PhysicalAppearance.PhysicalAppearanceSaveUpdate, param, commandType: CommandType.StoredProcedure) > 0;
                 }
             }
             catch (Exception ex)
@@ -78,9 +77,9 @@ namespace StarGuddy.Repository.Operation
             }
         }
 
-        public void PerformUpdateOperation(IPhysicalAppearance physicalAppearance)
+        public async Task<IPhysicalAppearance> GetPhysicalAppreanceById(Guid userId)
         {
-
+            return await base.FindByUserIdAsync(userId);
         }
     }
 }

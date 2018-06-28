@@ -163,38 +163,31 @@ GO
 	IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'PhysicalAppearanceSave')
+		WHERE object_id = OBJECT_ID(N'PhysicalAppearanceSaveUpdate')
 			AND type IN (
 				N'P',
 				N'PC'
 				)
 		)
-	DROP PROCEDURE PhysicalAppearanceSave
+	DROP PROCEDURE PhysicalAppearanceSaveUpdate
 GO
-CREATE PROCEDURE PhysicalAppearanceSave (@UserId AS UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @Ethnicity NVARCHAR(500))
+
+CREATE PROCEDURE [PhysicalAppearanceSaveUpdate] (@UserId UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @Ethnicity NVARCHAR(500))
 AS
 BEGIN
-	INSERT INTO PhysicalAppearance (UserId, BodyType, Chest, EyeColor, HairColor, HairLength, HairType, SkinColor, Height, [Weight], West, Ethnicity)
-	VALUES (@UserId, @BodyType, @Chest, @EyeColor, @HairColor, @HairLength, @HairType, @SkinColor, @Height, @Weight, @West, @Ethnicity)
-END
-GO
--------------------------------------
-	IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'PhysicalAppearanceUpdate')
-			AND type IN (
-				N'P',
-				N'PC'
-				)
-		)
-	DROP PROCEDURE PhysicalAppearanceUpdate
-GO
-CREATE PROCEDURE PhysicalAppearanceUpdate (@UserId AS UNIQUEIDENTIFIER, @BodyType AS INT, @Chest AS INT, @EyeColor AS INT, @HairColor AS INT, @HairLength AS INT, @HairType AS INT, @SkinColor AS INT, @Height AS INT, @Weight AS INT, @West AS INT, @IsActive AS BIT, @IsDeleted AS BIT, @DttmModified AS DATETIME2)
-AS
-BEGIN
-	UPDATE PhysicalAppearance
-	SET BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, IsActive = @IsActive, IsDeleted = @IsDeleted, DttmModified = @DttmModified
-	WHERE UserId = @UserId
+SET NOCOUNT ON; 
+SET XACT_ABORT ON;  
+IF (EXISTS (SELECT TOP 1  Id from PhysicalAppearance where UserId= @UserId and IsActive= 1 and IsDeleted =0	))
+	BEGIN
+			UPDATE PhysicalAppearance
+			SET BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+			WHERE UserId = @UserId
+	END
+ELSE
+	BEGIN
+		INSERT INTO PhysicalAppearance (UserId, BodyType, Chest, EyeColor, HairColor, HairLength, HairType, SkinColor, Height, [Weight], West, Ethnicity, IsActive, IsDeleted)
+		VALUES (@UserId, @BodyType, @Chest, @EyeColor, @HairColor, @HairLength, @HairType, @SkinColor, @Height, @Weight, @West, @Ethnicity, 1, 0)
+
+	END	
 END
 	-------------------------------------------------------------------- End PhysicalAppreance ----------------------------------------------------------------------------

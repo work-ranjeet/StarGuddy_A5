@@ -28,6 +28,7 @@ namespace StarGuddy.Repository.Interface
     /// </summary>
     public interface IPhysicalAppearanceRepository
     {
+        Task<IPhysicalAppearance> GetPhysicalAppreanceById(Guid userId);
         Task<bool> PerformSaveOperation(IPhysicalAppearance physicalAppearance);
     }
 }

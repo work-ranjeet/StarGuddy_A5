@@ -6,7 +6,8 @@ import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
 import IUserEmail = App.Client.Profile.Setting.IUserEmail;
-import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearance;
+import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
+import { Http } from '@angular/http';
 
 
 @Injectable()
@@ -17,11 +18,18 @@ export class UserProfileService {
     constructor(
         @Inject(BaseService) private readonly baseService: BaseService,
         private readonly router: Router,
-        private readonly dataConverter: DataConverter) {
-        this.UserId = baseService.UserId
+        private readonly dataConverter: DataConverter,
+        private http: Http) {
+        this.UserId = baseService.UserId,
     }
 
-    saveUserPhysicalAppreance(physicalAppearance: IPhysicalAppearance) {
+    GetUserPhysicalAppreance() {
+        return this.baseService.HttpService.get("Profile/Operations/PhysicalApperance");
+    }
+
+    SaveUserPhysicalAppreance(physicalAppearance: IPhysicalAppearance) {
         return this.baseService.HttpService.post("Profile/Operations/SavePhysicalApperance", physicalAppearance);
     }
+
+    
 }

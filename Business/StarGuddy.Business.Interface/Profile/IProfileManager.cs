@@ -1,13 +1,12 @@
-﻿using StarGuddy.Data.Entities.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using StarGuddy.Api.Models.Interface.Profile;
 using System.Threading.Tasks;
 
 namespace StarGuddy.Business.Interface.Profile
 {
     public interface IProfileManager
     {
-        Task<bool> PerformSave(IPhysicalAppearance physicalAppearance);
+        Task<IPhysicalAppearanceModal> GetPhysicalAppreance(System.Guid userId);
+
+        Task<bool> PerformSave(IPhysicalAppearanceModal physicalAppearance);
     }
 }

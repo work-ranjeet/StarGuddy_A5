@@ -54,8 +54,7 @@ namespace StarGuddy.Repository.Opertions.Constants
 
         public struct PhysicalAppearance
         {
-            public const string SavePhysicalAppearance = "PhysicalAppearanceSave";
-            public const string UpdatePhysicalAppearance = "PhysicalAppearanceUpdate";
+            public const string PhysicalAppearanceSaveUpdate = "PhysicalAppearanceSaveUpdate";
         }
     }
 }

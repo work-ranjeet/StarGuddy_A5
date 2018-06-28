@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StarGuddy.Api.Models.Account;
+using StarGuddy.Api.Models.Profile;
 using StarGuddy.Business.Interface.Account;
-using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Profile;
-using StarGuddy.Data.Entities;
+using System.Threading.Tasks;
 
 namespace StarGuddy.Api.Controllers.Profile
-{
-    [Authorize]
+{   
     [Produces("application/json")]
     [Route("api/Profile/Operations")]
     public class ProfileEditController : BaseApiController
@@ -37,15 +29,31 @@ namespace StarGuddy.Api.Controllers.Profile
             this._profileManager = profileManager;
         }
 
-
-        [HttpPost("SavePhysicalApperance")]
-        public async Task<string> SavePhysicalApperance(PhysicalAppearance physicalAppearance)
+        [HttpPost][Route("SavePhysicalApperance")]
+        public async Task<IActionResult> SavePhysicalApperance([FromBody]PhysicalAppearanceModal physicalAppearance)
         {
-            return await Task.Factory.StartNew(() =>
+            if (physicalAppearance == null)
             {
-                this.DecodeJwtToken(this.JwtToken);
-                return "test";// await this._profileManager.PerformSave(physicalAppearance);
-            });
+                return BadRequest("Invalid request.");
+            }
+
+            base.DecodeJwtToken();
+            physicalAppearance.UserId = UserContext.UserId;
+
+            return Ok(await _profileManager.PerformSave(physicalAppearance));
+        }
+
+
+        [HttpGet][Route("PhysicalApperance")]
+        public async Task<IActionResult> GetPhysicalApperance()
+        {  
+            base.DecodeJwtToken();
+            if (UserContext.UserId == System.Guid.Empty)
+            {
+                return BadRequest("Invalid request.");
+            }
+
+            return Ok(await _profileManager.GetPhysicalAppreance(UserContext.UserId));
         }
 
     }

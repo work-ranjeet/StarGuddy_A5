@@ -8,8 +8,4 @@
     <ProjectReference Include="..\StarGuddy.Api.Models.Interface\StarGuddy.Api.Models.Interface.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Profile\" />
-  </ItemGroup>
-
 </Project>

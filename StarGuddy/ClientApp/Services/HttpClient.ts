@@ -15,11 +15,14 @@ export class HttpService {
 
     private get UrlPrifix() { return this.baseUrl + "api/"; }
 
-    get TokenHeader(): Headers {
-        let token = localStorage.getItem(this.appConstant.TOKEN_KEY);
+    get TokenHeader(): Headers {        
         let header = new Headers();
-        header.append('Content-Type', 'application/json');
-        header.append('Authorization', 'Bearer ' + (token == null ? "" : token));
+        //header.append('Content-Type', 'application/json');
+
+        let token= localStorage.getItem(this.appConstant.TOKEN_KEY);
+        if (token != undefined && token != null) {
+            header.append('Authorization', 'Bearer ' + token);
+        }
 
         return header;
     }

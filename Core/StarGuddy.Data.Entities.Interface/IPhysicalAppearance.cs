@@ -49,7 +49,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The type of the body.
         /// </value>
-        Int32 BodyType { get; set; }
+        int BodyType { get; set; }
 
         /// <summary>
         /// Gets or sets the chest.
@@ -57,7 +57,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The chest.
         /// </value>
-        Int32 Chest { get; set; }
+        int Chest { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the eye.
@@ -65,7 +65,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The color of the eye.
         /// </value>
-        Int32 EyeColor { get; set; }
+        int EyeColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the hair.
@@ -73,7 +73,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The color of the hair.
         /// </value>
-        Int32 HairColor { get; set; }
+        int HairColor { get; set; }
 
         /// <summary>
         /// Gets or sets the length of the hair.
@@ -81,7 +81,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The length of the hair.
         /// </value>
-        Int32 HairLength { get; set; }
+        int HairLength { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the hair.
@@ -89,7 +89,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The type of the hair.
         /// </value>
-        Int32 HairType { get; set; }
+        int HairType { get; set; }
 
         /// <summary>
         /// Gets or sets the color of the skin.
@@ -97,7 +97,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The color of the skin.
         /// </value>
-        Int32 SkinColor { get; set; }
+        int SkinColor { get; set; }
 
         /// <summary>
         /// Gets or sets the height.
@@ -105,7 +105,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The height.
         /// </value>
-        Int32 Height { get; set; }
+        int Height { get; set; }
 
         /// <summary>
         /// Gets or sets the weight.
@@ -113,7 +113,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The weight.
         /// </value>
-        Int32 Weight { get; set; }
+        int Weight { get; set; }
 
         /// <summary>
         /// Gets or sets the west.
@@ -121,7 +121,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         /// The west.
         /// </value>
-        Int32 West { get; set; }
+        int West { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance Ethnicity.
@@ -129,7 +129,7 @@ namespace StarGuddy.Data.Entities.Interface
         /// <value>
         ///   <c>true</c> if this instance Ethnicity; otherwise, <c>false</c>.
         /// </value>
-        string Ethnicity { get; set; }
+        int Ethnicity { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

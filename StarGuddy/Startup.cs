@@ -45,7 +45,10 @@ namespace StarGuddy
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc( option =>
+            {
+                option.AllowEmptyInputInBodyModelBinding = true;
+            });
 
             services.AddCors(options => options.AddPolicy("Cors", builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 
@@ -85,20 +88,18 @@ namespace StarGuddy
                 //};
             });
 
-            //services.AddAuthorization(authOption =>
-            //{
-            //    //options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //    //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-            //    //    .RequireAuthenticatedUser().Build());
+            services.AddAuthorization(authOption =>
+            {
+                //options.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                //    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                //    .RequireAuthenticatedUser().Build());
 
-            //    authOption.AddPolicy("Member", policy =>
-            //    {
-            //        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-            //        policy.RequireAuthenticatedUser();
-            //        policy.RequireClaim(JwtRegisteredClaimNames.Sid);
-            //        policy.RequireClaim(JwtRegisteredClaimNames.Email);
-            //    });
-            //});
+                authOption.AddPolicy("Member", policy =>
+                {
+                    policy.RequireClaim(JwtRegisteredClaimNames.Sid);
+                    policy.RequireClaim(JwtRegisteredClaimNames.Email);
+                });
+            });
 
             //// Dependency Injection
             Api.Injection.Inject(services, Configuration);

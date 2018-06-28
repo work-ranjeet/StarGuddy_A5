@@ -43,7 +43,7 @@ namespace StarGuddy.Api.Controllers.Account
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound("Oops! No User preset with this Id. Please try again.");
+                return NotFound($"Oops! {userId} is invalid. Please try again.");
             }
            // var result = await _userManager.ConfirmEmailAsync(user, code);
             return Ok();
