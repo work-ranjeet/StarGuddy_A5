@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserProfileService } from "../../userProfile/UserProfile.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
@@ -11,7 +11,7 @@ import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 })
 
 
-export class PhysicalDetailsComponent {
+export class PhysicalDetailsComponent implements OnInit {
 
     private readonly dataValidator: DataValidator;
     private userProfileService: UserProfileService;
@@ -42,9 +42,9 @@ export class PhysicalDetailsComponent {
     }
 
     loadData() {
-        this.userProfileService.GetUserPhysicalAppreance().then(result => {
+        this.userProfileService.GetUserPhysicalAppreance().subscribe( result => {
             if (result != null) {
-                this.PhysicalAppearance = result as IPhysicalAppearance;
+                //this.PhysicalAppearance = <IPhysicalAppearance>result;// as IPhysicalAppearance;
             }
 
             var height = this.heightJson.find(x => x.key == this.PhysicalAppearance.Height);

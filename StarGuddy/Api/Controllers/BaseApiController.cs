@@ -24,7 +24,7 @@ namespace StarGuddy.Api.Controllers
     public abstract class BaseApiController : Controller
     {
         #region /// properties
-        public IUserContext UserContext { get; set; }
+        public IUserContext UserContext { get; private set; }
 
         private Exception Exception { get; set; } = null;
 
@@ -69,7 +69,7 @@ namespace StarGuddy.Api.Controllers
                 string email = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
                 //string userData = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == ClaimTypes.UserData).Value;
 
-                UserContext = new Business.Modules.Common.UserContext
+                UserContext = new UserContext
                 {
                     UserId = Guid.Parse(userId),
                     UserName = email,

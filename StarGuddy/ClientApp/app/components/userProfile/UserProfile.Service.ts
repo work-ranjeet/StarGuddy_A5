@@ -20,7 +20,7 @@ export class UserProfileService {
         private readonly router: Router,
         private readonly dataConverter: DataConverter,
         private http: Http) {
-        this.UserId = baseService.UserId,
+        this.UserId = baseService.UserId;
     }
 
     GetUserPhysicalAppreance() {
