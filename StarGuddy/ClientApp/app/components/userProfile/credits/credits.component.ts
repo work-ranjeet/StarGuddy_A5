@@ -14,7 +14,7 @@ import ICredits = App.Client.Profile.ICredits;
 })
 
 
-export class CreditsComponent implements OnInit {
+export class CreditsComponent {
 
     private readonly dataValidator: DataValidator;
     private readonly dbOperation: DbOperation;
@@ -32,13 +32,11 @@ export class CreditsComponent implements OnInit {
         this.userProfileService = userProfileService;
         this.dataValidator = dataValidator;
         this.dbOperation = dbOperation;
-    }
 
-    ngOnInit() {
         this.showEditHtml = false;
         this.Credits = Object.assign({}, this.initCreditsClass);
     }
-
+    
     edit() {
         this.showEditHtml = !this.showEditHtml;
     }

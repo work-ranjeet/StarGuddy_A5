@@ -11,11 +11,11 @@ import ILoginData = App.Client.Account.ILoginData;
 })
 
 export class ChangePwdComponent {
-    loginData: ILoginData;
-    manageAccountService: UserProfileSettingsService;
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
+    loginData: ILoginData = {} as ILoginData;
+    manageAccountService: UserProfileSettingsService;
 
     private readonly dataValidator: DataValidator
 
@@ -24,6 +24,9 @@ export class ChangePwdComponent {
         this.authenticateRoute = authRoute;
         this.manageAccountService = manageAccountService;
         this.dataValidator = dataValidator;
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 
     ngOnInit() {

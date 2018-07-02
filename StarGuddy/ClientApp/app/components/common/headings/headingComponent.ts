@@ -9,8 +9,8 @@
                 </div>`
 })
 export class HeadingComponent {
-    @Input() text: string;
-    @Input() cssClass: string;
+    @Input() text?: string;
+    @Input() cssClass?: string;
 
     hasClass(): boolean {
         return this.cssClass != undefined && this.cssClass != null;

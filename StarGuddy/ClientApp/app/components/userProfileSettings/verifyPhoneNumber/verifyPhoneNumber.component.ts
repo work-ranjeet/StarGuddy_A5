@@ -11,7 +11,7 @@ import ILoginData = App.Client.Account.ILoginData;
 })
 
 export class VerifyPhoneNumberComponent {
-    loginData: ILoginData;
+    loginData: ILoginData = {} as ILoginData;
     userProfileSettingsService: UserProfileSettingsService;
     router: Router;
     returnUrl: string;
@@ -24,6 +24,8 @@ export class VerifyPhoneNumberComponent {
         this.authenticateRoute = authRoute;
         this.userProfileSettingsService = manageAccountService;
         this.dataValidator = dataValidator;
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 
     ngOnInit() {

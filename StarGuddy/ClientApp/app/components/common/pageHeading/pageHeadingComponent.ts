@@ -9,5 +9,5 @@
                 </div>`
 })
 export class PageHeadingComponent {
-    @Input() text: string;
+    @Input() text?: string;
 }

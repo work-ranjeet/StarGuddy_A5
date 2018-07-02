@@ -11,11 +11,12 @@ import ILoginData = App.Client.Account.ILoginData;
 })
 
 export class AddEmailComponent {
-    loginData: ILoginData;
-    manageAccountService: UserProfileSettingsService;
+   
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
+    loginData: ILoginData = {} as ILoginData;
+    manageAccountService: UserProfileSettingsService;
 
     private readonly dataValidator: DataValidator
 
@@ -24,14 +25,9 @@ export class AddEmailComponent {
         this.authenticateRoute = authRoute;
         this.manageAccountService = manageAccountService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
-        this.loginData = {} as ILoginData;
-
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
+
 
     //login() {
     //    if (this.dataValidator.IsValidObject(this.loginData)) {

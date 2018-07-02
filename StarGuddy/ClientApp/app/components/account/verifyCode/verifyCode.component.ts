@@ -10,10 +10,8 @@ import ILoginData = App.Client.Account.ILoginData;
 })
 
 export class AccountVerifyCodeComponent {
-    loginData: ILoginData;
     accountService: AccountService;
     router: Router;
-    returnUrl: string;
     authenticateRoute: ActivatedRoute;
 
     private readonly dataValidator: DataValidator
@@ -23,12 +21,5 @@ export class AccountVerifyCodeComponent {
         this.authenticateRoute = authRoute;
         this.accountService = accountService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
-        this.loginData = {} as ILoginData;
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 }

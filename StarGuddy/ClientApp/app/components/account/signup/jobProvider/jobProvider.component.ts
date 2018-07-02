@@ -19,11 +19,9 @@ export class SignUpJobProviderComponent {
         this.router = router;
         this.accountService = accountService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
         this.applicationUser = { Gender: 'M', IsCastingProfessional: true } as IApplicationUser;
     }
+   
 
     save() {
         if (this.dataValidator.IsValidObject(this.applicationUser)) {

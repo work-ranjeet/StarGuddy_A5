@@ -10,10 +10,10 @@ import ILoginData = App.Client.Account.ILoginData;
 })
 
 export class AccountForgotPwdComponent {
-    loginData: ILoginData;
+    loginData?: ILoginData;
     accountService: AccountService;
     router: Router;
-    returnUrl: string;
+    returnUrl?: string;
     authenticateRoute: ActivatedRoute;
 
     private readonly dataValidator: DataValidator

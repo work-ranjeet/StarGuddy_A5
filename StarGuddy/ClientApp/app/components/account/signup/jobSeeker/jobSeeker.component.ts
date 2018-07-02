@@ -21,9 +21,6 @@ export class SignUpJobSeekerComponent {
         this.router = router;
         this.accountService = accountService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
         this.applicationUser = { Gender: 'M' } as IApplicationUser;
     }
 

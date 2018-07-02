@@ -11,11 +11,12 @@ import IUserEmail = App.Client.Profile.Setting.IUserEmail;
 })
 
 export class ChangeEmailComponent {
-    userEmail: IUserEmail;
-    profileSettingService: UserProfileSettingsService;
+
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
+    userEmail: IUserEmail = {} as IUserEmail;
+    profileSettingService: UserProfileSettingsService;
 
     private readonly dataValidator: DataValidator
 
@@ -24,14 +25,11 @@ export class ChangeEmailComponent {
         this.authenticateRoute = authRoute;
         this.profileSettingService = profileSettingService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
-        this.userEmail = {} as IUserEmail;
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
+
 
     updateEmail() {
         if (this.dataValidator.IsValidObject(this.userEmail)) {

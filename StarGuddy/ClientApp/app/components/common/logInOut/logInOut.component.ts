@@ -22,15 +22,14 @@ export class LogInOutComponent {
         this.router = router;
         this.authenticateRoute = authRoute;
         this.accountService = accountService;
-    }
 
-    get UserFirstName() { return this.accountService.getUserFirstName(); }
-
-    ngOnInit() {
         this.subscription = this.accountService.IsLoggedIn.subscribe(val => this.isLoggedIn = val);
         this.isLoggedIn = false;
         this.showUserSettingMenu = true;
     }
+
+    get UserFirstName() { return this.accountService.getUserFirstName(); }
+
 
     toggleUserSettingMenu() {
         this.showUserSettingMenu = !this.showUserSettingMenu;

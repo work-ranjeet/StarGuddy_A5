@@ -23,9 +23,7 @@ export class AccountLoginComponent {
         this.authenticateRoute = authRoute;
         this.accountService = accountService;
         this.dataValidator = dataValidator;
-    }
 
-    ngOnInit() {
         this.loginData = {} as ILoginData;
 
         // get return url from route parameters or default to '/'

@@ -12,7 +12,7 @@ import ILoginData = App.Client.Account.ILoginData;
 
 
 export class UserProfileIndex {
-    loginData: ILoginData;
+    loginData: ILoginData = {} as ILoginData;
     manageAccountService: UserProfileService;
     router: Router;
     returnUrl: string;
@@ -25,14 +25,11 @@ export class UserProfileIndex {
         this.authenticateRoute = authRoute;
         this.manageAccountService = manageAccountService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
-        this.loginData = {} as ILoginData;
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
+
 
     //scrollTo(selector: string, parentSelector?: string, horizontal?: boolean) {
     //    scrollTo(

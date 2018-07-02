@@ -11,14 +11,14 @@ import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 })
 
 
-export class PhysicalDetailsComponent implements OnInit {
+export class PhysicalDetailsComponent {
 
     private readonly dataValidator: DataValidator;
     private userProfileService: UserProfileService;
 
-    public showEditHtml: boolean;
+    public showEditHtml: boolean = false;
     public PhysicalAppearance: IPhysicalAppearance;
-    public PhysicalAppearanceResult: IPhysicalAppearance;
+    public PhysicalAppearanceResult: IPhysicalAppearance = {} as IPhysicalAppearance;
 
     private readonly initPhysicalAppearanceJson = {
         BodyType: "0", Chest: "0", EyeColor: "0", HairColor: "0", HairLength: "0", HairType: "0",
@@ -28,13 +28,7 @@ export class PhysicalDetailsComponent implements OnInit {
     constructor(userProfileService: UserProfileService, dataValidator: DataValidator) {
         this.userProfileService = userProfileService;
         this.dataValidator = dataValidator;
-    }
-
-    ngOnInit() {
-        this.showEditHtml = false;
-        this.PhysicalAppearanceResult = {} as IPhysicalAppearance;
         this.PhysicalAppearance = this.initPhysicalAppearanceJson;
-        this.loadData(); 
     }
 
     edit() {
@@ -44,7 +38,7 @@ export class PhysicalDetailsComponent implements OnInit {
     loadData() {
         this.userProfileService.GetUserPhysicalAppreance().subscribe( result => {
             if (result != null) {
-                //this.PhysicalAppearance = <IPhysicalAppearance>result;// as IPhysicalAppearance;
+                this.PhysicalAppearance = result.json() as IPhysicalAppearance;
             }
 
             var height = this.heightJson.find(x => x.key == this.PhysicalAppearance.Height);

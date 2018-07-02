@@ -16,7 +16,7 @@ export class DancingComponent {
     private readonly dataValidator: DataValidator;
     private userProfileService: UserProfileService;
 
-    public showEditHtml: boolean;
+    public showEditHtml: boolean = false;
 
     constructor(userProfileService: UserProfileService, dataValidator: DataValidator) {
         this.userProfileService = userProfileService;
@@ -24,7 +24,7 @@ export class DancingComponent {
     }
 
     ngOnInit() {
-        this.showEditHtml = false;
+       
     }
 
     edit() {

@@ -15,16 +15,13 @@ export class TrainingsComponent {
     private readonly dataValidator: DataValidator;
     private userProfileService: UserProfileService;
 
-    public showEditHtml: boolean;
+    public showEditHtml: boolean = false;
 
     constructor(userProfileService: UserProfileService, dataValidator: DataValidator) {
         this.userProfileService = userProfileService;
         this.dataValidator = dataValidator;
     }
 
-    ngOnInit() {
-        this.showEditHtml = false;
-    }
 
     edit() {
         this.showEditHtml = !this.showEditHtml;
