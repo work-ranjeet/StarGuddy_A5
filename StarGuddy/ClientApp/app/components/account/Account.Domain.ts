@@ -13,14 +13,14 @@
         RememberMe: boolean;
     }
 
-    export class IApplicationUser {
-        Id: string;
+    export interface IApplicationUser {
+        UserId: string;
         UserName: string;
         Email: string;
         FirstName: string;
         LastName: string;
         Password: string;
-        CnfPassword:string;
+        CnfPassword: string;
         Gender: string;
         IsCastingProfessional: boolean;
         OrgName: string;

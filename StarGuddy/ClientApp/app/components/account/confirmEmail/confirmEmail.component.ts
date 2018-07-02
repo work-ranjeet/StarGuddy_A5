@@ -13,19 +13,20 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 
 export class AccountConfirmEmailComponent {
-    router: Router;
-    returnUrl: string;
-    authenticateRoute: ActivatedRoute;   
+    private router: Router;
+    private returnUrl: string;
+    private authenticateRoute: ActivatedRoute;   
 
     constructor(router: Router, authRoute: ActivatedRoute) {
         this.router = router;
         this.authenticateRoute = authRoute;
-    }
-
-    ngOnInit() { 
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
+
+    //ngOnInit() { 
+    //    // get return url from route parameters or default to '/'
+    //    this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
+    //}
 
     //login() {
     //    if (this.dataValidator.IsValidObject(this.loginData)) {

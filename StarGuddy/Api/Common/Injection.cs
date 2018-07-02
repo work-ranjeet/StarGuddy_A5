@@ -17,8 +17,6 @@
 // -------------------------------------------------------------------------------
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StarGuddy.Api.Common;
-using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Files;
@@ -51,7 +49,7 @@ namespace StarGuddy.Api
             services.AddSingleton<IConfigurationSingleton>(x => new ConfigurationSingleton(configuration));
 
             //// API Injection
-            services.AddTransient<IJwtPacketManager, JwtPacketManager>();
+            
             //services.AddTransient<ILoginData, LoginData>();
             //services.AddTransient<IUser, User>();
 

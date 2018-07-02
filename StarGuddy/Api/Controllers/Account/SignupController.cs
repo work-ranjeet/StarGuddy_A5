@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StarGuddy.Api.Common;
 using StarGuddy.Api.Models.Account;
-using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
+using System;
+using System.Threading.Tasks;
 
 namespace StarGuddy.Api.Controllers.Account
 {
@@ -20,7 +16,7 @@ namespace StarGuddy.Api.Controllers.Account
         private readonly ISignupManager _signUpManager;
         private readonly IUserManager _userManager;
         private readonly IPasswordManager _passwordManager;
-        private readonly IJwtPacketManager _jwtPacketManager;
+        private readonly ISecurityManager _securityManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SignupController"/> class.
@@ -28,13 +24,13 @@ namespace StarGuddy.Api.Controllers.Account
         /// <param name="signupManager">The signup manager.</param>
         /// <param name="userManager">The user manager.</param>
         /// <param name="passwordManager">The password manager.</param>
-        /// <param name="jwtPacketManager">The JWT packet manager.</param>
-        public SignupController(ISignupManager signupManager, IUserManager userManager, IPasswordManager passwordManager,IJwtPacketManager jwtPacketManager)
+        /// <param name="ISecurityManager">The JWT packet manager.</param>
+        public SignupController(ISignupManager signupManager, IUserManager userManager, IPasswordManager passwordManager, ISecurityManager securityManager)
         {
             this._signUpManager = signupManager;
             this._userManager = userManager;
             this._passwordManager = passwordManager;
-            this._jwtPacketManager = jwtPacketManager;
+            this._securityManager = securityManager;
         }
 
 
@@ -60,12 +56,12 @@ namespace StarGuddy.Api.Controllers.Account
             {
                 var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.UserName, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
 
-                if (userResult.Id == Guid.Empty)
+                if (userResult.UserId == Guid.Empty)
                 {
                     return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));
                 }
 
-                return Ok(this._jwtPacketManager.CreateJwtPacketAsync(userResult));
+                return Ok(this._securityManager.CreateJwtPacketAsync(userResult));
             }
 
             return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));

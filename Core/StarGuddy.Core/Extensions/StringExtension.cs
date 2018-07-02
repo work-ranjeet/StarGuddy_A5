@@ -62,7 +62,7 @@ namespace System
         /// <summary>
         /// To the upper ex.
         /// </summary>
-        /// <param name="expressionession">The expressionession.</param>
+        /// <param name="expressionession">The expressionless.</param>
         /// <returns>string value</returns>
         public static string ToUpperEx(this string expression)
         {

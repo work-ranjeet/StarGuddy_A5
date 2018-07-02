@@ -18,17 +18,17 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="Api\Security\**" />
     <Compile Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <Compile Remove="ClientApp\app\components\navmenu\**" />
+    <Content Remove="Api\Security\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="Api\Security\**" />
     <EmbeddedResource Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
+    <None Remove="Api\Security\**" />
     <None Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <None Remove="ClientApp\app\components\navmenu\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Api\Common\JwtPacketManager.cs" />
   </ItemGroup>
 
   <ItemGroup>

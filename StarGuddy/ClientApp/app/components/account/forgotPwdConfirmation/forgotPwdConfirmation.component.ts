@@ -23,6 +23,11 @@ export class AccountForgotPwdConfirmationComponent {
         this.authenticateRoute = authRoute;
         this.accountService = accountService;
         this.dataValidator = dataValidator;
+
+        this.loginData = {} as ILoginData;
+
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 
     ngOnInit() {

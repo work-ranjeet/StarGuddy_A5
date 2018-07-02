@@ -3,37 +3,32 @@
 // Copyright (c) 2017. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
+using Microsoft.AspNetCore.Http;
+using StarGuddy.Api.Models.Account;
+using StarGuddy.Api.Models.Interface.Account;
+
 namespace StarGuddy.Business.Modules.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using System.Security.Claims;
-    using System.Security.Cryptography;
-    using System.Security.Principal;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Cryptography.KeyDerivation;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
+    using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Common;
     using StarGuddy.Core.Constants;
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Security.Principal;
+    using System.Text;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Security Manager Class
     /// </summary>
     /// <seealso cref="StarGuddy.Business.Interface.Common.ISecurityManager" />
     public class SecurityManager : ISecurityManager
-    {   
+    {
         #region /// Properties
         /// <summary>
         /// Gets or sets the configuration.
@@ -43,9 +38,11 @@ namespace StarGuddy.Business.Modules.Common
         /// </value>
         private IConfiguration _configuration { get; set; }
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private string SeceretKey => this._configuration.GetAppSettingValue(AppSettings.JwtSecret);
 
-       
+
         #endregion
 
         #region /// Constructor
@@ -53,13 +50,31 @@ namespace StarGuddy.Business.Modules.Common
         /// Initializes a new instance of the <see cref="SecurityManager"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        public SecurityManager(IConfiguration configuration)
+        public SecurityManager(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
-            this._configuration = configuration;
+            _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
         #endregion
 
         #region /// JWT Tokens
+        /// <summary>
+        /// Creates the JWT packet asynchronous.
+        /// </summary>
+        /// <param name="applicationUser">The user.</param>
+        /// <param name="securityStamp">The security stamp.</param>
+        /// <returns></returns>
+        public async Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser applicationUser)
+        {           
+            return new JwtPacket()
+            {
+                UserId = applicationUser.UserId.ToString(),
+                Token = await GetJwtSecurityTokenAsync(applicationUser),
+                FirstName = applicationUser.FirstName,
+                UserName = applicationUser.UserName
+            };
+        }
+
         /// <summary>
         /// Encrypts the JWT security token asynchronous.
         /// </summary>
@@ -76,11 +91,11 @@ namespace StarGuddy.Business.Modules.Common
 
                 var claims = new Claim[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sid, appUser.Id.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Sid, appUser.UserId.ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, appUser.UserName)
                     //new Claim(ClaimTypes.UserData, EncryptObject(appUser))
                 };
-                
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
@@ -100,74 +115,6 @@ namespace StarGuddy.Business.Modules.Common
 
                 return string.Empty;
             });
-        }
-
-        /// <summary>
-        /// Validates the JWT security token asynchronous.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="securityStamp">The security stamp.</param>
-        /// <returns>string value</returns>
-        public async Task<bool> ValidateJwtSecurityTokenAsync(string jwtToken, string securityStamp)
-        {
-            return await Task.Factory.StartNew(() =>
-            {
-                var simplePrinciple = this.GetPrincipal(jwtToken);
-                var identity = simplePrinciple.Identity as ClaimsIdentity;
-                if (identity == null)
-                    return false;
-
-                if (!identity.IsAuthenticated)
-                    return false;
-
-                var userIdClaim = identity.FindFirst(ClaimTypes.Sid);
-
-
-                if (userIdClaim.IsNull())
-                    return false;
-
-                return true;
-            });
-        }
-
-        //private Task<IPrincipal> AuthenticateJwtToken(string token)
-        //{
-        //    if (await ValidateJwtSecurityTokenAsync(token, out Guid userId))
-        //    {
-
-        //        var claims = new List<Claim> { new Claim(ClaimTypes.Sid, userId.ToString()) };
-        //        var identity = new ClaimsIdentity(claims, "Jwt");
-        //        IPrincipal user = new ClaimsPrincipal(identity);
-        //        return Task.FromResult(user);
-        //    }
-        //    return Task.FromResult<IPrincipal>(null);
-        //}
-
-        private ClaimsPrincipal GetPrincipal(string token)
-        {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
-                if (jwtToken == null) return null;
-                var symmetricKey = Convert.FromBase64String(this.SeceretKey);
-                var validationParameters = new TokenValidationParameters()
-                {
-                    RequireExpirationTime = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
-                };
-
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
-
-                return principal;
-            }
-            catch (Exception)
-            {
-                //should write log  
-                return null;
-            }
         }
         #endregion
 
@@ -219,3 +166,107 @@ namespace StarGuddy.Business.Modules.Common
         #endregion
     }
 }
+
+
+//public static class HttpContextExtensions
+//{
+//    public static IUserContext UserContext(this HttpContext httpContext)
+//    {
+//        var userContext = httpContext.Items["UserContext"];
+//        return userContext != null ? (UserContext)userContext : new UserContext();
+//    }
+//}
+
+
+
+//public async Task<string> ReadJwtTokenFromHeader()
+//{
+//    return await Task.Run(() =>
+//    {
+//        var JwtToken = _httpContextAccessor.HttpContext.Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value.ToString();
+//        if (string.IsNullOrWhiteSpace(JwtToken))
+//        {
+//            throw new Exception("Invalid Token.");
+//        }
+
+//        var innerJwtTokenArr = JwtToken.Split(' ');
+//        if (innerJwtTokenArr.Length != 2 || !innerJwtTokenArr[0].ToLowerInvariant().Equals("bearer"))
+//        {
+//            throw new Exception("Token is missing.");
+//        }
+
+//        return innerJwtTokenArr[1];
+//    });
+
+//}
+
+/// <summary>
+/// Validates the JWT security token asynchronous.
+/// </summary>
+/// <param name="userId">The user identifier.</param>
+/// <param name="securityStamp">The security stamp.</param>
+/// <returns>string value</returns>
+//public async Task<bool> ValidateJwtSecurityTokenAsync(string jwtToken, string securityStamp)
+//{
+//    return await Task.Factory.StartNew(() =>
+//    {
+//        var simplePrinciple = this.GetPrincipal(jwtToken);
+//        var identity = simplePrinciple.Identity as ClaimsIdentity;
+//        if (identity == null)
+//            return false;
+
+//        if (!identity.IsAuthenticated)
+//            return false;
+
+//        var userIdClaim = identity.FindFirst(ClaimTypes.Sid);
+
+
+//        if (userIdClaim.IsNull())
+//            return false;
+
+//        return true;
+//    });
+//}
+
+//private Task<IPrincipal> AuthenticateJwtToken(string token)
+//{
+//    if (await ValidateJwtSecurityTokenAsync(token, out Guid userId))
+//    {
+
+//        var claims = new List<Claim> { new Claim(ClaimTypes.Sid, userId.ToString()) };
+//        var identity = new ClaimsIdentity(claims, "Jwt");
+//        IPrincipal user = new ClaimsPrincipal(identity);
+//        return Task.FromResult(user);
+//    }
+//    return Task.FromResult<IPrincipal>(null);
+//}
+
+//private ClaimsPrincipal GetPrincipal(string token)
+//{
+//    try
+//    {
+//        var tokenHandler = new JwtSecurityTokenHandler();
+//        if (!(tokenHandler.ReadToken(token) is JwtSecurityToken jwtToken))
+//        {
+//            return null;
+//        }
+
+//        var symmetricKey = Convert.FromBase64String(this.SeceretKey);
+//        var validationParameters = new TokenValidationParameters()
+//        {
+//            RequireExpirationTime = true,
+//            ValidateIssuer = false,
+//            ValidateAudience = false,
+//            IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
+//        };
+
+//        var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+
+//        return principal;
+//    }
+//    catch (Exception)
+//    {
+//        //should write log  
+//        return null;
+//    }
+//}

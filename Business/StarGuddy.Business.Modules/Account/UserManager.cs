@@ -61,7 +61,7 @@ namespace StarGuddy.Business.Modules.Account
             {
                 var user = new User
                 {
-                    Id = applicationUser.Id,
+                    Id = applicationUser.UserId,
                     FirstName = applicationUser.FirstName,
                     LastName = applicationUser.LastName,
                     Gender = applicationUser.Gender,
@@ -78,7 +78,7 @@ namespace StarGuddy.Business.Modules.Account
                         Email = applicationUser.Email,
                         IsActive = false,
                         IsDeleted = false,
-                        UserId = applicationUser.Id
+                        UserId = applicationUser.UserId
                     }
                 };
 
@@ -99,7 +99,7 @@ namespace StarGuddy.Business.Modules.Account
             {
                 var user = new User
                 {
-                    Id = applicationUser.Id,
+                    Id = applicationUser.UserId,
                     FirstName = applicationUser.FirstName,
                     LastName = applicationUser.LastName,
                     Gender = applicationUser.Gender,

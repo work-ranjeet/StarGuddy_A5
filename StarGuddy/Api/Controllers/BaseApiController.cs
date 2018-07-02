@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
@@ -24,56 +25,46 @@ namespace StarGuddy.Api.Controllers
     public abstract class BaseApiController : Controller
     {
         #region /// properties
-        public IUserContext UserContext { get; private set; }
-
-        private Exception Exception { get; set; } = null;
-
         private string JwtToken => HttpContext.Request.Headers.Where(x => x.Key == "Authorization").FirstOrDefault().Value.ToString();
+
+        public IUserContext UserContext { get; private set; }
         #endregion
 
-        #region /// Public methods
-        public void DecodeJwtToken()
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+            this.SetUserContext();
+        }              
+
+        #region /// Private methods
+        private void SetUserContext()
         {
             if (string.IsNullOrWhiteSpace(JwtToken))
             {
-                Exception = new Exception("Invalid Token.");
+                throw new Exception("Invalid Token.");
             }
 
             var innerJwtTokenArr = JwtToken.Split(' ');
             if (innerJwtTokenArr.Length != 2 || !innerJwtTokenArr[0].ToLowerInvariant().Equals("bearer"))
             {
-                Exception = new Exception("Token is missing.");
+                throw new Exception("Token is missing.");
             }
 
-            if (Exception != null)
-            {
-                throw Exception;
-            }
-
-            SetUserContext(innerJwtTokenArr[1]);
-
-        }
-        #endregion
-
-        #region /// Private methods
-        private void SetUserContext(string jwtInput)
-        {
             var jwtHandler = new JwtSecurityTokenHandler();
 
-            var readableToken = jwtHandler.CanReadToken(jwtInput);
+            var jwtTokenInput = innerJwtTokenArr[1];
+            var readableToken = jwtHandler.CanReadToken(jwtTokenInput);
 
             if (readableToken)
             {
-                var userPayloadToken = jwtHandler.ReadJwtToken(jwtInput);
-                string userId = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value;
-                string email = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
+                var userPayloadToken = jwtHandler.ReadJwtToken(jwtTokenInput);
                 //string userData = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == ClaimTypes.UserData).Value;
 
                 UserContext = new UserContext
                 {
-                    UserId = Guid.Parse(userId),
-                    UserName = email,
-                    Email = email,
+                    UserId = Guid.Parse((userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value),
+                    UserName = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value,
+                    Email = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value,
                     FirstName = "",
                     LastName = ""
                 };
@@ -89,6 +80,5 @@ namespace StarGuddy.Api.Controllers
 
         }
         #endregion
-
     }
 }

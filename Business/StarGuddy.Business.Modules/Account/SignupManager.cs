@@ -80,7 +80,7 @@ namespace StarGuddy.Business.Modules.Account
 
             return new ApplicationUser
             {
-                Id = user.Id,
+                UserId = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Gender = user.Gender,

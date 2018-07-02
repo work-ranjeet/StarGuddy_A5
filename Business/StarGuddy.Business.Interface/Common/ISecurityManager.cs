@@ -16,6 +16,8 @@ namespace StarGuddy.Business.Interface.Common
     /// </summary>
     public interface ISecurityManager
     {
+        Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser applicationUser);
+
         /// <summary>
         /// Encrypts the JWT security token asynchronous.
         /// </summary>
@@ -23,15 +25,7 @@ namespace StarGuddy.Business.Interface.Common
         /// <returns>
         /// JWT Packet
         /// </returns>
-        Task<string> GetJwtSecurityTokenAsync(IApplicationUser appUser);
-
-        /// <summary>
-        /// Validates the JWT security token asynchronous.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="securityStamp">The security stamp.</param>
-        /// <returns>string value</returns>
-        Task<bool> ValidateJwtSecurityTokenAsync(string userId, string securityStamp);
+        Task<string> GetJwtSecurityTokenAsync(IApplicationUser appUser);        
 
         /// <summary>
         /// Hashes the password.
@@ -51,7 +45,5 @@ namespace StarGuddy.Business.Interface.Common
         /// String Value
         /// </returns>
         Task<bool> VerifyHashedPassword(string hashedPassword, string password);
-
-      
     }
 }

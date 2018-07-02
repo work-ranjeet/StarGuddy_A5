@@ -20,6 +20,7 @@ export class AccountConfirmEmailSentComponent {
     constructor(router: Router, authRoute: ActivatedRoute) {
         this.router = router;
         this.authenticateRoute = authRoute;
+        this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
     }
 
     ngOnInit() {

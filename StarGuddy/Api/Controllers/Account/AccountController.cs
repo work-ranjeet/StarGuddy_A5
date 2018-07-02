@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StarGuddy.Api.Common;
-using StarGuddy.Api.Security.Jwt;
 using StarGuddy.Business.Interface.Account;
+using System.Threading.Tasks;
 
 namespace StarGuddy.Api.Controllers.Account
 {
@@ -19,17 +14,15 @@ namespace StarGuddy.Api.Controllers.Account
     public class AccountController : Controller
     {
         private readonly IUserManager _userManager;
-        private readonly IJwtPacketManager _jwtPacketManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
         /// <param name="signUpManager">The sign up manager.</param>
         /// <param name="jwtPacketManager">The JWT packet manager.</param>
-        public AccountController(IUserManager userManager, IJwtPacketManager jwtPacketManager)
+        public AccountController(IUserManager userManager)
         {
             this._userManager = userManager;
-            this._jwtPacketManager = jwtPacketManager;
         }
 
         [HttpGet]
