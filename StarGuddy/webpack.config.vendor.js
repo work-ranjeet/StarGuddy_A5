@@ -12,8 +12,7 @@ const treeShakableModules = [
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',
-    'zone.js',
-    'ng2-scrollable'
+    'zone.js'
 ];
 const nonTreeShakableModules = [
     'bootstrap',

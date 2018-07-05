@@ -37,7 +37,8 @@ export class AccountLoginComponent {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.error(error);
+                    var v = "";
+                    //console.error(error);
                 });
         }
     }

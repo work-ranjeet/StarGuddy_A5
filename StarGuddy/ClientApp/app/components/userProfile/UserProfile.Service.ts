@@ -7,7 +7,7 @@ import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
 import IUserEmail = App.Client.Profile.Setting.IUserEmail;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 
 
 @Injectable()
@@ -18,8 +18,7 @@ export class UserProfileService {
     constructor(
         @Inject(BaseService) private readonly baseService: BaseService,
         private readonly router: Router,
-        private readonly dataConverter: DataConverter,
-        private http: Http) {
+        private readonly dataConverter: DataConverter) {
         this.UserId = baseService.UserId;
     }
 

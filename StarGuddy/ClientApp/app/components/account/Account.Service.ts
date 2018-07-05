@@ -29,8 +29,8 @@ export class AccountService {
     }
 
     login(loginData: ILoginData) {
-        return this.baseService.HttpService.post("Account/login", loginData).map(response => {
-            if (response.ok) {
+        return this.baseService.HttpService.postSimple("Account/login", loginData).map(response => {
+            if (response!= null) {
                 this.isLoggedInSource.next(true);
                 this.baseService.authenticate(response);
             }
@@ -43,10 +43,10 @@ export class AccountService {
     }
 
     signup(userData: IUserData) {
-        return this.baseService.HttpService.post("Account/signup", userData).map(response => {
-            if (response.ok) {
+        return this.baseService.HttpService.postSimple("Account/signup", userData).map(response => {
+            if (response != null) {
                 this.isLoggedInSource.next(true);
-                this.baseService.authenticate(response.json);
+                this.baseService.authenticate(response);
             }
         });
     }

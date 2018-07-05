@@ -38,7 +38,7 @@ export class PhysicalDetailsComponent {
     loadData() {
         this.userProfileService.GetUserPhysicalAppreance().subscribe( result => {
             if (result != null) {
-                this.PhysicalAppearance = result.json() as IPhysicalAppearance;
+                this.PhysicalAppearance = result as IPhysicalAppearance;
             }
 
             var height = this.heightJson.find(x => x.key == this.PhysicalAppearance.Height);
@@ -76,7 +76,7 @@ export class PhysicalDetailsComponent {
     saveChanges() {
         if (this.PhysicalAppearance != undefined) {
             this.userProfileService.SaveUserPhysicalAppreance(this.PhysicalAppearance).subscribe(result => {
-                if (result != null && result.ok) {
+                if (result != null) {
                     this.loadData();
                 }
                 this.edit();
