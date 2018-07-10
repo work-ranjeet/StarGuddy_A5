@@ -79,7 +79,7 @@ namespace StarGuddy.Repository.Operation
 
         public async Task<IPhysicalAppearance> GetPhysicalAppreanceById(Guid userId)
         {
-            return await base.FindByUserIdAsync(userId);
+            return await base.FindActiveByUserIdAsync(userId);
         }
     }
 }

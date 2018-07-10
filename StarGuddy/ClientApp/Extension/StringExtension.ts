@@ -1,12 +1,12 @@
 ﻿
 interface StringConstructor {
     Empty: string;
-    isNullOrEmpty: (val: any) => boolean;
+    IsNullOrEmpty: (val: any) => boolean;
 }
 
 
-String.Empty = "";  
+String.Empty = "";
 
-String.isNullOrEmpty = function (val: any): boolean {
+String.IsNullOrEmpty = function (val: any): boolean {
     return (val === undefined || val === null || val.trim() === '');
 };

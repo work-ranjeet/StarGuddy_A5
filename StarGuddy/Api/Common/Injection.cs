@@ -59,6 +59,7 @@ namespace StarGuddy.Api
             services.AddTransient<IAccentsRepository, AccentsRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
+            services.AddTransient<IUserCreditsRepository, UserCreditsRepository>(); 
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
             
 

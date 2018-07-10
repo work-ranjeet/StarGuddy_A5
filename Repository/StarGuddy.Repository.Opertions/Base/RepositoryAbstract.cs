@@ -276,6 +276,30 @@ namespace StarGuddy.Repository.Base
             }
         }
 
+        public virtual async Task<IEnumerable<T>> FindAllByUserIdAsync(Guid userId)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text));
+            }
+        }
+
+        public virtual async Task<T> FindActiveByUserIdAsync(Guid userId)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId AND IsActive = @IsActive AND IsDeleted = @IsDeleted", new { UserId = userId, IsActive = 1, IsDeleted = 0 }, commandType: CommandType.Text)).FirstOrDefault();
+            }
+        }
+
+        public virtual async Task<IEnumerable<T>> FindAllActiveByUserIdAsync(Guid userId)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId AND IsActive = @IsActive AND IsDeleted = @IsDeleted", new { UserId = userId, IsActive = 1, IsDeleted = 0 }, commandType: CommandType.Text));
+            }
+        }
+
         /// <summary>
         /// The delete.
         /// </summary>
@@ -286,6 +310,20 @@ namespace StarGuddy.Repository.Base
             {
                 conn.Execute("DELETE FROM " + this.tableName + " WHERE ID = @ID", new { ID = id });
             }
+        }
+
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public virtual async Task<bool> SoftDelete(Guid id)
+        {
+            using (var conn = this.GetOpenConnectionAsync)
+            {
+                await conn.ExecuteAsync( "UPDATE " + this.tableName + " SET IsDeleted = 1, IsActive = 0 WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text);
+            }
+
+            return true;
         }
 
         /// <summary>

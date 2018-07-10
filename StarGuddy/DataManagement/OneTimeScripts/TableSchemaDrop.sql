@@ -1,3 +1,13 @@
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserCredits')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserCredits
+GO
+
 IF EXISTS (
 		SELECT *
 		FROM sys.objects

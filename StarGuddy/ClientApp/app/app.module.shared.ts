@@ -1,12 +1,9 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-//import { HttpModule } from "@angular/http";
+//import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http"
 import { RouterModule } from "@angular/router";
-//import { StorageServiceModule } from 'angular-webstorage-service';
-//import { MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule } from "@angular/material";
-//import { MatInputModule } from "@angular/material/input";
+
 
 // Directives
 
@@ -36,8 +33,7 @@ import { CounterComponent } from "./components/counter/counter.component";
         CounterComponent, FetchDataComponent
     ],
     imports: [
-        CommonModule, HttpClientModule, FormsModule, //StorageServiceModule, // MatInputModule,
-        //MatButtonModule, MatCardModule, MatInputModule, MatSnackBarModule, MatToolbarModule,
+        CommonModule, HttpClientModule, //FormsModule, ReactiveFormsModule
         CommonModuleShared,
         HomeModuleShared,
         AccountModuleShared,

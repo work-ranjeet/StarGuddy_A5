@@ -65,14 +65,18 @@
     font-size: 11px;
 }
 
+.ng-dirty,
+input.ng-dirty,
 input.ng-valid,
-input.ng-valid[required] {
+input.ng-valid[required],
+input.ng-dirty[required] {
     border-left: 5px solid #42A948; /* green */
 }
 
 input.ng-invalid {
     border-left: 5px solid #a94442; /* red */
 }
+
 
    
 /*------------------------------------------------------End Validation color ---------------------------------------------*/

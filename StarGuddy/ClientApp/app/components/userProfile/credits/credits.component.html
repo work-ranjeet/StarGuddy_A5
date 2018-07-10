@@ -10,31 +10,34 @@
             </div>
             <div *ngIf="!showEditHtml" class="card-body">
                 <div class="padding-10 margin-bottom-10" *ngFor="let credit of CreditsList">
-                    <strong class="padding-5">{{credit.WorkYear}}</strong>
+                    <strong class="padding-5">{{credit.workYear}}</strong>
                     <ul class="padding-left-20">
-                        <li>{{credit.WorkPlace}} : {{credit.WorkDetail}}</li>
+                        <li>{{credit.workPlace}} : {{credit.workDetail}}</li>
                     </ul>
                 </div>
             </div>
 
             <div id="physicalAppreanceEdit" *ngIf="showEditHtml" class="card-body text-muted">
-                <form action="#" method="post" class="form" role="form">
+                <form #frmPhysicalAppreanceEdit="ngForm">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required">Year</label>
-                                <select [(ngModel)]="Credits.WorkYear"  (change)="workYearChange($event)" name="dropDownYear" id="dropDownYear" class="form-control width-90">
+                                <select [(ngModel)]="Credits.workYear" (change)="workYearChange($event)" name="dropDownYear" id="dropDownYear" required #workYear="ngModel" class="form-control width-90">
                                     <option value="0">-- Please select --</option>
                                     <option *ngFor="let item of workYearJson" [value]="item.key">{{item.value}}</option>
-                                </select>                                
+                                </select>
+                                <div *ngIf="workYear.errors && (workYear.dirty || workYear.touched)" class="error">
+                                    <div [hidden]="!workYear.hasError('required')">Work year is required.</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="required">workplace or school</label>
-                                <input [(ngModel)]="Credits.WorkPlace" id="txtWorkPlace" name="txtWorkPlace " class="form-control" placeholder="Enter you work place..." required  #workPlace="ngModel"/>
-                                <div *ngIf="workPlace.errors && (workPlace.dirty || workPlace.touched)" class="error">
-                                    <div [hidden]="!workPlace.hasError('required')">Work place is required.</div>
+                                <input [(ngModel)]="Credits.workPlace" id="txtWorkPlace" name="txtWorkPlace " class="form-control" placeholder="Enter you work place..." required #workPlace="ngModel" />
+                                <div *ngIf="workPlace.invalid && (workPlace.dirty || workPlace.touched)" class="error">
+                                    <div *ngIf="workPlace.errors.required">Name is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -43,43 +46,40 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Role, job education or course</label>
-                                <textarea [(ngModel)]="Credits.WorkDetail" id="txtWorkDetail" name="txtWorkDetail" class="form-control" style="min-height:100px;"></textarea>
+                                <label class="required">Role, job education or course</label>
+                                <textarea [(ngModel)]="Credits.workDetail" id="txtWorkDetail" name="txtWorkDetail" class="form-control" required style="min-height:100px;" #workDetail="ngModel"></textarea>
+                                <div *ngIf="workDetail.invalid && (workDetail.dirty || workDetail.touched)" class="error">
+                                    <div *ngIf="workPlace.errors.required">Work detail is required.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <button id="btnPhysicalAppearance" (click)="addToCreditList()" class="btn btn-success" style="width:250px;">Add to Credit list</button>
+                            <button id="btnPhysicalAppearance" [disabled]="!frmPhysicalAppreanceEdit.form.valid" (click)="addToCreditList(frmPhysicalAppreanceEdit)" class="btn btn-success" style="width:250px;">Add to Credit list</button>
                         </div>
                     </div>
                 </form>
-                <hr class="style-four margin-left-right-minus-13" />
-                <form action="#" method="post" class="form padding-10" role="form">
-                    <div class="row">
-                        <ng-container *ngFor="let credit of CreditsList" style="border-bottom:solid 1px #ccc;">
-                            <div *ngIf="credit.Action!='DELETE'" class="padding-15" >
-                                <h4>{{credit.WorkYear}}</h4>
-                                <span style="font-size:14px;">{{credit.WorkPlace}} :<i>{{credit.WorkDetail}}</i></span>
-                                <div style="float:right;">
-                                    <i (click)="editCreditList(credit.WorkYear)" class="fa fa-edit btn btn-success padding-5"></i>
-                                    <i (click)="deleteCredits(credit.WorkYear)" class="fa fa-remove btn btn-danger padding-5"></i>
+                <div *ngIf="hasCredits">
+                    <hr class="style-four margin-left-right-minus-13" />
+                    <form #frmPhysicalAppreanceSave="ngForm" class="form padding-10">
+                        <div class="row">
+                            <ng-container *ngFor="let credit of CreditsList" class="border-bottom">
+                                <div *ngIf="credit.action!='DELETE'" class="padding-15">
+                                    <h4>{{credit.WorkYear}}</h4>
+                                    <span style="font-size:14px;">{{credit.workPlace}} :<i>{{credit.workDetail}}</i></span>
+                                    <div style="float:right;">
+                                        <i (click)="editCreditList(credit.workYear)" class="fa fa-edit btn btn-success padding-5"></i>
+                                        <i (click)="deleteCredits(credit.workYear)" class="fa fa-remove btn btn-danger padding-5"></i>
+                                    </div>
                                 </div>
-                            </div>
-                        </ng-container>
-                        <!--<div class="padding-15" style="border-bottom:solid 1px #ccc;">
-                            <h4>2016</h4>
-                            <span style="font-size:14px;">werwer :<i>werwerwer</i></span>
-                            <div style="float:right;">
-                                <i class="fa fa-edit btn btn-success padding-5"></i>
-                                <i class="fa fa-remove btn btn-danger padding-5"></i>
-                            </div>
-                        </div>-->
-                    </div>
-                    <div class="col-sm-12 text-center padding-15">
-                        <button id="btnSave" (click)="saveChanges()" class="btn-profile-save btn btn-success">Finish Editing</button>
-                    </div>
-                </form>
+                            </ng-container>
+                        </div>
+                        <div class="col-sm-12 text-center padding-15">
+                            <button id="btnSave" (click)="saveChanges()" [disabled]="!enableSaveButton"  class="btn-profile-save btn btn-success">Finish Editing</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
 

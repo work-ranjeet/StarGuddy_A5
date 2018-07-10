@@ -180,7 +180,7 @@ SET XACT_ABORT ON;
 IF (EXISTS (SELECT TOP 1  Id from PhysicalAppearance where UserId= @UserId and IsActive= 1 and IsDeleted =0	))
 	BEGIN
 			UPDATE PhysicalAppearance
-			SET BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+			SET BodyType = @BodyType, Chest = @Chest, EyeColor = @EyeColor, HairColor = @HairColor, HairLength = @HairLength, HairType = @HairType, SkinColor = @SkinColor, Height = @Height, [Weight] = @Weight, West = @West, Ethnicity = @Ethnicity, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
 			WHERE UserId = @UserId
 	END
 ELSE
@@ -190,4 +190,33 @@ ELSE
 
 	END	
 END
-	-------------------------------------------------------------------- End PhysicalAppreance ----------------------------------------------------------------------------
+GO
+-------------------------------------------------------------------- End PhysicalAppreance ----------------------------------------------------------------------------
+
+-------------------------------------------------------------------- Credits --------------------------------------------------------------------------------
+	IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserCreditsSaveUpdate') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserCreditsSaveUpdate
+GO
+
+CREATE PROCEDURE UserCreditsSaveUpdate (@UserId UNIQUEIDENTIFIER, @Year INT, @WorkPlace NVARCHAR(150), @Description NVARCHAR(300))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	IF (EXISTS (SELECT TOP 1 Id	FROM UserCredits WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0	))
+	BEGIN
+		UPDATE UserCredits
+		SET [Year] = @Year, workPlace = @WorkPlace, [Description] = @Description, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+		WHERE UserId = @UserId AND [Year] = @Year
+	END
+	ELSE
+	BEGIN
+		INSERT INTO UserCredits (UserId, [Year], workPlace, [Description], IsActive, IsDeleted)
+		VALUES (@UserId, @Year, @WorkPlace, @Description, 1, 0)
+	END
+END

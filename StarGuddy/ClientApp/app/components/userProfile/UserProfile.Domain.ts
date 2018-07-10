@@ -2,24 +2,24 @@
 
 
     export interface IPhysicalAppearanceModal {
-        BodyType: string;
-        Chest: string;
-        EyeColor: string;
-        HairColor: string;
-        HairLength: string;
-        HairType: string;
-        SkinColor: string;
-        Height: string;
-        Weight: string;
-        West: string;
-        Ethnicity: string;
+        bodyType: string;
+        chest: string;
+        eyeColor: string;
+        hairColor: string;
+        hairLength: string;
+        hairType: string;
+        skinColor: string;
+        height: string;
+        weight: string;
+        west: string;
+        ethnicity: string;
     }
 
     export interface ICredits {
-        Id: string;
-        Action: string;
-        WorkYear: string;
-        WorkPlace: string;
-        WorkDetail: string;
+        id: string;
+        action: string;
+        workYear: string;
+        workPlace: string;
+        workDetail: string;
     }
 }

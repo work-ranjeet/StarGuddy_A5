@@ -8,7 +8,6 @@ body {
     font-size: 14px;
     line-height: 20px;
     color: #383838;
-    ;
 }
 
 .body-content {
@@ -201,7 +200,7 @@ hr {
 
     hr.seperator {
         margin: 1px !important;
-        padding:10px 0 10px 0;
+        padding: 10px 0 10px 0;
     }
 
     hr.style-one {
@@ -341,6 +340,18 @@ hr {
 
 .padding-left-20 {
     padding-left: 20px !important;
+}
+
+.padding-left-30 {
+    padding-left: 30px !important;
+}
+
+.padding-left-40 {
+    padding-left: 40px !important;
+}
+
+.padding-left-50 {
+    padding-left: 50px !important;
 }
 
 /****************************** Height *******************************/
@@ -489,7 +500,7 @@ margin-right-10 {
 
 .margin-left-right-minus-13 {
     margin-left: -13px;
-    margin-right:-13px;
+    margin-right: -13px;
 }
 
 /****************************** custome table *******************************/
