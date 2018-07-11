@@ -59,7 +59,15 @@ namespace StarGuddy.Api.Controllers.Profile
                 return BadRequest("Invalid/Bad request.");
             }
 
-            return Ok(await _profileManager.GetPhysicalAppreance(UserContext.UserId));
+            var result = await _profileManager.GetPhysicalAppreance(UserContext.UserId);
+
+            if (result.IsNull())
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+          
         }
 
 
@@ -74,12 +82,17 @@ namespace StarGuddy.Api.Controllers.Profile
 
             var creditResult = await _profileManager.GetUserCredits(UserContext.UserId);
 
-            if (creditResult != null && creditResult.Any())
+            if (!creditResult.IsNull() && creditResult.Any())
             {
-                return Ok(await _profileManager.GetUserCredits(UserContext.UserId));
+                return Ok(creditResult);
             }
 
-            return NotFound();
+            if (!creditResult.IsNull() && !creditResult.Any())
+            {
+                return NoContent();
+            }
+
+            return NotFound(creditResult);
         }
 
         [HttpPost]
@@ -101,7 +114,7 @@ namespace StarGuddy.Api.Controllers.Profile
         }
 
         [HttpDelete]
-        [Route("Credit/{id}")]
+        [Route("Credit")]
         public async Task<IActionResult> DeleteUserCredits(Guid Id)
         {
             if (UserContext.UserId == System.Guid.Empty || Id == Guid.Empty)

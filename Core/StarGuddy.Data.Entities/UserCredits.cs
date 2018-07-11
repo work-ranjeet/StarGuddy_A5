@@ -11,7 +11,7 @@ namespace StarGuddy.Data.Entities
         public Guid UserId { get; set; }
         public Int32 Year { get; set; }
         public String WorkPlace { get; set; }
-        public String Description { get; set; }
+        public String WorkDetail { get; set; }
         public Boolean IsActive { get; set; }
         public Boolean IsDeleted { get; set; }
         public DateTime DttmCreated { get; set; }

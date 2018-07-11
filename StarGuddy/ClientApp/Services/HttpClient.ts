@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
 import { AppConstant } from "../Constants/AppConstant";
 import { Observable } from 'rxjs/Observable';
 @Injectable()
@@ -53,6 +53,13 @@ export class HttpService {
     postData<T>(Url: string, data: any) {
         return this.http.post<T>(this.UrlPrifix + Url, data, {
             headers: this.TokenHeader
+        });
+    }
+
+    deleteData<T>(Url: string, params: HttpParams) {
+        return this.http.delete<T>(this.UrlPrifix + Url, {
+            headers: this.TokenHeader,
+            params: params
         });
     }
 

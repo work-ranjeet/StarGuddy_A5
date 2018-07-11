@@ -6,9 +6,10 @@ import { Router } from "@angular/router";
 import { BaseService } from "../../../Services/BaseService";
 import { DataConverter } from "../../../Helper/DataConverter";
 import { Observable } from "rxjs/Observable";
+import { HttpErrorResponse, HttpParams } from "@angular/common/http";
 
+import IUserCredits = App.Client.Profile.ICredits;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable()
 export class UserProfileService {
@@ -19,6 +20,7 @@ export class UserProfileService {
         private readonly router: Router,
         private readonly dataConverter: DataConverter) { }
 
+    //-------------Physical Appearance-------------------------------//
     GetUserPhysicalAppreance(): Observable<IPhysicalAppearance> {
         return this.baseService.HttpService.getData<IPhysicalAppearance>("Profile/Operations/PhysicalApperance")
             .map(
@@ -27,9 +29,9 @@ export class UserProfileService {
                 },
                 (err: HttpErrorResponse) => {
                     if (err.error instanceof Error) {
-                        console.log("Client-side error occurred.");
+                        console.log("Client-side error occurred. Error:" + err.message);
                     } else {
-                        console.log("Server-side error occurred.");
+                        console.log("Server-side error occurred. Error:" + err.message);
                     }
                 });
     }
@@ -42,9 +44,60 @@ export class UserProfileService {
                 },
                 (err: HttpErrorResponse) => {
                     if (err.error instanceof Error) {
-                        console.log("Client-side error occurred.");
+                        console.log("Client-side error occurred. Error:" + err.message);
                     } else {
-                        console.log("Server-side error occurred.");
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+
+
+    // --------------- User Credits ------------------------//
+    GetUserCredits(): Observable<IUserCredits[]> {
+        return this.baseService.HttpService.getData<IUserCredits[]>("Profile/Operations/Credit")
+            .map(
+                (result: IUserCredits[]) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    SaveUserCredits(credits: IUserCredits[]): Observable<boolean> {
+        return this.baseService.HttpService.postData<boolean>("Profile/Operations/Credit", credits)
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    DeleteUserCredits(id: string): Observable<boolean> {
+        //let httpParams = new HttpParams();
+        // httpParams.append("Id", id);
+
+        return this.baseService.HttpService.deleteData<boolean>("Profile/Operations/Credit", new HttpParams().append("Id", id))
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
                     }
                 });
     }

@@ -37,9 +37,14 @@ export class CreditsComponent {
         this.Credits = Object.assign({}, this.initCreditsClass);
     }
 
+    ngOnInit() {
+        this.loadCredits();
+    }
+
     edit() {
         this.showEditHtml = !this.showEditHtml;
-        if (this.showEditHtml) {
+        if (this.showEditHtml)// && (!this.CreditsList != undefined && this.CreditsList.length > 0)) 
+        {
             this.loadCredits();
         }
     }
@@ -73,8 +78,8 @@ export class CreditsComponent {
                 frmEdit.control.markAsPristine();
             }
 
-            this.enableSaveButton = newCreditsObj.action == this.dbOperation.Insert || newCreditsObj.action == this.dbOperation.Update || newCreditsObj.action == this.dbOperation.Delete;
-            this.hasCredits = this.CreditsList.length > 0;
+            this.enableSaveButton = this.isCreditsDirty();
+            this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
         }
     }
 
@@ -86,36 +91,67 @@ export class CreditsComponent {
             }
         }
 
+        this.hasCredits = this.isCreditsDirty();
     }
 
     deleteCredits(selectedYear: string) {
-        if (selectedYear != undefined && selectedYear != "") {
+
+        var actionResult = confirm("Do you want to delete this entry?")
+        if (actionResult && selectedYear != undefined && selectedYear != ";") {
 
             let index = this.CreditsList.findIndex(x => x.workYear == selectedYear);
             if (index > -1) {
-                let objForDelete = this.CreditsList.find(x => x.workYear == selectedYear);
+                let objForDelete = <ICredits>this.CreditsList.find(x => x.workYear == selectedYear);
                 if (objForDelete != undefined && objForDelete.id == String.Empty) {
                     this.CreditsList.splice(index, 1);
+                    return;
                 }
-                else {
-                    this.CreditsList[index].action = this.dbOperation.Delete;
-                }
+
+                this.userProfileService.DeleteUserCredits(objForDelete.id).subscribe(response => {
+                    if (response != null && response) {
+                        this.CreditsList.splice(index, 1);
+                    }
+                    else {
+                        console.info("Error");
+                    }
+
+                    this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
+                });
             }
         }
-
-        this.hasCredits = this.CreditsList.length > 0;
     }
 
     loadCredits() {
+        this.userProfileService.GetUserCredits().subscribe(response => {
+            if (response != null && response.length > 0) {
+                this.CreditsList = response;
+            }
+            else {
+                console.info("Got empty result:" + response.toString());
+            }
+        });
 
-        this.hasCredits = this.CreditsList.length > 0;
+        this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
     }
 
     saveChanges() {
+        let editedCredits = this.CreditsList.filter(x => x.id == String.Empty || x.action == this.dbOperation.Insert || x.action == this.dbOperation.Update || x.action == this.dbOperation.Delete);
+        if (editedCredits != undefined && editedCredits.length > 0) {
+            this.userProfileService.SaveUserCredits(editedCredits).subscribe(response => {
+                if (response != null && response) {
+                    console.info("Updated");
+                }
 
+                this.showEditHtml = false;
+            });
+        }
+    }
 
+    isCreditsDirty(): boolean {
+        let editedCredits = this.CreditsList.filter(x => x.id == String.Empty ||
+            x.action == this.dbOperation.Insert || x.action == this.dbOperation.Update || x.action == this.dbOperation.Delete);
 
-        this.showEditHtml = false;
+        return editedCredits != undefined && editedCredits.length > 0;
     }
 
     public workYearJson = [

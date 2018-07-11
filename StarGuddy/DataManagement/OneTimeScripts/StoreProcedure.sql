@@ -202,21 +202,24 @@ GO
 	DROP PROCEDURE UserCreditsSaveUpdate
 GO
 
-CREATE PROCEDURE UserCreditsSaveUpdate (@UserId UNIQUEIDENTIFIER, @Year INT, @WorkPlace NVARCHAR(150), @Description NVARCHAR(300))
+
+CREATE PROCEDURE UserCreditsSaveUpdate (@UserId UNIQUEIDENTIFIER, @Year INT, @WorkPlace NVARCHAR(150), @WorkDetail NVARCHAR(300))
 AS
 BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	IF (EXISTS (SELECT TOP 1 Id	FROM UserCredits WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0	))
+	IF (EXISTS (SELECT TOP 1 Id	FROM UserCredits WHERE UserId = @UserId AND [Year] = @Year AND IsActive = 1 AND IsDeleted = 0	))
 	BEGIN
 		UPDATE UserCredits
-		SET [Year] = @Year, workPlace = @WorkPlace, [Description] = @Description, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+		SET [Year] = @Year, workPlace = @WorkPlace, WorkDetail = @WorkDetail, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
 		WHERE UserId = @UserId AND [Year] = @Year
 	END
 	ELSE
 	BEGIN
-		INSERT INTO UserCredits (UserId, [Year], workPlace, [Description], IsActive, IsDeleted)
-		VALUES (@UserId, @Year, @WorkPlace, @Description, 1, 0)
+		INSERT INTO UserCredits (UserId, [Year], workPlace, WorkDetail, IsActive, IsDeleted)
+		VALUES (@UserId, @Year, @WorkPlace, @WorkDetail, 1, 0)
 	END
 END
+
+GO

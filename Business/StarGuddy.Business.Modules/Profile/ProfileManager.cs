@@ -82,9 +82,11 @@ namespace StarGuddy.Business.Modules.Profile
                 {
                     creditBag.Add(new UserCreditModel
                     {
-                        Year = credit.Year,
+                        Id = credit.Id,
+                        Action = DbOperation.NoAction,
+                        WorkYear = credit.Year,
                         WorkPlace = credit.WorkPlace,
-                        Description = credit.Description
+                        WorkDetail = credit.WorkDetail
                     });
                 });
 
@@ -106,9 +108,9 @@ namespace StarGuddy.Business.Modules.Profile
                         saveUpdateBag.Add(new UserCredits
                         {
                             UserId = UserId,
-                            Year = credit.Year,
+                            Year = credit.WorkYear,
                             WorkPlace = credit.WorkPlace,
-                            Description = credit.Description
+                            WorkDetail = credit.WorkDetail
                         });
                     }
                 });

@@ -63,7 +63,7 @@ namespace StarGuddy.Repository.Base
         /// <value>
         /// The SQL connection.
         /// </value>
-        protected SqlConnection _SqlConnection => new SqlConnection(this.configurationSingleton.SQLConnectionString);
+        public SqlConnection Connection => new SqlConnection(this.configurationSingleton.SQLConnectionString);
 
         /// <summary>
         /// Gets a value indicating whether this instance is connection open.
@@ -71,7 +71,7 @@ namespace StarGuddy.Repository.Base
         /// <value>
         /// <c>true</c> if this instance is connection open; otherwise, <c>false</c>.
         /// </value>
-        protected bool IsConnectionOpen => this._SqlConnection.State == ConnectionState.Open;
+        public bool IsConnectionOpen => this.Connection.State == ConnectionState.Open;
 
         /// <summary>
         /// Gets the open connection.
@@ -79,36 +79,37 @@ namespace StarGuddy.Repository.Base
         /// <value>
         /// The get open connection.
         /// </value>
-        protected SqlConnection GetOpenConnection
+        public SqlConnection GetOpenConnection
         {
             get
             {
-                if (this._SqlConnection.State == ConnectionState.Closed || this._SqlConnection.State == ConnectionState.Broken)
+                if (this.Connection.State == ConnectionState.Closed || this.Connection.State == ConnectionState.Broken)
                 {
-                    this._SqlConnection.Open();
+                    this.Connection.Open();
                 }
 
-                return this._SqlConnection;
+                return this.Connection;
             }
         }
 
         /// <summary>
         /// Gets the get open connection asynchronous.
         /// </summary>
-        /// <value>
+        /// <returns>
         /// The get open connection asynchronous.
-        /// </value>
-        protected SqlConnection GetOpenConnectionAsync
+        /// </returns>
+        public SqlConnection GetOpenedConnectionAsync
         {
             get
             {
-                if (this._SqlConnection.State == ConnectionState.Closed || this._SqlConnection.State == ConnectionState.Broken)
+                if (this.Connection.State == ConnectionState.Closed || this.Connection.State == ConnectionState.Broken)
                 {
-                    this._SqlConnection.OpenAsync();
+                    Connection.OpenAsync();
                 }
 
-                return this._SqlConnection;
+                return Connection;
             }
+
         }
 
         /// <summary>
@@ -117,11 +118,11 @@ namespace StarGuddy.Repository.Base
         /// <value>
         /// The get sequence identifier.
         /// </value>
-        protected Guid GetSequenceId
+        public Guid GetSequenceId
         {
             get
             {
-                using (var conn = this.GetOpenConnectionAsync)
+                using (var conn = this.GetOpenedConnectionAsync)
                 {
                     var result = SqlMapper.QueryAsync(conn, "select NEWID()");
 
@@ -147,7 +148,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<T> FindSingleAsync(string query, dynamic parameter)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
                 return await conn.QueryFirstOrDefaultAsync<T>(query, (object)parameter);
             }
@@ -168,7 +169,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenedConnectionAsync)
             {
                 return await connection.QueryAsync<T>("SELECT * FROM " + this.tableName);
             }
@@ -191,7 +192,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<IEnumerable<T>> GetAllByParameterAsync(string query, dynamic parameter)
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenedConnectionAsync)
             {
                 return await SqlMapper.QueryAsync<T>(connection, query, parameter, commandType: CommandType.Text);
             }
@@ -213,7 +214,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<IEnumerable<T>> GetProcedureDataAsync(string storeProcedureName)
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenedConnectionAsync)
             {
                 return await SqlMapper.QueryAsync<T>(connection, storeProcedureName, commandType: CommandType.StoredProcedure);
             }
@@ -236,7 +237,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<IEnumerable<T>> GetProcedureDataAsync(string storeProcedureName, dynamic parameter)
         {
-            using (var connection = this.GetOpenConnectionAsync)
+            using (var connection = this.GetOpenedConnectionAsync)
             {
                 return await SqlMapper.QueryAsync<T>(connection, storeProcedureName, parameter, commandType: CommandType.StoredProcedure);
             }
@@ -255,7 +256,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<T> FindByIdAsync(Guid id)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text)).FirstOrDefault();
             }
@@ -270,7 +271,7 @@ namespace StarGuddy.Repository.Base
         }
         public virtual async Task<T> FindByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text)).FirstOrDefault();
             }
@@ -278,7 +279,7 @@ namespace StarGuddy.Repository.Base
 
         public virtual async Task<IEnumerable<T>> FindAllByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text));
             }
@@ -286,7 +287,7 @@ namespace StarGuddy.Repository.Base
 
         public virtual async Task<T> FindActiveByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId AND IsActive = @IsActive AND IsDeleted = @IsDeleted", new { UserId = userId, IsActive = 1, IsDeleted = 0 }, commandType: CommandType.Text)).FirstOrDefault();
             }
@@ -294,7 +295,7 @@ namespace StarGuddy.Repository.Base
 
         public virtual async Task<IEnumerable<T>> FindAllActiveByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId AND IsActive = @IsActive AND IsDeleted = @IsDeleted", new { UserId = userId, IsActive = 1, IsDeleted = 0 }, commandType: CommandType.Text));
             }
@@ -318,9 +319,9 @@ namespace StarGuddy.Repository.Base
         /// <param name="id">The id.</param>
         public virtual async Task<bool> SoftDelete(Guid id)
         {
-            using (var conn = this.GetOpenConnectionAsync)
+            using (var conn = this.GetOpenedConnectionAsync)
             {
-                await conn.ExecuteAsync( "UPDATE " + this.tableName + " SET IsDeleted = 1, IsActive = 0 WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text);
+                await conn.ExecuteAsync("UPDATE " + this.tableName + " SET IsDeleted = 1, IsActive = 0, @DttmModified= DttmModified WHERE ID = @ID", new { DttmModified = DateTime.UtcNow, ID = id }, commandType: CommandType.Text);
             }
 
             return true;

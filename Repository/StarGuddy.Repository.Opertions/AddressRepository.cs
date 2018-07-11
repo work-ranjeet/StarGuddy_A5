@@ -63,7 +63,7 @@ namespace StarGuddy.Repository.Operation
             {
                 try
                 {
-                    using (var conn = base.GetOpenConnectionAsync)
+                    using (var conn = base.GetOpenedConnectionAsync)
                     {
                         var param = new DynamicParameters();
                         param.Add("@UserId", userId);

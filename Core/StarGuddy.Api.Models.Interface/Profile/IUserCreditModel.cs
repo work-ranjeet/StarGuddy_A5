@@ -10,10 +10,10 @@ namespace StarGuddy.Api.Models.Interface.Profile
 
         string Action { get; set; }
 
-        Int32 Year { get; set; }
+        Int32 WorkYear { get; set; }
 
         String WorkPlace { get; set; }
 
-        String Description { get; set; }
+        String WorkDetail { get; set; }
     }
 }

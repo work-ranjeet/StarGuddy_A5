@@ -10,7 +10,7 @@ namespace StarGuddy.Data.Entities.Interface
         Guid UserId { get; set; }
         Int32 Year { get; set; }
         String WorkPlace { get; set; }
-        String Description { get; set; }
+        String WorkDetail { get; set; }
         Boolean IsActive { get; set; }
         Boolean IsDeleted { get; set; }
         DateTime DttmCreated { get; set; }

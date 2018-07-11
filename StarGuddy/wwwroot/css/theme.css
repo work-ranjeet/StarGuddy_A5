@@ -77,10 +77,12 @@ input.ng-invalid {
     border-left: 5px solid #a94442; /* red */
 }
 
+form.ng-invalid, form.ng-dirty, form.ng-touched {
+    border:none!important;
+}
 
-   
+
 /*------------------------------------------------------End Validation color ---------------------------------------------*/
-
 .box-white {
     border: solid #ccc 1px;
     background-color: #fcf9f9 !important;

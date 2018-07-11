@@ -12,6 +12,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Threading.Tasks.Dataflow;
 
 namespace StarGuddy.Repository.Operation
 {
@@ -25,14 +26,14 @@ namespace StarGuddy.Repository.Operation
         {
             try
             {
-                using (var conn = base.GetOpenConnectionAsync)
+                using (var conn = base.GetOpenedConnectionAsync)
                 {
                     var param = new
                     {
                         userCredits.UserId,
                         userCredits.Year,
                         userCredits.WorkPlace,
-                        userCredits.Description
+                        userCredits.WorkDetail
                     };
 
                     return await SqlMapper.ExecuteAsync(conn, SpNames.UserCredits.UserCreditsSaveUpdate, param, commandType: CommandType.StoredProcedure) > 0;
@@ -46,33 +47,44 @@ namespace StarGuddy.Repository.Operation
 
         public async Task<bool> PerformMaultipleSaveOperation(ConcurrentBag<IUserCredits> userCredits)
         {
-            return await Task.Run(() =>
+            try
             {
-                try
+                using (var conn = await Connection.OpenConnectionAsync())
                 {
-                    using (var conn = base.GetOpenConnectionAsync)
+                    using (var tran = conn.BeginTransaction())
                     {
-                        userCredits.ToList().ForEach(async credit =>
+                        try
                         {
-                            var param = new
+                            var creditTask = userCredits.Select(async credit =>
                             {
-                                credit.UserId,
-                                credit.Year,
-                                credit.WorkPlace,
-                                credit.Description
-                            };
+                                var param = new
+                                {
+                                    credit.UserId,
+                                    credit.Year,
+                                    credit.WorkPlace,
+                                    credit.WorkDetail
+                                };
 
-                            await SqlMapper.ExecuteAsync(conn, SpNames.UserCredits.UserCreditsSaveUpdate, param, commandType: CommandType.StoredProcedure);
-                        });
+                                return await conn.ExecuteAsync(SpNames.UserCredits.UserCreditsSaveUpdate, param: param, transaction:tran, commandType: CommandType.StoredProcedure);
+                            });
 
-                        return true;
+                            var customers = await Task.WhenAll(creditTask);
+
+                            tran.Commit();
+                            return customers.Any();
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            throw ex;
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<bool> PerformDeleteOperation(Guid Id)
