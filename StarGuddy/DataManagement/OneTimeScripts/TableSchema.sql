@@ -218,3 +218,58 @@ CREATE TABLE UserCredits (
 	FOREIGN KEY (UserId) REFERENCES Users(Id)
 	)
 GO
+
+CREATE TABLE DancingStyle(
+	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Style nvarchar(250) NOT NULL,
+	Detail NVARCHAR(500) NULL,
+	IsActive BIT NOT NULL DEFAULT(1),
+	IsDeleted BIT NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+
+GO
+CREATE TABLE AgentNeed(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Code INT UNIQUE NOT NULL,
+	[Type] NVARCHAR (250) NOT NULL,
+	[Description] NVARCHAR(500) NULL,
+	IsActive bit NOT NULL DEFAULT(1),
+	IsDeleted bit NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+	)
+
+GO
+CREATE TABLE ExpertLavel(
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Code INT UNIQUE NOT NULL,
+	Lavel nvarchar(250) NOT NULL,
+	Detail NVARCHAR(500) NULL,
+	IsActive bit NOT NULL DEFAULT(1),
+	IsDeleted bit NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+
+GO
+CREATE TABLE UserDancing(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+	UserId UNIQUEIDENTIFIER NOT NULL,
+	Style BIGINT NOT NULL,
+	ExpertLavelId INT NOT NULL,
+	IsAttendedSchool BIT NOT NULL DEFAULT(0),
+	CreditId UNIQUEIDENTIFIER NULL,
+	IsAgent BIT NOT NULL DEFAULT(0),
+	AgentNeedId INT NULL,
+	Experiance NVARCHAR(2000) NULL,
+	IsActive bit NOT NULL DEFAULT(1),
+	IsDeleted bit NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate()),
+	FOREIGN KEY (UserId) REFERENCES Users(Id),
+	FOREIGN KEY (CreditId) REFERENCES UserCredits(Id),
+	FOREIGN KEY (AgentNeedId) REFERENCES AgentNeed(Id),
+	FOREIGN KEY (ExpertLavelId) REFERENCES ExpertLavel(Id)
+)

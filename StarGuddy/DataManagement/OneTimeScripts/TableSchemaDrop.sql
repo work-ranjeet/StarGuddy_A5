@@ -1,4 +1,37 @@
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserDancing')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserDancing
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'ExpertLavel')
+			AND type IN (N'U')
+		)
+	DROP TABLE ExpertLavel
+GO
 
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'AgentNeed')
+			AND type IN (N'U')
+		)
+	DROP TABLE AgentNeed
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'DancingStyle')
+			AND type IN (N'U')
+		)
+	DROP TABLE DancingStyle
+GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
