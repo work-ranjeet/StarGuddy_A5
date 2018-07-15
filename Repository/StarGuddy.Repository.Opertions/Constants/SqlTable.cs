@@ -86,5 +86,10 @@ namespace StarGuddy.Repository.Opertions.Constants
         /// </summary>
         public const string UserCredits = "UserCredits";
 
+
+        /// <summary>
+        /// The user credits
+        /// </summary>
+        public const string UserDancing = "UserDancing";
     }
 }
