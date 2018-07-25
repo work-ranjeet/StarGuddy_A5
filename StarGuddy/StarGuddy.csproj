@@ -21,14 +21,18 @@
     <Compile Remove="Api\Security\**" />
     <Compile Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <Compile Remove="ClientApp\app\components\navmenu\**" />
+    <Compile Remove="wwwroot\css\NewFolder\**" />
     <Content Remove="Api\Security\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="wwwroot\css\NewFolder\**" />
     <EmbeddedResource Remove="Api\Security\**" />
     <EmbeddedResource Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
+    <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
     <None Remove="Api\Security\**" />
     <None Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <None Remove="ClientApp\app\components\navmenu\**" />
+    <None Remove="wwwroot\css\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,10 +93,6 @@
     <None Update="ClientApp\app\components\common\navmenu\navmenu.component.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\css\NewFolder\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
