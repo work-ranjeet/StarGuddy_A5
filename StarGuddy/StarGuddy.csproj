@@ -45,6 +45,7 @@
     <None Remove="ClientApp\app\components\userProfile\UserProfile.module.shared.ts" />
     <None Remove="ClientApp\Directives\pageHeadingDirectives.ts" />
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
+    <None Remove="ClientApp\Enums\enums.ts" />
     <None Remove="ClientApp\Extension\StringExtension.ts" />
     <None Remove="ClientApp\Helper\DataValidator.ts" />
     <None Remove="ClientApp\Services\HttpClient.ts" />
@@ -66,6 +67,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\userProfile\UserProfile.Domain.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\userProfile\UserProfile.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
+    <TypeScriptCompile Include="ClientApp\Enums\enums.ts" />
     <TypeScriptCompile Include="ClientApp\Extension\StringExtension.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />
     <TypeScriptCompile Include="ClientApp\Services\HttpClient.ts" />

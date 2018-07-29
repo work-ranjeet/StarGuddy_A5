@@ -42,6 +42,8 @@
         isAttendedSchool: boolean;
         isAgent: boolean;
         hasDanceStyle: boolean;
-        dnacingStyles: Array<IDancingStyle>;
+        dnacingStyles: IDancingStyle[];
     }
+
+    
 }

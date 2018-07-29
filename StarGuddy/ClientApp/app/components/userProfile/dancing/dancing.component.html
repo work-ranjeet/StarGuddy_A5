@@ -26,13 +26,13 @@
                         </span>
                     </div>
                 </div>
-                <div *ngIf="dancingResult.experience!=''">
+                <div *ngIf="dancingResult.experience!= null && dancingResult.experience!=''">
                     <hr />
                     <p class="padding-top-10 text-l text-muted">{{dancingResult.experience}}</p>
                 </div>
             </div>
             <div *ngIf="showEditHtml" class="card-body text-muted">
-                <form action="#" method="post" class="form" role="form">
+                <form #frmuserDanceEdit="ngForm">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -50,27 +50,49 @@
                         </div>
                     </div>
                     <hr class="seperator" />
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-3 ">
-                            <div class="form-group">
-                                <label class="profile-edit-label">Dance ability</label>
-                                <div class="profile-edit-container">
-                                    <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==0" [value]="entry.id" (change)="onDanceExpertLavelGroupSelectionChange(entry)">
-                                    <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==10" [value]="entry.id" (change)="onDanceExpertLavelGroupSelectionChange(entry)">
-                                    <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==20" [value]="entry.id" (change)="onDanceExpertLavelGroupSelectionChange(entry)">
-                                </div>
+                    <div class="form-group">
+                        <label class="profile-edit-label">Dance ability</label>
+                        <div class="profile-edit-container row">
+                            <div class="col-xs-6 col-sm-3">
+                                <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==0" [value]="0" (change)="onDanceExpertLavelGroupSelectionChange($event)" />
+                                <span class="text-l">Beginner</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==10" [value]="10" (change)="onDanceExpertLavelGroupSelectionChange($event)" />
+                                <span class="text-l">Intermediate</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==20" [value]="20" (change)="onDanceExpertLavelGroupSelectionChange($event)" />
+                                <span class="text-l">Expert</span>
                             </div>
                         </div>
                     </div>
                     <hr class="seperator" />
-
+                    <div class="form-group">
+                        <label class="profile-edit-label">Teaching\Choreography ability</label>
+                        <div class="profile-edit-container row">
+                            <div class="col-xs-6 col-sm-3">
+                                <input type="radio" name="teachingExpertLavelGroup" [checked]="dancingModel.choreographyAbilities==0" [value]="0" (change)="teachingExpertLavelGroupSelectionChange($event)" />
+                                <span class="text-l">Beginner</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <input type="radio" name="teachingExpertLavelGroup" [checked]="dancingModel.choreographyAbilities==10" [value]="10" (change)="teachingExpertLavelGroupSelectionChange($event)" />
+                                <span class="text-l">Intermediate</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <input type="radio" name="teachingExpertLavelGroup" [checked]="dancingModel.choreographyAbilities==20" [value]="20" (change)="teachingExpertLavelGroupSelectionChange($event)" />
+                                <span class="text-l">Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="seperator" />
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <span>Dance school</span>
                                 <div class="padding-top-10">
                                     <div class="col-xs-12 col-sm-6 form-group">
-                                        <input id="checkbox2" type="checkbox" [checked]="dancingModel.isAttendedSchool" class="padding-5 v-text-top">
+                                        <input id="chkDanceSchool" type="checkbox" [checked]="dancingModel.isAttendedSchool" (change)="chkDanceSchoolChange()" class="padding-5 v-text-top">
                                         <span class="padding-5 text-l">I have attended a dance school</span>
                                     </div>
                                 </div>
@@ -85,17 +107,17 @@
                                         </i>
                                     </span>
                                     <!--<div class="col-xs-12  form-group padding-top-15">
-                                        <span class="required">School</span>
-                                        <input type="text" placeholder="Enter your latest school name..." class="form-control" />
-                                    </div>
-                                    <div class="col-xs-12  form-group">
-                                        <span>Course name</span>
-                                        <input type="text" placeholder="Enter Course name..." class="form-control" />
-                                    </div>
-                                    <div class="col-xs-12  form-group">
-                                        <span class="required">year</span>
-                                        <input type="text" placeholder="Enter year..." class="form-control" />
-                                    </div>-->
+                        <span class="required">School</span>
+                        <input type="text" placeholder="Enter your latest school name..." class="form-control" />
+                    </div>
+                    <div class="col-xs-12  form-group">
+                        <span>Course name</span>
+                        <input type="text" placeholder="Enter Course name..." class="form-control" />
+                    </div>
+                    <div class="col-xs-12  form-group">
+                        <span class="required">year</span>
+                        <input type="text" placeholder="Enter year..." class="form-control" />
+                    </div>-->
                                 </div>
 
                             </div>
@@ -111,21 +133,21 @@
                                         <input type="radio" name="agentGroup" class="padding-5 v-text-top"
                                                [checked]="dancingModel.agentNeed==0"
                                                [value]="0"
-                                               (change)="onAgentGroupSelectionChange(entry)">
+                                               (change)="onAgentGroupSelectionChange($event)">
                                         <span class="padding-5 text-l">I don't have an agent</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
                                         <input type="radio" name="agentGroup" class="padding-5 v-text-top"
                                                [checked]="dancingModel.agentNeed==10"
                                                [value]="10"
-                                               (change)="onAgentGroupSelectionChange(entry)">
+                                               (change)="onAgentGroupSelectionChange($event)">
                                         <span class="padding-5 text-l">I want an agent</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
                                         <input type="radio" name="agentGroup" class="padding-5 v-text-top"
                                                [checked]="dancingModel.agentNeed==20"
                                                [value]="20"
-                                               (change)="onAgentGroupSelectionChange(entry)">
+                                               (change)="onAgentGroupSelectionChange($event)">
                                         <span class="padding-5 text-l">I have an agent</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
@@ -136,7 +158,6 @@
                         </div>
                     </div>
                     <hr class="seperator" />
-
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -153,14 +174,10 @@
                         </div>
                     </div>
                     <div class="col-sm-12 text-center padding-15">
-                        <button id="btnCancle" class="btn-profile-edit-cancle btn btn-danger">Clear All</button>
+                        <button id="btnCancle" class="btn-profile-edit-cancle btn btn-danger" (click)="resetChanges()">Clear All</button>
                         <button id="btnSave" (click)="saveChanges()" class="btn-profile-save btn btn-success">Save</button>
                     </div>
                 </form>
-
-
-
-
             </div>
         </div>
     </div>

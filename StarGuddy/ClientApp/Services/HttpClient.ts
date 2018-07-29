@@ -50,7 +50,7 @@ export class HttpService {
         });
     }
 
-    postData<T>(Url: string, data: any) {
+    postData<T>(Url: string, data: any) {        
         return this.http.post<T>(this.UrlPrifix + Url, data, {
             headers: this.TokenHeader
         });

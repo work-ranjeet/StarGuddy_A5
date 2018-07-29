@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 //import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http"
 import { RouterModule } from "@angular/router";
+import { Expertlavel } from "../Enums/enums";
 
 
 // Directives
@@ -50,3 +51,5 @@ import { CounterComponent } from "./components/counter/counter.component";
 })
 export class AppModuleShared {
 }
+
+

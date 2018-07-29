@@ -311,11 +311,12 @@ BEGIN
 	FROM UserDancing
 	WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
 
-	SELECT DS.Id, DS.Id AS Value, DS.Style, UDS.DancingStyleId AS SelectedValue
+	SELECT DS.Id, DS.Id AS Value, DS.Style, COALESCE( UDS.DancingStyleId, 0) AS SelectedValue
 	FROM DancingStyle DS
 	LEFT JOIN UserDancingStyle UDS
 		ON UDS.DancingStyleId = DS.Id
 	LEFT JOIN UserDancing UD
-		ON UD.Id = UDS.UserDancingId AND Ud.IsActive = 1 AND UD.IsDeleted = 0
-	WHERE DS.IsActive = 1 AND DS.IsDeleted = 0 AND UD.UserId = @userDancingId AND UD.IsActive = 1 AND UD.IsDeleted = 0
+		ON UD.Id = UDS.UserDancingId AND Ud.IsActive = 1 AND UD.IsDeleted = 0 AND UD.UserId = @userDancingId AND UD.IsActive = 1 AND UD.IsDeleted = 0
+	WHERE DS.IsActive = 1 AND DS.IsDeleted = 0 
 END
+
