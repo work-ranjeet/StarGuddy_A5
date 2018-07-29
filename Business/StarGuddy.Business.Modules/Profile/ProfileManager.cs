@@ -8,30 +8,37 @@ namespace StarGuddy.Business.Modules.Profile
     using StarGuddy.Api.Models.Interface.Profile;
     using StarGuddy.Api.Models.Profile;
     using StarGuddy.Business.Interface.Profile;
+    using StarGuddy.Core.Constants;
+    using StarGuddy.Core.Enums;
     using StarGuddy.Data.Entities;
+    using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Interface;
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Collections.Concurrent;
     using System.Threading.Tasks;
-    using StarGuddy.Core.Constants;
-    using StarGuddy.Data.Entities.Interface;
 
     public class ProfileManager : IProfileManager
     {
-        private IUserCreditsRepository _userCreditsRepository;
-        private IPhysicalAppearanceRepository _physicalAppearanceRepository;
+        private readonly IUserCreditsRepository userCreditsRepository;
+        private readonly IPhysicalAppearanceRepository physicalAppearanceRepository;
+        private readonly IUserDancingRepository userDancingRepository;
 
-        public ProfileManager(IPhysicalAppearanceRepository physicalAppearanceRepository, IUserCreditsRepository userCreditsRepository)
+        public ProfileManager(
+            IPhysicalAppearanceRepository physicalAppearanceRepository,
+            IUserCreditsRepository userCreditsRepository,
+            IUserDancingRepository userDancingRepository)
         {
-            this._userCreditsRepository = userCreditsRepository;
-            this._physicalAppearanceRepository = physicalAppearanceRepository;
+            this.userDancingRepository = userDancingRepository;
+            this.userCreditsRepository = userCreditsRepository;
+            this.physicalAppearanceRepository = physicalAppearanceRepository;
         }
 
+        #region /// Physical Appearance
         public async Task<IPhysicalAppearanceModal> GetPhysicalAppreance(Guid userId)
         {
-            var result = await this._physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
+            var result = await this.physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
             return new PhysicalAppearanceModal
             {
                 BodyType = result.BodyType,
@@ -69,12 +76,14 @@ namespace StarGuddy.Business.Modules.Profile
                 West = phyAppModal.West
             };
 
-            return await this._physicalAppearanceRepository.PerformSaveOperation(physicalAppreance);
+            return await this.physicalAppearanceRepository.PerformSaveOperation(physicalAppreance);
         }
+        #endregion
 
+        #region /// User credits
         public async Task<IEnumerable<IUserCreditModel>> GetUserCredits(Guid userId)
         {
-            var result = await this._userCreditsRepository.GetUserCreditsById(userId);
+            var result = await this.userCreditsRepository.GetUserCreditsById(userId);
             if (result != null && result.Any())
             {
                 var creditBag = new ConcurrentBag<IUserCreditModel>();
@@ -117,7 +126,7 @@ namespace StarGuddy.Business.Modules.Profile
 
                 if (saveUpdateBag.Any())
                 {
-                    return await this._userCreditsRepository.PerformMaultipleSaveOperation(saveUpdateBag);
+                    return await this.userCreditsRepository.PerformMaultipleSaveOperation(saveUpdateBag);
                 }
             }
 
@@ -131,7 +140,98 @@ namespace StarGuddy.Business.Modules.Profile
                 throw new Exception("Request Parameter is empty : " + Id.ToString());
             }
 
-            return await this._userCreditsRepository.PerformDeleteOperation(Id);
+            return await this.userCreditsRepository.PerformDeleteOperation(Id);
         }
+        #endregion
+
+        #region /// User dancing
+        public async Task<DancingModel> GetUserDancingAsync(Guid userId)
+        {
+            var dancingModel = new DancingModel()
+            {
+                AgentNeed = 0,
+                DanceAbilities = 0,
+                ChoreographyAbilities = 0,
+                DanceAbilitiesText = ExpertLavel.Beginner.ToString(),
+                ChoreographyAbilitiesText = ExpertLavel.Beginner.ToString(),
+                HasDanceStyle = false,
+                DnacingStyles = new ConcurrentBag<Api.Models.Common.DancingStyle>()
+            };
+
+            var userDancing = await userDancingRepository.GetUserDancingAsync(userId);
+
+            var dancingStyle = await userDancingRepository.GetDancingStyleSelectedAsync(userId);
+
+            //await Task.WhenAll(userDancing, dancingStyle);
+
+            if (userDancing != null)//&& userDancing.IsCompletedSuccessfully)
+            {
+                dancingModel = new DancingModel
+                {
+                    Id = userDancing.Id,
+                    AgentNeed = userDancing.AgentNeed ?? 0,
+                    DanceAbilities = userDancing.DanceAbilitiesId,
+                    ChoreographyAbilities = userDancing.ChoreographyAbilitiesId ?? 0,
+                    DanceAbilitiesText = ((ExpertLavel)userDancing.DanceAbilitiesId).ToString(),
+                    ChoreographyAbilitiesText = ((ExpertLavel)userDancing.ChoreographyAbilitiesId).ToString(),
+                    IsAgent = userDancing.IsAgent,
+                    IsAttendedSchool = userDancing.IsAttendedSchool,
+                    Experience = userDancing.Experiance,
+                    UserId = userDancing.UserId,
+                    DnacingStyles = new ConcurrentBag<Api.Models.Common.DancingStyle>()
+                };
+            }
+
+            if (dancingStyle != null)// && dancingStyle.IsCompletedSuccessfully)
+            {
+
+                var danceStyle = dancingStyle.Select(x =>
+                {
+                    return new Api.Models.Common.DancingStyle
+                    {
+                        Id = x.Id,
+                        Name = x.Style,
+                        SelectedValue = x.SelectedValue,
+                        Value = x.Value
+                    };
+                });
+
+                danceStyle.ToList().ForEach(x => dancingModel.DnacingStyles.Add(x));
+
+                dancingModel.HasDanceStyle = dancingModel.DnacingStyles.Any(x => (x.SelectedValue ?? 0) > 0);
+            }
+
+            return dancingModel;
+        }
+        public async Task<bool> SaveUserDancingAsync(DancingModel dancingModel)
+        {
+            if (dancingModel != null)
+            {
+                var userDancing = new UserDancing
+                {
+                    Id = dancingModel.Id,
+                    UserId = dancingModel.UserId,
+                    ChoreographyAbilitiesId = dancingModel.ChoreographyAbilities,
+                    AgentNeed = dancingModel.AgentNeed,
+                    Experiance = dancingModel.Experience,
+                    DanceAbilitiesId = dancingModel.DanceAbilities,
+                    IsAttendedSchool = dancingModel.IsAttendedSchool,
+                    IsAgent = dancingModel.IsAgent,
+                    IsActive = true,
+                    IsDeleted = false
+                };
+
+                var danceStyleIds = new ConcurrentBag<long>();
+                if (dancingModel.DnacingStyles != null && dancingModel.DnacingStyles.Any())
+                {
+                    dancingModel.DnacingStyles.AsParallel().ForAll(x => danceStyleIds.Add(x.SelectedValue ?? 0));
+                }
+
+                return await userDancingRepository.PerformSaveAndUpdateOperationAsync(userDancing, danceStyleIds);
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

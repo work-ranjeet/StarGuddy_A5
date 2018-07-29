@@ -10,6 +10,8 @@ import { HttpErrorResponse, HttpParams } from "@angular/common/http";
 
 import IUserCredits = App.Client.Profile.ICredits;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
+import IDancingModel = App.Client.Profile.IDancingModel;
+import IDancingStyle = App.Client.Profile.IDancingStyle;
 
 @Injectable()
 export class UserProfileService {
@@ -91,6 +93,24 @@ export class UserProfileService {
         return this.baseService.HttpService.deleteData<boolean>("Profile/Operations/Credit", new HttpParams().append("Id", id))
             .map(
                 (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+
+
+    // --------------- User Dancing ------------------------//
+    GetUserDanceDetail(): Observable<IDancingModel> {
+        return this.baseService.HttpService.getData<IDancingModel>("Profile/Operations/Dancing")
+            .map(
+                (result: IDancingModel) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

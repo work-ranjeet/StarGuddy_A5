@@ -1,3 +1,13 @@
+
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserDancingStyle')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserDancingStyle
+GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects

@@ -257,19 +257,26 @@ GO
 CREATE TABLE UserDancing(
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
 	UserId UNIQUEIDENTIFIER NOT NULL,
-	Style BIGINT NOT NULL,
-	ExpertLavelId INT NOT NULL,
+	DanceAbilitiesId INT NOT NULL,	
+	ChoreographyAbilitiesId INT NULL,
+	AgentNeed INT NULL,
 	IsAttendedSchool BIT NOT NULL DEFAULT(0),
-	CreditId UNIQUEIDENTIFIER NULL,
-	IsAgent BIT NOT NULL DEFAULT(0),
-	AgentNeedId INT NULL,
+	IsAgent BIT NOT NULL DEFAULT(0),	
 	Experiance NVARCHAR(2000) NULL,
 	IsActive bit NOT NULL DEFAULT(1),
 	IsDeleted bit NOT NULL DEFAULT(0),
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),
 	DttmModified DATETIME2 DEFAULT (getutcdate()),
 	FOREIGN KEY (UserId) REFERENCES Users(Id),
-	FOREIGN KEY (CreditId) REFERENCES UserCredits(Id),
-	FOREIGN KEY (AgentNeedId) REFERENCES AgentNeed(Id),
-	FOREIGN KEY (ExpertLavelId) REFERENCES ExpertLavel(Id)
+	FOREIGN KEY (DanceAbilitiesId) REFERENCES ExpertLavel(Id),
+	FOREIGN KEY (ChoreographyAbilitiesId) REFERENCES ExpertLavel(Id)
+)
+
+go
+CREATE TABLE UserDancingStyle(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+	UserDancingId UNIQUEIDENTIFIER NOT NULL,
+	DancingStyleId BIGINT NOT NULL,
+	FOREIGN KEY (UserDancingId) REFERENCES UserDancing(Id),
+	FOREIGN KEY (DancingStyleId) REFERENCES DancingStyle(Id),
 )

@@ -17,5 +17,9 @@ namespace StarGuddy.Business.Interface.Profile
         Task<bool> SaveUserCredits(Guid UserId, List<UserCreditModel> userCreditModelList);
 
         Task<bool> DeleteUserCredits(Guid Id);
+
+
+        Task<DancingModel> GetUserDancingAsync(Guid userId);
+        Task<bool> SaveUserDancingAsync(DancingModel dancingModel);
     }
 }

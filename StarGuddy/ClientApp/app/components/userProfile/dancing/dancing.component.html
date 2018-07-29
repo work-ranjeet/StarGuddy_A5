@@ -10,21 +10,26 @@
             </div>
             <div *ngIf="!showEditHtml" class="card-body">
                 <div class="experiance">Dancing ability</div>
-                <div class="padding-top-5 padding-left-20 text-l">Beginner</div>
+                <div class="padding-top-5 padding-left-20 text-l">{{dancingResult.danceAbilitiesText}}</div>
                 <hr />
-                <div class="experiance padding-top-10">Dance styles</div>
-                <div class="padding-top-5 padding-left-15 text-l">
-                    <span class="d-block padding-5">
-                        <i class="fa fa-hand-o-right text-success"></i>
-                        <span>Ballet</span>
-                    </span>
-                    <span class="d-block padding-5">
-                        <i class="fa fa-hand-o-right text-success"></i>
-                        <span>Bollywood</span>
-                    </span>
+                <div *ngIf="dancingResult.choreographyAbilitiesText!=''">
+                    <div class="experiance">Teaching or Choreography ability</div>
+                    <div class="padding-top-5 padding-left-20 text-l">{{dancingResult.choreographyAbilitiesText}}</div>
                 </div>
-                <hr />
-                <p class="padding-top-10 text-l text-muted">DASadslD;oaj oAIDJS IOajds OIADSJ Oiadsj oIADJS OIajds i </p>
+                <div *ngIf="dancingResult.hasDanceStyle">
+                    <hr />
+                    <div class="experiance padding-top-10">Dance styles</div>
+                    <div class="padding-top-5 padding-left-15 text-l">
+                        <span class="d-block padding-5" *ngFor="let danceStyle of dancingResult.dnacingStyles">
+                            <i class="fa fa-hand-o-right text-success" *ngIf="danceStyle.id==danceStyle.selectedValue"></i>
+                            <span *ngIf="danceStyle.id==danceStyle.selectedValue">{{danceStyle.name}}</span>
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="dancingResult.experience!=''">
+                    <hr />
+                    <p class="padding-top-10 text-l text-muted">{{dancingResult.experience}}</p>
+                </div>
             </div>
             <div *ngIf="showEditHtml" class="card-body text-muted">
                 <form action="#" method="post" class="form" role="form">
@@ -33,21 +38,12 @@
                             <div class="form-group">
                                 <label class="profile-edit-label">Styles of dancing</label>
                                 <div class="padding-top-10">
-                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">Ballet</span>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
-                                        <input id="actingCategories" class="padding-5 v-text-top" type="checkbox" name="actingCategories" checked="checked" value="32" />
-                                        <span class="padding-5 text-l">Bollywood</span>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">Country</span>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 margin-bottom-5">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">Hip Hop</span>
+                                    <div *ngFor="let danceStyle of dancingModel.dnacingStyles" class="col-xs-6 col-sm-3 margin-bottom-5">
+                                        <input type="checkbox" value="{{danceStyle.id}}" name="{{danceStyle.id}}"
+                                               [checked]="danceStyle.id==danceStyle.selectedValue"
+                                               (change)="updateSelectedDanceStyle($event)"
+                                               class="padding-5 v-text-top">
+                                        <span class="padding-5 text-l">{{danceStyle.name}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -59,13 +55,9 @@
                             <div class="form-group">
                                 <label class="profile-edit-label">Dance ability</label>
                                 <div class="profile-edit-container">
-                                    <select name="musicianBanjoAbility" id="musicianBanjoAbility" class="form-control">
-                                        <option value="0">Please select...</option>
-                                        <option selected="selected" value="357">Beginner</option>
-                                        <option value="358">Intermediate</option>
-                                        <option value="359">Expert</option>
-
-                                    </select>
+                                    <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==0" [value]="entry.id" (change)="onDanceExpertLavelGroupSelectionChange(entry)">
+                                    <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==10" [value]="entry.id" (change)="onDanceExpertLavelGroupSelectionChange(entry)">
+                                    <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==20" [value]="entry.id" (change)="onDanceExpertLavelGroupSelectionChange(entry)">
                                 </div>
                             </div>
                         </div>
@@ -78,12 +70,12 @@
                                 <span>Dance school</span>
                                 <div class="padding-top-10">
                                     <div class="col-xs-12 col-sm-6 form-group">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
+                                        <input id="checkbox2" type="checkbox" [checked]="dancingModel.isAttendedSchool" class="padding-5 v-text-top">
                                         <span class="padding-5 text-l">I have attended a dance school</span>
                                     </div>
                                 </div>
-                                
-                                <div class="fa fa-border padding-top-15">
+
+                                <div *ngIf="dancingModel.isAttendedSchool" class="fa fa-border padding-top-15">
                                     <span class="padding-bottom-10">
                                         <i>Enter your most recent school Or</i>
                                         <i class="text-right" style="font-size: 11px;">
@@ -92,7 +84,7 @@
                                             <a href="#">Credits</a>
                                         </i>
                                     </span>
-                                    <div class="col-xs-12  form-group padding-top-15">
+                                    <!--<div class="col-xs-12  form-group padding-top-15">
                                         <span class="required">School</span>
                                         <input type="text" placeholder="Enter your latest school name..." class="form-control" />
                                     </div>
@@ -103,7 +95,7 @@
                                     <div class="col-xs-12  form-group">
                                         <span class="required">year</span>
                                         <input type="text" placeholder="Enter year..." class="form-control" />
-                                    </div>
+                                    </div>-->
                                 </div>
 
                             </div>
@@ -116,15 +108,24 @@
                                 <label class="profile-edit-label">Agent</label>
                                 <div class="profile-edit-container row">
                                     <div class="col-xs-6 col-sm-3">
-                                        <input id="checkbox2" name="agent" type="radio" checked="checked" class="padding-5 v-text-top">
+                                        <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                               [checked]="dancingModel.agentNeed==0"
+                                               [value]="0"
+                                               (change)="onAgentGroupSelectionChange(entry)">
                                         <span class="padding-5 text-l">I don't have an agent</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
-                                        <input id="actingCategories" name="agent" class="padding-5 v-text-top" type="radio" />
+                                        <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                               [checked]="dancingModel.agentNeed==10"
+                                               [value]="10"
+                                               (change)="onAgentGroupSelectionChange(entry)">
                                         <span class="padding-5 text-l">I want an agent</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
-                                        <input id="checkbox2" type="radio" name="agent" class="padding-5 v-text-top">
+                                        <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                               [checked]="dancingModel.agentNeed==20"
+                                               [value]="20"
+                                               (change)="onAgentGroupSelectionChange(entry)">
                                         <span class="padding-5 text-l">I have an agent</span>
                                     </div>
                                     <div class="col-xs-6 col-sm-3">
@@ -141,14 +142,19 @@
                             <div class="form-group">
                                 <label class="profile-edit-label">Dancing experience</label>
                                 <div class="profile-edit-container">
-                                    <textarea style="width:100%; min-height:100px;" class="form-control"></textarea>
+                                    <textarea id="txtExperiance" name="txtExperiance" style="width:100%; min-height:100px;" class="form-control"
+                                              [(ngModel)]="dancingModel.experience"
+                                              #danceExperience="ngModel"></textarea>
+                                    <div *ngIf="danceExperience.invalid && (danceExperience.dirty || danceExperience.touched)" class="error">
+                                        <div *ngIf="danceExperience.errors.required">Dance experience is required.</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 text-center padding-15">
-                        <a asp-controller="Profile" asp-action="TalentProfileViewAs" id="btnCancle" class="btn-profile-edit-cancle btn btn-danger">Cancle</a>
-                        <button id="btnSave" class="btn-profile-edit-save btn btn-success">Save</button>
+                        <button id="btnCancle" class="btn-profile-edit-cancle btn btn-danger">Clear All</button>
+                        <button id="btnSave" (click)="saveChanges()" class="btn-profile-save btn btn-success">Save</button>
                     </div>
                 </form>
 

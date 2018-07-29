@@ -223,3 +223,99 @@ BEGIN
 END
 
 GO
+------------------------------------------------------ Dancing -------------------------------------------------
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserDancingStyleSave') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserDancingStyleSave
+GO
+CREATE PROCEDURE UserDancingStyleSave (@UserDancingId UNIQUEIDENTIFIER, @DancingStyleId BIGINT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DELETE
+	FROM UserDancingStyle
+	WHERE UserDancingId = @UserDancingId
+
+	INSERT INTO UserDancingStyle (Id, UserDancingId, DancingStyleId)
+	VALUES (newID(), @UserDancingId, @DancingStyleId)
+END
+
+GO
+-------------------------------------------------------------------------------------------------------------------------
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserDancingSaveUpdate') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserDancingSaveUpdate
+GO
+
+CREATE PROCEDURE UserDancingSaveUpdate (
+	@UserId UNIQUEIDENTIFIER, 
+	@DanceAbilitiesId INT = 0, 
+	@ChoreographyAbilitiesId INT =0, 
+	@AgentNeed INT = 0,
+	@IsAttendedSchool BIT = 0, 
+	@IsAgent BIT = 0, 
+	@Experiance NVARCHAR(2000), 
+	@UserDancingId UNIQUEIDENTIFIER OUTPUT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	IF (EXISTS (SELECT TOP 1 Id	FROM UserDancing WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0))
+	BEGIN
+		SET @UserDancingId = (
+				SELECT Id
+				FROM UserDancing
+				WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
+				)
+
+		UPDATE UserDancing
+		SET DanceAbilitiesId = @DanceAbilitiesId, ChoreographyAbilitiesId = @ChoreographyAbilitiesId, AgentNeed = @AgentNeed, IsAttendedSchool = @IsAttendedSchool, IsAgent = @IsAgent, Experiance = @Experiance, DttmModified = getutcdate()
+		WHERE id = @UserDancingId
+	END
+	ELSE
+	BEGIN
+		SET @UserDancingId = NEWID()
+
+		INSERT INTO UserDancing (Id, UserId, DanceAbilitiesId, ChoreographyAbilitiesId, AgentNeed, IsAttendedSchool, IsAgent, Experiance, IsActive, IsDeleted, DttmCreated, DttmModified)
+		VALUES (@UserDancingId, @UserId, @DanceAbilitiesId, @ChoreographyAbilitiesId, @AgentNeed, @IsAttendedSchool, @IsAgent, @Experiance, 1, 0, getutcdate(), getutcdate())
+	END
+END
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'DancingStyleSelect') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE DancingStyleSelect
+GO
+
+CREATE PROCEDURE DancingStyleSelect (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DECLARE @userDancingId UNIQUEIDENTIFIER
+
+	SELECT @userDancingId = Id
+	FROM UserDancing
+	WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
+
+	SELECT DS.Id, DS.Id AS Value, DS.Style, UDS.DancingStyleId AS SelectedValue
+	FROM DancingStyle DS
+	LEFT JOIN UserDancingStyle UDS
+		ON UDS.DancingStyleId = DS.Id
+	LEFT JOIN UserDancing UD
+		ON UD.Id = UDS.UserDancingId AND Ud.IsActive = 1 AND UD.IsDeleted = 0
+	WHERE DS.IsActive = 1 AND DS.IsDeleted = 0 AND UD.UserId = @userDancingId AND UD.IsActive = 1 AND UD.IsDeleted = 0
+END
