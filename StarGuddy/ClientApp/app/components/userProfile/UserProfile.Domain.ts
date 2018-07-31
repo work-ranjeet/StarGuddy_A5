@@ -23,7 +23,7 @@
         workDetail: string;
     }
 
-    export interface IDancingStyle {
+    export interface IDancingStyleModel {
         id: string;
         selectedValue: number;
         value: number;
@@ -42,8 +42,6 @@
         isAttendedSchool: boolean;
         isAgent: boolean;
         hasDanceStyle: boolean;
-        dnacingStyles: IDancingStyle[];
+        dnacingStyles: IDancingStyleModel[];
     }
-
-    
 }

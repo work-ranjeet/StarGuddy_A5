@@ -40,11 +40,6 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("SavePhysicalApperance")]
         public async Task<IActionResult> SavePhysicalApperance([FromBody]PhysicalAppearanceModal physicalAppearance)
         {
-            if (UserContext.Current.UserId == Guid.Empty)
-            {
-                return Unauthorized();
-            }
-
             if (physicalAppearance == null)
             {
                 return BadRequest("Invalid/Bad request.");
@@ -59,11 +54,6 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("PhysicalApperance")]
         public async Task<IActionResult> GetPhysicalApperance()
         {
-            if (UserContext.Current.UserId == Guid.Empty)
-            {
-                return Unauthorized();
-            }
-
             var result = await profileManager.GetPhysicalAppreance(UserContext.Current.UserId);
 
             if (result.IsNull())
@@ -81,11 +71,6 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Credit")]
         public async Task<IActionResult> GetUserCredits()
         {
-            if (UserContext.Current.UserId == Guid.Empty)
-            {
-                return Unauthorized();
-            }
-
             var creditResult = await profileManager.GetUserCredits(UserContext.Current.UserId);
 
             if (!creditResult.IsNull() && creditResult.Any())
@@ -105,7 +90,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Credit")]
         public async Task<IActionResult> SaveUserCredits([FromBody]List<UserCreditModel> credits)
         {
-            if (credits == null || UserContext.Current.UserId == System.Guid.Empty)
+            if (credits == null )
             {
                 return BadRequest("Invalid/Bad request.");
             }
@@ -123,7 +108,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Credit")]
         public async Task<IActionResult> DeleteUserCredits(Guid Id)
         {
-            if (UserContext.Current.UserId == System.Guid.Empty || Id == Guid.Empty)
+            if (Id == Guid.Empty)
             {
                 return BadRequest("Invalid/Bad request.");
             }
@@ -144,11 +129,6 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Dancing")]
         public async Task<IActionResult> GetUserDancing()
         {
-            if (UserContext.Current.UserId == Guid.Empty)
-            {
-                return Unauthorized();
-            }
-
             var dancingResult = await profileManager.GetUserDancingAsync(UserContext.Current.UserId);
 
             if (dancingResult.IsNull())
@@ -162,12 +142,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [HttpPost]
         [Route("Dancing")]
         public async Task<IActionResult> SaveUserDancing([FromBody]DancingModel dancingModel)
-        {
-            if (UserContext.Current.UserId == Guid.Empty)
-            {
-                return Unauthorized();
-            }
-
+        { 
             if (dancingModel == null)
             {
                 return BadRequest("Invalid/Bad request.");

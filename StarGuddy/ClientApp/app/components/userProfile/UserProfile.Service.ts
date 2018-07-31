@@ -11,7 +11,7 @@ import { HttpErrorResponse, HttpParams } from "@angular/common/http";
 import IUserCredits = App.Client.Profile.ICredits;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 import IDancingModel = App.Client.Profile.IDancingModel;
-import IDancingStyle = App.Client.Profile.IDancingStyle;
+import IDancingStyle = App.Client.Profile.IDancingStyleModel;
 import { Response } from "@angular/http";
 
 @Injectable()
@@ -123,8 +123,8 @@ export class UserProfileService {
                 });
     }
 
-    SaveUserDancingChanges(requestData: IDancingModel) {
-        return this.baseService.HttpService.postData<boolean>("Profile/Operations/Dancing", requestData)
+    SaveUserDancingChanges(dancingModel: IDancingModel) {
+        return this.baseService.HttpService.postData<boolean>("Profile/Operations/Dancing", dancingModel)
             .map(
                 (result: any) => {
                     return result;

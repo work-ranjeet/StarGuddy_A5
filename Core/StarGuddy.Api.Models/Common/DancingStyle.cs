@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StarGuddy.Api.Models.Common
 {
-    public class DancingStyle
+    public class DancingStyleModel
     {
         public long Id { get; set; }
 

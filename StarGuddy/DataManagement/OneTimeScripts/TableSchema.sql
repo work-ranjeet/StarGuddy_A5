@@ -257,9 +257,9 @@ GO
 CREATE TABLE UserDancing(
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
 	UserId UNIQUEIDENTIFIER NOT NULL,
-	DanceAbilitiesId INT NOT NULL,	
-	ChoreographyAbilitiesId INT NULL,
-	AgentNeed INT NULL,
+	DanceAbilitiesCode INT NOT NULL,	
+	ChoreographyAbilitiesCode INT NOT NULL,
+	AgentNeedCode INT NOT NULL,
 	IsAttendedSchool BIT NOT NULL DEFAULT(0),
 	IsAgent BIT NOT NULL DEFAULT(0),	
 	Experiance NVARCHAR(2000) NULL,
@@ -267,9 +267,7 @@ CREATE TABLE UserDancing(
 	IsDeleted bit NOT NULL DEFAULT(0),
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),
 	DttmModified DATETIME2 DEFAULT (getutcdate()),
-	FOREIGN KEY (UserId) REFERENCES Users(Id),
-	FOREIGN KEY (DanceAbilitiesId) REFERENCES ExpertLavel(Id),
-	FOREIGN KEY (ChoreographyAbilitiesId) REFERENCES ExpertLavel(Id)
+	FOREIGN KEY (UserId) REFERENCES Users(Id)
 )
 
 go

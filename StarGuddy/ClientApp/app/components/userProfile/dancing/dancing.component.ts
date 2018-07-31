@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { UserProfileService } from "../../userProfile/UserProfile.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
 import { Expertlavel } from "../../../../Enums/enums";
-import IDancingStyle = App.Client.Profile.IDancingStyle;
+import IDancingStyle = App.Client.Profile.IDancingStyleModel;
 import IDancingModel = App.Client.Profile.IDancingModel;
 
 @Component({
@@ -60,7 +60,7 @@ export class DancingComponent {
         var checkboxIndex = this.dancingModel.dnacingStyles.findIndex(x => x.value == checkEvent.target.value);
 
         if (checkboxIndex > -1) {
-            this.dancingModel.dnacingStyles[checkboxIndex].selectedValue = checkEvent.target.checked ? checkEvent.target.value : 0;
+            this.dancingModel.dnacingStyles[checkboxIndex].selectedValue = checkEvent.target.checked ? parseInt(checkEvent.target.value) : 0;
         }
     }
 
@@ -91,7 +91,7 @@ export class DancingComponent {
     saveChanges() {
         var v = this.dancingModel;
         this.userProfileService.SaveUserDancingChanges(this.dancingModel).subscribe(response => {
-            if (response != null && response.ok) {
+            if (response != null && response) {
                 console.info("Updated");
             }
             else {

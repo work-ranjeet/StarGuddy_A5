@@ -6,9 +6,9 @@ namespace StarGuddy.Data.Entities.Interface
     {
          Guid Id { get; set; }
          Guid UserId { get; set; }
-         Int32 DanceAbilitiesId { get; set; }
-         Int32? ChoreographyAbilitiesId { get; set; }
-         Int32? AgentNeed { get; set; }
+         Int32 DanceAbilitiesCode { get; set; }
+         Int32 ChoreographyAbilitiesCode { get; set; }
+         Int32? AgentNeedCode { get; set; }
          Boolean IsAttendedSchool { get; set; }
          Boolean IsAgent { get; set; }
          String Experiance { get; set; }

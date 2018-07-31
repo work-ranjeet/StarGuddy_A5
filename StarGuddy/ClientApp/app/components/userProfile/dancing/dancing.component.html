@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div *ngIf="showEditHtml" class="card-body text-muted">
-                <form #frmuserDanceEdit="ngForm">
+                <form #frmUserDanceEdit="ngForm">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -54,7 +54,7 @@
                         <label class="profile-edit-label">Dance ability</label>
                         <div class="profile-edit-container row">
                             <div class="col-xs-6 col-sm-3">
-                                <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==0" [value]="0" (change)="onDanceExpertLavelGroupSelectionChange($event)" />
+                                <input type="radio" name="danceExpertLavelGroup" [checked]="dancingModel.danceAbilities==1" [value]="1" (change)="onDanceExpertLavelGroupSelectionChange($event)" />
                                 <span class="text-l">Beginner</span>
                             </div>
                             <div class="col-xs-6 col-sm-3">
@@ -72,7 +72,7 @@
                         <label class="profile-edit-label">Teaching\Choreography ability</label>
                         <div class="profile-edit-container row">
                             <div class="col-xs-6 col-sm-3">
-                                <input type="radio" name="teachingExpertLavelGroup" [checked]="dancingModel.choreographyAbilities==0" [value]="0" (change)="teachingExpertLavelGroupSelectionChange($event)" />
+                                <input type="radio" name="teachingExpertLavelGroup" [checked]="dancingModel.choreographyAbilities==1" [value]="1" (change)="teachingExpertLavelGroupSelectionChange($event)" />
                                 <span class="text-l">Beginner</span>
                             </div>
                             <div class="col-xs-6 col-sm-3">
@@ -131,8 +131,8 @@
                                 <div class="profile-edit-container row">
                                     <div class="col-xs-6 col-sm-3">
                                         <input type="radio" name="agentGroup" class="padding-5 v-text-top"
-                                               [checked]="dancingModel.agentNeed==0"
-                                               [value]="0"
+                                               [checked]="dancingModel.agentNeed==1"
+                                               [value]="1"
                                                (change)="onAgentGroupSelectionChange($event)">
                                         <span class="padding-5 text-l">I don't have an agent</span>
                                     </div>
@@ -174,8 +174,8 @@
                         </div>
                     </div>
                     <div class="col-sm-12 text-center padding-15">
-                        <button id="btnCancle" class="btn-profile-edit-cancle btn btn-danger" (click)="resetChanges()">Clear All</button>
-                        <button id="btnSave" (click)="saveChanges()" class="btn-profile-save btn btn-success">Save</button>
+                        <button id="btnCancle" class="btn-profile-cancle btn btn-danger" (click)="resetChanges()">Clear All</button>
+                        <button id="btnSave" class="btn-profile-save btn btn-success" (click)="saveChanges()">Save</button>
                     </div>
                 </form>
             </div>

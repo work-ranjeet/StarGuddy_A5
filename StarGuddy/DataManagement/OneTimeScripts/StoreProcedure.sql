@@ -237,10 +237,6 @@ BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	DELETE
-	FROM UserDancingStyle
-	WHERE UserDancingId = @UserDancingId
-
 	INSERT INTO UserDancingStyle (Id, UserDancingId, DancingStyleId)
 	VALUES (newID(), @UserDancingId, @DancingStyleId)
 END
@@ -257,9 +253,9 @@ GO
 
 CREATE PROCEDURE UserDancingSaveUpdate (
 	@UserId UNIQUEIDENTIFIER, 
-	@DanceAbilitiesId INT = 0, 
-	@ChoreographyAbilitiesId INT =0, 
-	@AgentNeed INT = 0,
+	@DanceAbilitiesCode INT = 1, 
+	@ChoreographyAbilitiesCode INT =1, 
+	@AgentNeedCode INT = 1,
 	@IsAttendedSchool BIT = 0, 
 	@IsAgent BIT = 0, 
 	@Experiance NVARCHAR(2000), 
@@ -278,15 +274,15 @@ BEGIN
 				)
 
 		UPDATE UserDancing
-		SET DanceAbilitiesId = @DanceAbilitiesId, ChoreographyAbilitiesId = @ChoreographyAbilitiesId, AgentNeed = @AgentNeed, IsAttendedSchool = @IsAttendedSchool, IsAgent = @IsAgent, Experiance = @Experiance, DttmModified = getutcdate()
+		SET DanceAbilitiesCode = @DanceAbilitiesCode, ChoreographyAbilitiesCode = @ChoreographyAbilitiesCode, AgentNeedCode = @AgentNeedCode, IsAttendedSchool = @IsAttendedSchool, IsAgent = @IsAgent, Experiance = @Experiance, DttmModified = getutcdate()
 		WHERE id = @UserDancingId
 	END
 	ELSE
 	BEGIN
 		SET @UserDancingId = NEWID()
 
-		INSERT INTO UserDancing (Id, UserId, DanceAbilitiesId, ChoreographyAbilitiesId, AgentNeed, IsAttendedSchool, IsAgent, Experiance, IsActive, IsDeleted, DttmCreated, DttmModified)
-		VALUES (@UserDancingId, @UserId, @DanceAbilitiesId, @ChoreographyAbilitiesId, @AgentNeed, @IsAttendedSchool, @IsAgent, @Experiance, 1, 0, getutcdate(), getutcdate())
+		INSERT INTO UserDancing (Id, UserId, DanceAbilitiesCode, ChoreographyAbilitiesCode, AgentNeedCode, IsAttendedSchool, IsAgent, Experiance, IsActive, IsDeleted, DttmCreated, DttmModified)
+		VALUES (@UserDancingId, @UserId, @DanceAbilitiesCode, @ChoreographyAbilitiesCode, @AgentNeedCode, @IsAttendedSchool, @IsAgent, @Experiance, 1, 0, getutcdate(), getutcdate())
 	END
 END
 

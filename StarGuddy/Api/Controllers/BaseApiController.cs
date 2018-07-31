@@ -47,8 +47,14 @@ namespace StarGuddy.Api.Controllers
                 var userPayloadToken = jwtHandler.ReadJwtToken(jwtTokenInput);
                 //string userData = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == ClaimTypes.UserData).Value;
 
+                var userId = Guid.Parse((userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value);
+                if(userId == Guid.Empty)
+                {
+                    throw new UnauthorizedAccessException("Oops! you are not suppose to here. Please login before proceed.");
+                }
+
                 UserContext.Current.IsAuthenticated = true;
-                UserContext.Current.UserId = Guid.Parse((userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value);
+                UserContext.Current.UserId = userId;
                 UserContext.Current.UserName = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
                 UserContext.Current.Email = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
 

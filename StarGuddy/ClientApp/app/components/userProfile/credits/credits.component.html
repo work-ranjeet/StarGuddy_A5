@@ -17,8 +17,8 @@
                 </div>
             </div>
 
-            <div id="physicalAppreanceEdit" *ngIf="showEditHtml" class="card-body text-muted">
-                <form #frmPhysicalAppreanceEdit="ngForm">
+            <div id="creditEdit" *ngIf="showEditHtml" class="card-body text-muted">
+                <form #frmCreditEdit="ngForm">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -62,7 +62,7 @@
                 </form>
                 <div *ngIf="hasCredits">
                     <hr class="style-four margin-left-right-minus-13" />
-                    <form #frmPhysicalAppreanceSave="ngForm" class="form padding-10">
+                    <form #frmCreditSave="ngForm" class="form padding-10">
                         <div class="row">
                             <ng-container *ngFor="let credit of CreditsList" class="border-bottom">
                                 <div *ngIf="credit.action!='DELETE'" class="padding-15">

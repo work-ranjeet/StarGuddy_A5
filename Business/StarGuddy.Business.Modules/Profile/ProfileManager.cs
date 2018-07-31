@@ -9,6 +9,7 @@ namespace StarGuddy.Business.Modules.Profile
     using StarGuddy.Api.Models.Profile;
     using StarGuddy.Business.Interface.Profile;
     using StarGuddy.Core.Constants;
+    using StarGuddy.Core.Context;
     using StarGuddy.Core.Enums;
     using StarGuddy.Data.Entities;
     using StarGuddy.Data.Entities.Interface;
@@ -155,7 +156,7 @@ namespace StarGuddy.Business.Modules.Profile
                 DanceAbilitiesText = ExpertLavel.Beginner.ToString(),
                 ChoreographyAbilitiesText = ExpertLavel.Beginner.ToString(),
                 HasDanceStyle = false,
-                DnacingStyles = new ConcurrentBag<Api.Models.Common.DancingStyle>()
+                DnacingStyles = new List<Api.Models.Common.DancingStyleModel>()
             };
 
             var userDancing = await userDancingRepository.GetUserDancingAsync(userId);
@@ -169,16 +170,16 @@ namespace StarGuddy.Business.Modules.Profile
                 dancingModel = new DancingModel
                 {
                     Id = userDancing.Id,
-                    AgentNeed = userDancing.AgentNeed ?? 0,
-                    DanceAbilities = userDancing.DanceAbilitiesId,
-                    ChoreographyAbilities = userDancing.ChoreographyAbilitiesId ?? 0,
-                    DanceAbilitiesText = ((ExpertLavel)userDancing.DanceAbilitiesId).ToString(),
-                    ChoreographyAbilitiesText = ((ExpertLavel)userDancing.ChoreographyAbilitiesId).ToString(),
+                    AgentNeed = userDancing.AgentNeedCode ?? 0,
+                    DanceAbilities = userDancing.DanceAbilitiesCode,
+                    ChoreographyAbilities = userDancing.ChoreographyAbilitiesCode,
+                    DanceAbilitiesText = ((ExpertLavel)userDancing.DanceAbilitiesCode).ToString(),
+                    ChoreographyAbilitiesText = ((ExpertLavel)userDancing.ChoreographyAbilitiesCode).ToString(),
                     IsAgent = userDancing.IsAgent,
                     IsAttendedSchool = userDancing.IsAttendedSchool,
                     Experience = userDancing.Experiance,
                     UserId = userDancing.UserId,
-                    DnacingStyles = new ConcurrentBag<Api.Models.Common.DancingStyle>()
+                    DnacingStyles = new List<Api.Models.Common.DancingStyleModel>()
                 };
             }
 
@@ -187,7 +188,7 @@ namespace StarGuddy.Business.Modules.Profile
 
                 var danceStyle = dancingStyle.Select(x =>
                 {
-                    return new Api.Models.Common.DancingStyle
+                    return new Api.Models.Common.DancingStyleModel
                     {
                         Id = x.Id,
                         Name = x.Style,
@@ -210,11 +211,11 @@ namespace StarGuddy.Business.Modules.Profile
                 var userDancing = new UserDancing
                 {
                     Id = dancingModel.Id,
-                    UserId = dancingModel.UserId,
-                    ChoreographyAbilitiesId = dancingModel.ChoreographyAbilities,
-                    AgentNeed = dancingModel.AgentNeed,
+                    UserId = UserContext.Current.UserId,
+                    ChoreographyAbilitiesCode = dancingModel.ChoreographyAbilities,
+                    AgentNeedCode = dancingModel.AgentNeed,
                     Experiance = dancingModel.Experience,
-                    DanceAbilitiesId = dancingModel.DanceAbilities,
+                    DanceAbilitiesCode = dancingModel.DanceAbilities,
                     IsAttendedSchool = dancingModel.IsAttendedSchool,
                     IsAgent = dancingModel.IsAgent,
                     IsActive = true,
@@ -224,7 +225,13 @@ namespace StarGuddy.Business.Modules.Profile
                 var danceStyleIds = new ConcurrentBag<long>();
                 if (dancingModel.DnacingStyles != null && dancingModel.DnacingStyles.Any())
                 {
-                    dancingModel.DnacingStyles.AsParallel().ForAll(x => danceStyleIds.Add(x.SelectedValue ?? 0));
+                    dancingModel.DnacingStyles.AsParallel().ForAll(x =>
+                    {
+                        if (x.SelectedValue != 0)
+                        {
+                            danceStyleIds.Add(x.SelectedValue ?? 0);
+                        }
+                    });
                 }
 
                 return await userDancingRepository.PerformSaveAndUpdateOperationAsync(userDancing, danceStyleIds);

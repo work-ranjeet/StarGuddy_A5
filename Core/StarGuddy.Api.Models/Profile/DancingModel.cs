@@ -29,6 +29,6 @@ namespace StarGuddy.Api.Models.Profile
 
         public bool HasDanceStyle { get; set; }
 
-        public ConcurrentBag<DancingStyle> DnacingStyles { get; set; }
+        public List<DancingStyleModel> DnacingStyles { get; set; }
     } 
 }

@@ -7,9 +7,9 @@ namespace StarGuddy.Data.Entities
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public Int32 DanceAbilitiesId { get; set; }
-        public Int32? ChoreographyAbilitiesId { get; set; }
-        public Int32? AgentNeed { get; set; }
+        public Int32 DanceAbilitiesCode { get; set; }
+        public Int32 ChoreographyAbilitiesCode { get; set; }
+        public Int32? AgentNeedCode { get; set; }
         public Boolean IsAttendedSchool { get; set; }
         public Boolean IsAgent { get; set; }
         public String Experiance { get; set; }

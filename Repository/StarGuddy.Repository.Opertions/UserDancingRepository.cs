@@ -9,6 +9,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace StarGuddy.Repository.Operation
                         UserId = userId
                     };
 
-                    return await SqlMapper.QueryAsync<DancingStyle>(conn, SpNames.DancingStyle.Select, param, commandType: CommandType.StoredProcedure);                    
+                    return await SqlMapper.QueryAsync<DancingStyle>(conn, SpNames.DancingStyle.Select, param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
@@ -81,16 +82,18 @@ namespace StarGuddy.Repository.Operation
                                */
                             var userDancingparam = new DynamicParameters();
                             userDancingparam.Add("@UserId", userDancing.UserId, DbType.Guid, ParameterDirection.Input);
-                            userDancingparam.Add("@DanceAbilitiesId", userDancing.DanceAbilitiesId, DbType.Int32, ParameterDirection.Input);
-                            userDancingparam.Add("@ChoreographyAbilitiesId", userDancing.ChoreographyAbilitiesId, DbType.Int32, ParameterDirection.Input);
-                            userDancingparam.Add("@AgentNeed", userDancing.AgentNeed, DbType.Int32, ParameterDirection.Input);
-                            userDancingparam.Add("@IsAttendedSchool", userDancing.IsAttendedSchool, DbType.Binary, ParameterDirection.Input);
-                            userDancingparam.Add("@IsAgent", userDancing.IsAgent, DbType.Binary, ParameterDirection.Input);
+                            userDancingparam.Add("@DanceAbilitiesCode", userDancing.DanceAbilitiesCode, DbType.Int32, ParameterDirection.Input);
+                            userDancingparam.Add("@ChoreographyAbilitiesCode", userDancing.ChoreographyAbilitiesCode, DbType.Int32, ParameterDirection.Input);
+                            userDancingparam.Add("@AgentNeedCode", userDancing.AgentNeedCode, DbType.Int32, ParameterDirection.Input);
+                            userDancingparam.Add("@IsAttendedSchool", userDancing.IsAttendedSchool, DbType.Boolean, ParameterDirection.Input);
+                            userDancingparam.Add("@IsAgent", userDancing.IsAgent, DbType.Boolean, ParameterDirection.Input);
                             userDancingparam.Add("@Experiance", userDancing.Experiance, DbType.String, ParameterDirection.Input);
                             userDancingparam.Add("@UserDancingId", dbType: DbType.Guid, direction: ParameterDirection.Output);
 
-                            await conn.ExecuteAsync(SpNames.UserDancing.SaveUpdate, param: userDancingparam, transaction: tran, commandType: CommandType.StoredProcedure);
+                            var mainResult = await conn.ExecuteAsync(SpNames.UserDancing.SaveUpdate, param: userDancingparam, transaction: tran, commandType: CommandType.StoredProcedure);
                             var userDancingId = userDancingparam.Get<Guid>("@UserDancingId");
+
+                            await conn.ExecuteAsync("DELETE FROM UserDancingStyle WHERE UserDancingId = @UserDancingId", transaction: tran, commandType: CommandType.Text); 
 
                             var creditTask = danceStyleIds.Select(async id =>
                             {
@@ -103,10 +106,10 @@ namespace StarGuddy.Repository.Operation
                                 return await conn.ExecuteAsync(SpNames.UserDancingStyle.Save, param: param, transaction: tran, commandType: CommandType.StoredProcedure);
                             });
 
-                            var customers = await Task.WhenAll(creditTask);
-
+                            var updatedResult = await Task.WhenAll(creditTask);
                             tran.Commit();
-                            return customers.Any();
+
+                            return mainResult > 0 || updatedResult.Any();
                         }
                         catch (Exception ex)
                         {
