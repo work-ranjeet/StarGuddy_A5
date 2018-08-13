@@ -21,18 +21,17 @@ namespace StarGuddy.Api.Controllers.Profile
         /// </summary>
         private readonly IAccountManager accountManager;
         private readonly IProfileManager profileManager;
-        private readonly IHttpContextAccessor httpContextAccessor;
+        //private readonly IHttpContextAccessor httpContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileEditController"/> class.
         /// </summary>
         /// <param name="accountManager">The account manager.</param>
         /// <param name="profileManager">The profile manager.</param>
-        public ProfileEditController(IAccountManager accountManager, IProfileManager profileManager, IHttpContextAccessor httpContextAccessor)
+        public ProfileEditController(IAccountManager accountManager, IProfileManager profileManager)
         {
             this.accountManager = accountManager;
             this.profileManager = profileManager;
-            this.httpContextAccessor = httpContextAccessor;
         }
 
         #region Physical appearance

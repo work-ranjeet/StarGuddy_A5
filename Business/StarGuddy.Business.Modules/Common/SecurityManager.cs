@@ -38,7 +38,7 @@ namespace StarGuddy.Business.Modules.Common
         /// </value>
         private IConfiguration _configuration { get; set; }
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        //private readonly IHttpContextAccessor _httpContextAccessor;
 
         private string SeceretKey => this._configuration.GetAppSettingValue(AppSettings.JwtSecret);
 
@@ -50,10 +50,9 @@ namespace StarGuddy.Business.Modules.Common
         /// Initializes a new instance of the <see cref="SecurityManager"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        public SecurityManager(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public SecurityManager(IConfiguration configuration)
         {
             _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
         }
         #endregion
 

@@ -10,6 +10,8 @@ using StarGuddy.Core.Constants;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace StarGuddy
 {
@@ -96,7 +98,9 @@ namespace StarGuddy
                     policy.RequireClaim(JwtRegisteredClaimNames.Sid);
                     policy.RequireClaim(JwtRegisteredClaimNames.Email);
                 });
-            });           
+            });
+
+            //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //// Dependency Injection
             Api.Injection.Inject(services, Configuration);

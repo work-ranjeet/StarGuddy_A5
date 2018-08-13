@@ -285,16 +285,18 @@ namespace StarGuddy.Business.Modules.Profile
         #region Mapper initialization
         private void InitMapper()
         {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Accents, Models.Accents>();
-                cfg.CreateMap<Language, Models.Language>();
-                cfg.CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>();
+            //Mapper.Initialize(cfg =>
+            //{
+            //    cfg.CreateMap<Accents, Models.Accents>();
+            //    cfg.CreateMap<Language, Models.Language>();
+            //    cfg.CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>();
 
-                cfg.CreateMap<Models.Accents, Accents>();
-                cfg.CreateMap<Models.Language, Language>();
-                cfg.CreateMap<Models.AuditionsAndJobsGroup, AuditionsAndJobsGroup>();
-            });
+            //    cfg.CreateMap<Models.Accents, Accents>();
+            //    cfg.CreateMap<Models.Language, Language>();
+            //    cfg.CreateMap<Models.AuditionsAndJobsGroup, AuditionsAndJobsGroup>();
+            //});
+
+            
         }
         #endregion
     }
