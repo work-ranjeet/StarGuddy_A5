@@ -13,7 +13,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StarGuddy.Repository.Operation
+namespace StarGuddy.Repository.Operations
 {
     public class UserDancingRepository : RepositoryAbstract<UserDancing>, IUserDancingRepository
     {

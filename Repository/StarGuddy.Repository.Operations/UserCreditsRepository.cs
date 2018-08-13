@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Threading.Tasks.Dataflow;
 
-namespace StarGuddy.Repository.Operation
+namespace StarGuddy.Repository.Operations
 {
     public class UserCreditsRepository : RepositoryAbstract<UserCredits>, IUserCreditsRepository
     {

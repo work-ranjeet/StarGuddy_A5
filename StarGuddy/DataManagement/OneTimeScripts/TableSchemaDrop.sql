@@ -1,4 +1,39 @@
 
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserActing')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserActing
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserAuditionsAndJobs')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserAuditionsAndJobs
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'AuditionsAndJobs')
+			AND type IN (N'U')
+		)
+	DROP TABLE AuditionsAndJobs
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'ActingExperience')
+			AND type IN (N'U')
+		)
+	DROP TABLE ActingExperience
+GO
+
 
 IF EXISTS (
 		SELECT *

@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Operation
+namespace StarGuddy.Repository.Operations
 {
     #region Imports
     using System;

@@ -16,7 +16,7 @@
 // Change Description:
 // -------------------------------------------------------------------------------
 // ReSharper disable once CheckNamespace
-namespace StarGuddy.Repository.Operation
+namespace StarGuddy.Repository.Operations
 {
     using System;
     #region Imports

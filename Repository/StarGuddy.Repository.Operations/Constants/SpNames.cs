@@ -76,5 +76,10 @@ namespace StarGuddy.Repository.Opertions.Constants
         {
             public const string Select = "DancingStyleSelect";
         }
+
+        public struct UserActing
+        {
+            public const string SelectDetail = "GetUserActingDetail";
+        }
     }
 }

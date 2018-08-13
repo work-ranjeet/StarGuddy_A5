@@ -16,7 +16,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Operation
+namespace StarGuddy.Repository.Operations
 {
     using System.Collections.Generic;
     using System.Text;

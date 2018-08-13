@@ -119,9 +119,10 @@ CREATE TABLE PhysicalAppearance (
 GO
 
 CREATE TABLE Accents (
-	Id BIGINT PRIMARY KEY NOT NULL IDENTITY(1, 1),		
-	Accent NVARCHAR(150) NULL,
-	[Status] INT NOT NULL,	
+	Id BIGINT PRIMARY KEY NOT NULL IDENTITY(1, 1),	
+	Name NVARCHAR(50) NULL,
+	Code NVARCHAR(100) NULL,
+	LanguageCode NVARCHAR(100) NULL,
 	IsActive BIT NOT NULL DEFAULT(0),
 	IsDeleted BIT NOT NULL DEFAULT(0)
 	)
@@ -140,12 +141,13 @@ CREATE TABLE UserAccents (
 	)
 GO
 
+
 CREATE TABLE Languages (
 	Id BIGINT PRIMARY KEY NOT NULL IDENTITY(1, 1),	
-	Code NVARCHAR(50) NULL,
-	[Language] NVARCHAR(100) NULL,
-	[Status] INT NOT NULL,
-	IsActive BIT NOT NULL DEFAULT(0),
+	[Name] NVARCHAR(50) NULL,
+	Code NVARCHAR(100) NULL,
+	CountryCode NVARCHAR(100) NULL,
+	IsActive BIT NOT NULL DEFAULT(1),
 	IsDeleted BIT NOT NULL DEFAULT(0)
 	)
 GO
@@ -154,8 +156,6 @@ CREATE TABLE UserLanguage (
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL DEFAULT NEWID(),
 	UserId UNIQUEIDENTIFIER NOT NULL,
 	LanguagesId BIGINT NOT NULL,
-	IsActive BIT NOT NULL DEFAULT(0),
-	IsDeleted BIT NOT NULL DEFAULT(0),
 	DttmCreated DATETIME2(7) NOT NULL DEFAULT(GETUTCDATE()),
 	DttmModified DATETIME2(7) NOT NULL DEFAULT(GETUTCDATE()),
 	FOREIGN KEY (UserId) REFERENCES Users(Id),
@@ -277,4 +277,55 @@ CREATE TABLE UserDancingStyle(
 	DancingStyleId BIGINT NOT NULL,
 	FOREIGN KEY (UserDancingId) REFERENCES UserDancing(Id),
 	FOREIGN KEY (DancingStyleId) REFERENCES DancingStyle(Id),
+)
+Go
+
+CREATE TABLE AuditionsAndJobsGroup
+(
+	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Name] nvarchar(250) NOT NULL,
+	Code int NOT NULL,
+	Detail NVARCHAR(500) NULL,
+	DisplayOrder int not null,
+	IsActive BIT NOT NULL DEFAULT(1),
+	IsDeleted BIT NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+
+CREATE TABLE UserAuditionsAndJobsGroup(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+	JobId BIGINT NOT NULL,
+	UserId UNIQUEIDENTIFIER NOT NULL,
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate()),
+	FOREIGN KEY (JobId) REFERENCES AuditionsAndJobsGroup(Id),
+	FOREIGN KEY (UserId) REFERENCES Users(Id),
+)
+
+GO
+CREATE TABLE ActingExperience
+(
+	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Name] nvarchar(250) NOT NULL,
+	Code int NOT NULL,
+	Detail NVARCHAR(500) NULL,
+	DisplayOrder int not null,
+	IsActive BIT NOT NULL DEFAULT(1),
+	IsDeleted BIT NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+GO
+CREATE TABLE UserActing(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+	UserId UNIQUEIDENTIFIER NOT NULL,
+	ActingExperiance int NOT NUll,
+	AgentNeedCode INT NOT NULL,	
+	Experiance NVARCHAR(2000) NULL,
+	IsActive bit NOT NULL DEFAULT(1),
+	IsDeleted bit NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate()),
+	FOREIGN KEY (UserId) REFERENCES Users(Id)
 )

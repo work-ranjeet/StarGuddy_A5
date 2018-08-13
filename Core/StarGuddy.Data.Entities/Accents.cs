@@ -25,45 +25,14 @@ namespace StarGuddy.Data.Entities
     /// </summary>
     public class Accents : IAccents
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public Int64 Id { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string LanguageCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets the accent.
-        /// </summary>
-        /// <value>
-        /// The accent.
-        /// </value>
-        public String Accent { get; set; }
-
-        /// <summary>
-        /// Gets or sets the status.
-        /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
-        public Int32 Status { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean IsDeleted { get; set; }
+        public string SelectedAccent { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
     
 }

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CF6DE25C-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{79840A00-4D81-48F1-B93D-AB8C36D5257A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Repository.Opertions", "Repository\StarGuddy.Repository.Opertions\StarGuddy.Repository.Opertions.csproj", "{4E83140C-F71D-44C7-812A-ACB01193D9A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGuddy.Repository.Operations", "Repository\StarGuddy.Repository.Opertions\StarGuddy.Repository.Operations.csproj", "{4E83140C-F71D-44C7-812A-ACB01193D9A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{F5521429-25DE-466A-A231-7DAA9A791476}"
 EndProject

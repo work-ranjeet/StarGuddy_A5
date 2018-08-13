@@ -29,7 +29,7 @@ using StarGuddy.Business.Modules.Network;
 using StarGuddy.Business.Modules.Profile;
 using StarGuddy.Repository.Configuration;
 using StarGuddy.Repository.Interface;
-using StarGuddy.Repository.Operation;
+using StarGuddy.Repository.Operations;
 
 namespace StarGuddy.Api
 {
@@ -59,8 +59,9 @@ namespace StarGuddy.Api
             services.AddTransient<IAccentsRepository, AccentsRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
-            services.AddTransient<IUserCreditsRepository, UserCreditsRepository>();
+            services.AddTransient<IUserCreditsRepository, UserCreditsRepository>(); 
             services.AddTransient<IUserDancingRepository, UserDancingRepository>();
+            services.AddTransient<IUserActingRepository, UserActingRepository>();
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
             
 

@@ -19,3 +19,42 @@ INSERT INTO DancingStyle (Style, Detail) VALUES('Hip Hop','Hip Hop')
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (1,'Beginner', 'Beginner')
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (2,'Intermediate', 'Intermediate')
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (3,'Expert', 'Expert')
+
+---------------------------------------------ActingExperience-----------------------------------------------------------------------------------
+INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('No previous acting experience',201,'No previous acting experience', 1)
+INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Credits',202,'Credits', 2)
+INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Previous unpaid speaking roles',203,'Previous unpaid speaking roles', 3)
+INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Previous paid speaking roles',204,'Previous paid speaking roles', 4)
+
+---------------------------------------------AuditionsAndJobs--------------------------------------------------------------------
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Agency Scouts',101,'Agency Scouts', 1)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Entertainers',102,'Entertainers', 2)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Events & Promotions',103,'Events & Promotions', 3)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Feature Films',104,'Feature Films', 4)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Music videos',105,'Music videos', 5)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Presenters',106,'Presenters', 6)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Short Films',107,'Short Films',7)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Theater & Musicals',108,'Theater & Musicals', 8)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('TV commercials',109,'TV commercials',9)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values(' TV Series',110,' TV Series', 10)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Voice-over & Radio',111,'Voice-over & Radio', 11)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Web',112,'Web', 12)
+INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Others',113,'Others', 13)
+
+----------
+insert into UserAuditionsAndJobsGroup values (NEWID(), 1, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
+insert into UserAuditionsAndJobsGroup values (NEWID(), 2, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
+insert into UserAuditionsAndJobsGroup values (NEWID(), 3, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
+insert into UserAuditionsAndJobsGroup values (NEWID(), 4, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
+insert into UserAuditionsAndJobsGroup values (NEWID(), 5, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
+
+----------------------------------------Languages--------------------------------------------------------------------------------------
+INSERT INTO Languages (Name, Code, CountryCode) values('English',1001,'')
+INSERT INTO Languages (Name, Code, CountryCode) values('Hindi',1100,'')
+INSERT INTO Languages (Name, Code, CountryCode) values('Urdu',1120,'')
+
+--------------------------------------Accents----------------------------------------
+INSERT INTO Accents (Name, Code, LanguageCode) values('Indian',2000,'')
+INSERT INTO Accents (Name, Code, LanguageCode) values('German',2001,'')
+INSERT INTO Accents (Name, Code, LanguageCode) values('French',2002,'')
+INSERT INTO Accents (Name, Code, LanguageCode) values('Magahi',2003,'')

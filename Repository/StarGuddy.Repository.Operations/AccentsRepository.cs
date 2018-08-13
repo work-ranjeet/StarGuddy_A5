@@ -15,7 +15,7 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Repository.Operation
+namespace StarGuddy.Repository.Operations
 {
     using StarGuddy.Data.Entities;
     using StarGuddy.Repository.Base;
