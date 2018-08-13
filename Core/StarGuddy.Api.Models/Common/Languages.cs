@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="Ability.cs" company="StarGuddy India">
+// <copyright file="Language.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -17,16 +17,18 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Api.Models.Common
 {
-    using System;
-
-    public class Ability
+    /// <summary>
+    /// Languages class
+    /// </summary>
+    public class Language
     {
-        public Guid Id { get; set; }
-
-        public int SelectedValue { get; set; }
-
-        public int Value { get; set; }
-
+        public long Id { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
+        public string SelectedLanguageCode { get; set; }
+        public string CountryCode { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
+

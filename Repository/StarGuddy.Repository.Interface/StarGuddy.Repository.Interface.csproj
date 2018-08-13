@@ -1,11 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Core\StarGuddy.Data.Entities.Interface\StarGuddy.Data.Entities.Interface.csproj" />
+    <ProjectReference Include="..\..\Core\StarGuddy.Data.Entities\StarGuddy.Data.Entities.csproj" />
   </ItemGroup>
 
 </Project>

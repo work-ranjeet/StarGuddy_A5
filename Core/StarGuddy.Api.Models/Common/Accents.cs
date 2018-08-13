@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="Ability.cs" company="StarGuddy India">
+// <copyright file="Accents.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -17,16 +17,19 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Api.Models.Common
 {
-    using System;
-
-    public class Ability
+    /// <summary>
+    /// Accent class
+    /// </summary>
+    public class Accents
     {
-        public Guid Id { get; set; }
-
-        public int SelectedValue { get; set; }
-
-        public int Value { get; set; }
-
+        public long Id { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
+        public string LanguageCode { get; set; }
+
+        public string SelectedAccent { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
+    
 }

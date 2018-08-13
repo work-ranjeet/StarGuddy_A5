@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using StarGuddy.Core.Constants;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using AutoMapper;
 
 namespace StarGuddy
 {
@@ -44,6 +45,7 @@ namespace StarGuddy
                 option.AllowEmptyInputInBodyModelBinding = true;
             });
 
+            services.AddAutoMapper();
             services.AddCors(options => options.AddPolicy("Cors", builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 
             services.AddAuthentication(options =>
@@ -94,7 +96,7 @@ namespace StarGuddy
                     policy.RequireClaim(JwtRegisteredClaimNames.Sid);
                     policy.RequireClaim(JwtRegisteredClaimNames.Email);
                 });
-            });
+            });           
 
             //// Dependency Injection
             Api.Injection.Inject(services, Configuration);

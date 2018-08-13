@@ -5,6 +5,7 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Modules.Profile
 {
+    using AutoMapper;
     using StarGuddy.Api.Models.Interface.Profile;
     using StarGuddy.Api.Models.Profile;
     using StarGuddy.Business.Interface.Profile;
@@ -19,27 +20,35 @@ namespace StarGuddy.Business.Modules.Profile
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Models = Api.Models.Common;
 
     public class ProfileManager : IProfileManager
     {
-        private readonly IUserCreditsRepository userCreditsRepository;
-        private readonly IPhysicalAppearanceRepository physicalAppearanceRepository;
-        private readonly IUserDancingRepository userDancingRepository;
+        private readonly IUserCreditsRepository _userCreditsRepository;
+        private readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
+        private readonly IUserDancingRepository _userDancingRepository;
+        private readonly IUserActingRepository _userActingRepository;
+        private readonly IMapper _mapper;
 
         public ProfileManager(
             IPhysicalAppearanceRepository physicalAppearanceRepository,
             IUserCreditsRepository userCreditsRepository,
-            IUserDancingRepository userDancingRepository)
+            IUserDancingRepository userDancingRepository,
+            IUserActingRepository userActingRepository,
+            IMapper mapper)
         {
-            this.userDancingRepository = userDancingRepository;
-            this.userCreditsRepository = userCreditsRepository;
-            this.physicalAppearanceRepository = physicalAppearanceRepository;
+            _userDancingRepository = userDancingRepository;
+            _userCreditsRepository = userCreditsRepository;
+            _physicalAppearanceRepository = physicalAppearanceRepository;
+            _userActingRepository = userActingRepository;
+            _mapper = mapper;
+            InitMapper();
         }
 
         #region /// Physical Appearance
         public async Task<IPhysicalAppearanceModal> GetPhysicalAppreance(Guid userId)
         {
-            var result = await this.physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
+            var result = await this._physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
             return new PhysicalAppearanceModal
             {
                 BodyType = result.BodyType,
@@ -77,14 +86,14 @@ namespace StarGuddy.Business.Modules.Profile
                 West = phyAppModal.West
             };
 
-            return await this.physicalAppearanceRepository.PerformSaveOperation(physicalAppreance);
+            return await this._physicalAppearanceRepository.PerformSaveOperation(physicalAppreance);
         }
         #endregion
 
         #region /// User credits
         public async Task<IEnumerable<IUserCreditModel>> GetUserCredits(Guid userId)
         {
-            var result = await this.userCreditsRepository.GetUserCreditsById(userId);
+            var result = await this._userCreditsRepository.GetUserCreditsById(userId);
             if (result != null && result.Any())
             {
                 var creditBag = new ConcurrentBag<IUserCreditModel>();
@@ -127,7 +136,7 @@ namespace StarGuddy.Business.Modules.Profile
 
                 if (saveUpdateBag.Any())
                 {
-                    return await this.userCreditsRepository.PerformMaultipleSaveOperation(saveUpdateBag);
+                    return await this._userCreditsRepository.PerformMaultipleSaveOperation(saveUpdateBag);
                 }
             }
 
@@ -141,7 +150,7 @@ namespace StarGuddy.Business.Modules.Profile
                 throw new Exception("Request Parameter is empty : " + Id.ToString());
             }
 
-            return await this.userCreditsRepository.PerformDeleteOperation(Id);
+            return await this._userCreditsRepository.PerformDeleteOperation(Id);
         }
         #endregion
 
@@ -159,9 +168,9 @@ namespace StarGuddy.Business.Modules.Profile
                 DnacingStyles = new List<Api.Models.Common.DancingStyleModel>()
             };
 
-            var userDancing = await userDancingRepository.GetUserDancingAsync(userId);
+            var userDancing = await _userDancingRepository.GetUserDancingAsync(userId);
 
-            var dancingStyle = await userDancingRepository.GetDancingStyleSelectedAsync(userId);
+            var dancingStyle = await _userDancingRepository.GetDancingStyleSelectedAsync(userId);
 
             //await Task.WhenAll(userDancing, dancingStyle);
 
@@ -234,10 +243,58 @@ namespace StarGuddy.Business.Modules.Profile
                     });
                 }
 
-                return await userDancingRepository.PerformSaveAndUpdateOperationAsync(userDancing, danceStyleIds);
+                return await _userDancingRepository.PerformSaveAndUpdateOperationAsync(userDancing, danceStyleIds);
             }
 
             return false;
+        }
+        #endregion
+
+        #region /// User Acting
+        public async Task<UserActingModel> GetUserActingDetailAsync(Guid userId)
+        {
+            var result = await _userActingRepository.GetUserActingDetailAsync(userId);
+            if (result.IsNotNull())
+            {
+                var v = _mapper.Map<Models.Accents>(result.Accents.ToList());
+                return new UserActingModel
+                {
+                    Id = result.UserActing.Id,
+                    UserId = result.UserActing.UserId,
+                    ActingExperianceCode = result.UserActing.ActingExperianceCode,
+                    ActingExperiance = result.UserActing.ActingExperiance,
+                    AgentNeedCode = result.UserActing.AgentNeedCode,
+                    Experiance = result.UserActing.Experiance,
+                    Accents = null,
+                    //Languages = result.Languages.ToList(),
+                    //AuditionsAndJobsGroup = result.AuditionsAndJobsGroup.ToList()
+                };
+
+                
+            }
+
+            return new UserActingModel
+            {
+                Accents = new List<Models.Accents>(),
+                Languages = new List<Models.Language>(),
+                AuditionsAndJobsGroup = new List<Models.AuditionsAndJobsGroup>()
+            };
+        }
+        #endregion
+
+        #region Mapper initialization
+        private void InitMapper()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Accents, Models.Accents>();
+                cfg.CreateMap<Language, Models.Language>();
+                cfg.CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>();
+
+                cfg.CreateMap<Models.Accents, Accents>();
+                cfg.CreateMap<Models.Language, Language>();
+                cfg.CreateMap<Models.AuditionsAndJobsGroup, AuditionsAndJobsGroup>();
+            });
         }
         #endregion
     }

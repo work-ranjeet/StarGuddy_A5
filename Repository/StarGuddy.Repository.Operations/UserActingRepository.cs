@@ -18,7 +18,7 @@ namespace StarGuddy.Repository.Operations
     {
         public UserActingRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.UserActing) { }
 
-        public async Task<IUserActingDetail> GetUserActingDetailAsync(Guid userId)
+        public async Task<UserActingDetail> GetUserActingDetailAsync(Guid userId)
         {           
             try
             {

@@ -90,7 +90,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Credit")]
         public async Task<IActionResult> SaveUserCredits([FromBody]List<UserCreditModel> credits)
         {
-            if (credits == null )
+            if (credits == null)
             {
                 return BadRequest("Invalid/Bad request.");
             }
@@ -133,7 +133,7 @@ namespace StarGuddy.Api.Controllers.Profile
 
             if (dancingResult.IsNull())
             {
-                return NotFound(dancingResult); 
+                return NotFound(dancingResult);
             }
 
             return Ok(dancingResult);
@@ -142,7 +142,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [HttpPost]
         [Route("Dancing")]
         public async Task<IActionResult> SaveUserDancing([FromBody]DancingModel dancingModel)
-        { 
+        {
             if (dancingModel == null)
             {
                 return BadRequest("Invalid/Bad request.");
@@ -156,6 +156,40 @@ namespace StarGuddy.Api.Controllers.Profile
 
             return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
         }
+        #endregion
+
+        #region Acting
+        [HttpGet]
+        [Route("Acting")]
+        public async Task<IActionResult> GetUserActingDetails()
+        {
+            var dancingResult = await profileManager.GetUserActingDetailAsync(UserContext.Current.UserId);
+
+            if (dancingResult.IsNull())
+            {
+                return NotFound(dancingResult);
+            }
+
+            return Ok(dancingResult);
+        }
+
+        //[HttpPost]
+        //[Route("Dancing")]
+        //public async Task<IActionResult> SaveUserDancing([FromBody]DancingModel dancingModel)
+        //{
+        //    if (dancingModel == null)
+        //    {
+        //        return BadRequest("Invalid/Bad request.");
+        //    }
+
+        //    var isSuccess = await profileManager.SaveUserDancingAsync(dancingModel);
+        //    if (isSuccess)
+        //    {
+        //        return Ok(isSuccess);
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+        //}
         #endregion
     }
 }

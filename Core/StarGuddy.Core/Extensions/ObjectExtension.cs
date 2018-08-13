@@ -3,8 +3,7 @@
     public static partial class ObjectExtension
     {
         /// <summary>
-        /// Check if null or DbNull,
-        /// an Empty string is not null!
+        /// Check if null or DbNull
         /// </summary>
         /// <param name="expression">The expression.</param>
         /// <returns>
@@ -15,6 +14,18 @@
             return (expression == null || expression == DBNull.Value);
         }
 
+        /// <summary>
+        /// Check if not null or DbNull
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        /// <returns>
+        /// boolean value
+        /// </returns>
+        public static bool IsNotNull(this Object expression)
+        {
+            return (expression != null || expression != DBNull.Value);
+        }
+        
         /// <summary>
         /// To the int32 nullable.
         /// </summary>
