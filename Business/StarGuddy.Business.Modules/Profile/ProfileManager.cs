@@ -42,7 +42,7 @@ namespace StarGuddy.Business.Modules.Profile
             _physicalAppearanceRepository = physicalAppearanceRepository;
             _userActingRepository = userActingRepository;
             _mapper = mapper;
-            InitMapper();
+            // InitMapper();
         }
 
         #region /// Physical Appearance
@@ -256,7 +256,6 @@ namespace StarGuddy.Business.Modules.Profile
             var result = await _userActingRepository.GetUserActingDetailAsync(userId);
             if (result.IsNotNull())
             {
-                var v = _mapper.Map<Models.Accents>(result.Accents.ToList());
                 return new UserActingModel
                 {
                     Id = result.UserActing.Id,
@@ -265,12 +264,10 @@ namespace StarGuddy.Business.Modules.Profile
                     ActingExperiance = result.UserActing.ActingExperiance,
                     AgentNeedCode = result.UserActing.AgentNeedCode,
                     Experiance = result.UserActing.Experiance,
-                    Accents = null,
-                    //Languages = result.Languages.ToList(),
-                    //AuditionsAndJobsGroup = result.AuditionsAndJobsGroup.ToList()
+                    Accents = _mapper.Map<List<Models.Accents>>(result.Accents),
+                    Languages = _mapper.Map<List<Models.Language>>(result.Languages),
+                    AuditionsAndJobsGroup = _mapper.Map<List<Models.AuditionsAndJobsGroup>>(result.AuditionsAndJobsGroup),
                 };
-
-                
             }
 
             return new UserActingModel
@@ -285,19 +282,20 @@ namespace StarGuddy.Business.Modules.Profile
         #region Mapper initialization
         private void InitMapper()
         {
-            //Mapper.Initialize(cfg =>
-            //{
-            //    cfg.CreateMap<Accents, Models.Accents>();
-            //    cfg.CreateMap<Language, Models.Language>();
-            //    cfg.CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>();
 
-            //    cfg.CreateMap<Models.Accents, Accents>();
-            //    cfg.CreateMap<Models.Language, Language>();
-            //    cfg.CreateMap<Models.AuditionsAndJobsGroup, AuditionsAndJobsGroup>();
-            //});
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Accents, Models.Accents>();
+                cfg.CreateMap<Language, Models.Language>();
+                cfg.CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>();
 
-            
+                cfg.CreateMap<Models.Accents, Accents>();
+                cfg.CreateMap<Models.Language, Language>();
+                cfg.CreateMap<Models.AuditionsAndJobsGroup, AuditionsAndJobsGroup>();
+            });
         }
         #endregion
     }
 }
+
+
