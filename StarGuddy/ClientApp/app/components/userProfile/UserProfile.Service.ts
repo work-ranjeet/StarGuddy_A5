@@ -12,6 +12,13 @@ import IUserCredits = App.Client.Profile.ICredits;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 import IDancingModel = App.Client.Profile.IDancingModel;
 import IDancingStyle = App.Client.Profile.IDancingStyleModel;
+
+import IActingDetailModel = App.Client.Profile.IUserActingModel;
+//import IAccents = App.Client.Profile.IAccents;
+//import ILanguage = App.Client.Profile.ILanguage;
+//import IAuditionsAndJobsGroup = App.Client.Profile.IAuditionsAndJobsGroup;
+
+
 import { Response } from "@angular/http";
 
 @Injectable()
@@ -53,7 +60,6 @@ export class UserProfileService {
                     }
                 });
     }
-
 
 
     // --------------- User Credits ------------------------//
@@ -106,7 +112,6 @@ export class UserProfileService {
     }
 
 
-
     // --------------- User Dancing ------------------------//
     GetUserDanceDetail(): Observable<IDancingModel> {
         return this.baseService.HttpService.getData<IDancingModel>("Profile/Operations/Dancing")
@@ -127,6 +132,23 @@ export class UserProfileService {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Dancing", dancingModel)
             .map(
                 (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+
+    // --------------- User Acting ------------------------//
+    GetUserActingDetail(): Observable<IActingDetailModel> {
+        return this.baseService.HttpService.getData<IActingDetailModel>("Profile/Operations/Acting")
+            .map(
+                (result: IActingDetailModel) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {
