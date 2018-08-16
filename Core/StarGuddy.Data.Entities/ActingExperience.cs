@@ -5,11 +5,12 @@ using System.Text;
 
 namespace StarGuddy.Data.Entities
 {
-    public class ActingExperience : IActingExperience
+    public class Experience : IExperience
     {
         public Int64 Id { get; set; }
         public String Name { get; set; }
         public Int32 Code { get; set; }
+        public int ExpTypeCode { get; set; }
         public String Detail { get; set; }
         public Int32 DisplayOrder { get; set; }
         public Boolean IsActive { get; set; }

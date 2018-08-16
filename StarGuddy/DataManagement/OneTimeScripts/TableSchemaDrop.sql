@@ -47,10 +47,10 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'ActingExperience')
+		WHERE object_id = OBJECT_ID(N'Experience')
 			AND type IN (N'U')
 		)
-	DROP TABLE ActingExperience
+	DROP TABLE Experience
 GO
 
 

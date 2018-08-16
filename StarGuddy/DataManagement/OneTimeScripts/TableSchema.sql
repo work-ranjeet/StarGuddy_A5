@@ -318,11 +318,24 @@ CREATE TABLE UserActingRoles(
 )
 
 GO
-CREATE TABLE ActingExperience
+CREATE TABLE ExperienceType
+(
+	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Type] nvarchar(250) NOT NULL,
+	Code int NOT NULL,
+	Detail NVARCHAR(150),
+	IsActive BIT NOT NULL DEFAULT(1),
+	IsDeleted BIT NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+GO
+CREATE TABLE Experience
 (
 	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Name] nvarchar(250) NOT NULL,
 	Code int NOT NULL,
+	ExpTypeCode INT NOT NULL,
 	Detail NVARCHAR(500) NULL,
 	DisplayOrder int not null,
 	IsActive BIT NOT NULL DEFAULT(1),

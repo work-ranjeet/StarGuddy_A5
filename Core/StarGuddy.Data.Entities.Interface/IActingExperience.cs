@@ -4,15 +4,16 @@ using System.Text;
 
 namespace StarGuddy.Data.Entities.Interface
 {
-    public interface IActingExperience
+    public interface IExperience
     {
-        Int64 Id { get; set; }
-        String Name { get; set; }
-        Int32 Code { get; set; }
-        String Detail { get; set; }
-        Int32 DisplayOrder { get; set; }
-        Boolean IsActive { get; set; }
-        Boolean IsDeleted { get; set; }
+        long Id { get; set; }
+        string Name { get; set; }
+        int Code { get; set; }
+        int ExpTypeCode { get; set; }
+        string Detail { get; set; }
+        int DisplayOrder { get; set; }
+        bool IsActive { get; set; }
+        bool IsDeleted { get; set; }
         DateTime? DttmCreated { get; set; }
         DateTime? DttmModified { get; set; }
     }
