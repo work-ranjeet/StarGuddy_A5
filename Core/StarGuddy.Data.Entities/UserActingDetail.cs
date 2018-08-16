@@ -14,6 +14,6 @@ namespace StarGuddy.Data.Entities
 
         public IEnumerable<Accents> Accents { get; set; }
 
-        public IEnumerable<AuditionsAndJobsGroup> AuditionsAndJobsGroup { get; set; }
+        public IEnumerable<ActingRoles> ActingRoles { get; set; }
     }
 }

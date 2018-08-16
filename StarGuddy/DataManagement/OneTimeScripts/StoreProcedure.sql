@@ -348,8 +348,8 @@ BEGIN
 	WHERE ACC.IsActive = 1 AND ACC.IsDeleted = 0
 
 	SELECT JOB.Id, JOB.Code, JOB.Name, (CASE WHEN JOB.Id = UJOB.JobId THEN JOB.Code ELSE 0 END) AS SelectedCode
-	FROM AuditionsAndJobsGroup JOB
-	LEFT JOIN UserAuditionsAndJobsGroup UJOB ON UJOB.JobId = JOB.Id AND UJOB.UserId = @UserId
+	FROM ActingRoles JOB
+	LEFT JOIN UserActingRoles UJOB ON UJOB.JobId = JOB.Id AND UJOB.UserId = @UserId
 	WHERE JOB.IsActive = 1 AND JOB.IsDeleted = 0
 END
 GO
@@ -394,7 +394,7 @@ BEGIN
 
 	DELETE FROM  UserLanguage WHERE UserId = @UserId
 	DELETE FROM  UserAccents WHERE UserId = @UserId
-	DELETE FROM  UserAuditionsAndJobsGroup WHERE UserId = @UserId
+	DELETE FROM  UserActingRoles WHERE UserId = @UserId
 END
 GO
 IF EXISTS (
@@ -440,19 +440,19 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'UserAuditionsAndJobsGroupSave') AND type IN (N'P', N'PC')
+		WHERE object_id = OBJECT_ID(N'UserActingRolesSave') AND type IN (N'P', N'PC')
 		)
-	DROP PROCEDURE UserAuditionsAndJobsGroupSave
+	DROP PROCEDURE UserActingRolesSave
 GO
-CREATE PROCEDURE UserAuditionsAndJobsGroupSave (@UserId UNIQUEIDENTIFIER , @JobCode INT)
+CREATE PROCEDURE UserActingRolesSave (@UserId UNIQUEIDENTIFIER , @JobCode INT)
 AS
 BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
 	DECLARE @Id BIGINT
-	SELECT @Id = Id FROM AuditionsAndJobsGroup where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
+	SELECT @Id = Id FROM ActingRoles where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
 
-	INSERT INTO UserAuditionsAndJobsGroup(Id, UserId, JobId, DttmCreated, DttmModified)
+	INSERT INTO UserActingRoles(Id, UserId, JobId, DttmCreated, DttmModified)
 	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())
 END

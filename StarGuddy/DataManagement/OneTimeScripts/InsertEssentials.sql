@@ -5,6 +5,9 @@
 INSERT into Users ( AccessFailedCount, ConcurrencyStamp, FirstName, Gender, IsCastingProfessional, LastName, LockoutEnabled, LockoutEnd, Designation, OrgName, OrgWebsite, PasswordHash, SecurityStamp, IsTwoFactorEnabled, UserName)
 VALUES ( 0, N'b8c6e4a2-fb40-4706-b608-f05a4a6ff708', N'Ranjeet', N'M', 0, N'Kumar', 0, NULL, NULL, NULL, NULL, N'janeman', N'39d292dc-8713-4f03-9cfb-90784159f854', 0, N'er.ranjeetkumar@gmail.com')
 
+INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Acting', 1001, 'Acting group', 1)
+INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Modeling', 1002, 'Modeling group', 2)
+
 
 INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (100,'I don''t have an agent', 'No need of agent')
 INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (101,'I want an agent', 'I want an agent')
@@ -26,20 +29,27 @@ INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Credits'
 INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Previous unpaid speaking roles',203,'Previous unpaid speaking roles', 3)
 INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Previous paid speaking roles',204,'Previous paid speaking roles', 4)
 
----------------------------------------------AuditionsAndJobs--------------------------------------------------------------------
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Agency Scouts',101,'Agency Scouts', 1)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Entertainers',102,'Entertainers', 2)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Events & Promotions',103,'Events & Promotions', 3)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Feature Films',104,'Feature Films', 4)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Music videos',105,'Music videos', 5)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Presenters',106,'Presenters', 6)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Short Films',107,'Short Films',7)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Theater & Musicals',108,'Theater & Musicals', 8)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('TV commercials',109,'TV commercials',9)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values(' TV Series',110,' TV Series', 10)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Voice-over & Radio',111,'Voice-over & Radio', 11)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Web',112,'Web', 12)
-INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Others',113,'Others', 13)
+---------------------------------------------Acting AuditionsAndJobs--------------------------------------------------------------------
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Agency Scouts',101,'Agency Scouts', 1)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Entertainers',102,'Entertainers', 2)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Events & Promotions',103,'Events & Promotions', 3)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Feature Films',104,'Feature Films', 4)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Music videos',105,'Music videos', 5)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Presenters',106,'Presenters', 6)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Short Films',107,'Short Films',7)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Theater & Musicals',108,'Theater & Musicals', 8)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('TV commercials',109,'TV commercials',9)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values(' TV Series',110,' TV Series', 10)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Voice-over & Radio',111,'Voice-over & Radio', 11)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Web',112,'Web', 12)
+INSERT INTO ActingRoles (Name, Code, Detail, DisplayOrder) values('Others',113,'Others', 13)
+---------------------------------------------Modeling Roles--------------------------------------------------------------------
+INSERT INTO ModelingRoles (Name, Code, Detail, DisplayOrder) values('Agency Scouts',101,'Agency Scouts', 1)
+INSERT INTO ModelingRoles (Name, Code, Detail, DisplayOrder) values('Entertainers',102,'Entertainers', 2)
+INSERT INTO ModelingRoles (Name, Code, Detail, DisplayOrder) values('Events & Promotions',103,'Events & Promotions', 3)
+INSERT INTO ModelingRoles (Name, Code, Detail, DisplayOrder) values('Feature Films',104,'Feature Films', 4)
+INSERT INTO ModelingRoles (Name, Code, Detail, DisplayOrder) values('Music videos',105,'Music videos', 5)
+INSERT INTO ModelingRoles (Name, Code, Detail, DisplayOrder) values('Presenters',106,'Presenters', 6)
 
 
 ----------------------------------------Languages--------------------------------------------------------------------------------------

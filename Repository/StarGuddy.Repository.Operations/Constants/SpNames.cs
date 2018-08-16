@@ -84,7 +84,7 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string ClearActingDetail = "UserActingClear";
             public const string UserLanguageSave = "UserLanguageSave";
             public const string UserAccentSave = "UserAccentSave";
-            public const string UserAuditionsAndJobsGroupSave = "UserAuditionsAndJobsGroupSave";
+            public const string UserActingRolesSave = "UserActingRolesSave";
         }
     }
 }

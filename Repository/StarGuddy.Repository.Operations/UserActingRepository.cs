@@ -36,7 +36,7 @@ namespace StarGuddy.Repository.Operations
                             UserActing = multi.ReadFirstOrDefault<UserActing>(),
                             Languages = multi.Read<Language>(),
                             Accents = multi.Read<Accents>(),
-                            AuditionsAndJobsGroup = multi.Read<AuditionsAndJobsGroup>()
+                            ActingRoles = multi.Read<ActingRoles>()
                         };
 
                     }
@@ -119,11 +119,11 @@ namespace StarGuddy.Repository.Operations
                             }
 
                             // Job Group Save
-                            if (actingDetail.AuditionsAndJobsGroup.Any())
+                            if (actingDetail.ActingRoles.Any())
                             {
                                 saveTasks.Add(Task.Factory.StartNew(async () =>
                                 {
-                                    var jobGroupTask = actingDetail.AuditionsAndJobsGroup.Select(async x =>
+                                    var jobGroupTask = actingDetail.ActingRoles.Select(async x =>
                                     {
                                         var jobGroupParam = new
                                         {
@@ -131,7 +131,7 @@ namespace StarGuddy.Repository.Operations
                                             JobCode = x.Code
                                         };
 
-                                        return await conn.ExecuteAsync(SpNames.UserActing.UserAuditionsAndJobsGroupSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure);
+                                        return await conn.ExecuteAsync(SpNames.UserActing.UserActingRolesSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure);
                                     });
 
                                     var updatedResult = await Task.WhenAll(jobGroupTask);

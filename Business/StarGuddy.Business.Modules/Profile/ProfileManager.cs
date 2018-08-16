@@ -267,7 +267,7 @@ namespace StarGuddy.Business.Modules.Profile
                     Experiance = result.UserActing.Experiance,
                     Accents = _mapper.Map<List<AccentsDto>>(result.Accents),
                     Languages = _mapper.Map<List<LanguageDto>>(result.Languages),
-                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.AuditionsAndJobsGroup),
+                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.ActingRoles),
                 };
             }
 
@@ -300,7 +300,7 @@ namespace StarGuddy.Business.Modules.Profile
                     },
                     Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => string.IsNullOrWhiteSpace(x.SelectedAccent)),
                     Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
-                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroup>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
+                    ActingRoles = _mapper.Map<List<ActingRoles>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
                 };
 
                 return await _userActingRepository.PerformSaveAndUpdateOperationAsync(userActingDetail);

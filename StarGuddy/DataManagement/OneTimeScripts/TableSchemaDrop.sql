@@ -1,4 +1,23 @@
 
+
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserModelingRoles')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserModelingRoles
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'ModelingRoles')
+			AND type IN (N'U')
+		)
+	DROP TABLE ModelingRoles
+GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -11,19 +30,19 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'UserAuditionsAndJobs')
+		WHERE object_id = OBJECT_ID(N'UserActingRoles')
 			AND type IN (N'U')
 		)
-	DROP TABLE UserAuditionsAndJobs
+	DROP TABLE UserActingRoles
 
 GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'AuditionsAndJobs')
+		WHERE object_id = OBJECT_ID(N'ActingRoles')
 			AND type IN (N'U')
 		)
-	DROP TABLE AuditionsAndJobs
+	DROP TABLE ActingRoles
 GO
 IF EXISTS (
 		SELECT *
