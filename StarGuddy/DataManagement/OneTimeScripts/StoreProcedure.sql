@@ -224,7 +224,7 @@ BEGIN
 END
 GO
 
------------------------------------------------------- Dancing -------------------------------------------------
+--------------------------------------------------------------------- Dancing -------------------------------------------------
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -244,7 +244,6 @@ BEGIN
 END
 GO
 
--------------------------------------------------------------------------------------------------------------------------
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -315,6 +314,8 @@ BEGIN
 END
 GO
 
+
+----------------------------------------------------------------------User Acting -----------------------------------------------------------------------
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -336,12 +337,12 @@ BEGIN
 	LEFT JOIN AgentNeed AN ON AN.Code = UA.AgentNeedCode AND AN.IsActive = 1 AND AN.IsDeleted = 0
 	WHERE UA.UserId = @UserId AND UA.IsActive = 1 AND UA.IsDeleted = 0
 
-	SELECT LAN.Id, LAN.Code, LAN.CountryCode, LAN.Name, (CASE WHEN LAN.Id = UL.LanguagesId THEN LAN.Code ELSE 0 END) AS SelectedLanguageCode
+	SELECT LAN.Id, LAN.Code, LAN.CountryCode, LAN.Name, (CASE WHEN LAN.Id = UL.LanguagesId THEN LAN.Code ELSE '' END) AS SelectedLanguageCode
 	FROM Languages LAN
 	LEFT JOIN UserLanguage UL ON UL.LanguagesId = LAN.Id AND UL.UserId = @UserId
 	WHERE LAN.IsActive = 1 AND LAN.IsDeleted = 0
 
-	SELECT ACC.Id, ACC.Code, ACC.Name, ACC.LanguageCode, (CASE WHEN ACC.Id = UACC.AccentsId THEN ACC.Code ELSE 0 END) AS SelectedAccent
+	SELECT ACC.Id, ACC.Code, ACC.Name, ACC.LanguageCode, (CASE WHEN ACC.Id = UACC.AccentsId THEN ACC.Code ELSE '' END) AS SelectedAccent
 	FROM Accents ACC
 	LEFT JOIN UserAccents UACC ON UACC.AccentsId = ACC.Id AND UACC.UserId = @UserId
 	WHERE ACC.IsActive = 1 AND ACC.IsDeleted = 0
@@ -351,5 +352,107 @@ BEGIN
 	LEFT JOIN UserAuditionsAndJobsGroup UJOB ON UJOB.JobId = JOB.Id AND UJOB.UserId = @UserId
 	WHERE JOB.IsActive = 1 AND JOB.IsDeleted = 0
 END
-
 GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserActingSaveUpdate') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserActingSaveUpdate
+GO
+CREATE PROCEDURE UserActingSaveUpdate (@UserId UNIQUEIDENTIFIER, @ActingExpCode INT, @AgentNeedCode INT, @Experiance NVARCHAR(2000))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	IF (EXISTS (SELECT TOP 1 Id	FROM UserActing WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0))
+	BEGIN
+		UPDATE UserActing
+		SET ActingExperiance = @ActingExpCode, AgentNeedCode =@AgentNeedCode, Experiance = @Experiance, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+		WHERE UserId = @UserId 
+	END
+	ELSE
+	BEGIN
+		INSERT INTO UserActing (Id, UserId, ActingExperiance, AgentNeedCode, Experiance, IsActive, IsDeleted)
+		VALUES (NEWID(), @UserId, @ActingExpCode, @AgentNeedCode, @Experiance, 1, 0)
+	END
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserActingClear') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserActingClear
+GO
+CREATE PROCEDURE UserActingClear (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DELETE FROM  UserLanguage WHERE UserId = @UserId
+	DELETE FROM  UserAccents WHERE UserId = @UserId
+	DELETE FROM  UserAuditionsAndJobsGroup WHERE UserId = @UserId
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserLanguageSave') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserLanguageSave
+GO
+CREATE PROCEDURE UserLanguageSave (@UserId UNIQUEIDENTIFIER , @LanguageCode NVARCHAR(100))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DECLARE @LanguageId BIGINT
+	SELECT @LanguageId = Id FROM Languages where Code = @LanguageCode
+
+	INSERT INTO UserLanguage(Id, UserId, LanguagesId, DttmCreated, DttmModified)
+	VALUES (NEWID(), @UserId, @LanguageId, getutcdate(), getutcdate())
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserAccentSave') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserAccentSave
+GO
+CREATE PROCEDURE UserAccentSave (@UserId UNIQUEIDENTIFIER , @AccentCode NVARCHAR(100))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DECLARE @AccentId BIGINT
+	SELECT @AccentId = Id FROM Accents where Code = @AccentCode
+
+	INSERT INTO UserAccents(Id, UserId, AccentsId, IsActive, IsDeleted, DttmCreated, DttmModified)
+	VALUES (NEWID(), @UserId, @AccentId, 1, 0, getutcdate(), getutcdate())
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserAuditionsAndJobsGroupSave') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserAuditionsAndJobsGroupSave
+GO
+CREATE PROCEDURE UserAuditionsAndJobsGroupSave (@UserId UNIQUEIDENTIFIER , @JobCode INT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DECLARE @Id BIGINT
+	SELECT @Id = Id FROM AuditionsAndJobsGroup where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
+
+	INSERT INTO UserAuditionsAndJobsGroup(Id, UserId, JobId, DttmCreated, DttmModified)
+	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())
+END

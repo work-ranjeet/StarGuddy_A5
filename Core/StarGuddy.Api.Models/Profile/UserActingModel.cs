@@ -1,4 +1,4 @@
-﻿using StarGuddy.Api.Models.Common;
+﻿using StarGuddy.Api.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,10 +19,10 @@ namespace StarGuddy.Api.Models.Profile
 
         public string Experiance { get; set; }
 
-        public List<Language> Languages { get; set; }
+        public List<LanguageDto> Languages { get; set; }
 
-        public List<Accents> Accents { get; set; }
+        public List<AccentsDto> Accents { get; set; }
 
-        public List<AuditionsAndJobsGroup> AuditionsAndJobsGroup { get; set; }
+        public List<AuditionsAndJobsGroupDto> AuditionsAndJobsGroup { get; set; }
     }
 }

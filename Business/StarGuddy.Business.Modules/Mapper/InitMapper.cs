@@ -1,5 +1,5 @@
 ﻿
-using Models = StarGuddy.Api.Models.Common;
+using Models = StarGuddy.Api.Models.Dto;
 using StarGuddy.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,9 +16,9 @@ namespace StarGuddy.Business.Modules.Mapper
 
         private void InitAutoMapper()
         {
-            CreateMap<Accents, Models.Accents>().ReverseMap();
-            CreateMap<Language, Models.Language>().ReverseMap();
-            CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>().ReverseMap();
+            CreateMap<Accents, Models.AccentsDto>().ReverseMap();
+            CreateMap<Language, Models.LanguageDto>().ReverseMap();
+            CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroupDto>().ReverseMap();
         }
     }
 }

@@ -80,6 +80,11 @@ namespace StarGuddy.Repository.Opertions.Constants
         public struct UserActing
         {
             public const string SelectDetail = "GetUserActingDetail";
+            public const string SaveUpdate = "UserActingSaveUpdate";
+            public const string ClearActingDetail = "UserActingClear";
+            public const string UserLanguageSave = "UserLanguageSave";
+            public const string UserAccentSave = "UserAccentSave";
+            public const string UserAuditionsAndJobsGroupSave = "UserAuditionsAndJobsGroupSave";
         }
     }
 }

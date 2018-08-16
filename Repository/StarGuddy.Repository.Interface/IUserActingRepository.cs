@@ -10,5 +10,7 @@ namespace StarGuddy.Repository.Interface
     public interface IUserActingRepository
     {
         Task<UserActingDetail> GetUserActingDetailAsync(Guid userId);
+
+        Task<bool> PerformSaveAndUpdateOperationAsync(UserActingDetail actingDetail);
     }
 }

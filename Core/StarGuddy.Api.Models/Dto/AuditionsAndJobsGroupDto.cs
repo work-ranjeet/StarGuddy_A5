@@ -1,5 +1,5 @@
 ﻿// -------------------------------------------------------------------------------
-// <copyright file="Accents.cs" company="StarGuddy India">
+// <copyright file="AuditionsAndJobsGroup.cs" company="StarGuddy India">
 // Copyright (c) 2018. All rights reserved.
 // </copyright>
 // -------------------------------------------------------------------------------
@@ -15,21 +15,20 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Api.Models.Common
+namespace StarGuddy.Api.Models.Dto
 {
-    /// <summary>
-    /// Accent class
-    /// </summary>
-    public class Accents
+    using System;
+    public class AuditionsAndJobsGroupDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public string Code { get; set; }
-        public string LanguageCode { get; set; }
-
-        public string SelectedAccent { get; set; }
+        public int Code { get; set; }
+        public int SelectedCode { get; set; }
+        public string Detail { get; set; }
+        public int DisplayOrder { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime? DttmCreated { get; set; }
+        public DateTime? DttmModified { get; set; }
     }
-    
 }

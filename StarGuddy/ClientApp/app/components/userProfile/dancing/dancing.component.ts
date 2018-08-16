@@ -88,8 +88,7 @@ export class DancingComponent {
         this.dancingModel.isAttendedSchool = !this.dancingModel.isAttendedSchool;
     }
 
-    saveChanges() {
-        var v = this.dancingModel;
+    saveChanges() {       
         this.userProfileService.SaveUserDancingChanges(this.dancingModel).subscribe(response => {
             if (response != null && response) {
                 console.info("Updated");

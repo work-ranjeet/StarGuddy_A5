@@ -6,6 +6,7 @@
 namespace StarGuddy.Business.Modules.Profile
 {
     using AutoMapper;
+    using StarGuddy.Api.Models.Dto;
     using StarGuddy.Api.Models.Interface.Profile;
     using StarGuddy.Api.Models.Profile;
     using StarGuddy.Business.Interface.Profile;
@@ -20,7 +21,7 @@ namespace StarGuddy.Business.Modules.Profile
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Models = Api.Models.Common;
+    using Models = Api.Models.Dto;
 
     public class ProfileManager : IProfileManager
     {
@@ -165,7 +166,7 @@ namespace StarGuddy.Business.Modules.Profile
                 DanceAbilitiesText = ExpertLavel.Beginner.ToString(),
                 ChoreographyAbilitiesText = ExpertLavel.Beginner.ToString(),
                 HasDanceStyle = false,
-                DnacingStyles = new List<Api.Models.Common.DancingStyleModel>()
+                DnacingStyles = new List<DancingStyleDto>()
             };
 
             var userDancing = await _userDancingRepository.GetUserDancingAsync(userId);
@@ -188,7 +189,7 @@ namespace StarGuddy.Business.Modules.Profile
                     IsAttendedSchool = userDancing.IsAttendedSchool,
                     Experience = userDancing.Experiance,
                     UserId = userDancing.UserId,
-                    DnacingStyles = new List<Api.Models.Common.DancingStyleModel>()
+                    DnacingStyles = new List<DancingStyleDto>()
                 };
             }
 
@@ -197,7 +198,7 @@ namespace StarGuddy.Business.Modules.Profile
 
                 var danceStyle = dancingStyle.Select(x =>
                 {
-                    return new Api.Models.Common.DancingStyleModel
+                    return new DancingStyleDto
                     {
                         Id = x.Id,
                         Name = x.Style,
@@ -259,40 +260,53 @@ namespace StarGuddy.Business.Modules.Profile
                 return new UserActingModel
                 {
                     Id = result.UserActing.Id,
-                    UserId = result.UserActing.UserId,
+                    UserId = UserContext.Current.UserId,
                     ActingExperianceCode = result.UserActing.ActingExperianceCode,
                     ActingExperiance = result.UserActing.ActingExperiance,
                     AgentNeedCode = result.UserActing.AgentNeedCode,
                     Experiance = result.UserActing.Experiance,
-                    Accents = _mapper.Map<List<Models.Accents>>(result.Accents),
-                    Languages = _mapper.Map<List<Models.Language>>(result.Languages),
-                    AuditionsAndJobsGroup = _mapper.Map<List<Models.AuditionsAndJobsGroup>>(result.AuditionsAndJobsGroup),
+                    Accents = _mapper.Map<List<AccentsDto>>(result.Accents),
+                    Languages = _mapper.Map<List<LanguageDto>>(result.Languages),
+                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.AuditionsAndJobsGroup),
                 };
             }
 
             return new UserActingModel
             {
-                Accents = new List<Models.Accents>(),
-                Languages = new List<Models.Language>(),
-                AuditionsAndJobsGroup = new List<Models.AuditionsAndJobsGroup>()
+                Accents = new List<Models.AccentsDto>(),
+                Languages = new List<Models.LanguageDto>(),
+                AuditionsAndJobsGroup = new List<Models.AuditionsAndJobsGroupDto>()
             };
         }
-        #endregion
 
-        #region Mapper initialization
-        private void InitMapper()
+        public async Task<bool> SaveUserActingDetailsAsync(UserActingModel userActingModel)
         {
-
-            Mapper.Initialize(cfg =>
+            if (userActingModel.IsNotNull())
             {
-                cfg.CreateMap<Accents, Models.Accents>();
-                cfg.CreateMap<Language, Models.Language>();
-                cfg.CreateMap<AuditionsAndJobsGroup, Models.AuditionsAndJobsGroup>();
+                var userActingDetail = new UserActingDetail
+                {
+                    UserActing = new UserActing
+                    {
+                        Id = userActingModel.Id,
+                        UserId = userActingModel.UserId,
+                        ActingExperianceCode = userActingModel.ActingExperianceCode,
+                        ActingExperiance = userActingModel.ActingExperiance,
+                        AgentNeedCode = userActingModel.AgentNeedCode,
+                        AgentNeed = string.Empty,
+                        Experiance = userActingModel.Experiance,
+                        IsActive = true,
+                        IsDeleted = false,
+                        DttmModified = DateTime.UtcNow
+                    },
+                    Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => string.IsNullOrWhiteSpace(x.SelectedAccent)),
+                    Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
+                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroup>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
+                };
 
-                cfg.CreateMap<Models.Accents, Accents>();
-                cfg.CreateMap<Models.Language, Language>();
-                cfg.CreateMap<Models.AuditionsAndJobsGroup, AuditionsAndJobsGroup>();
-            });
+                return await _userActingRepository.PerformSaveAndUpdateOperationAsync(userActingDetail);
+            }
+
+            return false;
         }
         #endregion
     }

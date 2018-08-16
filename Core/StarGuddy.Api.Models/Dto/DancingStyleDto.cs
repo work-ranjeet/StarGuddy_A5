@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StarGuddy.Api.Models.Common
+namespace StarGuddy.Api.Models.Dto
 {
-    public class DancingStyleModel
+    public class DancingStyleDto
     {
         public long Id { get; set; }
 

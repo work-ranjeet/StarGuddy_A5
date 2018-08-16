@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StarGuddy.Api.Constants;
 using StarGuddy.Api.Models.Profile;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Profile;
@@ -21,7 +22,7 @@ namespace StarGuddy.Api.Controllers.Profile
         /// </summary>
         private readonly IAccountManager accountManager;
         private readonly IProfileManager profileManager;
-        //private readonly IHttpContextAccessor httpContextAccessor;
+        //private read only IHttpContextAccessor httpContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileEditController"/> class.
@@ -39,9 +40,9 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("SavePhysicalApperance")]
         public async Task<IActionResult> SavePhysicalApperance([FromBody]PhysicalAppearanceModal physicalAppearance)
         {
-            if (physicalAppearance == null)
+            if (physicalAppearance.IsNull())
             {
-                return BadRequest("Invalid/Bad request.");
+                return BadRequest(HttpStatusText.InvalidRequest);
             }
 
             physicalAppearance.UserId = UserContext.Current.UserId;
@@ -89,9 +90,9 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Credit")]
         public async Task<IActionResult> SaveUserCredits([FromBody]List<UserCreditModel> credits)
         {
-            if (credits == null)
+            if (credits.IsNull())
             {
-                return BadRequest("Invalid/Bad request.");
+                return BadRequest(HttpStatusText.InvalidRequest);
             }
 
             var isSuccess = await profileManager.SaveUserCredits(UserContext.Current.UserId, credits);
@@ -109,7 +110,7 @@ namespace StarGuddy.Api.Controllers.Profile
         {
             if (Id == Guid.Empty)
             {
-                return BadRequest("Invalid/Bad request.");
+                return BadRequest(HttpStatusText.InvalidRequest);
             }
 
             var isDeleted = await profileManager.DeleteUserCredits(Id);
@@ -142,9 +143,9 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Dancing")]
         public async Task<IActionResult> SaveUserDancing([FromBody]DancingModel dancingModel)
         {
-            if (dancingModel == null)
+            if (dancingModel.IsNull())
             {
-                return BadRequest("Invalid/Bad request.");
+                return BadRequest(HttpStatusText.InvalidRequest);
             }
 
             var isSuccess = await profileManager.SaveUserDancingAsync(dancingModel);
@@ -172,23 +173,23 @@ namespace StarGuddy.Api.Controllers.Profile
             return Ok(dancingResult);
         }
 
-        //[HttpPost]
-        //[Route("Dancing")]
-        //public async Task<IActionResult> SaveUserDancing([FromBody]DancingModel dancingModel)
-        //{
-        //    if (dancingModel == null)
-        //    {
-        //        return BadRequest("Invalid/Bad request.");
-        //    }
+        [HttpPost]
+        [Route("Acting")]
+        public async Task<IActionResult> SaveUserActingDetails([FromBody]UserActingModel userActingModel)
+        {
+            if (userActingModel.IsNull())
+            {
+                return BadRequest(HttpStatusText.InvalidRequest);
+            }
 
-        //    var isSuccess = await profileManager.SaveUserDancingAsync(dancingModel);
-        //    if (isSuccess)
-        //    {
-        //        return Ok(isSuccess);
-        //    }
+            var isSuccess = await profileManager.SaveUserActingDetailsAsync(userActingModel);
+            if (isSuccess)
+            {
+                return Ok(isSuccess);
+            }
 
-        //    return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
-        //}
+            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+        }
         #endregion
     }
 }

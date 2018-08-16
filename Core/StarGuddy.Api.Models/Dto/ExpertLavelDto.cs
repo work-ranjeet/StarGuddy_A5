@@ -15,11 +15,11 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Api.Models.Common
+namespace StarGuddy.Api.Models.Dto
 {
     using System;
 
-    public class Ability
+    public class ExpertLavelDto
     {
         public Guid Id { get; set; }
 

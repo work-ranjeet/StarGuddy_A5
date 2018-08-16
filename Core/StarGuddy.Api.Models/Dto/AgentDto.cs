@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StarGuddy.Api.Models.Common
+namespace StarGuddy.Api.Models.Dto
 {
-    public class Agent
+    public class AgentDto
     {
         public Guid Id { get; set; }
 

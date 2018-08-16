@@ -15,12 +15,12 @@
 // Date Changed: 
 // Change Description:
 // -------------------------------------------------------------------------------
-namespace StarGuddy.Api.Models.Common
+namespace StarGuddy.Api.Models.Dto
 {
     /// <summary>
     /// Languages class
     /// </summary>
-    public class Language
+    public class LanguageDto
     {
         public long Id { get; set; }
         public string Name { get; set; }

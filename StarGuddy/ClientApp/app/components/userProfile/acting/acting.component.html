@@ -3,10 +3,10 @@
         <div class="card">
             <div class="card-header card-title-m">
                 <span>Acting</span>
-                <a href="javascript:void(0);" class="pull-right">
+                <span class="pull-right">
                     <i *ngIf="!showEditHtml" class="fa fa-edit text-success" (click)="edit()"></i>
                     <i *ngIf="showEditHtml" class="fa fa-window-close-o text-danger" (click)="edit()"></i>
-                </a>
+                </span>
             </div>
             <div *ngIf="!showEditHtml" class="card-body">
                 <div class="experiance">Acting experience</div>
@@ -33,47 +33,47 @@
             <div id="physicalAppreanceEdit" *ngIf="showEditHtml" class="card-body text-muted">
                 <form action="#" method="post" class="form" role="form">
                     <div class="form-group padding-top-10">
-                        <span class="required">Auditions & Jobs I'm interested in</span>
+                        <label class="required">Auditions & Jobs I'm interested in</label>
                         <div class="text-l">
-                            <div class="col-md-3 col-xs-6 col-sm-3 padding-top-10 padding-bottom-10" *ngFor="let job of actingDetailModel.auditionsAndJobsGroup">
+                            <div class="col-md-3 col-sm-4 col-xs-6 padding-top-10 padding-bottom-10" *ngFor="let job of actingDetailModel.auditionsAndJobsGroup">
                                 <input type="checkbox" value="{{job.code}}" name="{{job.code}}"
                                        [checked]="job.code==job.selectedCode"
                                        (change)="updateSelectedJobGroup($event)"
-                                       class="padding-5 v-text-top">
+                                       class="padding-5 v-text-top form-control">
                                 <span class="padding-5 text-l">{{job.name}}</span>
                             </div>
                         </div>
                     </div>
                     <hr class="seperator" />
                     <div class="form-group">
-                        <label class="profile-edit-label">Acting experience</label>
+                        <label class="profile-edit-label required">Acting experience</label>
                         <div class="profile-edit-container row">
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12">
                                 <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
-                                       [checked]="actingDetailModel.agentNeedCode==1"
+                                       [checked]="actingDetailModel.actingExperianceCode==200"
                                        [value]="1"
-                                       (change)="onAgentGroupSelectionChange($event)">
+                                       (change)="onActingExpSelectionChange($event)">
                                 <span class="padding-5 text-l">No previous acting experience</span>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12">
                                 <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
-                                       [checked]="actingDetailModel.agentNeedCode==10"
+                                       [checked]="actingDetailModel.actingExperianceCode==201"
                                        [value]="10"
-                                       (change)="onAgentGroupSelectionChange($event)">
-                                <span class="padding-5 text-l">Extra</span>
+                                       (change)="onActingExpSelectionChange($event)">
+                                <span class="padding-5 text-l">Credits</span>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12">
                                 <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
-                                       [checked]="actingDetailModel.agentNeedCode==20"
+                                       [checked]="actingDetailModel.actingExperianceCode==202"
                                        [value]="20"
-                                       (change)="onAgentGroupSelectionChange($event)">
+                                       (change)="onActingExpSelectionChange($event)">
                                 <span class="padding-5 text-l">Previous unpaid speaking roles</span>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12">
                                 <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
-                                       [checked]="actingDetailModel.agentNeedCode==20"
+                                       [checked]="actingDetailModel.actingExperianceCode==203"
                                        [value]="20"
-                                       (change)="onAgentGroupSelectionChange($event)">
+                                       (change)="onActingExpSelectionChange($event)">
                                 <span class="padding-5 text-l">Previous paid speaking roles</span>
                             </div>
                         </div>
@@ -81,12 +81,12 @@
 
                     <hr class="seperator" />
                     <div class="form-group">
-                        <span>Languages</span>
+                        <label class="profile-edit-label required">Languages</label>
                         <div class="text-l">
-                            <div class="col-md-3 col-xs-6 col-sm-3 padding-top-10 padding-bottom-10" *ngFor="let language of actingDetailModel.languages">
+                            <div class="col-md-3 col-sm-4 col-xs-6  padding-10" *ngFor="let language of actingDetailModel.languages">
                                 <input type="checkbox" value="{{language.code}}" name="{{language.code}}"
                                        [checked]="language.code==language.selectedLanguageCode"
-                                       (change)="updateSelectedJobGroup($event)"
+                                       (change)="updateSelectedLanguageChange($event)"
                                        class="padding-5 v-text-top">
                                 <span class="padding-5 text-l">{{language.name}}</span>
                             </div>
@@ -95,12 +95,12 @@
 
                     <hr class="seperator" />
                     <div class="form-group">
-                        <span>Accents</span>
+                        <label class="profile-edit-label required">Accents</label>
                         <div class="text-l">
-                            <div class="col-md-3 col-xs-6 col-sm-3 padding-top-10 padding-bottom-10" *ngFor="let accent of actingDetailModel.accents">
+                            <div class="col-md-3 col-sm-4 col-xs-6 padding-10" *ngFor="let accent of actingDetailModel.accents">
                                 <input type="checkbox" value="{{accent.code}}" name="{{accent.code}}"
                                        [checked]="accent.code==accent.selectedAccent"
-                                       (change)="updateSelectedJobGroup($event)"
+                                       (change)="updateSelectedAccentChange($event)"
                                        class="padding-5 v-text-top">
                                 <span class="padding-5 text-l">{{accent.name}}</span>
                             </div>
@@ -111,29 +111,26 @@
                     <div class="form-group">
                         <label class="profile-edit-label">Agent</label>
                         <div class="profile-edit-container row">
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <input type="radio" name="agentGroup" class="padding-5 v-text-top"
                                        [checked]="actingDetailModel.agentNeedCode==1"
                                        [value]="1"
                                        (change)="onAgentGroupSelectionChange($event)">
                                 <span class="padding-5 text-l">I don't have an agent</span>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <input type="radio" name="agentGroup" class="padding-5 v-text-top"
                                        [checked]="actingDetailModel.agentNeedCode==10"
                                        [value]="10"
                                        (change)="onAgentGroupSelectionChange($event)">
                                 <span class="padding-5 text-l">I want an agent</span>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
                                 <input type="radio" name="agentGroup" class="padding-5 v-text-top"
                                        [checked]="actingDetailModel.agentNeedCode==20"
                                        [value]="20"
                                        (change)="onAgentGroupSelectionChange($event)">
                                 <span class="padding-5 text-l">I have an agent</span>
-                            </div>
-                            <div class="col-xs-6 col-sm-3">
-                                &nbsp;
                             </div>
                         </div>
                     </div>
@@ -142,7 +139,7 @@
                     <div class="form-group">
                         <label class="profile-edit-label">Acting experience</label>
                         <div class="profile-edit-container row">
-                            <div class="col-xs-6 col-sm-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
                                 <textarea id="txtExperiance" name="txtExperiance" style="width:100%; min-height:100px;" class="form-control"
                                           [(ngModel)]="actingDetailModel.experiance"
                                           #actingExperience="ngModel"></textarea>
@@ -153,10 +150,9 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-sm-12 text-center padding-15">
-        <a asp-controller="Profile" asp-action="TalentProfileViewAs" id="btnCancle" class="btn-profile-edit-cancle btn btn-danger">Cancle</a>
-        <button id="btnSave" class="btn-profile-edit-save btn btn-success">Save</button>
-    </div>-->
+                    <div class="col-sm-12 text-center padding-15">
+                        <button id="btnSave" class="btn-profile-save btn btn-success" (click)="saveChanges()">Save</button>
+                    </div>
                 </form>
             </div>
         </div>

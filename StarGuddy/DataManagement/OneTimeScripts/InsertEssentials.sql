@@ -21,8 +21,8 @@ INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (2,'Intermediate', 'Intermed
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (3,'Expert', 'Expert')
 
 ---------------------------------------------ActingExperience-----------------------------------------------------------------------------------
-INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('No previous acting experience',201,'No previous acting experience', 1)
-INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Credits',202,'Credits', 2)
+INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('No previous acting experience',200,'No previous acting experience', 1)
+INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Credits',201,'Credits', 2)
 INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Previous unpaid speaking roles',203,'Previous unpaid speaking roles', 3)
 INSERT INTO ActingExperience (Name, Code, Detail, DisplayOrder) values('Previous paid speaking roles',204,'Previous paid speaking roles', 4)
 
@@ -50,8 +50,8 @@ insert into UserAuditionsAndJobsGroup values (NEWID(), 5, 'D40B2C5D-2881-4E8B-84
 
 ----------------------------------------Languages--------------------------------------------------------------------------------------
 INSERT INTO Languages (Name, Code, CountryCode) values('English',1001,'')
-INSERT INTO Languages (Name, Code, CountryCode) values('Hindi',1100,'')
-INSERT INTO Languages (Name, Code, CountryCode) values('Urdu',1120,'')
+INSERT INTO Languages (Name, Code, CountryCode) values('Hindi',1002,'')
+INSERT INTO Languages (Name, Code, CountryCode) values('Urdu',1003,'')
 
 --------------------------------------Accents----------------------------------------
 INSERT INTO Accents (Name, Code, LanguageCode) values('Indian',2000,'')

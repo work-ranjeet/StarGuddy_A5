@@ -1,4 +1,4 @@
-﻿using StarGuddy.Api.Models.Common;
+﻿using StarGuddy.Api.Models.Dto;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -29,6 +29,6 @@ namespace StarGuddy.Api.Models.Profile
 
         public bool HasDanceStyle { get; set; }
 
-        public List<DancingStyleModel> DnacingStyles { get; set; }
+        public List<DancingStyleDto> DnacingStyles { get; set; }
     } 
 }
