@@ -89,11 +89,12 @@
     }
 
     export interface IUserModelingModel {
-        Id: string;
-        ExpCode: number;
-        AgentNeedCode: number;
-        WebSite: string;
-        Experiance: string;
-        ModelingRoles: IAuditionsAndJobsGroup[];
+        id: string;
+        expCode: number;
+        expText: string;
+        agentNeedCode: number;
+        webSite: string;
+        experiance: string;
+        modelingRoles: IAuditionsAndJobsGroup[];
     }
 }

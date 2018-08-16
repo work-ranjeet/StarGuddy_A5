@@ -190,4 +190,19 @@ export class UserProfileService {
                     }
                 });
     }
+
+    SaveUserModelingDetails(reqPayLoad: IModelingDetailModel) {
+        return this.baseService.HttpService.postData<boolean>("Profile/Operations/Modeling", reqPayLoad)
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
 }

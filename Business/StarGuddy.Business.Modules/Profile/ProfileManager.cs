@@ -318,7 +318,7 @@ namespace StarGuddy.Business.Modules.Profile
             var result = await _userModelingRepository.GetUserModelingDetailAsync(UserContext.Current.UserId);
             if (result.IsNotNull())
             {
-                UserModelingModel userModelingModel = _mapper.Map<UserModelingModel>(result.UserModeling);
+                var userModelingModel = _mapper.Map<UserModelingModel>(result.UserModeling);
                 if (userModelingModel.IsNull())
                 {
                     userModelingModel = new UserModelingModel { ModelingRoles = new List<AuditionsAndJobsGroupDto>() };                   

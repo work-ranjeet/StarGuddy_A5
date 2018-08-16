@@ -49,4 +49,40 @@ export class ModelingComponent {
             }
         });
     }
+
+    updateSelectedJobGroup(checkEvent: any) {
+        var checkboxIndex = this.modelingDetailModel.modelingRoles.findIndex(x => x.code == checkEvent.target.value);
+
+        if (checkboxIndex > -1) {
+            this.modelingDetailModel.modelingRoles[checkboxIndex].selectedCode = checkEvent.target.checked ? parseInt(checkEvent.target.value) : 0;
+        }
+    }
+
+    onModelingExpSelectionChange(checkEvent: any) {
+
+    }
+
+    onAgentGroupSelectionChange(checkEvent: any) {
+        var agentValue = parseInt(checkEvent.currentTarget.value);
+        this.modelingDetailModel.agentNeedCode = agentValue;
+    }
+
+    resetChanges() {
+        if (!this.showEditHtml) {
+            this.modelingDetailModel = _.cloneDeep({} as IModelingDetailModel);
+            this.modelingDetailModel = _.cloneDeep(this.modelingDetailReset);
+        }
+    }
+
+    saveChanges() {
+        this.userProfileService.SaveUserModelingDetails(this.modelingDetailModel).subscribe(response => {
+            if (response != null && response) {
+                console.info("Updated");
+                this.loadModelingDetails();
+            }
+            else {
+                console.warn(response.statusText);
+            }
+        });
+    }
 }

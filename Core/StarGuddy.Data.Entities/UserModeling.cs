@@ -10,6 +10,7 @@ namespace StarGuddy.Data.Entities
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public int ExpCode { get; set; }
+        public string ExpText { get; set; }
         public int AgentNeedCode { get; set; }
         public string WebSite { get; set; }
         public string Experiance { get; set; }

@@ -10,38 +10,29 @@
             </div>
             <div *ngIf="!showEditHtml" class="card-body">
                 <div class="experiance">Modeling experience</div>
-                <div class="padding-top-5 padding-left-20 text-l">Part-time model - paid commercial work</div>
+                <div class="padding-top-5 padding-left-20 text-l">{{modelingDetailModel.expText}}</div>
                 <hr />
                 <div class="experiance padding-top-10">Modeling website</div>
                 <div class="padding-top-5 padding-left-15 text-l">
-                    <a href="www.google.com"><i class="fa fa-hand-o-right text-success padding-5"></i>www.google.com</a>
+                    <a href="{{modelingDetailModel.webSite}}"><i class="fa fa-hand-o-right text-success padding-5"></i>{{modelingDetailModel.webSite}}</a>
                 </div>
                 <hr />
-                <p class="padding-top-10 text-l text-muted">DASadslD;oaj oAIDJS IOajds OIADSJ Oiadsj oIADJS OIajds i </p>
+                <p class="padding-top-10 text-l text-muted">{{modelingDetailModel.experiance}}</p>
             </div>
             <div *ngIf="showEditHtml" class="card-body text-muted">
 
-                <form action="#" method="post" class="form" role="form">
+                <form #frmUserModelingEdit="ngForm">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <span class="required">Auditions & Jobs I'm interested in </span>
-                                <div class="">
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top" />
-                                        <span class="padding-5 text-l">Agencies</span>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="actingCategories" class="" type="checkbox" name="actingCategories" checked="checked" />
-                                        <span class="padding-5 text-l">Catwalk</span>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">Primary</span>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="checkbox2" type="checkbox" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">Primary</span>
+                                <label class="required">Auditions & Jobs I'm interested in</label>
+                                <div class="text-l">
+                                    <div class="col-md-3 col-sm-4 col-xs-6 padding-top-10 padding-bottom-10" *ngFor="let job of modelingDetailModel.modelingRoles">
+                                        <input type="checkbox" value="{{job.code}}" name="{{job.code}}"
+                                               [checked]="job.code==job.selectedCode"
+                                               (change)="updateSelectedJobGroup($event)"
+                                               class="padding-5 v-text-top form-control">
+                                        <span class="padding-5 text-l">{{job.name}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -51,15 +42,29 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                <span for="modelingExperience" class="pull-left">Modeling experience</span>
-                                <div class="col-md-4 col-sm-4">
-                                    <select name="modelingExperience" id="modelingExperience" class="form-control">
-                                        <option value="0">Please select...</option>
-                                        <option value="534">Beginner, starting out</option>
-                                        <option selected="selected" value="533">Part-time model - paid commercial work</option>
-                                        <option value="532">Full-time model - paid commercial work</option>
-
-                                    </select>
+                                <label class="profile-edit-label required">Modeling experience</label>
+                                <div class="profile-edit-container row">
+                                    <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
+                                               [checked]="modelingDetailModel.expCode==300"
+                                               [value]="300"
+                                               (change)="onModelingExpSelectionChange($event)">
+                                        <span class="padding-5 text-l">Beginner, starting out</span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
+                                               [checked]="modelingDetailModel.expCode==301"
+                                               [value]="301"
+                                               (change)="onModelingExpSelectionChange($event)">
+                                        <span class="padding-5 text-l">Part-time model - paid commercial work</span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
+                                               [checked]="modelingDetailModel.expCode==302"
+                                               [value]="302"
+                                               (change)="onModelingExpSelectionChange($event)">
+                                        <span class="padding-5 text-l">Full-time model - paid commercial work</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -77,42 +82,49 @@
                     </div>
 
                     <hr class="seperator" />
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="form-group">
-                                <span>Agent</span>
-                                <div class="row">
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="checkbox2" type="radio" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">I don't have an agent</span>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="actingCategories" class="padding-5 v-text-top" type="radio" name="actingCategories" checked="checked" value="32" />
-                                        <span class="padding-5 text-l">I want an agent</span>
-                                    </div>
-                                    <div class="col-md-3 col-xs-6 col-sm-3">
-                                        <input id="checkbox2" type="radio" checked="" class="padding-5 v-text-top">
-                                        <span class="padding-5 text-l">I have an agent</span>
-                                    </div>
-                                </div>
+                    <div class="form-group">
+                        <label class="profile-edit-label">Agent</label>
+                        <div class="profile-edit-container row">
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
+                                <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                       [checked]="modelingDetailModel.agentNeedCode==100"
+                                       [value]="100"
+                                       (change)="onAgentGroupSelectionChange($event)">
+                                <span class="padding-5 text-l">I don't have an agent</span>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
+                                <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                       [checked]="modelingDetailModel.agentNeedCode==101"
+                                       [value]="101"
+                                       (change)="onAgentGroupSelectionChange($event)">
+                                <span class="padding-5 text-l">I want an agent</span>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-12 ">
+                                <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                       [checked]="modelingDetailModel.agentNeedCode==102"
+                                       [value]="102"
+                                       (change)="onAgentGroupSelectionChange($event)">
+                                <span class="padding-5 text-l">I have an agent</span>
                             </div>
                         </div>
                     </div>
+
                     <hr class="seperator" />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <span>Modeling experience</span>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-12">
-                                        <textarea style="width:100%; min-height:100px;" class="form-control"></textarea>
-                                    </div>
+                    <div class="form-group">
+                        <label class="profile-edit-label">Modeling experience</label>
+                        <div class="profile-edit-container row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <textarea id="txtExperiance" name="txtExperiance" style="width:100%; min-height:100px;" class="form-control"
+                                          [(ngModel)]="modelingDetailModel.experiance"
+                                          #modelingExperience="ngModel"></textarea>
+                                <div *ngIf="modelingExperience.invalid && (modelingExperience.dirty || modelingExperience.touched)" class="error">
+                                    <div *ngIf="modelingExperience.errors.required">Modeling experience is required.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 text-center padding-15">
-                        <button id="btnSave" class="btn-profile-save btn btn-success">Save</button>
+                        <button id="btnSave" class="btn-profile-save btn btn-success" (click)="saveChanges()>Save</button>
                     </div>
                 </form>
 

@@ -9,6 +9,7 @@ namespace StarGuddy.Data.Entities.Interface
         Guid Id { get; set; }
         Guid UserId { get; set; }
         int ExpCode { get; set; }
+        string ExpText { get; set; }
         int AgentNeedCode { get; set; }
         string WebSite { get; set; }
         string Experiance { get; set; }

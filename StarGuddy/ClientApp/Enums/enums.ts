@@ -19,9 +19,9 @@ export enum ActingExperiance {
 };
 
 export enum ModelingExperiance {
-    "No previous acting experience" = 300,
-    "Credits" = 301,
-    "Previous unpaid speaking roles" = 302
+    "Beginner, starting out" = 300,
+    "Part-time model - paid commercial work" = 301,
+    "Full-time model - paid commercial work" = 302
 };
 
 

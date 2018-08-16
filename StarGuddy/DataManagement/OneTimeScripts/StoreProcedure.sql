@@ -474,7 +474,7 @@ BEGIN
 	SET XACT_ABORT ON;
 
 	--EXEC GetUserModelingDetail 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
-	SELECT UM.Id, UM.UserId, EX.Code AS ExpCode, EX.Name, AN.Code AS AgentNeedCode, UM.Experiance, UM.Website, EX.IsActive, EX.IsDeleted, EX.DttmCreated, EX.DttmModified	FROM UserModeling UM
+	SELECT UM.Id, UM.UserId, EX.Code AS ExpCode, EX.Name AS ExpText, AN.Code AS AgentNeedCode, UM.Experiance, UM.Website, EX.IsActive, EX.IsDeleted, EX.DttmCreated, EX.DttmModified	FROM UserModeling UM
 	LEFT JOIN Experience EX ON EX.Code = UM.ExpCode AND EX.IsActive = 1 AND EX.IsDeleted = 0 AND EX.ExpTypeCode = 10002
 	LEFT JOIN AgentNeed AN ON AN.Code = UM.AgentNeedCode AND AN.IsActive = 1 AND AN.IsDeleted = 0
 	WHERE UM.UserId = @UserId AND UM.IsActive = 1 AND UM.IsDeleted = 0

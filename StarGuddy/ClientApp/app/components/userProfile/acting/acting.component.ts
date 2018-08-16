@@ -105,6 +105,6 @@ export class ActingComponent {
             else {
                 console.warn(response.statusText);
             }
-        });}
-
+        });
+    }
 }
