@@ -379,3 +379,17 @@ CREATE TABLE UserModelingRoles(
 	FOREIGN KEY (JobId) REFERENCES ModelingRoles(Id),
 	FOREIGN KEY (UserId) REFERENCES Users(Id),
 )
+GO
+CREATE TABLE UserModeling(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+	UserId UNIQUEIDENTIFIER NOT NULL,
+	ExpCode int NOT NUll,
+	AgentNeedCode INT NOT NULL,	
+	WebSite NVARCHAR(350), 
+	Experiance NVARCHAR(2000) NULL,
+	IsActive bit NOT NULL DEFAULT(1),
+	IsDeleted bit NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate()),
+	FOREIGN KEY (UserId) REFERENCES Users(Id)
+)

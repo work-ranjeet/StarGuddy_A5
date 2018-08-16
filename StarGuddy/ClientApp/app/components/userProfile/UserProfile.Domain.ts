@@ -87,4 +87,13 @@
         accents: IAccents[];
         auditionsAndJobsGroup: IAuditionsAndJobsGroup[];
     }
+
+    export interface IUserModelingModel {
+        Id: string;
+        ExpCode: number;
+        AgentNeedCode: number;
+        WebSite: string;
+        Experiance: string;
+        ModelingRoles: IAuditionsAndJobsGroup[];
+    }
 }

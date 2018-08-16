@@ -14,9 +14,8 @@ import IDancingModel = App.Client.Profile.IDancingModel;
 import IDancingStyle = App.Client.Profile.IDancingStyleModel;
 
 import IActingDetailModel = App.Client.Profile.IUserActingModel;
-//import IAccents = App.Client.Profile.IAccents;
-//import ILanguage = App.Client.Profile.ILanguage;
-//import IAuditionsAndJobsGroup = App.Client.Profile.IAuditionsAndJobsGroup;
+
+import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
 
 
 import { Response } from "@angular/http";
@@ -164,6 +163,23 @@ export class UserProfileService {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Acting", reqPayLoad)
             .map(
                 (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+
+    // --------------- User Modeling ------------------------//
+    GetUserModelingDetail(): Observable<IModelingDetailModel> {
+        return this.baseService.HttpService.getData<IModelingDetailModel>("Profile/Operations/Modeling")
+            .map(
+                (result: IModelingDetailModel) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

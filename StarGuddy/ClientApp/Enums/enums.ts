@@ -18,6 +18,12 @@ export enum ActingExperiance {
     "Previous paid speaking roles" = 203
 };
 
+export enum ModelingExperiance {
+    "No previous acting experience" = 300,
+    "Credits" = 301,
+    "Previous unpaid speaking roles" = 302
+};
+
 
 // Exporting all enums
 export * from "../Enums/enums";

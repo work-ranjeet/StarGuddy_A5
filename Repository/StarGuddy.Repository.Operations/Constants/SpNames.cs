@@ -86,5 +86,10 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string UserAccentSave = "UserAccentSave";
             public const string UserActingRolesSave = "UserActingRolesSave";
         }
+
+        public struct UserModeling
+        {
+            public const string SelectDetail = "GetUserModelingDetail";
+        }
     }
 }

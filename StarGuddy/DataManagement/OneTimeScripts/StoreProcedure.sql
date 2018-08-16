@@ -456,3 +456,31 @@ BEGIN
 	INSERT INTO UserActingRoles(Id, UserId, JobId, DttmCreated, DttmModified)
 	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())
 END
+GO
+------------------------------------------------------ Modeling --------------------------------------------------
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetUserModelingDetail') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetUserModelingDetail
+GO
+
+CREATE PROCEDURE GetUserModelingDetail (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	--EXEC GetUserModelingDetail 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
+	SELECT UM.Id, UM.UserId, EX.Code AS ExpCode, EX.Name, AN.Code AS AgentNeedCode, UM.Experiance, UM.Website, EX.IsActive, EX.IsDeleted, EX.DttmCreated, EX.DttmModified	FROM UserModeling UM
+	LEFT JOIN Experience EX ON EX.Code = UM.ExpCode AND EX.IsActive = 1 AND EX.IsDeleted = 0 AND EX.ExpTypeCode = 10002
+	LEFT JOIN AgentNeed AN ON AN.Code = UM.AgentNeedCode AND AN.IsActive = 1 AND AN.IsDeleted = 0
+	WHERE UM.UserId = @UserId AND UM.IsActive = 1 AND UM.IsDeleted = 0
+
+	SELECT JOB.Id, JOB.Code, JOB.Name, (CASE WHEN JOB.Id = UJOB.JobId THEN JOB.Code ELSE 0 END) AS SelectedCode
+	FROM ModelingRoles JOB
+	LEFT JOIN UserActingRoles UJOB ON UJOB.JobId = JOB.Id AND UJOB.UserId = @UserId
+	WHERE JOB.IsActive = 1 AND JOB.IsDeleted = 0
+END

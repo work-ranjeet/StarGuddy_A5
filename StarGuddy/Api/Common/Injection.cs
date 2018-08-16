@@ -60,8 +60,9 @@ namespace StarGuddy.Api
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
             services.AddTransient<IUserCreditsRepository, UserCreditsRepository>(); 
-            services.AddTransient<IUserDancingRepository, UserDancingRepository>();
+            services.AddTransient<IUserDancingRepository, UserDancingRepository>(); 
             services.AddTransient<IUserActingRepository, UserActingRepository>();
+            services.AddTransient<IUserModelingRepository, UserModelingRepository>();
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
             
 

@@ -29,6 +29,7 @@ namespace StarGuddy.Business.Modules.Profile
         private readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
         private readonly IUserDancingRepository _userDancingRepository;
         private readonly IUserActingRepository _userActingRepository;
+        private readonly IUserModelingRepository _userModelingRepository;
         private readonly IMapper _mapper;
 
         public ProfileManager(
@@ -36,14 +37,15 @@ namespace StarGuddy.Business.Modules.Profile
             IUserCreditsRepository userCreditsRepository,
             IUserDancingRepository userDancingRepository,
             IUserActingRepository userActingRepository,
+            IUserModelingRepository userModelingRepository,
             IMapper mapper)
         {
             _userDancingRepository = userDancingRepository;
             _userCreditsRepository = userCreditsRepository;
             _physicalAppearanceRepository = physicalAppearanceRepository;
             _userActingRepository = userActingRepository;
+            _userModelingRepository = userModelingRepository;
             _mapper = mapper;
-            // InitMapper();
         }
 
         #region /// Physical Appearance
@@ -252,9 +254,9 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// User Acting
-        public async Task<UserActingModel> GetUserActingDetailAsync(Guid userId)
+        public async Task<UserActingModel> GetUserActingDetailAsync()
         {
-            var result = await _userActingRepository.GetUserActingDetailAsync(userId);
+            var result = await _userActingRepository.GetUserActingDetailAsync(UserContext.Current.UserId);
             if (result.IsNotNull())
             {
                 return new UserActingModel
@@ -267,7 +269,7 @@ namespace StarGuddy.Business.Modules.Profile
                     Experiance = result.UserActing.Experiance,
                     Accents = _mapper.Map<List<AccentsDto>>(result.Accents),
                     Languages = _mapper.Map<List<LanguageDto>>(result.Languages),
-                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.ActingRoles),
+                    AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.ActingRoles)
                 };
             }
 
@@ -308,6 +310,57 @@ namespace StarGuddy.Business.Modules.Profile
 
             return false;
         }
+        #endregion
+
+        #region /// User Modeling
+        public async Task<UserModelingModel> GetUserModelingDetailAsync()
+        {
+            var result = await _userModelingRepository.GetUserModelingDetailAsync(UserContext.Current.UserId);
+            if (result.IsNotNull())
+            {
+                UserModelingModel userModelingModel = _mapper.Map<UserModelingModel>(result.UserModeling);
+                if (userModelingModel.IsNull())
+                {
+                    userModelingModel = new UserModelingModel { ModelingRoles = new List<AuditionsAndJobsGroupDto>() };                   
+                }
+
+                userModelingModel.ModelingRoles = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.ModelingRoles);
+
+                return userModelingModel;
+            }
+
+            return new UserModelingModel { ModelingRoles = new List<AuditionsAndJobsGroupDto>() };
+        }
+
+        //public async Task<bool> SaveUserActingDetailsAsync(UserActingModel userActingModel)
+        //{
+        //    if (userActingModel.IsNotNull())
+        //    {
+        //        var userActingDetail = new UserActingDetail
+        //        {
+        //            UserActing = new UserActing
+        //            {
+        //                Id = userActingModel.Id,
+        //                UserId = userActingModel.UserId,
+        //                ActingExperianceCode = userActingModel.ActingExperianceCode,
+        //                ActingExperiance = userActingModel.ActingExperiance,
+        //                AgentNeedCode = userActingModel.AgentNeedCode,
+        //                AgentNeed = string.Empty,
+        //                Experiance = userActingModel.Experiance,
+        //                IsActive = true,
+        //                IsDeleted = false,
+        //                DttmModified = DateTime.UtcNow
+        //            },
+        //            Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => string.IsNullOrWhiteSpace(x.SelectedAccent)),
+        //            Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
+        //            ActingRoles = _mapper.Map<List<ActingRoles>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
+        //        };
+
+        //        return await _userActingRepository.PerformSaveAndUpdateOperationAsync(userActingDetail);
+        //    }
+
+        //    return false;
+        //}
         #endregion
     }
 }

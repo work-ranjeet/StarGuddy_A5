@@ -163,7 +163,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Acting")]
         public async Task<IActionResult> GetUserActingDetails()
         {
-            var actingResult = await profileManager.GetUserActingDetailAsync(UserContext.Current.UserId);
+            var actingResult = await profileManager.GetUserActingDetailAsync();
 
             if (actingResult.IsNull())
             {
@@ -190,6 +190,40 @@ namespace StarGuddy.Api.Controllers.Profile
 
             return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
         }
+        #endregion
+
+        #region Modeling
+        [HttpGet]
+        [Route("Modeling")]
+        public async Task<IActionResult> GetUserModelingDetails()
+        {
+            var actingResult = await profileManager.GetUserModelingDetailAsync();
+
+            if (actingResult.IsNull())
+            {
+                return NotFound(actingResult);
+            }
+
+            return Ok(actingResult);
+        }
+
+        //[HttpPost]
+        //[Route("Modeling")]
+        //public async Task<IActionResult> SaveUserActingDetails([FromBody]UserActingModel userActingModel)
+        //{
+        //    if (userActingModel.IsNull())
+        //    {
+        //        return BadRequest(HttpStatusText.InvalidRequest);
+        //    }
+
+        //    var isSuccess = await profileManager.SaveUserActingDetailsAsync(userActingModel);
+        //    if (isSuccess)
+        //    {
+        //        return Ok(isSuccess);
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+        //}
         #endregion
     }
 }

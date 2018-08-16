@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using StarGuddy.Data.Entities;
-using StarGuddy.Data.Entities.Interface;
 using StarGuddy.Repository.Base;
 using StarGuddy.Repository.Configuration;
 using StarGuddy.Repository.Interface;
@@ -9,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StarGuddy.Repository.Operations

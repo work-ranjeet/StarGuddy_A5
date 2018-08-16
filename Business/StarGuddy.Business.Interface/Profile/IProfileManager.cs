@@ -23,7 +23,9 @@ namespace StarGuddy.Business.Interface.Profile
         Task<bool> SaveUserDancingAsync(DancingModel dancingModel);
 
 
-        Task<UserActingModel> GetUserActingDetailAsync(Guid userId);
+        Task<UserActingModel> GetUserActingDetailAsync();
         Task<bool> SaveUserActingDetailsAsync(UserActingModel userActingModel);
+
+        Task<UserModelingModel> GetUserModelingDetailAsync();
     }
 }
