@@ -330,7 +330,7 @@ BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	--EXEC ActingSelect 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
+	--EXEC GetUserActingDetail 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
 	SELECT UA.Id, UA.UserId, AE.Code AS ActingExperianceCode, AE.Name AS ActingExperiance, AN.Code AS AgentNeedCode, AN.[Type] AS AgentNeed, UA.Experiance, UA.IsActive, UA.IsDeleted, UA.DttmCreated, UA.DttmModified
 	FROM UserActing UA
 	LEFT JOIN ActingExperience AE ON AE.Code = UA.ActingExperiance AND AE.IsActive = 1 AND AE.IsDeleted = 0

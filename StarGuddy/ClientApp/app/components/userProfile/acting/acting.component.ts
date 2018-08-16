@@ -100,6 +100,7 @@ export class ActingComponent {
         this.userProfileService.SaveUserActingDetails(this.actingDetailModel).subscribe(response => {
             if (response != null && response) {
                 console.info("Updated");
+                this.loadActingDetails();
             }
             else {
                 console.warn(response.statusText);

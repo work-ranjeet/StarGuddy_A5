@@ -163,14 +163,14 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Acting")]
         public async Task<IActionResult> GetUserActingDetails()
         {
-            var dancingResult = await profileManager.GetUserActingDetailAsync(UserContext.Current.UserId);
+            var actingResult = await profileManager.GetUserActingDetailAsync(UserContext.Current.UserId);
 
-            if (dancingResult.IsNull())
+            if (actingResult.IsNull())
             {
-                return NotFound(dancingResult);
+                return NotFound(actingResult);
             }
 
-            return Ok(dancingResult);
+            return Ok(actingResult);
         }
 
         [HttpPost]

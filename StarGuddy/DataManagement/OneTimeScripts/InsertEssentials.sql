@@ -6,14 +6,14 @@ INSERT into Users ( AccessFailedCount, ConcurrencyStamp, FirstName, Gender, IsCa
 VALUES ( 0, N'b8c6e4a2-fb40-4706-b608-f05a4a6ff708', N'Ranjeet', N'M', 0, N'Kumar', 0, NULL, NULL, NULL, NULL, N'janeman', N'39d292dc-8713-4f03-9cfb-90784159f854', 0, N'er.ranjeetkumar@gmail.com')
 
 
-INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (0,'I don''t have an agent', 'No need of agent')
-INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (1,'I want an agent', 'I want an agent')
-INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (2,'I have an agent', 'I have an agent')
+INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (100,'I don''t have an agent', 'No need of agent')
+INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (101,'I want an agent', 'I want an agent')
+INSERT INTO AgentNeed(Code, [Type], [Description]) VALUES (102,'I have an agent', 'I have an agent')
 
-INSERT INTO DancingStyle (Style, Detail) VALUES('Ballet','Ballet')
-INSERT INTO DancingStyle (Style, Detail) VALUES('Bollywood','Bollywood')
-INSERT INTO DancingStyle (Style, Detail) VALUES('Country','Country')
-INSERT INTO DancingStyle (Style, Detail) VALUES('Hip Hop','Hip Hop')
+INSERT INTO DancingStyle (Style, Detail, DisplayOrder) VALUES('Ballet','Ballet', 1)
+INSERT INTO DancingStyle (Style, Detail, DisplayOrder) VALUES('Bollywood','Bollywood', 2)
+INSERT INTO DancingStyle (Style, Detail, DisplayOrder) VALUES('Country','Country', 3)
+INSERT INTO DancingStyle (Style, Detail, DisplayOrder) VALUES('Hip Hop','Hip Hop', 4)
 
 
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (1,'Beginner', 'Beginner')
@@ -41,12 +41,6 @@ INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Voi
 INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Web',112,'Web', 12)
 INSERT INTO AuditionsAndJobsGroup (Name, Code, Detail, DisplayOrder) values('Others',113,'Others', 13)
 
-----------
-insert into UserAuditionsAndJobsGroup values (NEWID(), 1, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
-insert into UserAuditionsAndJobsGroup values (NEWID(), 2, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
-insert into UserAuditionsAndJobsGroup values (NEWID(), 3, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
-insert into UserAuditionsAndJobsGroup values (NEWID(), 4, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
-insert into UserAuditionsAndJobsGroup values (NEWID(), 5, 'D40B2C5D-2881-4E8B-844A-B503DEB090BE', GETUTCDATE(), GETUTCDATE())
 
 ----------------------------------------Languages--------------------------------------------------------------------------------------
 INSERT INTO Languages (Name, Code, CountryCode) values('English',1001,'')

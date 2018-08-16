@@ -223,6 +223,7 @@ CREATE TABLE DancingStyle(
 	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	Style nvarchar(250) NOT NULL,
 	Detail NVARCHAR(500) NULL,
+	DisplayOrder int not null,
 	IsActive BIT NOT NULL DEFAULT(1),
 	IsDeleted BIT NOT NULL DEFAULT(0),
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),

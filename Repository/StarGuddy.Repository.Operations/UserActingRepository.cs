@@ -64,84 +64,81 @@ namespace StarGuddy.Repository.Operations
                                transaction: tran,
                                commandType: CommandType.StoredProcedure);
 
-                            //var saveTasks = new List<Task>
-                            //{
-                            //new Task(async () =>
-                            //{
-                            /* @UserId UNIQUEIDENTIFIER, @ActingExpCode INT, @AgentNeedCode INT, @Experiance NVARCHAR(2000)*/
-                            var param = new DynamicParameters();
-                            param.Add("@UserId", actingDetail.UserActing.UserId, DbType.Guid, ParameterDirection.Input);
-                            param.Add("@ActingExpCode", actingDetail.UserActing.ActingExperianceCode, DbType.Int32, ParameterDirection.Input);
-                            param.Add("@AgentNeedCode", actingDetail.UserActing.AgentNeedCode, DbType.Int32, ParameterDirection.Input);
-                            param.Add("@Experiance", actingDetail.UserActing.Experiance, DbType.String, ParameterDirection.Input);
-                            await conn.ExecuteAsync(SpNames.UserActing.SaveUpdate, param: param, transaction: tran, commandType: CommandType.StoredProcedure);
-                            //}),
+                            var saveTasks = new List<Task>
+                            {
+                                Task.Factory.StartNew(async () =>
+                                {
+                                    /* @UserId UNIQUEIDENTIFIER, @ActingExpCode INT, @AgentNeedCode INT, @Experiance NVARCHAR(2000)*/
+                                    var param = new DynamicParameters();
+                                    param.Add("@UserId", actingDetail.UserActing.UserId, DbType.Guid, ParameterDirection.Input);
+                                    param.Add("@ActingExpCode", actingDetail.UserActing.ActingExperianceCode, DbType.Int32, ParameterDirection.Input);
+                                    param.Add("@AgentNeedCode", actingDetail.UserActing.AgentNeedCode, DbType.Int32, ParameterDirection.Input);
+                                    param.Add("@Experiance", actingDetail.UserActing.Experiance, DbType.String, ParameterDirection.Input);
+                                    await conn.ExecuteAsync(SpNames.UserActing.SaveUpdate, param: param, transaction: tran, commandType: CommandType.StoredProcedure);
+                                })
+                            };
 
-
-                            //new Task(async () =>
-                            //{
                             // Language Save
                             if (actingDetail.Languages.Any())
                             {
-                                //var v = new System.Collections.Concurrent.ConcurrentBag<Language>();
-                                
-                                var langTask = actingDetail.Languages.Select(async x =>
+                                saveTasks.Add(Task.Factory.StartNew(async () =>
                                 {
-                                    var langParam = new
+                                    var langTask = actingDetail.Languages.Select(async x =>
                                     {
-                                        actingDetail.UserActing.UserId,
-                                        LanguageCode = x.Code
-                                    };
+                                        var langParam = new
+                                        {
+                                            actingDetail.UserActing.UserId,
+                                            LanguageCode = x.Code
+                                        };
 
-                                    return await conn.ExecuteAsync(SpNames.UserActing.UserLanguageSave, param: langParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                });
+                                        return await conn.ExecuteAsync(SpNames.UserActing.UserLanguageSave, param: langParam, transaction: tran, commandType: CommandType.StoredProcedure);
+                                    });
 
-                                var updatedResult = await Task.WhenAll(langTask);
+                                    var updatedResult = await Task.WhenAll(langTask);
+                                }));
                             }
-                            //}),
 
-                            //new Task(async () =>
-                            //{
                             // Accents Save
                             if (actingDetail.Accents.Any())
                             {
-                                var accTask = actingDetail.Accents.Select(async x =>
+                                saveTasks.Add(Task.Factory.StartNew(async () =>
                                 {
-                                    var accentParam = new
+                                    var accTask = actingDetail.Accents.Select(async x =>
                                     {
-                                        actingDetail.UserActing.UserId,
-                                        AccentCode = x.Code
-                                    };
+                                        var accentParam = new
+                                        {
+                                            actingDetail.UserActing.UserId,
+                                            AccentCode = x.Code
+                                        };
 
-                                    return await conn.ExecuteAsync(SpNames.UserActing.UserAccentSave, param: accentParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                });
+                                        return await conn.ExecuteAsync(SpNames.UserActing.UserAccentSave, param: accentParam, transaction: tran, commandType: CommandType.StoredProcedure);
+                                    });
 
-                                var updatedResult = await Task.WhenAll(accTask);
+                                    var updatedResult = await Task.WhenAll(accTask);
+                                }));
                             }
-                            //}),
 
-                            // new Task(async () =>
-                            //{
                             // Job Group Save
                             if (actingDetail.AuditionsAndJobsGroup.Any())
                             {
-                                var jobGroupTask = actingDetail.AuditionsAndJobsGroup.Select(async x =>
+                                saveTasks.Add(Task.Factory.StartNew(async () =>
                                 {
-                                    var jobGroupParam = new
+                                    var jobGroupTask = actingDetail.AuditionsAndJobsGroup.Select(async x =>
                                     {
-                                        actingDetail.UserActing.UserId,
-                                        JobCode = x.Code
-                                    };
+                                        var jobGroupParam = new
+                                        {
+                                            actingDetail.UserActing.UserId,
+                                            JobCode = x.Code
+                                        };
 
-                                    return await conn.ExecuteAsync(SpNames.UserActing.UserAuditionsAndJobsGroupSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                });
+                                        return await conn.ExecuteAsync(SpNames.UserActing.UserAuditionsAndJobsGroupSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure);
+                                    });
 
-                                var updatedResult = await Task.WhenAll(jobGroupTask);
+                                    var updatedResult = await Task.WhenAll(jobGroupTask);
+                                }));
                             }
-                            //})
-                            // };
-
-                            //Task.WaitAll(saveTasks.ToArray());
+                            
+                            Task.WaitAll(saveTasks.ToArray());
 
                             tran.Commit();
 
