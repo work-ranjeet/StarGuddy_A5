@@ -1,7 +1,9 @@
-﻿import { Injectable, Inject } from '@angular/core';
+﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
 import { AppConstant } from "../Constants/AppConstant";
 import { Observable } from 'rxjs/Observable';
+import { isPlatformBrowser } from "@angular/common";
+
 @Injectable()
 export class HttpService {
 
@@ -9,6 +11,7 @@ export class HttpService {
 
     constructor(
         @Inject("BASE_URL") baseUrl: string,
+        @Inject(PLATFORM_ID) private platformId: Object,
         private http: HttpClient, private appConstant: AppConstant) {
         this.baseUrl = baseUrl;
 
@@ -16,14 +19,13 @@ export class HttpService {
 
     private get UrlPrifix() { return this.baseUrl + "api/"; }
 
-    private get storage(): Storage { return localStorage; }
     get TokenHeader(): HttpHeaders {
-        if (this.storage == undefined) {
-            console.info("LocalStorage is undefined:" + this.storage);
+        if (!isPlatformBrowser(this.platformId)) {
+            console.info("LocalStorage is undefined");
             return new HttpHeaders();
         }
 
-        let token = this.storage.getItem(this.appConstant.TOKEN_KEY);
+        let token = isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.TOKEN_KEY) : String.Empty;
         if (token != undefined && token != null) {
 
             return new HttpHeaders({ 'Authorization': 'Bearer ' + token });
@@ -50,7 +52,7 @@ export class HttpService {
         });
     }
 
-    postData<T>(Url: string, data: any) {        
+    postData<T>(Url: string, data: any) {
         return this.http.post<T>(this.UrlPrifix + Url, data, {
             headers: this.TokenHeader
         });

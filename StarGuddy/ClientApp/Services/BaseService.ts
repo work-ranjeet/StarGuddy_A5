@@ -1,4 +1,6 @@
-﻿import { Injectable, Inject } from "@angular/core";
+﻿import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+
 import { RequestOptions, Headers } from "@angular/http";
 import { Router } from "@angular/router";
 import { AppConstant } from "../Constants/AppConstant";
@@ -15,20 +17,19 @@ export class BaseService {
 
     constructor(
         @Inject(HttpService) httpService: HttpService,
+        @Inject(PLATFORM_ID) private platformId: Object,
         appConstant: AppConstant, router: Router) {
         this.httpService = httpService;
         this.appConstant = appConstant;
         this.router = router;
-    }
-    private get storage(): Storage { return localStorage; }
+    }  
 
     get IsAuthenticated() {
-        return this.storage.get(this.appConstant.TOKEN_KEY);
+        return isPlatformBrowser(this.platformId) && localStorage.length > 0? localStorage.getItem(this.appConstant.TOKEN_KEY) : String.Empty;
     }
 
     get UserName() {
-        let userName = this.storage.getItem(this.appConstant.USER_NAME);
-        return userName != undefined && userName != null ? userName : String.Empty;
+        return isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.USER_NAME) : String.Empty;
     }
 
     //get UserId() {
@@ -37,7 +38,7 @@ export class BaseService {
     //}
 
     get UserFirstName() {
-        return this.storage.getItem(this.appConstant.USER_FIRST_NAME);
+        return isPlatformBrowser(this.platformId) && localStorage.length > 0? localStorage.getItem(this.appConstant.USER_FIRST_NAME) : String.Empty;
     }
 
     //get UserEmail() {
@@ -50,24 +51,19 @@ export class BaseService {
 
     authenticate(result: any): void {
         const authResponse = result;
-        if (this.storage == undefined) {
-            console.info("Storage is undefined:" + this.storage);
-            return;
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem(this.appConstant.USER_ID, authResponse.userId);
+            localStorage.setItem(this.appConstant.TOKEN_KEY, authResponse.token);
+            localStorage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.firstName);
+            localStorage.setItem(this.appConstant.USER_NAME, authResponse.userName);
+            localStorage.setItem(this.appConstant.USER_EMAIL, authResponse.email);
         }
-
-        this.storage.setItem(this.appConstant.USER_ID, authResponse.userId);
-        this.storage.setItem(this.appConstant.TOKEN_KEY, authResponse.token);
-        this.storage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.firstName);
-        this.storage.setItem(this.appConstant.USER_NAME, authResponse.userName);
-        this.storage.setItem(this.appConstant.USER_EMAIL, authResponse.email);
     }
 
     cancleAuthention() {
-        if (this.storage == undefined) {
-            console.info("Storage is undefined:" + this.storage);
-            return;
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.clear();
         }
-        this.storage.clear();
         //this.storage.removeItem(this.appConstant.USER_ID);
         //this.storage.removeItem(this.appConstant.TOKEN_KEY);
         //this.storage.removeItem(this.appConstant.USER_FIRST_NAME);

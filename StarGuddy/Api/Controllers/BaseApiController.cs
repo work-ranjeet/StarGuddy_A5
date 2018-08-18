@@ -28,13 +28,13 @@ namespace StarGuddy.Api.Controllers
         {
             if (string.IsNullOrWhiteSpace(JwtToken))
             {
-                throw new Exception("Invalid Token.");
+                throw new UnauthorizedAccessException("You are Unauthorized. Please login before proceed");
             }
 
             var innerJwtTokenArr = JwtToken.Split(' ');
             if (innerJwtTokenArr.Length != 2 || !innerJwtTokenArr[0].ToLowerInvariant().Equals("bearer"))
             {
-                throw new Exception("Token is missing.");
+                throw new UnauthorizedAccessException("You are Unauthorized. Please login before proceed");
             }
 
             var jwtHandler = new JwtSecurityTokenHandler();

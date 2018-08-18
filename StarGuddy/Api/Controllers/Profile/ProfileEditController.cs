@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Constants;
 using StarGuddy.Api.Models.Profile;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace StarGuddy.Api.Controllers.Profile
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Profile/Operations")]
     public class ProfileEditController : BaseApiController
