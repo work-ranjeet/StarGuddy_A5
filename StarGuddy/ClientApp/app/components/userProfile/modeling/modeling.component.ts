@@ -59,7 +59,9 @@ export class ModelingComponent {
     }
 
     onModelingExpSelectionChange(checkEvent: any) {
-
+        var expValue = parseInt(checkEvent.currentTarget.value);
+        this.modelingDetailModel.expCode = expValue;
+        this.modelingDetailModel.expText = ModelingExperiance[expValue];
     }
 
     onAgentGroupSelectionChange(checkEvent: any) {

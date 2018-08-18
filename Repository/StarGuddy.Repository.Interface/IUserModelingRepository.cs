@@ -9,5 +9,6 @@ namespace StarGuddy.Repository.Interface
     public interface IUserModelingRepository
     {
         Task<UserModelingDetails> GetUserModelingDetailAsync(Guid userId);
+        Task<bool> PerformSaveAndUpdateOperationAsync(UserModelingDetails userModelingDetails);
     }
 }

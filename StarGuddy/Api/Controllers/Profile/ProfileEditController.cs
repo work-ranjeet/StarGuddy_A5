@@ -207,23 +207,23 @@ namespace StarGuddy.Api.Controllers.Profile
             return Ok(actingResult);
         }
 
-        //[HttpPost]
-        //[Route("Modeling")]
-        //public async Task<IActionResult> SaveUserActingDetails([FromBody]UserActingModel userActingModel)
-        //{
-        //    if (userActingModel.IsNull())
-        //    {
-        //        return BadRequest(HttpStatusText.InvalidRequest);
-        //    }
+        [HttpPost]
+        [Route("Modeling")]
+        public async Task<IActionResult> SaveUserModelingDetails([FromBody]UserModelingModel userModelingModel)
+        {
+            if (userModelingModel.IsNull())
+            {
+                return BadRequest(HttpStatusText.InvalidRequest);
+            }
 
-        //    var isSuccess = await profileManager.SaveUserActingDetailsAsync(userActingModel);
-        //    if (isSuccess)
-        //    {
-        //        return Ok(isSuccess);
-        //    }
+            var isSuccess = await profileManager.SaveUserModelingDetailsAsync(userModelingModel);
+            if (isSuccess)
+            {
+                return Ok(isSuccess);
+            }
 
-        //    return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
-        //}
+            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+        }
         #endregion
     }
 }

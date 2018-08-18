@@ -474,13 +474,83 @@ BEGIN
 	SET XACT_ABORT ON;
 
 	--EXEC GetUserModelingDetail 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
-	SELECT UM.Id, UM.UserId, EX.Code AS ExpCode, EX.Name AS ExpText, AN.Code AS AgentNeedCode, UM.Experiance, UM.Website, EX.IsActive, EX.IsDeleted, EX.DttmCreated, EX.DttmModified	FROM UserModeling UM
+	SELECT UM.Id, UM.UserId, UM.ExpCode, EX.[Name] AS ExpText, AN.Code AS AgentNeedCode, UM.Experiance, UM.Website, EX.IsActive, EX.IsDeleted, EX.DttmCreated, EX.DttmModified	
+	FROM UserModeling UM
 	LEFT JOIN Experience EX ON EX.Code = UM.ExpCode AND EX.IsActive = 1 AND EX.IsDeleted = 0 AND EX.ExpTypeCode = 10002
 	LEFT JOIN AgentNeed AN ON AN.Code = UM.AgentNeedCode AND AN.IsActive = 1 AND AN.IsDeleted = 0
 	WHERE UM.UserId = @UserId AND UM.IsActive = 1 AND UM.IsDeleted = 0
 
-	SELECT JOB.Id, JOB.Code, JOB.Name, (CASE WHEN JOB.Id = UJOB.JobId THEN JOB.Code ELSE 0 END) AS SelectedCode
-	FROM ModelingRoles JOB
-	LEFT JOIN UserActingRoles UJOB ON UJOB.JobId = JOB.Id AND UJOB.UserId = @UserId
-	WHERE JOB.IsActive = 1 AND JOB.IsDeleted = 0
+	SELECT MR.Id, MR.Code, MR.Name, (CASE WHEN MR.Id = UMR.JobId THEN MR.Code ELSE 0 END) AS SelectedCode, MR.IsActive, MR.IsDeleted
+	FROM ModelingRoles MR
+	LEFT JOIN UserModelingRoles UMR ON UMR.JobId = MR.Id AND UMR.UserId = @UserId
+	WHERE MR.IsActive = 1 AND MR.IsDeleted = 0 
+	Order by MR.[Name]
 END
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserModelingSaveUpdate') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserModelingSaveUpdate
+GO
+CREATE PROCEDURE UserModelingSaveUpdate (@UserId UNIQUEIDENTIFIER, @ExpCode INT, @WebSite NVARCHAR(350), @AgentNeedCode INT, @Experiance NVARCHAR(2000))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	IF (EXISTS (SELECT TOP 1 Id	FROM UserModeling WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0))
+	BEGIN
+		UPDATE UserModeling
+		SET ExpCode = @ExpCode, AgentNeedCode =@AgentNeedCode, WebSite =@WebSite, Experiance = @Experiance, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+		WHERE UserId = @UserId 
+	END
+	ELSE
+	BEGIN
+		INSERT INTO UserModeling (Id, UserId, ExpCode, AgentNeedCode, WebSite, Experiance, IsActive, IsDeleted)
+		VALUES (NEWID(), @UserId, @ExpCode, @AgentNeedCode, @WebSite, @Experiance, 1, 0)
+	END
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserModelingClear') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserModelingClear
+GO
+CREATE PROCEDURE UserModelingClear (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+	DELETE FROM  UserModelingRoles WHERE UserId = @UserId
+END
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserModelingRolesSave') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserModelingRolesSave
+GO
+CREATE PROCEDURE UserModelingRolesSave (@UserId UNIQUEIDENTIFIER , @JobCode INT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DECLARE @Id BIGINT
+	SELECT @Id = Id FROM ActingRoles where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
+
+	INSERT INTO UserModelingRoles(Id, UserId, JobId, DttmCreated, DttmModified)
+	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())
+END
+	
+
+
+
+	

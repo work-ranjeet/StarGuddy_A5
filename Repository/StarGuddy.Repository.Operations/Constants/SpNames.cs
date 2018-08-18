@@ -90,6 +90,9 @@ namespace StarGuddy.Repository.Opertions.Constants
         public struct UserModeling
         {
             public const string SelectDetail = "GetUserModelingDetail";
+            public const string SaveUpdate = "UserModelingSaveUpdate";
+            public const string ClearDetail = "UserModelingClear";
+            public const string UserModelingRolesSave = "UserModelingRolesSave";
         }
     }
 }

@@ -14,7 +14,7 @@
                 <hr />
                 <div class="experiance padding-top-10">Modeling website</div>
                 <div class="padding-top-5 padding-left-15 text-l">
-                    <a href="{{modelingDetailModel.webSite}}"><i class="fa fa-hand-o-right text-success padding-5"></i>{{modelingDetailModel.webSite}}</a>
+                    <a href="http://{{modelingDetailModel.webSite}}" target="_blank"><i class="fa fa-hand-o-right text-success padding-5"></i>{{modelingDetailModel.webSite}}</a>
                 </div>
                 <hr />
                 <p class="padding-top-10 text-l text-muted">{{modelingDetailModel.experiance}}</p>
@@ -27,12 +27,12 @@
                             <div class="form-group">
                                 <label class="required">Auditions & Jobs I'm interested in</label>
                                 <div class="text-l">
-                                    <div class="col-md-3 col-sm-4 col-xs-6 padding-top-10 padding-bottom-10" *ngFor="let job of modelingDetailModel.modelingRoles">
-                                        <input type="checkbox" value="{{job.code}}" name="{{job.code}}"
-                                               [checked]="job.code==job.selectedCode"
+                                    <div class="col-md-3 col-sm-4 col-xs-6 padding-top-10 padding-bottom-10" *ngFor="let role of modelingDetailModel.modelingRoles">
+                                        <input type="checkbox" value="{{role.code}}" name="{{role.code}}"
+                                               [checked]="role.code==role.selectedCode"
                                                (change)="updateSelectedJobGroup($event)"
                                                class="padding-5 v-text-top form-control">
-                                        <span class="padding-5 text-l">{{job.name}}</span>
+                                        <span class="padding-5 text-l">{{role.name}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -71,11 +71,16 @@
                     </div>
                     <hr class="seperator" />
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-8 col-sm-8 padding-bottom-5">
                             <div class="form-group">
-                                <span class="pull-left">Modeling website</span>
+                                <span class="pull-left padding-top-10">Modeling website</span>
                                 <div class="profile-edit-container col-sm-4">
-                                    <input type="text" class="form-control" placeholder="http://www.website.com" />
+                                    <input id="txtWebSite" name="txtWebSite" type="url" placeholder="www.website.com"
+                                           [(ngModel)]="modelingDetailModel.webSite" class="form-control"
+                                           #modelingWebSite="ngModel" />
+                                    <div *ngIf="modelingWebSite.invalid" class="error">
+                                        <div *ngIf="modelingWebSite.errors.url">Modeling experience is required.</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +129,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 text-center padding-15">
-                        <button id="btnSave" class="btn-profile-save btn btn-success" (click)="saveChanges()>Save</button>
+                        <button id="btnSave" class="btn-profile-save btn btn-success" (click)="saveChanges()">Save</button>
                     </div>
                 </form>
 
