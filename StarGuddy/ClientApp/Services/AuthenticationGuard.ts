@@ -1,36 +1,21 @@
 ﻿import { Injectable } from "@angular/core";
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/map';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { BaseService } from "./BaseService";
-import { AccountService } from "../app/components/account/Account.Service";
 
 @Injectable()
-export class AuthenticationGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
     constructor(
         private readonly router: Router,
-        private readonly baseService: BaseService,
-        private readonly accountService: AccountService)
-    { }
+        private readonly baseService: BaseService) { }
 
-   
-    canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.accountService.IsLoggedIn   
-            .take(1)                           
-            .map((isLoggedIn: boolean) => { 
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if (this.baseService.IsAuthenticated) {
+            return true;
+        }
 
-                if (this.baseService.UserName) {
-                    return true;
-                }
+        this.router.navigate(["login"], { queryParams: { returnUrl: state.url } });
 
-                if (!isLoggedIn) {
-                    this.router.navigate(["login"], { queryParams: { returnUrl: state.url } });
-                    return false;
-                }
-
-                return true;
-            });
+        return false;
     }
 }

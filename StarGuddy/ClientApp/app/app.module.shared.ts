@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-//import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http"
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
 import { RouterModule } from "@angular/router";
 import { Expertlavel } from "../Enums/enums";
+import { JwtInterceptor } from "../Interceptor/jwt.interceptor";
 
 
 // Directives
@@ -25,12 +25,13 @@ import { AppComponent } from "./components/app/app.component";
 import { HttpService } from "../Services/HttpClient";
 import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
 import { CounterComponent } from "./components/counter/counter.component";
+import { AuthGuard } from "../Services/AuthenticationGuard";
 
 
 
 @NgModule({
     declarations: [
-        AppComponent, 
+        AppComponent,
         CounterComponent, FetchDataComponent
     ],
     imports: [
@@ -41,13 +42,18 @@ import { CounterComponent } from "./components/counter/counter.component";
         UserProfileModuleShared,
         UserProfileSettingModuleShared,
         RouterModule.forRoot([
-            { path: "", redirectTo: "home", pathMatch: "full" },
+            { path: "", redirectTo: "home", pathMatch: "full", canActivate: [AuthGuard] },
             { path: "counter", component: CounterComponent },
             { path: "fetch-data", component: FetchDataComponent },
             { path: "**", redirectTo: "home" }
         ])
     ],
-    providers: [AppConstant, DbOperation, HttpService, BaseService, DataConverter, DataValidator]
+    providers: [AuthGuard, AppConstant, DbOperation, HttpService, BaseService, DataConverter, DataValidator,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true
+        }]
 })
 export class AppModuleShared {
 }

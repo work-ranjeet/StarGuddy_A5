@@ -43,6 +43,8 @@
     <None Remove="ClientApp\Enums\enums.ts" />
     <None Remove="ClientApp\Extension\StringExtension.ts" />
     <None Remove="ClientApp\Helper\DataValidator.ts" />
+    <None Remove="ClientApp\Interceptor\error.interceptor.ts" />
+    <None Remove="ClientApp\Interceptor\jwt.interceptor.ts" />
     <None Remove="ClientApp\Services\HttpClient.ts" />
   </ItemGroup>
 
@@ -70,6 +72,8 @@
     <TypeScriptCompile Include="ClientApp\Enums\enums.ts" />
     <TypeScriptCompile Include="ClientApp\Extension\StringExtension.ts" />
     <TypeScriptCompile Include="ClientApp\Helper\DataValidator.ts" />
+    <TypeScriptCompile Include="ClientApp\Interceptor\error.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\Interceptor\jwt.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\Services\HttpClient.ts" />
   </ItemGroup>
 

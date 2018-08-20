@@ -22,10 +22,12 @@ export class BaseService {
         this.httpService = httpService;
         this.appConstant = appConstant;
         this.router = router;
-    }  
+    }
 
     get IsAuthenticated() {
-        return isPlatformBrowser(this.platformId) && localStorage.length > 0? localStorage.getItem(this.appConstant.TOKEN_KEY) : String.Empty;
+        var token = isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.TOKEN_KEY) : String.Empty;
+
+        return token != undefined && token != null && token.length > 0;
     }
 
     get UserName() {
@@ -38,7 +40,7 @@ export class BaseService {
     //}
 
     get UserFirstName() {
-        return isPlatformBrowser(this.platformId) && localStorage.length > 0? localStorage.getItem(this.appConstant.USER_FIRST_NAME) : String.Empty;
+        return isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.USER_FIRST_NAME) : String.Empty;
     }
 
     //get UserEmail() {

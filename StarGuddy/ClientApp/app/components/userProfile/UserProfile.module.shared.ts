@@ -13,6 +13,7 @@ import { PhotosComponent } from "./photos/photos.component";
 import { TrainingsComponent } from "./trainings/trainings.component";
 import { PhysicalDetailsComponent } from "./physicalDetails/physicalDetails.component";
 import { UserProfileIndex } from "./UserProfileIndex/UserProfileIndex.component";
+import { AuthGuard } from "../../../Services/AuthenticationGuard";
  
 @NgModule({
     declarations: [
@@ -24,7 +25,7 @@ import { UserProfileIndex } from "./UserProfileIndex/UserProfileIndex.component"
         CommonModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: "profile", component: UserProfileIndex }
+            { path: "profile", component: UserProfileIndex, canActivate: [AuthGuard] }
         ])
     ],
     providers: [UserProfileService],

@@ -15,6 +15,7 @@ import { VerifyPhoneNumberComponent } from "./verifyPhoneNumber/verifyPhoneNumbe
 import { UserProfileSettingsIndex } from "./userProfileSettingsIndex/userProfileSettingsIndex.component";
 import { PageHeadingComponent } from "../common/pageHeading/pageHeadingComponent";
 import { HeadingComponent } from "../common/headings/headingComponent";
+import { AuthGuard } from "../../../Services/AuthenticationGuard";
 
 @NgModule({
     declarations: [
@@ -32,13 +33,13 @@ import { HeadingComponent } from "../common/headings/headingComponent";
         FormsModule,
         CommonModuleShared,
         RouterModule.forRoot([
-            { path: "profileSetting", component: UserProfileSettingsIndex },
-            { path: "addEmail", component: AddEmailComponent },
-            { path: "addPhoneNumber", component: AddPhoneNumberComponent },
-            { path: "changeAddress", component: ChangeAddressComponent },
-            { path: "changePwd", component: ChangePwdComponent },
-            { path: "changeEmail", component: ChangeEmailComponent },
-            { path: "verifyPhoneNumber", component: VerifyPhoneNumberComponent }
+            { path: "profileSetting", component: UserProfileSettingsIndex, canActivate: [AuthGuard]},
+            { path: "addEmail", component: AddEmailComponent, canActivate: [AuthGuard] },
+            { path: "addPhoneNumber", component: AddPhoneNumberComponent, canActivate: [AuthGuard]},
+            { path: "changeAddress", component: ChangeAddressComponent, canActivate: [AuthGuard]},
+            { path: "changePwd", component: ChangePwdComponent, canActivate: [AuthGuard]},
+            { path: "changeEmail", component: ChangeEmailComponent, canActivate: [AuthGuard]},
+            { path: "verifyPhoneNumber", component: VerifyPhoneNumberComponent, canActivate: [AuthGuard]}
         ])
     ],
     providers: [UserProfileSettingsService],
