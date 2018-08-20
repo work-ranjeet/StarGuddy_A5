@@ -33,7 +33,7 @@ namespace StarGuddy.Business.Modules.Account
         /// <summary>
         /// The user repository
         /// </summary>
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountManager"/> class.

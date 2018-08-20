@@ -90,5 +90,7 @@ namespace StarGuddy.Repository.Interface
         /// <param name="password">The password.</param>
         /// <returns></returns>
         int UpdatePassword(string userName, string password);
+
+        Task<Guid> GetUserIdByProfilUrl(string profileUrl);
     }
 }

@@ -37,12 +37,12 @@ namespace StarGuddy.Business.Modules.Account
         /// <summary>
         /// The user repository
         /// </summary>
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
 
         /// <summary>
         /// The security manager
         /// </summary>
-        private ISecurityManager securityManager;
+        private readonly ISecurityManager securityManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SignupManager" /> class.

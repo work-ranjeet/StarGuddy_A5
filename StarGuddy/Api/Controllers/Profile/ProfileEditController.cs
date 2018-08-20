@@ -56,7 +56,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("PhysicalApperance")]
         public async Task<IActionResult> GetPhysicalApperance()
         {
-            var result = await profileManager.GetPhysicalAppreance(UserContext.Current.UserId);
+            var result = await profileManager.GetPhysicalAppreance();
 
             if (result.IsNull())
             {
@@ -73,7 +73,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Credit")]
         public async Task<IActionResult> GetUserCredits()
         {
-            var creditResult = await profileManager.GetUserCredits(UserContext.Current.UserId);
+            var creditResult = await profileManager.GetUserCredits();
 
             if (!creditResult.IsNull() && creditResult.Any())
             {
@@ -108,21 +108,27 @@ namespace StarGuddy.Api.Controllers.Profile
 
         [HttpDelete]
         [Route("Credit")]
-        public async Task<IActionResult> DeleteUserCredits(Guid Id)
+        public async Task<IActionResult> DeleteUserCredits(Guid userId)
         {
-            if (Id == Guid.Empty)
+            if (userId == Guid.Empty)
             {
                 return BadRequest(HttpStatusText.InvalidRequest);
             }
 
-            var isDeleted = await profileManager.DeleteUserCredits(Id);
-
-            if (isDeleted)
+            if (UserContext.Current.UserId.Equals(userId))
             {
-                return Ok(isDeleted);
+
+                var isDeleted = await profileManager.DeleteUserCredits(userId);
+
+                if (isDeleted)
+                {
+                    return Ok(isDeleted);
+                }
+
+                return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
             }
 
-            return StatusCode(Convert.ToInt32(HttpStatusCode.NotModified), this);
+            return StatusCode(HttpStatusCode.Unauthorized.GetHashCode(), this);
         }
         #endregion
 
@@ -131,7 +137,7 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Dancing")]
         public async Task<IActionResult> GetUserDancing()
         {
-            var dancingResult = await profileManager.GetUserDancingAsync(UserContext.Current.UserId);
+            var dancingResult = await profileManager.GetUserDancingAsync();
 
             if (dancingResult.IsNull())
             {

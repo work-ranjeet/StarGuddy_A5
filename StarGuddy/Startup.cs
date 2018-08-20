@@ -12,6 +12,7 @@ using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace StarGuddy
 {
@@ -102,6 +103,15 @@ namespace StarGuddy
 
             //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            /* Swagger */
+            //services.AddSwaggerGen(x =>
+            //{
+            //    x.SwaggerDoc("v1", new Info { Title = "StarGuddy Api", Version = "v1" });
+            //});
+
+            //services.AddMvcCore().AddApiExplorer();
+            /* End Swagger */
+
             //// Dependency Injection
             Api.Injection.Inject(services, Configuration);
         }
@@ -147,6 +157,12 @@ namespace StarGuddy
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger", "StarGuddy Api");
+            //});
         }
     }
 }

@@ -19,8 +19,15 @@ namespace StarGuddy.Api.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            base.OnActionExecuting(context);
-            this.SetUserContext();
+            try
+            {
+                base.OnActionExecuting(context);
+                this.SetUserContext();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
         }
 
         #region /// Private methods
@@ -48,7 +55,7 @@ namespace StarGuddy.Api.Controllers
                 //string userData = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == ClaimTypes.UserData).Value;
 
                 var userId = Guid.Parse((userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value);
-                if(userId == Guid.Empty)
+                if (userId == Guid.Empty)
                 {
                     throw new UnauthorizedAccessException("Oops! you are not suppose to here. Please login before proceed.");
                 }

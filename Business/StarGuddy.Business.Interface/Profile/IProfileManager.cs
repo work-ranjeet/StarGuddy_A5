@@ -8,18 +8,18 @@ namespace StarGuddy.Business.Interface.Profile
 {
     public interface IProfileManager
     {
-        Task<IPhysicalAppearanceModal> GetPhysicalAppreance(System.Guid userId);
+        Task<IPhysicalAppearanceModal> GetPhysicalAppreance();
 
         Task<bool> PerformSave(IPhysicalAppearanceModal physicalAppearance);
 
-        Task<IEnumerable<IUserCreditModel>> GetUserCredits(Guid userId);
+        Task<IEnumerable<IUserCreditModel>> GetUserCredits();
 
         Task<bool> SaveUserCredits(Guid UserId, List<UserCreditModel> userCreditModelList);
 
-        Task<bool> DeleteUserCredits(Guid Id);
+        Task<bool> DeleteUserCredits(Guid userId);
 
 
-        Task<DancingModel> GetUserDancingAsync(Guid userId);
+        Task<DancingModel> GetUserDancingAsync();
         Task<bool> SaveUserDancingAsync(DancingModel dancingModel);
 
 
@@ -28,5 +28,7 @@ namespace StarGuddy.Business.Interface.Profile
 
         Task<UserModelingModel> GetUserModelingDetailAsync();
         Task<bool> SaveUserModelingDetailsAsync(UserModelingModel userModelingModel);
+
+        Task<UserProfile> GetUserProfile(string profileUrl);
     }
 }

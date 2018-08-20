@@ -22,6 +22,7 @@ namespace StarGuddy.Repository.Operations
     #region Imports
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Dapper;
     using StarGuddy.Data.Entities;
     using StarGuddy.Data.Entities.Interface;
@@ -59,7 +60,8 @@ namespace StarGuddy.Repository.Operations
         public IUser FindById(string id)
         {
             return this.FindSingle("SELECT * FROM Users WHERE Id=@Id", new { Id = id });
-        }
+        }      
+      
 
         /// <summary>
         /// Finds the by user name.
@@ -102,6 +104,23 @@ namespace StarGuddy.Repository.Operations
             };
 
             return this.GetProcedureData("GetVarifiedUser", parameter);
+        }
+
+        /// <summary>
+        /// Gets the verified user.
+        /// </summary>
+        /// <param name="profileUrl">Profile url of user.</param>
+        /// <returns>
+        /// Application User Id
+        /// </returns>
+        public async Task<Guid> GetUserIdByProfilUrl(string profileUrl)
+        {
+            using (var conn = await Connection.OpenConnectionAsync())
+            {
+                //return this.FindSingle("SELECT Id FROM Users WHERE ProfileUrl=@ProfileUrl", new { ProfileUrl = profileUrl });
+                return Guid.Parse("D40B2C5D-2881-4E8B-844A-B503DEB090BE");
+            }
+            
         }
         #endregion
 
