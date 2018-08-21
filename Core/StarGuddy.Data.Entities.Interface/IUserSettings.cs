@@ -9,7 +9,7 @@ namespace StarGuddy.Data.Entities.Interface
 
         Int32 Visibility { get; set; }
 
-        String ProfileAddress { get; set; }
+        String ProfileUrl { get; set; }
 
         Int32 IsCommnetAlowed { get; set; }
 

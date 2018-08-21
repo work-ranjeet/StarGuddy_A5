@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using StarGuddy.Api.Models.Profile;
+using StarGuddy.Api.Models.Account;
 
 namespace StarGuddy.Business.Modules.Mapper
 {
@@ -22,7 +23,7 @@ namespace StarGuddy.Business.Modules.Mapper
             CreateMap<ActingRoles, Models.AuditionsAndJobsGroupDto>().ReverseMap();
             CreateMap<ModelingRoles, Models.AuditionsAndJobsGroupDto>().ReverseMap();
             CreateMap<UserModeling, UserModelingModel>().ReverseMap();
-
+            CreateMap<UserSettings, UserSettingDto>().ReverseMap();  
         }
     }
 }

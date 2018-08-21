@@ -19,18 +19,20 @@ namespace StarGuddy.Api.Controllers.Profile
         /// <summary>
         /// The account manager
         /// </summary>
-        private readonly IAccountManager accountManager;
-        private readonly IProfileManager profileManager;
+        private readonly IAccountManager _accountManager;
+        private readonly IProfileManager _profileManager;
+        private readonly IUserManager _userManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileEditController"/> class.
         /// </summary>
         /// <param name="accountManager">The account manager.</param>
         /// <param name="profileManager">The profile manager.</param>
-        public ProfileController(IAccountManager accountManager, IProfileManager profileManager)
+        public ProfileController(IAccountManager accountManager, IProfileManager profileManager, IUserManager userManager)
         {
-            this.accountManager = accountManager;
-            this.profileManager = profileManager;
+            _accountManager = accountManager;
+            _profileManager = profileManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -42,7 +44,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return BadRequest(HttpStatusText.InvalidRequest);
             }
 
-            var profileResult = await profileManager.GetUserProfile(profileUrl);
+            var profileResult = await _profileManager.GetUserProfile(profileUrl);
             if(profileResult == null)
             {
                 return NotFound(profileUrl);

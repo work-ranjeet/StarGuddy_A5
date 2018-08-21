@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StarGuddy.Data.Entities
 {
-    class UserSettings : IUserSettings
+    public class UserSettings : IUserSettings
     {
         public Guid Id { get; set; }
 
@@ -13,7 +13,7 @@ namespace StarGuddy.Data.Entities
 
         public Int32 Visibility { get; set; }
 
-        public String ProfileAddress { get; set; }
+        public String ProfileUrl { get; set; }
 
         public Int32 IsCommnetAlowed { get; set; }
 

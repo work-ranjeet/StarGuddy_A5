@@ -279,7 +279,7 @@ namespace StarGuddy.Repository.Base
 
         public virtual async Task<IEnumerable<T>> FindAllByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenedConnectionAsync)
+            using (var conn = await Connection.OpenConnectionAsync())
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text));
             }
@@ -287,7 +287,7 @@ namespace StarGuddy.Repository.Base
 
         public virtual async Task<T> FindActiveByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenedConnectionAsync)
+            using (var conn = await Connection.OpenConnectionAsync())
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId AND IsActive = @IsActive AND IsDeleted = @IsDeleted", new { UserId = userId, IsActive = 1, IsDeleted = 0 }, commandType: CommandType.Text)).FirstOrDefault();
             }
@@ -295,7 +295,7 @@ namespace StarGuddy.Repository.Base
 
         public virtual async Task<IEnumerable<T>> FindAllActiveByUserIdAsync(Guid userId)
         {
-            using (var conn = this.GetOpenedConnectionAsync)
+            using (var conn = await Connection.OpenConnectionAsync())
             {
                 return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId AND IsActive = @IsActive AND IsDeleted = @IsDeleted", new { UserId = userId, IsActive = 1, IsDeleted = 0 }, commandType: CommandType.Text));
             }

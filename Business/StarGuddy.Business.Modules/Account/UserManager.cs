@@ -21,6 +21,7 @@ namespace StarGuddy.Business.Modules.Account
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+    using AutoMapper;
     using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Account;
@@ -34,18 +35,19 @@ namespace StarGuddy.Business.Modules.Account
     /// <seealso cref="ISignupManager" />
     public class UserManager : IUserManager
     {
-        /// <summary>
-        /// The user repository
-        /// </summary>
-        private readonly IUserRepository userRepository;
+        private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserSettingsRepository _userSettingsRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SignupManager"/> class.
         /// </summary>
         /// <param name="signupManager">The user repository.</param>
-        public UserManager(IUserRepository userRepository)
+        public UserManager(IUserRepository userRepository, IUserSettingsRepository userSettingsRepository, IMapper mapper)
         {
-            this.userRepository = userRepository;
+            _mapper = mapper;
+            _userRepository = userRepository;
+            _userSettingsRepository = userSettingsRepository;
         }
 
         /// <summary>
@@ -82,7 +84,7 @@ namespace StarGuddy.Business.Modules.Account
                     }
                 };
 
-                return this.userRepository.AddNewUser(user);
+                return this._userRepository.AddNewUser(user);
             });
         }
 
@@ -115,7 +117,7 @@ namespace StarGuddy.Business.Modules.Account
                     SecurityStamp = "39d292dc-8713-4f03-9cfb-90784159f854",
                 };
 
-                return this.userRepository.UpdateUser(user);
+                return this._userRepository.UpdateUser(user);
             });
         }
 
@@ -137,6 +139,6 @@ namespace StarGuddy.Business.Modules.Account
         public void ConfirmEmailAsync(string userId, string code)
         {
 
-        }
+        }        
     }
 }

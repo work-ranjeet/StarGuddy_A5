@@ -52,5 +52,7 @@ namespace StarGuddy.Api.Controllers.Profile
         {
             return await this._passwordManager.ChangePassword(changePassword);
         }
+
+
     }
 }

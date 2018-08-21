@@ -17,6 +17,7 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Interface.Account
 {
+    using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
     using System;
     using System.Collections.Generic;

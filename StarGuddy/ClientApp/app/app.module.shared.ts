@@ -15,6 +15,7 @@ import { DataValidator } from "../Helper/DataValidator";
 import { BaseService } from "../Services/BaseService";
 
 //// shared Modules
+import { PublicProfileModuleShared } from "./components/publicProfile/PublicProfile.module.shared";
 import { CommonModuleShared } from "./components/common/common.module.shared";
 import { HomeModuleShared } from "./components/home/home.module.shared";
 import { AccountModuleShared } from "./components/account/account.module.shared";
@@ -41,6 +42,7 @@ import { AuthGuard } from "../Services/AuthenticationGuard";
         AccountModuleShared,
         UserProfileModuleShared,
         UserProfileSettingModuleShared,
+        PublicProfileModuleShared,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full", canActivate: [AuthGuard] },
             { path: "counter", component: CounterComponent },
