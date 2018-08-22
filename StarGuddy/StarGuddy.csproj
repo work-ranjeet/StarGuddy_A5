@@ -16,6 +16,12 @@
     <Compile Remove="Api\Security\**" />
     <Compile Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <Compile Remove="ClientApp\app\components\navmenu\**" />
+    <Compile Remove="ClientApp\app\components\publicProfile\details\acting\**" />
+    <Compile Remove="ClientApp\app\components\publicProfile\details\credits\**" />
+    <Compile Remove="ClientApp\app\components\publicProfile\details\dancing\**" />
+    <Compile Remove="ClientApp\app\components\publicProfile\details\modeling\**" />
+    <Compile Remove="ClientApp\app\components\publicProfile\details\photos\**" />
+    <Compile Remove="ClientApp\app\components\publicProfile\details\trainings\**" />
     <Compile Remove="wwwroot\css\NewFolder\**" />
     <Content Remove="Api\Security\**" />
     <Content Remove="ClientApp\**" />
@@ -23,10 +29,22 @@
     <EmbeddedResource Remove="Api\Security\**" />
     <EmbeddedResource Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\publicProfile\details\acting\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\publicProfile\details\credits\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\publicProfile\details\dancing\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\publicProfile\details\modeling\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\publicProfile\details\photos\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\publicProfile\details\trainings\**" />
     <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
     <None Remove="Api\Security\**" />
     <None Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <None Remove="ClientApp\app\components\navmenu\**" />
+    <None Remove="ClientApp\app\components\publicProfile\details\acting\**" />
+    <None Remove="ClientApp\app\components\publicProfile\details\credits\**" />
+    <None Remove="ClientApp\app\components\publicProfile\details\dancing\**" />
+    <None Remove="ClientApp\app\components\publicProfile\details\modeling\**" />
+    <None Remove="ClientApp\app\components\publicProfile\details\photos\**" />
+    <None Remove="ClientApp\app\components\publicProfile\details\trainings\**" />
     <None Remove="wwwroot\css\NewFolder\**" />
   </ItemGroup>
 

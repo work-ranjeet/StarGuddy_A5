@@ -1,103 +1,68 @@
 import { Component } from "@angular/core";
-import { DataValidator } from "../../../../Helper/DataValidator";
-import { UserProfileService } from "../../userProfile/UserProfile.Service";
+import { PublicProfileService } from "../../PublicProfile.Service";
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 
 @Component({
-    selector: "user-profile-physicalDetails",
-    templateUrl: "././physicalDetails.component.html",
-    styleUrls: ['././physicalDetails.component.css']
+    selector: "public-profile-physicalDetails",
+    templateUrl: "./././publicPhysicalDetails.component.html"
 })
 
 
-export class PhysicalDetailsComponent {
+export class PublicPhysicalDetailsComponent {
+    private PhysicalAppearanceResult: IPhysicalAppearance = {} as IPhysicalAppearance;
+    private pahysicalAppreance: IPhysicalAppearance = {} as IPhysicalAppearance;
+    private subscription: any;
+    private showPhysicalAppearance: boolean = false;
 
-    private readonly dataValidator: DataValidator;
-    private userProfileService: UserProfileService;
+    constructor(private readonly profileService: PublicProfileService) { }
 
-    public showEditHtml: boolean = false;
-    public PhysicalAppearanceResult: IPhysicalAppearance = {} as IPhysicalAppearance;
-    public PhysicalAppearance: IPhysicalAppearance = { bodyType: "0", chest: "0", eyeColor: "0", hairColor: "0", hairLength: "0", hairType: "0", skinColor: "0", height: "0", weight: "0", west: "0", ethnicity: "0" } as IPhysicalAppearance;
-
-    constructor(userProfileService: UserProfileService, dataValidator: DataValidator) {
-        this.userProfileService = userProfileService;
-        this.dataValidator = dataValidator;
-        this.loadData();
+    ngOnInit() {
+        this.subscription = this.profileService.PublicProfileData.subscribe(x => this.bindResultToView(x.physicalAppearance));
     }
 
-    edit() {
-        this.showEditHtml = !this.showEditHtml;
-        if (this.showEditHtml) {
-            this.setDataToEdit();
-        }
-    }
-
-    loadData() {
-        this.userProfileService.GetUserPhysicalAppreance().subscribe(result => {
-            if (result != null) {
-                this.bindResultToView(result);
-            }
-            else {
-                console.error("GetUserPhysicalAppreance: Error occurred.")
-            }
-        });
-    }
-
-    setDataToEdit() {
-        this.userProfileService.GetUserPhysicalAppreance().subscribe(result => {
-            if (result != null) {
-                this.PhysicalAppearance = result;
-            }
-            else {
-
-                console.error("GetUserPhysicalAppreance: Error occurred.")
-            }
-        });
-    }
-
-    saveChanges() {
-        if (this.PhysicalAppearance != undefined) {
-            this.userProfileService.SaveUserPhysicalAppreance(this.PhysicalAppearance).subscribe(result => {
-                if (result != null) {
-                    this.loadData();
-                }
-                this.showEditHtml = false;
-            });
-        }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     bindResultToView(physicalAppearance: IPhysicalAppearance) {
-        var height = this.heightJson.find(x => x.key == physicalAppearance.height);
-        this.PhysicalAppearanceResult.height = height != undefined ? height.value : "";
+        if (physicalAppearance != undefined) {
+            var height = this.heightJson.find(x => x.key == physicalAppearance.height);
+            this.PhysicalAppearanceResult.height = height != undefined ? height.value : "";
 
-        var ethnicity = this.EthnicityJson.find(x => x.key == physicalAppearance.ethnicity);
-        this.PhysicalAppearanceResult.ethnicity = ethnicity != undefined ? ethnicity.value : "";
+            var ethnicity = this.EthnicityJson.find(x => x.key == physicalAppearance.ethnicity);
+            this.PhysicalAppearanceResult.ethnicity = ethnicity != undefined ? ethnicity.value : "";
 
-        var eyeColor = this.eyeColorJson.find(x => x.key == physicalAppearance.eyeColor);
-        this.PhysicalAppearanceResult.eyeColor = eyeColor != undefined ? eyeColor.value : "";
+            var eyeColor = this.eyeColorJson.find(x => x.key == physicalAppearance.eyeColor);
+            this.PhysicalAppearanceResult.eyeColor = eyeColor != undefined ? eyeColor.value : "";
 
-        var bodyType = this.bodyTypeJson.find(x => x.key == physicalAppearance.bodyType);
-        this.PhysicalAppearanceResult.bodyType = bodyType != undefined ? bodyType.value : "";
+            var bodyType = this.bodyTypeJson.find(x => x.key == physicalAppearance.bodyType);
+            this.PhysicalAppearanceResult.bodyType = bodyType != undefined ? bodyType.value : "";
 
-        var hairType = this.hairTypeJson.find(x => x.key == physicalAppearance.hairType);
-        this.PhysicalAppearanceResult.hairType = hairType != undefined ? hairType.value : "";
+            var hairType = this.hairTypeJson.find(x => x.key == physicalAppearance.hairType);
+            this.PhysicalAppearanceResult.hairType = hairType != undefined ? hairType.value : "";
 
-        var weight = this.weightJson.find(x => x.key == physicalAppearance.weight);
-        this.PhysicalAppearanceResult.weight = weight != undefined ? weight.value : "";
+            var weight = this.weightJson.find(x => x.key == physicalAppearance.weight);
+            this.PhysicalAppearanceResult.weight = weight != undefined ? weight.value : "";
 
-        var skinColor = this.skinColorJson.find(x => x.key == physicalAppearance.skinColor);
-        this.PhysicalAppearanceResult.skinColor = skinColor != undefined ? skinColor.value : "";
+            var skinColor = this.skinColorJson.find(x => x.key == physicalAppearance.skinColor);
+            this.PhysicalAppearanceResult.skinColor = skinColor != undefined ? skinColor.value : "";
 
-        var chest = this.chestJson.find(x => x.key == physicalAppearance.chest);
-        this.PhysicalAppearanceResult.chest = chest != undefined ? chest.value : "";
+            var chest = this.chestJson.find(x => x.key == physicalAppearance.chest);
+            this.PhysicalAppearanceResult.chest = chest != undefined ? chest.value : "";
 
-        var hairLength = this.hairLengthJson.find(x => x.key == physicalAppearance.hairLength);
-        this.PhysicalAppearanceResult.hairLength = hairLength != undefined ? hairLength.value : "";
+            var hairLength = this.hairLengthJson.find(x => x.key == physicalAppearance.hairLength);
+            this.PhysicalAppearanceResult.hairLength = hairLength != undefined ? hairLength.value : "";
 
-        var hairColor = this.hairColorJson.find(x => x.key == physicalAppearance.hairColor);
-        this.PhysicalAppearanceResult.hairColor = hairColor != undefined ? hairColor.value : "";
+            var hairColor = this.hairColorJson.find(x => x.key == physicalAppearance.hairColor);
+            this.PhysicalAppearanceResult.hairColor = hairColor != undefined ? hairColor.value : "";
+
+            this.showPhysicalAppearance = height != undefined || ethnicity != undefined || eyeColor != undefined || bodyType != undefined ||
+                hairType != undefined || weight != undefined || skinColor != undefined || chest != undefined || hairLength != undefined || hairColor != undefined;
+        }
+        else {
+            this.showPhysicalAppearance = false;
+        }
     }
-
 
     public heightJson = [
         { key: "24", value: "Less than 132 cm / 4ft 4in" },

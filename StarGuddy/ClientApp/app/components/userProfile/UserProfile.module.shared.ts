@@ -4,7 +4,8 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { UserProfileService } from "./UserProfile.Service";
-
+import { UserProfileHeader } from "./header/header.component";
+import { UserProfileMenu } from "./menu/menu.component";
 import { ActingComponent } from "./acting/acting.component";
 import { CreditsComponent } from "./credits/credits.component";
 import { DancingComponent } from "./dancing/dancing.component";
@@ -18,7 +19,7 @@ import { AuthGuard } from "../../../Services/AuthenticationGuard";
 @NgModule({
     declarations: [
         ActingComponent, CreditsComponent, DancingComponent, ModelingComponent, PhotosComponent, TrainingsComponent,  PhysicalDetailsComponent,
-        UserProfileIndex
+        UserProfileIndex, UserProfileHeader, UserProfileMenu
     ],
     imports: [
         RouterModule,
@@ -31,7 +32,7 @@ import { AuthGuard } from "../../../Services/AuthenticationGuard";
     providers: [UserProfileService],
     exports: [
         ActingComponent, CreditsComponent, DancingComponent, ModelingComponent, PhotosComponent, TrainingsComponent, PhysicalDetailsComponent,
-        UserProfileIndex
+        UserProfileIndex, UserProfileHeader, UserProfileMenu
     ]
 })
 

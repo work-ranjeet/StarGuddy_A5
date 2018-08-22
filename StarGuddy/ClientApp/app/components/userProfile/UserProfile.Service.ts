@@ -1,33 +1,24 @@
-﻿//import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Injectable, Inject } from "@angular/core";
-import { Router } from "@angular/router";
-import { BaseService } from "../../../Services/BaseService";
-import { DataConverter } from "../../../Helper/DataConverter";
+﻿import { HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { HttpErrorResponse, HttpParams } from "@angular/common/http";
-
+import "rxjs/add/operator/map";
+import { DataConverter } from "../../../Helper/DataConverter";
+import { BaseService } from "../../../Services/BaseService";
+import { PublicProfileService } from "../publicProfile/PublicProfile.Service";
 import IUserCredits = App.Client.Profile.ICredits;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 import IDancingModel = App.Client.Profile.IDancingModel;
 import IDancingStyle = App.Client.Profile.IDancingStyleModel;
-
 import IActingDetailModel = App.Client.Profile.IUserActingModel;
-
 import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
-
-
-import { Response } from "@angular/http";
 
 @Injectable()
 export class UserProfileService {
-    private isLoggedInSource = new BehaviorSubject<boolean>(false);
 
     constructor(
         @Inject(BaseService) private readonly baseService: BaseService,
-        private readonly router: Router,
-        private readonly dataConverter: DataConverter) { }
+        private readonly dataConverter: DataConverter) {
+    }
 
     //-------------Physical Appearance-------------------------------//
     GetUserPhysicalAppreance(): Observable<IPhysicalAppearance> {

@@ -49,7 +49,7 @@ namespace StarGuddy.Api
             services.AddSingleton<IConfigurationSingleton>(x => new ConfigurationSingleton(configuration));
 
             //// API Injection
-            
+
             //services.AddTransient<ILoginData, LoginData>();
             //services.AddTransient<IUser, User>();
 
@@ -59,12 +59,13 @@ namespace StarGuddy.Api
             services.AddTransient<IAccentsRepository, AccentsRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
-            services.AddTransient<IUserCreditsRepository, UserCreditsRepository>(); 
-            services.AddTransient<IUserDancingRepository, UserDancingRepository>(); 
+            services.AddTransient<IUserCreditsRepository, UserCreditsRepository>();
+            services.AddTransient<IUserDancingRepository, UserDancingRepository>();
             services.AddTransient<IUserActingRepository, UserActingRepository>();
             services.AddTransient<IUserModelingRepository, UserModelingRepository>();
+            services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
-            
+
 
             //// Business Injection
             services.AddTransient<IAccountManager, AccountManager>();
