@@ -1,34 +1,27 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { Expertlavel } from "../Enums/enums";
-import { JwtInterceptor } from "../Interceptor/jwt.interceptor";
-
-
-// Directives
 
 //// Providers
 import { AppConstant, DbOperation } from "../Constants/AppConstant";
 import { DataConverter } from "../Helper/DataConverter";
 import { DataValidator } from "../Helper/DataValidator";
+import { JwtInterceptor } from "../Interceptor/jwt.interceptor";
+import { AuthGuard } from "../Services/AuthenticationGuard";
 import { BaseService } from "../Services/BaseService";
+import { HttpService } from "../Services/HttpClient";
+import { AccountModuleShared } from "./components/account/account.module.shared";
+import { AppComponent } from "./components/app/app.component";
+import { CommonModuleShared } from "./components/common/common.module.shared";
+import { CounterComponent } from "./components/counter/counter.component";
+import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
+import { HomeModuleShared } from "./components/home/home.module.shared";
+import { ProfileEditModuleShared } from "./components/profileEdit/profileEdit.module.shared";
 
 //// shared Modules
-import { PublicProfileModuleShared } from "./components/publicProfile/PublicProfile.module.shared";
-import { CommonModuleShared } from "./components/common/common.module.shared";
-import { HomeModuleShared } from "./components/home/home.module.shared";
-import { AccountModuleShared } from "./components/account/account.module.shared";
-import { UserProfileSettingModuleShared } from "./components/userProfileSettings/userProfileSettings.module.shared"
-import { UserProfileModuleShared } from "./components/userProfile/UserProfile.module.shared";
-
-import { AppComponent } from "./components/app/app.component";
-import { HttpService } from "../Services/HttpClient";
-import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
-import { CounterComponent } from "./components/counter/counter.component";
-import { AuthGuard } from "../Services/AuthenticationGuard";
-
-
+import { ProfileModuleShared } from "./components/profile/profile.module.shared";
+import { ProfileSettingModuleShared } from "./components/profileSettings/profileSettings.module.shared";
 
 @NgModule({
     declarations: [
@@ -40,9 +33,9 @@ import { AuthGuard } from "../Services/AuthenticationGuard";
         CommonModuleShared,
         HomeModuleShared,
         AccountModuleShared,
-        UserProfileModuleShared,
-        UserProfileSettingModuleShared,
-        PublicProfileModuleShared,
+        ProfileEditModuleShared,
+        ProfileSettingModuleShared,
+        ProfileModuleShared,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full", canActivate: [AuthGuard] },
             { path: "counter", component: CounterComponent },
