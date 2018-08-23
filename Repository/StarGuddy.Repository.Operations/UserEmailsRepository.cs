@@ -21,7 +21,7 @@
         {
             try
             {
-                using (var conn = base.GetOpenedConnectionAsync)
+                using (var conn = base.OpenConnectionAsync)
                 {
                     var param = new { UserId = userId, UserEmail = email };
                     var result = await SqlMapper.QueryAsync<IUserEmails>(conn, SpNames.UserEmails.UpdateEmail, param, commandType: CommandType.StoredProcedure);

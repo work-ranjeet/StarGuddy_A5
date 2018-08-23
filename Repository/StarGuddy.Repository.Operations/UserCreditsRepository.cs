@@ -26,7 +26,7 @@ namespace StarGuddy.Repository.Operations
         {
             try
             {
-                using (var conn = base.GetOpenedConnectionAsync)
+                using (var conn = base.OpenConnectionAsync)
                 {
                     var param = new
                     {

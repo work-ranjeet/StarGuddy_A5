@@ -224,13 +224,11 @@ namespace StarGuddy.Business.Modules.Profile
 
                 try
                 {
-                    await taskResult;
-
-                    var userProfile = new UserProfile();
+                    await taskResult.ConfigureAwait(false);
                     if (taskResult.IsCompletedSuccessfully)
                     {
                         return new UserProfile
-                        {                            
+                        {
                             Acting = await acting,
                             Dancing = await dancing,
                             Modeling = await modeling,
@@ -239,12 +237,10 @@ namespace StarGuddy.Business.Modules.Profile
                         };
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    throw ex;
                 }
-
-                return new UserProfile();
             }
 
             return null;

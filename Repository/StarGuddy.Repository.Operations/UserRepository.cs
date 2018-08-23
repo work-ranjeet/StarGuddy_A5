@@ -134,7 +134,7 @@ namespace StarGuddy.Repository.Operations
         /// </returns>
         public int AddNewUser(IUser user)
         {
-            using (var conn = this.GetOpenedConnectionAsync)
+            using (var conn = this.OpenConnectionAsync)
             {
                 var parameter = new
                 {
@@ -172,7 +172,7 @@ namespace StarGuddy.Repository.Operations
         /// </returns>
         public int UpdateUser(IUser user)
         {
-            using (var conn = this.GetOpenedConnectionAsync)
+            using (var conn = this.OpenConnectionAsync)
             {
                 var parameter = user;
                 parameter.AccessFailedCount = 0;
@@ -218,7 +218,7 @@ namespace StarGuddy.Repository.Operations
         /// <returns></returns>
         public int UpdatePassword(string userName, string password)
         {
-            using (var conn = this.GetOpenedConnectionAsync)
+            using (var conn = this.OpenConnectionAsync)
             {
                 var query = string.Format("update Users set PasswordHash='{0}' where UserName = '{1}'", password, userName);
                 return conn.Execute(query, commandType: CommandType.Text);

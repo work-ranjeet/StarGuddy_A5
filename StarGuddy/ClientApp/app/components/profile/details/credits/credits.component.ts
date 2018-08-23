@@ -1,10 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component } from "@angular/core";
 import { ProfileService } from "../../../profile/profile.Service";
-import { DataValidator } from "../../../../../Helper/DataValidator";
-import { DbOperation } from "../../../../../Constants/AppConstant";
 import ICredits = App.Client.Profile.ICredits;
-import { Form, NgForm } from "@angular/forms";
 
 
 @Component({
@@ -30,15 +26,18 @@ export class ProfileCreditsComponent {
     }
 
     loadCredits(creditsList: Array<ICredits>) {
-
-        if (creditsList != null && creditsList.length > 0) {
-            this.CreditsList = creditsList;
+        try {
+            this.hasCredits = creditsList != undefined && creditsList.length > 0;
+            if (this.hasCredits) {
+                this.CreditsList = creditsList;
+            }
+            else {
+                console.info("Got empty result: ProfileCreditsComponent.loadCredits()");
+            }
         }
-        else {
-            console.info("Got empty result:" + creditsList.toString());
+        catch (ex) {
+            console.error("Got error ProfileCreditsComponent.loadCredits() : " + ex);
         }
-
-        this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
     }
 
 

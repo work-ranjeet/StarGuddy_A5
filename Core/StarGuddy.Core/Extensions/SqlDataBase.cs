@@ -9,7 +9,7 @@ namespace System.Data
         {
             if (conn.State == ConnectionState.Broken || conn.State == ConnectionState.Closed)
             {
-                await conn.OpenAsync();                
+                await conn.OpenAsync().ConfigureAwait(false);                
             }
 
             return conn;

@@ -25,7 +25,7 @@ namespace StarGuddy.Repository.Operations
         {
             try
             {
-                using (var conn = GetOpenedConnectionAsync)
+                using (var conn = OpenConnectionAsync)
                 {
                     var param = new
                     {
@@ -45,7 +45,7 @@ namespace StarGuddy.Repository.Operations
         {
             try
             {
-                using (var conn = GetOpenedConnectionAsync)
+                using (var conn = OpenConnectionAsync)
                 {
                     var param = new
                     {
