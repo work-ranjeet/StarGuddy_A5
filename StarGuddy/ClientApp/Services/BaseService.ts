@@ -25,27 +25,18 @@ export class BaseService {
     }
 
     get IsAuthenticated() {
-        var token = isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.TOKEN_KEY) : String.Empty;
+        var token = isPlatformBrowser(this.platformId) && sessionStorage.length > 0 ? sessionStorage.getItem(this.appConstant.TOKEN_KEY) : String.Empty;
 
         return token != undefined && token != null && token.length > 0;
     }
 
     get UserName() {
-        return isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.USER_NAME) : String.Empty;
+        return isPlatformBrowser(this.platformId) && sessionStorage.length > 0 ? sessionStorage.getItem(this.appConstant.USER_NAME) : String.Empty;
     }
-
-    //get UserId() {
-    //    let userId = this.storage.getItem(this.appConstant.USER_ID);
-    //    return userId != undefined && userId != null ? userId : String.Empty;
-    //}
 
     get UserFirstName() {
-        return isPlatformBrowser(this.platformId) && localStorage.length > 0 ? localStorage.getItem(this.appConstant.USER_FIRST_NAME) : String.Empty;
+        return isPlatformBrowser(this.platformId) && sessionStorage.length > 0 ? sessionStorage.getItem(this.appConstant.USER_FIRST_NAME) : String.Empty;
     }
-
-    //get UserEmail() {
-    //    return this.storage.getItem(this.appConstant.USER_EMAIL);
-    //}
 
     get HttpService() {
         return this.httpService;
@@ -54,23 +45,15 @@ export class BaseService {
     authenticate(result: any): void {
         const authResponse = result;
         if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem(this.appConstant.USER_ID, authResponse.userId);
-            localStorage.setItem(this.appConstant.TOKEN_KEY, authResponse.token);
-            localStorage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.firstName);
-            localStorage.setItem(this.appConstant.USER_NAME, authResponse.userName);
-            localStorage.setItem(this.appConstant.USER_EMAIL, authResponse.email);
+            sessionStorage.setItem(this.appConstant.TOKEN_KEY, authResponse.token);
+            sessionStorage.setItem(this.appConstant.USER_FIRST_NAME, authResponse.firstName);
         }
     }
 
     cancleAuthention() {
         if (isPlatformBrowser(this.platformId)) {
-            localStorage.clear();
+            sessionStorage.clear();
         }
-        //this.storage.removeItem(this.appConstant.USER_ID);
-        //this.storage.removeItem(this.appConstant.TOKEN_KEY);
-        //this.storage.removeItem(this.appConstant.USER_FIRST_NAME);
-        //this.storage.removeItem(this.appConstant.USER_NAME);
-        //this.storage.removeItem(this.appConstant.USER_EMAIL);
     }
 
 }

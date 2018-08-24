@@ -10,6 +10,9 @@ import { ProfileMenu } from "../profile/menu/menu.component";
 import { ProfilePhotosComponent } from "../profile/details/photos/photos.component";
 import { PhysicalDetailsComponent } from "../profile/details/physicalDetails/physicalDetails.component";
 import { ProfileCreditsComponent } from "../profile/details/credits/credits.component";
+import { ProfileActingComponent } from "../profile/details/acting/acting.component";
+import { ProfileDancingComponent } from "../profile/details/dancing/dancing.component";
+import { ProfileModelingComponent } from "../profile/details/modeling/modeling.component";
 
 @NgModule({
     declarations: [
@@ -17,9 +20,8 @@ import { ProfileCreditsComponent } from "../profile/details/credits/credits.comp
         ProfileHeader,
         ProfileMenu,
         ProfileDetails,
-        ProfilePhotosComponent,
-        PhysicalDetailsComponent,
-        ProfileCreditsComponent
+        ProfilePhotosComponent, PhysicalDetailsComponent, ProfileCreditsComponent,
+        ProfileActingComponent, ProfileDancingComponent, ProfileModelingComponent
     ],
     imports: [
         RouterModule,
@@ -32,7 +34,8 @@ import { ProfileCreditsComponent } from "../profile/details/credits/credits.comp
     providers: [ProfileService],
     exports: [
         ProfileIndex, ProfileHeader, ProfileMenu, ProfileDetails,
-        ProfilePhotosComponent, PhysicalDetailsComponent, ProfileCreditsComponent
+        ProfilePhotosComponent, PhysicalDetailsComponent, ProfileCreditsComponent,
+        ProfileActingComponent, ProfileDancingComponent, ProfileModelingComponent
     ]
 })
 

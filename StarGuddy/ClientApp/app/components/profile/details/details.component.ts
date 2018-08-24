@@ -35,15 +35,18 @@ export class ProfileDetails {
         if (profileUrl == undefined || profileUrl == null) {
             return false;
         }
-        this.profileService.GetProfileDetails(profileUrl).subscribe(response => {
-            if (response != null) {
-                this.ProfileDetail = _.cloneDeep(response);
-                this.profileService.SetPublicProfileData(response);
-            }
-            else {
-                console.info("Got empty result: PublicProfileService.GetProfileDetails()");
-            }
-        });
+
+        if (JSON.stringify(this.ProfileDetail) == "{}" || this.ProfileDetail == undefined) {
+            this.profileService.GetProfileDetails(profileUrl).subscribe(response => {
+                if (response != null) {
+                    this.ProfileDetail = _.cloneDeep(response);
+                    this.profileService.SetPublicProfileData(response);
+                }
+                else {
+                    console.info("Got empty result: PublicProfileService.GetProfileDetails()");
+                }
+            });
+        }
     }
 
 }

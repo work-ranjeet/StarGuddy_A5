@@ -16,9 +16,6 @@
     <Compile Remove="Api\Security\**" />
     <Compile Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <Compile Remove="ClientApp\app\components\navmenu\**" />
-    <Compile Remove="ClientApp\app\components\profile\details\acting\**" />
-    <Compile Remove="ClientApp\app\components\profile\details\dancing\**" />
-    <Compile Remove="ClientApp\app\components\profile\details\modeling\**" />
     <Compile Remove="ClientApp\app\components\profile\details\trainings\**" />
     <Compile Remove="wwwroot\css\NewFolder\**" />
     <Content Remove="Api\Security\**" />
@@ -27,17 +24,11 @@
     <EmbeddedResource Remove="Api\Security\**" />
     <EmbeddedResource Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
-    <EmbeddedResource Remove="ClientApp\app\components\profile\details\acting\**" />
-    <EmbeddedResource Remove="ClientApp\app\components\profile\details\dancing\**" />
-    <EmbeddedResource Remove="ClientApp\app\components\profile\details\modeling\**" />
     <EmbeddedResource Remove="ClientApp\app\components\profile\details\trainings\**" />
     <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
     <None Remove="Api\Security\**" />
     <None Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <None Remove="ClientApp\app\components\navmenu\**" />
-    <None Remove="ClientApp\app\components\profile\details\acting\**" />
-    <None Remove="ClientApp\app\components\profile\details\dancing\**" />
-    <None Remove="ClientApp\app\components\profile\details\modeling\**" />
     <None Remove="ClientApp\app\components\profile\details\trainings\**" />
     <None Remove="wwwroot\css\NewFolder\**" />
   </ItemGroup>

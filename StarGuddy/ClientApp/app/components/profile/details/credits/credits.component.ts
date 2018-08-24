@@ -27,8 +27,7 @@ export class ProfileCreditsComponent {
 
     loadCredits(creditsList: Array<ICredits>) {
         try {
-            this.hasCredits = creditsList != undefined && creditsList.length > 0;
-            if (this.hasCredits) {
+            if (creditsList != undefined && creditsList.length > 0) {
                 this.CreditsList = creditsList;
             }
             else {
