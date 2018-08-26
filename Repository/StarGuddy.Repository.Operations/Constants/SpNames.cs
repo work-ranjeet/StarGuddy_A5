@@ -94,5 +94,11 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string ClearDetail = "UserModelingClear";
             public const string UserModelingRolesSave = "UserModelingRolesSave";
         }
+
+        public struct JobGroup
+        {
+            public const string UserJobGroup = "GetUserJobGroup";
+        }
+        
     }
 }

@@ -14,27 +14,29 @@ import { ProfileEditPhotosComponent } from "./photos/profileEditPhotos.component
 import { ProfileEditTrainingsComponent } from "./trainings/profileEditTrainings.component";
 import { ProfileEditPhysicalComponent } from "./physicalDetails/profileEditPhysical.component";
 import { ProfileEditIndex } from "./index/profileEditIndex.component";
+import { JobGroupComponent } from "./jobGroup/JobGroup.component";
 import { AuthGuard } from "../../../Services/AuthenticationGuard";
 
 @NgModule({
     declarations: [
         ProfileEditActingComponent, ProfileEditCreditsComponent, ProfileEditDancingComponent, ProfileEditModelingComponent,
         ProfileEditPhotosComponent, ProfileEditTrainingsComponent, ProfileEditPhysicalComponent,
-        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu
+        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu, JobGroupComponent
     ],
     imports: [
         RouterModule,
         CommonModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: "profile", component: ProfileEditIndex, canActivate: [AuthGuard] }
+            { path: "profile", component: ProfileEditIndex, canActivate: [AuthGuard] },
+            { path: "profile/interests", component: JobGroupComponent, canActivate: [AuthGuard] }
         ])
     ],
     providers: [ProfileEditService],
     exports: [
         ProfileEditActingComponent, ProfileEditCreditsComponent, ProfileEditDancingComponent, ProfileEditModelingComponent,
         ProfileEditPhotosComponent, ProfileEditTrainingsComponent, ProfileEditPhysicalComponent,
-        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu
+        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu, JobGroupComponent
     ]
 })
 

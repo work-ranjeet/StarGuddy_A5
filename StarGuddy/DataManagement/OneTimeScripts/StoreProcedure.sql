@@ -549,6 +549,29 @@ BEGIN
 	INSERT INTO UserModelingRoles(Id, UserId, JobId, DttmCreated, DttmModified)
 	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())
 END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetUserJobGroup') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetUserJobGroup
+GO
+CREATE PROCEDURE GetUserJobGroup (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	--EXEC GetUserJobGroup 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
+	SELECT JB.Id, JB.Name, JB.Code, JB.DisplayOrder, JB.IsActive, JB.IsDeleted, (CASE WHEN UJB.JobGroupId = JB.Id THEN JB.Code ELSE 0 END) AS SelectedCode
+	FROM JobGroup JB
+	LEFT JOIN UserJobGroup UJB ON UJB.JobGroupId = JB.Id
+		AND UJB.UserId = @UserId
+	WHERE JB.IsActive = 1
+		AND JB.IsDeleted = 0
+	ORDER BY JB.DisplayOrder
+END
 	
 
 

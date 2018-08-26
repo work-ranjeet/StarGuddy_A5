@@ -22,11 +22,13 @@ using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Files;
 using StarGuddy.Business.Interface.Network;
 using StarGuddy.Business.Interface.Profile;
+using StarGuddy.Business.Interface.UserJobs;
 using StarGuddy.Business.Modules.Account;
 using StarGuddy.Business.Modules.Common;
 using StarGuddy.Business.Modules.Files;
 using StarGuddy.Business.Modules.Network;
 using StarGuddy.Business.Modules.Profile;
+using StarGuddy.Business.Modules.UserJobs;
 using StarGuddy.Repository.Configuration;
 using StarGuddy.Repository.Interface;
 using StarGuddy.Repository.Operations;
@@ -62,8 +64,9 @@ namespace StarGuddy.Api
             services.AddTransient<IUserCreditsRepository, UserCreditsRepository>();
             services.AddTransient<IUserDancingRepository, UserDancingRepository>();
             services.AddTransient<IUserActingRepository, UserActingRepository>();
-            services.AddTransient<IUserModelingRepository, UserModelingRepository>();
+            services.AddTransient<IUserModelingRepository, UserModelingRepository>(); 
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
+            services.AddTransient<IJobGroupRepository, JobGroupRepository>();
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
 
 
@@ -76,6 +79,7 @@ namespace StarGuddy.Api
             services.AddTransient<ISecurityManager, SecurityManager>();
             services.AddTransient<IEmailManager, EmailManager>();
             services.AddTransient<IProfileManager, ProfileManager>();
+            services.AddTransient<IJobManager, JobManager>(); 
             services.AddTransient<IProfileSettingManager, ProfileSettingManager>();
         }
     }

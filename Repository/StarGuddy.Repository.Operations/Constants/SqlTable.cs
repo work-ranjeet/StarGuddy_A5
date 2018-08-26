@@ -106,5 +106,10 @@ namespace StarGuddy.Repository.Opertions.Constants
         /// The user credits
         /// </summary>
         public const string UserSettings = "UserSettings";
+
+        /// <summary>
+        /// The user Job Group
+        /// </summary>
+        public const string JobGroup = "JobGroup";
     }
 }

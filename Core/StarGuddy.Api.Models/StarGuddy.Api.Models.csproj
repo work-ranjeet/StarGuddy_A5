@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dto\JobGroupModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="UserJobs\JobGroupModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
   </ItemGroup>
 

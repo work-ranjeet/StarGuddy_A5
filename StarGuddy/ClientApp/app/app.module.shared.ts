@@ -20,7 +20,6 @@ import { ProfileEditModuleShared } from "./components/profileEdit/profileEdit.mo
 //// shared Modules
 import { ProfileModuleShared } from "./components/profile/profile.module.shared";
 import { ProfileSettingModuleShared } from "./components/profileSettings/profileSettings.module.shared";
-import { JobGroupComponent } from "./components/common/jobGroup/JobGroup.component";
 
 @NgModule({
     declarations: [
@@ -36,7 +35,6 @@ import { JobGroupComponent } from "./components/common/jobGroup/JobGroup.compone
         ProfileModuleShared,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full", canActivate: [AuthGuard] },
-            { path: "interests", component: JobGroupComponent },
             { path: "**", redirectTo: "home" }
         ])
     ],

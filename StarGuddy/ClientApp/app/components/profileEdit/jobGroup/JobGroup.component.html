@@ -1,0 +1,17 @@
+
+<div id="jobGroup" class="container">
+    <div class="row margin-top-15">
+        <div class="col-md-12 page-heading padding-10">
+            <h1>Group's I am interested in.</h1>
+        </div>
+    </div>
+    <hr class="style-three" />
+    <div class="row  margin-top-15">
+        <div class="col-md-10 col-xs-12">
+            <div *ngFor="let interest of userInterestList" style="display:inline-block;" class="padding-15">
+                <input id="{{interest.code}}" name="{{interest.code}}" type="checkbox" value="{{interest.code}}" class="invisible">
+                <label for="{{interest.code}}" class="btn btn-category">{{interest.name}}</label>
+            </div>
+        </div>
+    </div>
+</div>

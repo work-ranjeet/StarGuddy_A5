@@ -170,7 +170,7 @@ namespace StarGuddy.Repository.Base
         {
             using (var connection = OpenConnectionAsync)
             {
-                return await connection.QueryAsync<T>("SELECT * FROM " + this.tableName);
+                return await connection.QueryAsync<T>("SELECT * FROM " + tableName);
             }
         }
 

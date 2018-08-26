@@ -10,6 +10,7 @@ import IDancingModel = App.Client.Profile.IDancingModel;
 import IDancingStyle = App.Client.Profile.IDancingStyleModel;
 import IActingDetailModel = App.Client.Profile.IUserActingModel;
 import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
+import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 @Injectable()
 export class ProfileEditService {
@@ -185,6 +186,23 @@ export class ProfileEditService {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Modeling", reqPayLoad)
             .map(
                 (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+
+    // --------------- User Interests ------------------------//
+    GetUserInterestDetail(): Observable<IJobGroupModel[]> {
+        return this.baseService.HttpService.getData<IJobGroupModel[]>("Profile/Interests")
+            .map(
+                (result: IJobGroupModel[]) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

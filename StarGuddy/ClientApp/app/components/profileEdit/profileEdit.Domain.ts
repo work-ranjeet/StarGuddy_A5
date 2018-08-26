@@ -97,4 +97,15 @@
         experiance: string;
         modelingRoles: IAuditionsAndJobsGroup[];
     }
+
+    export interface IJobGroupModel {
+        id: number;
+        name: string;
+        code: number;
+        selectedCode: number;
+        detail: string;
+        displayOrder: number;
+        isActive: boolean;
+        isDeleted: boolean;
+    }
 }

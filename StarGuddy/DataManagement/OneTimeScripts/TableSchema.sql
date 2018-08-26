@@ -280,7 +280,7 @@ CREATE TABLE UserDancingStyle(
 	FOREIGN KEY (DancingStyleId) REFERENCES DancingStyle(Id),
 )
 Go
-CREATE TABLE StarGroup
+CREATE TABLE JobGroup
 (
 	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	[Name] NVARCHAR(300) NOT NULL,
@@ -291,6 +291,16 @@ CREATE TABLE StarGroup
 	IsDeleted BIT NOT NULL DEFAULT(0),
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),
 	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+GO
+CREATE TABLE UserJobGroup(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
+	JobGroupId BIGINT NOT NULL,
+	UserId UNIQUEIDENTIFIER NOT NULL,
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate()),
+	FOREIGN KEY (JobGroupId) REFERENCES JobGroup(Id),
+	FOREIGN KEY (UserId) REFERENCES Users(Id),
 )
 GO
 

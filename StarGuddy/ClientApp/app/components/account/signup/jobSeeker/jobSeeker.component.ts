@@ -29,7 +29,7 @@ export class SignUpJobSeekerComponent {
             this.accountService.signup(this.applicationUser).subscribe(
                 result => {
                     if (result != undefined) {
-                        this.router.navigate(["/interests"]);
+                        this.router.navigate(["/profile/interests"]);
                     }
                     else {
                         this.router.navigate(["/error"]);

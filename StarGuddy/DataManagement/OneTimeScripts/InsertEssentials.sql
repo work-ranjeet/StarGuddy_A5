@@ -5,17 +5,17 @@
 INSERT into Users ( AccessFailedCount, ConcurrencyStamp, FirstName, Gender, IsCastingProfessional, LastName, LockoutEnabled, LockoutEnd, Designation, OrgName, OrgWebsite, PasswordHash, SecurityStamp, IsTwoFactorEnabled, UserName)
 VALUES ( 0, N'b8c6e4a2-fb40-4706-b608-f05a4a6ff708', N'Ranjeet', N'M', 0, N'Kumar', 0, NULL, NULL, NULL, NULL, N'janeman', N'39d292dc-8713-4f03-9cfb-90784159f854', 0, N'er.ranjeetkumar@gmail.com')
 
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Acting', 1001, 'Acting group', 1)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Modeling', 1002, 'Modeling group', 2)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Extras', 1003, 'Extras group', 3)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Presenter', 1004, 'Presenter group', 4)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Musician', 1005, 'Musician group', 5)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Photography', 1006, 'Photography group', 6)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('TV & Reality', 1007, 'TV and Reality group', 7)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Dancing', 1008, 'Dancing group', 8)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Film & Stage Crew', 1009, 'Film & Stage Crew group', 9)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Hair, Makeup, & Styling', 1010, 'Hair, Makeup, & Styling group', 10)
-INSERT INTO StarGroup (Name, Code, Detail, DisplayOrder) values('Survival Jobs', 1011, 'Survival Jobs group', 11)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Acting', 1001, 'Acting group', 1)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Modeling', 1002, 'Modeling group', 2)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Extras', 1003, 'Extras group', 3)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Presenter', 1004, 'Presenter group', 4)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Musician', 1005, 'Musician group', 5)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Photography', 1006, 'Photography group', 6)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('TV & Reality', 1007, 'TV and Reality group', 7)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Dancing', 1008, 'Dancing group', 8)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Film & Stage Crew', 1009, 'Film & Stage Crew group', 9)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Hair, Makeup, & Styling', 1010, 'Hair, Makeup, & Styling group', 10)
+INSERT INTO JobGroup (Name, Code, Detail, DisplayOrder) values('Survival Jobs', 1011, 'Survival Jobs group', 11)
 
 
 

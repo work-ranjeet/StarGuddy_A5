@@ -4,6 +4,25 @@
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserJobGroup')
+			AND type IN (N'U')
+		)
+	DROP TABLE UserJobGroup
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'JobGroup')
+			AND type IN (N'U')
+		)
+	DROP TABLE JobGroup
+
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
 		WHERE object_id = OBJECT_ID(N'UserModelingRoles')
 			AND type IN (N'U')
 		)

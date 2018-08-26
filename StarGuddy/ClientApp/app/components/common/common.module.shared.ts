@@ -9,7 +9,6 @@ import { LogInOutComponent } from "./logInOut/logInOut.component";
 
 import { PageHeadingComponent } from "../common/pageHeading/pageHeadingComponent";
 import { HeadingComponent } from "../common/headings/headingComponent";
-import { JobGroupComponent } from "../common/jobGroup/JobGroup.component";
 
 
 @NgModule({
@@ -18,11 +17,10 @@ import { JobGroupComponent } from "../common/jobGroup/JobGroup.component";
         NavMenuComponent,
         FooterComponent,
         PageHeadingComponent,
-        HeadingComponent,
-        JobGroupComponent
+        HeadingComponent
     ],
     imports: [RouterModule, CommonModule, FormsModule],
-    exports: [LogInOutComponent, NavMenuComponent, FooterComponent, PageHeadingComponent, HeadingComponent, JobGroupComponent]
+    exports: [LogInOutComponent, NavMenuComponent, FooterComponent, PageHeadingComponent, HeadingComponent]
 })
 
 export class CommonModuleShared {
