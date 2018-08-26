@@ -60,8 +60,8 @@ namespace StarGuddy.Repository.Operations
         public IUser FindById(string id)
         {
             return this.FindSingle("SELECT * FROM Users WHERE Id=@Id", new { Id = id });
-        }      
-      
+        }
+
 
         /// <summary>
         /// Finds the by user name.
@@ -120,7 +120,7 @@ namespace StarGuddy.Repository.Operations
                 //return this.FindSingle("SELECT Id FROM Users WHERE ProfileUrl=@ProfileUrl", new { ProfileUrl = profileUrl });
                 return Guid.Parse("D40B2C5D-2881-4E8B-844A-B503DEB090BE");
             }
-            
+
         }
         #endregion
 
@@ -132,31 +132,40 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// Application User
         /// </returns>
-        public int AddNewUser(IUser user)
+        public bool AddNewUser(IUser user)
         {
-            using (var conn = this.OpenConnectionAsync)
+            try
             {
-                var parameter = new
+                using (var conn = this.OpenConnectionAsync)
                 {
-                    AccessFailedCount = 0,
-                    ConcurrencyStamp = Guid.NewGuid(),
-                    LockoutEnd = DateTime.UtcNow.AddSeconds(-1),
-                    IsTwoFactorEnabled = false,
-                    user.EmailDetail.Email,
-                    user.FirstName,
-                    user.Gender,
-                    user.IsCastingProfessional,
-                    user.LastName,
-                    user.LockoutEnabled,
-                    user.Designation,
-                    user.OrgName,
-                    user.OrgWebsite,
-                    user.PasswordHash,
-                    user.SecurityStamp,
-                    user.UserName
-                };
+                    var parameter = new
+                    {
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = Guid.NewGuid(),
+                        LockoutEnd = DateTime.UtcNow.AddSeconds(-1),
+                        IsTwoFactorEnabled = false,
+                        user.EmailDetail.Email,
+                        user.FirstName,
+                        user.Gender,
+                        user.IsCastingProfessional,
+                        user.LastName,
+                        user.LockoutEnabled,
+                        user.Designation,
+                        user.OrgName,
+                        user.OrgWebsite,
+                        user.PasswordHash,
+                        user.SecurityStamp,
+                        user.UserName
+                    };
 
-                return conn.Execute(SpNames.User.AddNewUser, param: parameter, commandType: CommandType.StoredProcedure);
+                    conn.Execute(SpNames.User.AddNewUser, param: parameter, commandType: CommandType.StoredProcedure);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

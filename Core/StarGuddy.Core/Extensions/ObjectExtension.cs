@@ -23,7 +23,7 @@
         /// </returns>
         public static bool IsNotNull(this Object expression)
         {
-            return (expression != null || expression != DBNull.Value);
+            return (expression != null);
         }
         
         /// <summary>

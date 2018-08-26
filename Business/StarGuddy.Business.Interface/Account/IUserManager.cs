@@ -36,7 +36,7 @@ namespace StarGuddy.Business.Interface.Account
         /// <returns>
         /// User Object
         /// </returns>
-        Task<int> CreateAsync(IApplicationUser applicationUser);
+        Task<bool> CreateAsync(IApplicationUser applicationUser);
 
         /// <summary>
         /// Adds the new user.
@@ -55,5 +55,7 @@ namespace StarGuddy.Business.Interface.Account
         /// IApplication User
         /// </returns>
         Task<IApplicationUser> FindByIdAsync(string userId);
+
+        Task<IApplicationUser> FindByUserNameAsync(string userName);
     }
 }

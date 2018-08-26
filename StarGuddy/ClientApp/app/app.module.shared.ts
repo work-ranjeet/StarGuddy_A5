@@ -14,19 +14,17 @@ import { HttpService } from "../Services/HttpClient";
 import { AccountModuleShared } from "./components/account/account.module.shared";
 import { AppComponent } from "./components/app/app.component";
 import { CommonModuleShared } from "./components/common/common.module.shared";
-import { CounterComponent } from "./components/counter/counter.component";
-import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
 import { HomeModuleShared } from "./components/home/home.module.shared";
 import { ProfileEditModuleShared } from "./components/profileEdit/profileEdit.module.shared";
 
 //// shared Modules
 import { ProfileModuleShared } from "./components/profile/profile.module.shared";
 import { ProfileSettingModuleShared } from "./components/profileSettings/profileSettings.module.shared";
+import { JobGroupComponent } from "./components/common/jobGroup/JobGroup.component";
 
 @NgModule({
     declarations: [
-        AppComponent,
-        CounterComponent, FetchDataComponent
+        AppComponent
     ],
     imports: [
         CommonModule, HttpClientModule, //FormsModule, ReactiveFormsModule
@@ -38,8 +36,7 @@ import { ProfileSettingModuleShared } from "./components/profileSettings/profile
         ProfileModuleShared,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full", canActivate: [AuthGuard] },
-            { path: "counter", component: CounterComponent },
-            { path: "fetch-data", component: FetchDataComponent },
+            { path: "interests", component: JobGroupComponent },
             { path: "**", redirectTo: "home" }
         ])
     ],

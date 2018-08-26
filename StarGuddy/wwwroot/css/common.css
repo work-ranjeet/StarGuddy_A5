@@ -4,7 +4,7 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto Condensed', Helvetica Neue, Helvetica,'Roboto Condensed',Arial,sans-serif;
-    background-color: #ebebeb !important;
+    background-color: #f3f3f3 !important;
     font-size: 14px;
     line-height: 20px;
     color: #383838;
@@ -132,18 +132,27 @@ li.border-bottom {
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
-    position: absolute;
     content: '✔';
-    left: 4px;
     height: 15px;
     width: 15px;
+    vertical-align: text-top;
 }
 
+    [type="radio"]:not(:checked) + label,
+    [type="radio"]:checked + label,
     [type="checkbox"]:not(:checked) + label,
     [type="checkbox"]:checked + label {
-        padding-left: 10px;
+        padding-left: 5px;
         vertical-align: sub;
+        font-size: 13px;
+        font-weight: normal !important;
     }
+
+    [type="checkbox"]:checked + .btn-category {
+        background-color: #0097d0;
+        color: #fff;
+    }
+
 
 textarea {
     border: 1px solid #E5E5E5;
@@ -258,10 +267,22 @@ hr {
     padding-left: 0.5em;
 }
 
-
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.btn-category {
+    padding: 40px !important;
+    min-width: 100px;
+    background-color: #e1e1e1;
+    color: #000;
+    cursor: pointer;
+    border: solid 1px #ccc !important;
 }
+
+    .btn-category:hover {
+        background-color: #cecccc;
+    }   
+
+    .carousel-inner .item img[src$=".svg"] {
+        width: 100%;
+    }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

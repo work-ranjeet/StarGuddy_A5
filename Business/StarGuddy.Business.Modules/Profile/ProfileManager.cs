@@ -357,12 +357,12 @@ namespace StarGuddy.Business.Modules.Profile
             {
                 return new UserActingModel
                 {
-                    Id = result.UserActing.Id,
+                    Id = result.UserActing?.Id ?? Guid.Empty,
                     UserId = UserContext.Current.UserId,
-                    ActingExperianceCode = result.UserActing.ActingExperianceCode,
-                    ActingExperiance = result.UserActing.ActingExperiance,
-                    AgentNeedCode = result.UserActing.AgentNeedCode,
-                    Experiance = result.UserActing.Experiance,
+                    ActingExperianceCode = result.UserActing?.ActingExperianceCode ?? 0,
+                    ActingExperiance = result.UserActing?.ActingExperiance ?? string.Empty,
+                    AgentNeedCode = result.UserActing?.AgentNeedCode ?? 0,
+                    Experiance = result.UserActing?.Experiance ?? string.Empty,
                     Accents = _mapper.Map<List<AccentsDto>>(result.Accents),
                     Languages = _mapper.Map<List<LanguageDto>>(result.Languages),
                     AuditionsAndJobsGroup = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.ActingRoles)

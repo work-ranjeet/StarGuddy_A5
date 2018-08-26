@@ -71,7 +71,7 @@ namespace StarGuddy.Repository.Interface
         /// <returns>
         /// Application User
         /// </returns>
-        int AddNewUser(IUser user);
+        bool AddNewUser(IUser user);
 
         /// <summary>
         /// Updates the user.

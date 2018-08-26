@@ -43,25 +43,35 @@ namespace StarGuddy.Api.Controllers.Account
                 return BadRequest();
             }
 
-            if(applicationUser.Password != applicationUser.CnfPassword)
+            if (applicationUser.Password != applicationUser.CnfPassword)
             {
                 return StatusCode(StatusCodes.Status204NoContent, NotFound("Password and Confirm password is not matching."));
             }
 
-            applicationUser.UserName = applicationUser.Email;
-            applicationUser.Password = await this._passwordManager.GetHashedPassword(applicationUser.Password);
-
-            var result = await this._userManager.CreateAsync(applicationUser);
-            if (result > 0)
+            var existUser = await _userManager.FindByUserNameAsync(applicationUser.Email);
+            if (existUser.IsNotNull())
             {
-                var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.UserName, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
+                return StatusCode(StatusCodes.Status409Conflict, BadRequest("User name already register with us."));
+            }
 
-                if (userResult.UserId == Guid.Empty)
-                {
-                    return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));
-                }
+            string password = applicationUser.Password;
+            applicationUser.UserName = applicationUser.Email;
+            applicationUser.Password = await _passwordManager.GetHashedPassword(password);
 
-                return Ok(this._securityManager.CreateJwtPacketAsync(userResult));
+            if (await _userManager.CreateAsync(applicationUser))
+            {
+                //var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.UserName, password, rememberMe: false, lockoutOnFailure: false);
+
+                //if (userResult.UserId == Guid.Empty)
+                //{
+                //    return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));
+                //}
+
+                //return Ok(this._securityManager.CreateJwtPacketAsync(userResult));
+
+                // send mail for email verification
+
+                return StatusCode(StatusCodes.Status200OK, "We sent you detail to your email. Please verify.");
             }
 
             return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));

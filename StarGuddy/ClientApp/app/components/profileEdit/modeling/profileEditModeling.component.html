@@ -28,11 +28,11 @@
                                 <label class="required">Auditions & Jobs I'm interested in</label>
                                 <div class="text-l">
                                     <div class="col-md-3 col-sm-4 col-xs-6 padding-top-10 padding-bottom-10" *ngFor="let role of modelingDetailModel.modelingRoles">
-                                        <input type="checkbox" value="{{role.code}}" name="{{role.code}}"
+                                        <input type="checkbox" id="{{role.code}}" value="{{role.code}}" name="{{role.code}}"
                                                [checked]="role.code==role.selectedCode"
                                                (change)="updateSelectedJobGroup($event)"
-                                               class="padding-5 v-text-top form-control">
-                                        <span class="padding-5 text-l">{{role.name}}</span>
+                                               class="padding-5 v-text-top">
+                                        <label for="{{role.code}}" class="padding-5 text-l">{{role.name}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -45,25 +45,25 @@
                                 <label class="profile-edit-label required">Modeling experience</label>
                                 <div class="profile-edit-container row">
                                     <div class="col-md-3 col-sm-4 col-xs-12">
-                                        <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
+                                        <input id="expCode_300" type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
                                                [checked]="modelingDetailModel.expCode==300"
                                                [value]="300"
                                                (change)="onModelingExpSelectionChange($event)">
-                                        <span class="padding-5 text-l">Beginner, starting out</span>
+                                        <label for="expCode_300" class="padding-5 text-l">Beginner, starting out</label>
                                     </div>
                                     <div class="col-md-3 col-sm-4 col-xs-12">
-                                        <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
+                                        <input id="expCode_301" type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
                                                [checked]="modelingDetailModel.expCode==301"
                                                [value]="301"
                                                (change)="onModelingExpSelectionChange($event)">
-                                        <span class="padding-5 text-l">Part-time model - paid commercial work</span>
+                                        <label for="expCode_300" class="padding-5 text-l">Part-time model - paid commercial work</label>
                                     </div>
                                     <div class="col-md-3 col-sm-4 col-xs-12">
-                                        <input type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
+                                        <input id="expCode_302" type="radio" name="actingExperienceGroup" class="padding-5 v-text-top"
                                                [checked]="modelingDetailModel.expCode==302"
                                                [value]="302"
                                                (change)="onModelingExpSelectionChange($event)">
-                                        <span class="padding-5 text-l">Full-time model - paid commercial work</span>
+                                        <label for="expCode_300" class="padding-5 text-l">Full-time model - paid commercial work</label>
                                     </div>
                                 </div>
                             </div>
@@ -91,25 +91,25 @@
                         <label class="profile-edit-label">Agent</label>
                         <div class="profile-edit-container row">
                             <div class="col-md-3 col-sm-4 col-xs-12 ">
-                                <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                <input id="agentNeedCode_100" type="radio" name="agentGroup" class="padding-5 v-text-top"
                                        [checked]="modelingDetailModel.agentNeedCode==100"
                                        [value]="100"
                                        (change)="onAgentGroupSelectionChange($event)">
-                                <span class="padding-5 text-l">I don't have an agent</span>
+                                <label for="agentNeedCode_100" class="padding-5 text-l">I don't have an agent</label>
                             </div>
                             <div class="col-md-3 col-sm-4 col-xs-12 ">
-                                <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                <input id="agentNeedCode_101" type="radio" name="agentGroup" class="padding-5 v-text-top"
                                        [checked]="modelingDetailModel.agentNeedCode==101"
                                        [value]="101"
                                        (change)="onAgentGroupSelectionChange($event)">
-                                <span class="padding-5 text-l">I want an agent</span>
+                                <label for="agentNeedCode_101" class="padding-5 text-l">I want an agent</label>
                             </div>
                             <div class="col-md-3 col-sm-4 col-xs-12 ">
-                                <input type="radio" name="agentGroup" class="padding-5 v-text-top"
+                                <input id="agentNeedCode_102" type="radio" name="agentGroup" class="padding-5 v-text-top"
                                        [checked]="modelingDetailModel.agentNeedCode==102"
                                        [value]="102"
                                        (change)="onAgentGroupSelectionChange($event)">
-                                <span class="padding-5 text-l">I have an agent</span>
+                                <label for="agentNeedCode_102" class="padding-5 text-l">I have an agent</label>
                             </div>
                         </div>
                     </div>

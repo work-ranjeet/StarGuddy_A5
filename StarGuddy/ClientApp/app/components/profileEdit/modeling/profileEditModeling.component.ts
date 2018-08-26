@@ -84,6 +84,8 @@ export class ProfileEditModelingComponent {
             else {
                 console.warn(response.statusText);
             }
+
+            this.showEditHtml = false;
         });
     }
 }

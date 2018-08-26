@@ -47,6 +47,7 @@ export class ProfileEditActingComponent {
             if (response != null) {
                 this.actingDetailModel = _.cloneDeep(response);
                 this.actingDetailReset = _.cloneDeep(response);
+                this.showEditHtml = false;
             }
             else {
                 console.info("Got empty result GetUserActingDetail(): IActingDetailModel");

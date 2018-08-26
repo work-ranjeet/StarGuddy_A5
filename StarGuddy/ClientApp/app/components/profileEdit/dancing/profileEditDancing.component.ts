@@ -92,6 +92,8 @@ export class ProfileEditDancingComponent {
         this.userProfileService.SaveUserDancingChanges(this.dancingModel).subscribe(response => {
             if (response != null && response) {
                 console.info("Updated");
+                this.loadDancingDetails();
+                this.showEditHtml = false;
             }
             else {
                 console.warn(response.statusText);

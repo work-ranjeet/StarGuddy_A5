@@ -88,12 +88,18 @@ namespace StarGuddy.Repository.Operations
                             userDancingparam.Add("@IsAttendedSchool", userDancing.IsAttendedSchool, DbType.Boolean, ParameterDirection.Input);
                             userDancingparam.Add("@IsAgent", userDancing.IsAgent, DbType.Boolean, ParameterDirection.Input);
                             userDancingparam.Add("@Experiance", userDancing.Experiance, DbType.String, ParameterDirection.Input);
-                            userDancingparam.Add("@UserDancingId", dbType: DbType.Guid, direction: ParameterDirection.Output);
+                            userDancingparam.Add("@UserDancingId", Guid.NewGuid(), dbType: DbType.Guid, direction: ParameterDirection.Output);
 
-                            var mainResult = await conn.ExecuteAsync(SpNames.UserDancing.SaveUpdate, param: userDancingparam, transaction: tran, commandType: CommandType.StoredProcedure);
+                            var mainResult = await conn.ExecuteAsync(
+                                SpNames.UserDancing.SaveUpdate,
+                                param: userDancingparam,
+                                transaction: tran,
+                                commandType: CommandType.StoredProcedure);
                             var userDancingId = userDancingparam.Get<Guid>("@UserDancingId");
 
-                            await conn.ExecuteAsync("DELETE FROM UserDancingStyle WHERE UserDancingId = @UserDancingId", transaction: tran, commandType: CommandType.Text); 
+                            await conn.ExecuteAsync("DELETE FROM UserDancingStyle WHERE UserDancingId = @UserDancingId",
+                                param: new { UserDancingId = userDancingId },
+                                transaction: tran, commandType: CommandType.Text);
 
                             var creditTask = danceStyleIds.Select(async id =>
                             {
@@ -103,7 +109,8 @@ namespace StarGuddy.Repository.Operations
                                     DancingStyleId = id
                                 };
 
-                                return await conn.ExecuteAsync(SpNames.UserDancingStyle.Save, param: param, transaction: tran, commandType: CommandType.StoredProcedure);
+                                return await conn.ExecuteAsync(SpNames.UserDancingStyle.Save, param: param, transaction: tran,
+                                    commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                             });
 
                             var updatedResult = await Task.WhenAll(creditTask);

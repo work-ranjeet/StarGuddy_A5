@@ -98,6 +98,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ClientApp\app\components\common\jobGroup\JobGroup.component.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="ClientApp\app\components\common\logInOut\logInOut.component.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

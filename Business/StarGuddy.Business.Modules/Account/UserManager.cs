@@ -57,7 +57,7 @@ namespace StarGuddy.Business.Modules.Account
         /// <returns>
         /// User Object
         /// </returns>
-        public async Task<int> CreateAsync(IApplicationUser applicationUser)
+        public async Task<bool> CreateAsync(IApplicationUser applicationUser)
         {
             return await Task.Factory.StartNew(() =>
             {
@@ -84,7 +84,7 @@ namespace StarGuddy.Business.Modules.Account
                     }
                 };
 
-                return this._userRepository.AddNewUser(user);
+                return _userRepository.AddNewUser(user);
             });
         }
 
@@ -118,6 +118,33 @@ namespace StarGuddy.Business.Modules.Account
                 };
 
                 return this._userRepository.UpdateUser(user);
+            });
+        }
+
+        public async Task<IApplicationUser> FindByUserNameAsync(string userName)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                var user = _userRepository.FindByUserName(userName);
+                if(user.IsNull())
+                {
+                    return null;
+                }
+
+                return new ApplicationUser
+                {
+                    UserId = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Gender = user.Gender,
+                    IsCastingProfessional = user.IsCastingProfessional,
+                    Designation = user.Designation,
+                    OrgName = user.OrgName,
+                    OrgWebsite = user.OrgWebsite,
+                    UserName = user.UserName,
+                    Email = user.EmailDetail.IsNull() ? string.Empty : user.EmailDetail.Email,
+                    SecurityStamp = user.SecurityStamp
+                };
             });
         }
 

@@ -62,91 +62,72 @@ namespace StarGuddy.Repository.Operations
                                transaction: tran,
                                commandType: CommandType.StoredProcedure);
 
-                            var saveTasks = new List<Task>
+
+                            /* @UserId UNIQUEIDENTIFIER, @ActingExpCode INT, @AgentNeedCode INT, @Experiance NVARCHAR(2000)*/
+                            var param = new DynamicParameters();
+                            param.Add("@UserId", actingDetail.UserActing.UserId, DbType.Guid, ParameterDirection.Input);
+                            param.Add("@ActingExpCode", actingDetail.UserActing.ActingExperianceCode, DbType.Int32, ParameterDirection.Input);
+                            param.Add("@AgentNeedCode", actingDetail.UserActing.AgentNeedCode, DbType.Int32, ParameterDirection.Input);
+                            param.Add("@Experiance", actingDetail.UserActing.Experiance, DbType.String, ParameterDirection.Input);
+                            var saveUpdate = conn.ExecuteAsync(SpNames.UserActing.SaveUpdate, param: param, transaction: tran, commandType: CommandType.StoredProcedure);
+
+                            var langTask = actingDetail.Languages.Select(async x =>
                             {
-                                Task.Factory.StartNew(async () =>
+                                var langParam = new
                                 {
-                                    /* @UserId UNIQUEIDENTIFIER, @ActingExpCode INT, @AgentNeedCode INT, @Experiance NVARCHAR(2000)*/
-                                    var param = new DynamicParameters();
-                                    param.Add("@UserId", actingDetail.UserActing.UserId, DbType.Guid, ParameterDirection.Input);
-                                    param.Add("@ActingExpCode", actingDetail.UserActing.ActingExperianceCode, DbType.Int32, ParameterDirection.Input);
-                                    param.Add("@AgentNeedCode", actingDetail.UserActing.AgentNeedCode, DbType.Int32, ParameterDirection.Input);
-                                    param.Add("@Experiance", actingDetail.UserActing.Experiance, DbType.String, ParameterDirection.Input);
-                                    await conn.ExecuteAsync(SpNames.UserActing.SaveUpdate, param: param, transaction: tran, commandType: CommandType.StoredProcedure);
-                                })
-                            };
+                                    actingDetail.UserActing.UserId,
+                                    LanguageCode = x.Code
+                                };
 
-                            // Language Save
-                            if (actingDetail.Languages.Any())
+                                return await conn.ExecuteAsync(SpNames.UserActing.UserLanguageSave, param: langParam, transaction: tran, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                            });
+                            var langTaskResult = Task.WhenAll(langTask);
+
+
+                            var accTask = actingDetail.Accents.Select(async x =>
                             {
-                                saveTasks.Add(Task.Factory.StartNew(async () =>
+                                var accentParam = new
                                 {
-                                    var langTask = actingDetail.Languages.Select(async x =>
-                                    {
-                                        var langParam = new
-                                        {
-                                            actingDetail.UserActing.UserId,
-                                            LanguageCode = x.Code
-                                        };
+                                    actingDetail.UserActing.UserId,
+                                    AccentCode = x.Code
+                                };
 
-                                        return await conn.ExecuteAsync(SpNames.UserActing.UserLanguageSave, param: langParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                    });
+                                return await conn.ExecuteAsync(SpNames.UserActing.UserAccentSave, param: accentParam, transaction: tran, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                            });
+                            var accTaskResult = Task.WhenAll(accTask);
 
-                                    var updatedResult = await Task.WhenAll(langTask);
-                                }));
+
+                            var jobGroupTask = actingDetail.ActingRoles.Select(async x =>
+                            {
+                                var jobGroupParam = new
+                                {
+                                    actingDetail.UserActing.UserId,
+                                    JobCode = x.Code
+                                };
+
+                                return await conn.ExecuteAsync(SpNames.UserActing.UserActingRolesSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                            });
+
+                            var jobGroupResult = Task.WhenAll(jobGroupTask);
+
+                            var allTaskResult = Task.WhenAll(saveUpdate, langTaskResult, accTaskResult, jobGroupResult);
+
+                            await allTaskResult.ConfigureAwait(false);
+                            if (allTaskResult.IsCompletedSuccessfully)
+                            {
+
+                                tran.Commit();
+                                return true;
                             }
 
-                            // Accents Save
-                            if (actingDetail.Accents.Any())
-                            {
-                                saveTasks.Add(Task.Factory.StartNew(async () =>
-                                {
-                                    var accTask = actingDetail.Accents.Select(async x =>
-                                    {
-                                        var accentParam = new
-                                        {
-                                            actingDetail.UserActing.UserId,
-                                            AccentCode = x.Code
-                                        };
-
-                                        return await conn.ExecuteAsync(SpNames.UserActing.UserAccentSave, param: accentParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                    });
-
-                                    var updatedResult = await Task.WhenAll(accTask);
-                                }));
-                            }
-
-                            // Job Group Save
-                            if (actingDetail.ActingRoles.Any())
-                            {
-                                saveTasks.Add(Task.Factory.StartNew(async () =>
-                                {
-                                    var jobGroupTask = actingDetail.ActingRoles.Select(async x =>
-                                    {
-                                        var jobGroupParam = new
-                                        {
-                                            actingDetail.UserActing.UserId,
-                                            JobCode = x.Code
-                                        };
-
-                                        return await conn.ExecuteAsync(SpNames.UserActing.UserActingRolesSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                    });
-
-                                    var updatedResult = await Task.WhenAll(jobGroupTask);
-                                }));
-                            }
-                            
-                            Task.WaitAll(saveTasks.ToArray());
-
-                            tran.Commit();
-
-                            return true;
                         }
                         catch (Exception ex)
                         {
                             tran.Rollback();
                             throw ex;
                         }
+
+                        return false;
                     }
                 }
             }

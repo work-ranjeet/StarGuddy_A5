@@ -67,7 +67,7 @@ namespace StarGuddy.Business.Modules.Account
         /// </returns>
         public async Task<IApplicationUser> PasswordSignInAsync(string userName, string password, bool rememberMe = false, bool lockoutOnFailure = false)
         {
-            var user = this.userRepository.FindByUserName(userName);
+            var user = userRepository.FindByUserName(userName);
             if (user.IsNull())
             {
                 return null;

@@ -42,12 +42,14 @@ export class AccountService {
         this.baseService.cancleAuthention();
     }
 
-    signup(userData: IUserData) {
+    signup(userData: any) {
         return this.baseService.HttpService.postSimple("Account/signup", userData).map(response => {
-            if (response != null) {
-                this.isLoggedInSource.next(true);
-                this.baseService.authenticate(response);
-            }
+            //if (response != undefined) {
+            //    this.isLoggedInSource.next(true);
+            //    this.baseService.authenticate(response);
+            //}
+
+            return response;
         });
     }
 

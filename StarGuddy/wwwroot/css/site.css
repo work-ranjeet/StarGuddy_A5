@@ -143,6 +143,11 @@
     margin-bottom: 2%;
 }
 
+form-header .heading-title {
+    font-size: 22px;
+    font-weight:600;
+}
+
 .btn-profile-save,
 .btn-profile-cancle {
     width: 250px;

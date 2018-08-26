@@ -28,8 +28,8 @@ export class SignUpJobSeekerComponent {
         if (this.dataValidator.IsValidObject(this.applicationUser)) {
             this.accountService.signup(this.applicationUser).subscribe(
                 result => {
-                    if (result != null) {
-                        this.router.navigate([""]);
+                    if (result != undefined) {
+                        this.router.navigate(["/interests"]);
                     }
                     else {
                         this.router.navigate(["/error"]);
