@@ -26,7 +26,7 @@ namespace StarGuddy.Business.Modules.UserJobs
         public async Task<IEnumerable<JobGroupModel>> GetUserGobGroup()
         {
             var result = await _jobGroupRepository.GetUserJobGroupByUserIdAsync(UserContext.Current.UserId);
-            if(result != null && result.Any())
+            if (result != null && result.Any())
             {
                 return _mapper.Map<List<JobGroupModel>>(result.ToList());
             }
@@ -36,9 +36,9 @@ namespace StarGuddy.Business.Modules.UserJobs
 
         public async Task<bool> SaveUserGobGroup(List<JobGroupModel> JobGroup)
         {
-            var jobGroupList = _mapper.Map<List<JobGroup>>(JobGroup);  
-            
-           return await _jobGroupRepository.PerformSaveAndUpdateOperationAsync(UserContext.Current.UserId, jobGroupList);
+            var jobGroupList = _mapper.Map<List<JobGroup>>(JobGroup).Where(x => x.SelectedCode != 0);
+
+            return await _jobGroupRepository.PerformSaveAndUpdateOperationAsync(UserContext.Current.UserId, jobGroupList);
         }
     }
 }

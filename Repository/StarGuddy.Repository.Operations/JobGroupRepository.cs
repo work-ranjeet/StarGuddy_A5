@@ -34,7 +34,7 @@ namespace StarGuddy.Repository.Operations
             }
         }
 
-        public async Task<bool> PerformSaveAndUpdateOperationAsync(Guid userId, List<JobGroup> jobGroups)
+        public async Task<bool> PerformSaveAndUpdateOperationAsync(Guid userId, IEnumerable<JobGroup> jobGroups)
         {
             try
             {

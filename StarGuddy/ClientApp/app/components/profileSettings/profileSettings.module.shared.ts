@@ -33,13 +33,19 @@ import { AuthGuard } from "../../../Services/AuthenticationGuard";
         FormsModule,
         CommonModuleShared,
         RouterModule.forRoot([
-            { path: "profileSetting", component: UserProfileSettingsIndex, canActivate: [AuthGuard]},
-            { path: "addEmail", component: AddEmailComponent, canActivate: [AuthGuard] },
-            { path: "addPhoneNumber", component: AddPhoneNumberComponent, canActivate: [AuthGuard]},
-            { path: "changeAddress", component: ChangeAddressComponent, canActivate: [AuthGuard]},
-            { path: "changePwd", component: ChangePwdComponent, canActivate: [AuthGuard]},
-            { path: "changeEmail", component: ChangeEmailComponent, canActivate: [AuthGuard]},
-            { path: "verifyPhoneNumber", component: VerifyPhoneNumberComponent, canActivate: [AuthGuard]}
+            {
+                path: "profileSetting",
+                canActivate: [AuthGuard],
+                children: [
+                    { path: "", component: UserProfileSettingsIndex },
+                    { path: "addEmail", component: AddEmailComponent, canActivateChild: [AuthGuard] },
+                    { path: "addPhoneNumber", component: AddPhoneNumberComponent, canActivateChild: [AuthGuard] },
+                    { path: "changeAddress", component: ChangeAddressComponent, canActivateChild: [AuthGuard] },
+                    { path: "changePwd", component: ChangePwdComponent, canActivateChild: [AuthGuard] },
+                    { path: "changeEmail", component: ChangeEmailComponent, canActivateChild: [AuthGuard] },
+                    { path: "verifyPhoneNumber", component: VerifyPhoneNumberComponent, canActivateChild: [AuthGuard] }
+                ]
+            }
         ])
     ],
     providers: [ProfileSettingsService],

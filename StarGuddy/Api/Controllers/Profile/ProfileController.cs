@@ -50,7 +50,7 @@ namespace StarGuddy.Api.Controllers.Profile
             }
 
             var profileResult = await _profileManager.GetUserProfile(profileUrl);
-            if(profileResult == null)
+            if (profileResult == null)
             {
                 return NotFound(profileUrl);
             }
@@ -73,13 +73,13 @@ namespace StarGuddy.Api.Controllers.Profile
 
         [HttpPost]
         [Route("Interests")]
-        public async Task<IActionResult> SaveUserInterests(List<JobGroupModel> jobGroups)
+        public async Task<IActionResult> SaveUserInterests([FromBody] List<JobGroupModel> jobGroups)
         {
-            if(jobGroups.IsNull() || !jobGroups.Any())
+            if (jobGroups.IsNull() || !jobGroups.Any())
             {
                 return BadRequest();
             }
-            
+
             if (await _jobManager.SaveUserGobGroup(jobGroups))
             {
                 return Ok(true);
