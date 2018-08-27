@@ -6,12 +6,24 @@
         </div>
     </div>
     <hr class="style-three" />
-    <div class="row  margin-top-15">
-        <div class="col-md-10 col-xs-12">
-            <div *ngFor="let interest of userInterestList" style="display:inline-block;" class="padding-15">
-                <input id="{{interest.code}}" name="{{interest.code}}" type="checkbox" value="{{interest.code}}" class="invisible">
-                <label for="{{interest.code}}" class="btn btn-category">{{interest.name}}</label>
+    <form #frmuserJobGroupsSave="ngForm">
+        <div class="row  margin-top-15">
+            <div class="col-md-10 col-xs-12">
+                <div *ngFor="let interest of userInterestList" style="display:inline-block;" class="padding-15">
+                    <input id="{{interest.code}}" name="{{interest.code}}" type="checkbox"
+                           value="{{interest.code}}"
+                           [checked]="interest.code==interest.selectedCode"
+                           (change)="updateSelectedJobGroup($event)"
+                           class="invisible">
+                    <label for="{{interest.code}}" class="btn btn-category">{{interest.name}}</label>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="row  margin-top-15">
+            <div class="col-md-10 col-xs-12">
+                <input type="button" class="btn btn-success" value="Save Changes" (click)="saveChanges()" />
+                <input type="button" class="btn btn-default" value="Reset Changes" (click)="reset()" />
+            </div>
+        </div>
+    </form>
 </div>

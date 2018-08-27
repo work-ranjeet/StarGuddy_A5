@@ -8,5 +8,6 @@ namespace StarGuddy.Api.Constants
     public class HttpStatusText
     {
         public const string InvalidRequest = "Invalid/Bad request.";
+        public const string NotModified = "Not Modified.";        
     }
 }

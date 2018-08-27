@@ -213,4 +213,19 @@ export class ProfileEditService {
                     }
                 });
     }
+
+    SaveUserInterestDetail(requestData: IJobGroupModel[]): Observable<boolean> {
+        return this.baseService.HttpService.postData<boolean>("Profile/Interests", requestData)
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
 }

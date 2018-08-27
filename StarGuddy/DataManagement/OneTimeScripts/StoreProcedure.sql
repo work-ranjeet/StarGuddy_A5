@@ -572,8 +572,45 @@ BEGIN
 		AND JB.IsDeleted = 0
 	ORDER BY JB.DisplayOrder
 END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserJobGroupsClear') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserJobGroupsClear
+GO	
+CREATE PROCEDURE UserJobGroupsClear (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
 	
+	DELETE FROM  UserJobGroup WHERE UserId = @UserId
+END
 
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserJobGroupSave') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserJobGroupSave
+GO
+CREATE PROCEDURE UserJobGroupSave (@UserId UNIQUEIDENTIFIER , @JobGroupId BIGINT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	INSERT INTO UserJobGroup(Id, JobGroupId, UserId, DttmCreated, DttmModified)
+	VALUES (NEWID(), @JobGroupId, @UserId, getutcdate(), getutcdate())
+END
+
+
+
+
+	
 
 
 	

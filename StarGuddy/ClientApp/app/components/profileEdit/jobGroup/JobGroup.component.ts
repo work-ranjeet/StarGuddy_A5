@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import * as _ from "lodash";
 import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
 import IJobGroupModel = App.Client.Profile.IJobGroupModel;
+import { Router } from "@angular/router";
 
 @Component({
     selector: "job-group",
@@ -9,10 +10,11 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
     styleUrls: ["./jobGroup.component.css"]
 })
 export class JobGroupComponent {
-    private readonly userProfileService: ProfileEditService;
     public userInterestList: Array<IJobGroupModel> = [];
+    public userInterestResetList: Array<IJobGroupModel> = [];
 
-    constructor(userProfileService: ProfileEditService) {
+
+    constructor(private readonly userProfileService: ProfileEditService, private readonly router: Router) {
         this.userProfileService = userProfileService;
     }
 
@@ -24,10 +26,36 @@ export class JobGroupComponent {
         this.userProfileService.GetUserInterestDetail().subscribe(response => {
             if (response != null) {
                 this.userInterestList = _.cloneDeep(response);
+                this.userInterestResetList = _.cloneDeep(response);
             }
             else {
                 console.info("Got empty result: JobGroupComponent.GetUserInterestDetail()");
             }
         });
+    }
+
+    updateSelectedJobGroup(checkEvent: any) {
+        var checkboxIndex = this.userInterestList.findIndex(x => x.code == checkEvent.target.value);
+
+        if (checkboxIndex > -1) {
+            this.userInterestList[checkboxIndex].selectedCode = checkEvent.target.checked ? parseInt(checkEvent.target.value) : 0;
+        }
+    }
+
+    saveChanges() {
+        this.userProfileService.SaveUserInterestDetail(this.userInterestList).subscribe(response => {
+            if (response != null && response) {
+                console.info("Updated");
+
+                this.router.navigate(["/profile"]);
+            }
+            else {
+                this.router.navigate(["/error"]);
+            }
+        });
+    }
+
+    reset() {
+        this.userInterestList = _.cloneDeep(this.userInterestResetList);
     }
 }

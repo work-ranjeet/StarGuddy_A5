@@ -11,5 +11,7 @@ namespace StarGuddy.Repository.Interface
     {
         Task<IEnumerable<IJobGroup>> GetActiveJobGroupAsync();
         Task<IEnumerable<JobGroup>> GetUserJobGroupByUserIdAsync(Guid userId);
+
+        Task<bool> PerformSaveAndUpdateOperationAsync(Guid userId, List<JobGroup> jobGroups);
     }
 }

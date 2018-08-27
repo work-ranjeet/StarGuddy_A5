@@ -34,7 +34,7 @@ import { ProfileSettingModuleShared } from "./components/profileSettings/profile
         ProfileSettingModuleShared,
         ProfileModuleShared,
         RouterModule.forRoot([
-            { path: "", redirectTo: "home", pathMatch: "full", canActivate: [AuthGuard] },
+            { path: "", redirectTo: "home", pathMatch: "full"},
             { path: "**", redirectTo: "home" }
         ])
     ],

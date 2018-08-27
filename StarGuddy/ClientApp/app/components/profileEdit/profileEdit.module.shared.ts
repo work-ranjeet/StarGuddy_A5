@@ -28,8 +28,14 @@ import { AuthGuard } from "../../../Services/AuthenticationGuard";
         CommonModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: "profile", component: ProfileEditIndex, canActivate: [AuthGuard] },
-            { path: "profile/interests", component: JobGroupComponent, canActivate: [AuthGuard] }
+            {
+                path: "profile", 
+                children: [
+                    { path: "", redirectTo: "edit", pathMatch: "full" },
+                    { path: "edit", component: ProfileEditIndex, canActivate: [AuthGuard] },
+                    { path: "interests", component: JobGroupComponent, canActivateChild: [AuthGuard] }
+                ]
+            }
         ])
     ],
     providers: [ProfileEditService],

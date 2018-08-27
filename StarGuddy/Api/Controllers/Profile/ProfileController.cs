@@ -2,6 +2,7 @@
 using StarGuddy.Api.Constants;
 using StarGuddy.Api.Models.Interface.Profile;
 using StarGuddy.Api.Models.Profile;
+using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Profile;
 using StarGuddy.Business.Interface.UserJobs;
@@ -9,6 +10,7 @@ using StarGuddy.Core.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace StarGuddy.Api.Controllers.Profile
@@ -60,13 +62,30 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("Interests")]
         public async Task<IActionResult> GetUserInterests()
         {
-            var result = await _jobManager.GetUserGobGroup(UserContext.Current.UserId);
+            var result = await _jobManager.GetUserGobGroup();
             if (result == null)
             {
                 return NotFound();
             }
 
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("Interests")]
+        public async Task<IActionResult> SaveUserInterests(List<JobGroupModel> jobGroups)
+        {
+            if(jobGroups.IsNull() || !jobGroups.Any())
+            {
+                return BadRequest();
+            }
+            
+            if (await _jobManager.SaveUserGobGroup(jobGroups))
+            {
+                return Ok(true);
+            }
+
+            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), HttpStatusText.NotModified);
         }
     }
 }

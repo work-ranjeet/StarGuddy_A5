@@ -98,6 +98,8 @@ namespace StarGuddy.Repository.Opertions.Constants
         public struct JobGroup
         {
             public const string UserJobGroup = "GetUserJobGroup";
+            public const string ClearJobGroups = "UserJobGroupsClear";
+            public const string UserJobGroupSave = "UserJobGroupSave";
         }
         
     }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Business.Interface.UserJobs;
+using StarGuddy.Core.Context;
+using StarGuddy.Data.Entities;
 using StarGuddy.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -21,15 +23,22 @@ namespace StarGuddy.Business.Modules.UserJobs
             _jobGroupRepository = jobGroupRepository;
         }
 
-        public async Task<IEnumerable<JobGroupModel>> GetUserGobGroup(Guid userId)
+        public async Task<IEnumerable<JobGroupModel>> GetUserGobGroup()
         {
-            var result = await _jobGroupRepository.GetUserJobGroupByUserIdAsync(userId);
+            var result = await _jobGroupRepository.GetUserJobGroupByUserIdAsync(UserContext.Current.UserId);
             if(result != null && result.Any())
             {
                 return _mapper.Map<List<JobGroupModel>>(result.ToList());
             }
 
             return null;
+        }
+
+        public async Task<bool> SaveUserGobGroup(List<JobGroupModel> JobGroup)
+        {
+            var jobGroupList = _mapper.Map<List<JobGroup>>(JobGroup);  
+            
+           return await _jobGroupRepository.PerformSaveAndUpdateOperationAsync(UserContext.Current.UserId, jobGroupList);
         }
     }
 }
