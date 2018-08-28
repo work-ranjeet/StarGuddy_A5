@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StarGuddy.Data.Entities
 {
-    public class ModelingRoles : IModelingRoles
+    public class JobSubGroup : IJobSubGroup
     {
         public long Id { get; set; }
         public string Name { get; set; }

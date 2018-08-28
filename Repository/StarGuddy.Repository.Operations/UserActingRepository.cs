@@ -34,7 +34,7 @@ namespace StarGuddy.Repository.Operations
                             UserActing = multi.ReadFirstOrDefault<UserActing>(),
                             Languages = multi.Read<Language>(),
                             Accents = multi.Read<Accents>(),
-                            ActingRoles = multi.Read<ActingRoles>()
+                            ActingRoles = multi.Read<JobSubGroup>()
                         };
 
                     }

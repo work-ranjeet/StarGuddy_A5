@@ -32,7 +32,6 @@
 }
 
 .page-heading {
-    padding: 5px 0px 0px 2px;
     font-family: Papyrus, fantasy;
 }
 
@@ -145,7 +144,7 @@
 
 form-header .heading-title {
     font-size: 22px;
-    font-weight:600;
+    font-weight: 600;
 }
 
 .btn-profile-save,

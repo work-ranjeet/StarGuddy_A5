@@ -19,6 +19,15 @@ IF EXISTS (
 	DROP TABLE JobGroup
 
 GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'JobSubGroup')
+			AND type IN (N'U')
+		)
+	DROP TABLE JobSubGroup
+
+GO
 
 IF EXISTS (
 		SELECT *
@@ -28,15 +37,7 @@ IF EXISTS (
 		)
 	DROP TABLE UserModelingRoles
 
-GO
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'ModelingRoles')
-			AND type IN (N'U')
-		)
-	DROP TABLE ModelingRoles
-GO
+go
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
@@ -54,14 +55,6 @@ IF EXISTS (
 		)
 	DROP TABLE UserActingRoles
 
-GO
-IF EXISTS (
-		SELECT *
-		FROM sys.objects
-		WHERE object_id = OBJECT_ID(N'ActingRoles')
-			AND type IN (N'U')
-		)
-	DROP TABLE ActingRoles
 GO
 IF EXISTS (
 		SELECT *

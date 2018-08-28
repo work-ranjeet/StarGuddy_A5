@@ -9,6 +9,6 @@ namespace StarGuddy.Data.Entities
     {
         public IUserModeling UserModeling { get; set; }
 
-        public IEnumerable<ModelingRoles> ModelingRoles { get; set; }
+        public IEnumerable<JobSubGroup> ModelingRoles { get; set; }
     }
 }

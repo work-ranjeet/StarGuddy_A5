@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StarGuddy.Data.Entities.Interface
 {
-    public interface IActingRoles
+    public interface IJobSubGroup
     {
         long Id { get; set; }
         string Name { get; set; }

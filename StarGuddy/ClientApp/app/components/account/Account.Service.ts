@@ -15,9 +15,12 @@ export class AccountService {
 
     private isLoggedInSource = new BehaviorSubject<boolean>(false);
 
-    constructor( @Inject(BaseService) private readonly baseService: BaseService,
+    constructor(
+        @Inject(BaseService) private readonly baseService: BaseService,
         private readonly router: Router,
-        private readonly dataConverter: DataConverter) { }
+        private readonly dataConverter: DataConverter) {
+        this.IsAuthenticated ? this.isLoggedInSource.next(true) : this.isLoggedInSource.next(false);
+    }
 
 
     get IsLoggedIn() { return this.isLoggedInSource.asObservable(); }

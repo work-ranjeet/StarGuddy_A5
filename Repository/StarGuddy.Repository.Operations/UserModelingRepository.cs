@@ -33,7 +33,7 @@ namespace StarGuddy.Repository.Operations
                         return new UserModelingDetails
                         {
                             UserModeling = multi.ReadSingleOrDefault<UserModeling>(),
-                            ModelingRoles = multi.Read<ModelingRoles>()
+                            ModelingRoles = multi.Read<JobSubGroup>()
                         };
 
                     }
@@ -73,7 +73,7 @@ namespace StarGuddy.Repository.Operations
                             // Job Group Save
                             if (userModelingDetails.ModelingRoles.Any())
                             {
-                                var jobGroupTask = userModelingDetails.ModelingRoles.Select(async x =>
+                                var jobGroupTask = userModelingDetails.ModelingRoles.Select((Func<JobSubGroup, Task<int>>)(async x =>
                                 {
                                     var jobGroupParam = new
                                     {
@@ -82,7 +82,7 @@ namespace StarGuddy.Repository.Operations
                                     };
 
                                     return await conn.ExecuteAsync(SpNames.UserModeling.UserModelingRolesSave, param: jobGroupParam, transaction: tran, commandType: CommandType.StoredProcedure);
-                                });
+                                }));
 
                                 var updatedResult = await Task.WhenAll(jobGroupTask);
                             }

@@ -293,6 +293,20 @@ CREATE TABLE JobGroup
 	DttmModified DATETIME2 DEFAULT (getutcdate())
 )
 GO
+CREATE TABLE JobSubGroup
+(
+	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	JobGroupCode INT NOT NULL,
+	[Name] NVARCHAR(250) NOT NULL,
+	Code INT NOT NULL,
+	Detail NVARCHAR(500) NULL,
+	DisplayOrder int not null,
+	IsActive BIT NOT NULL DEFAULT(1),
+	IsDeleted BIT NOT NULL DEFAULT(0),
+	DttmCreated DATETIME2 DEFAULT (getutcdate()),
+	DttmModified DATETIME2 DEFAULT (getutcdate())
+)
+GO
 CREATE TABLE UserJobGroup(
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
 	JobGroupId BIGINT NOT NULL,
@@ -304,26 +318,13 @@ CREATE TABLE UserJobGroup(
 )
 GO
 
-CREATE TABLE ActingRoles
-(
-	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Name] NVARCHAR(250) NOT NULL,
-	Code INT NOT NULL,
-	Detail NVARCHAR(500) NULL,
-	DisplayOrder int not null,
-	IsActive BIT NOT NULL DEFAULT(1),
-	IsDeleted BIT NOT NULL DEFAULT(0),
-	DttmCreated DATETIME2 DEFAULT (getutcdate()),
-	DttmModified DATETIME2 DEFAULT (getutcdate())
-)
-GO
 CREATE TABLE UserActingRoles(
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
 	JobId BIGINT NOT NULL,
 	UserId UNIQUEIDENTIFIER NOT NULL,
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),
 	DttmModified DATETIME2 DEFAULT (getutcdate()),
-	FOREIGN KEY (JobId) REFERENCES ActingRoles(Id),
+	FOREIGN KEY (JobId) REFERENCES JobSubGroup(Id),
 	FOREIGN KEY (UserId) REFERENCES Users(Id),
 )
 
@@ -366,19 +367,6 @@ CREATE TABLE UserActing(
 	DttmModified DATETIME2 DEFAULT (getutcdate()),
 	FOREIGN KEY (UserId) REFERENCES Users(Id)
 )
-
-CREATE TABLE ModelingRoles
-(
-	Id BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	[Name] NVARCHAR(250) NOT NULL,
-	Code INT NOT NULL,
-	Detail NVARCHAR(500) NULL,
-	DisplayOrder int not null,
-	IsActive BIT NOT NULL DEFAULT(1),
-	IsDeleted BIT NOT NULL DEFAULT(0),
-	DttmCreated DATETIME2 DEFAULT (getutcdate()),
-	DttmModified DATETIME2 DEFAULT (getutcdate())
-)
 GO
 CREATE TABLE UserModelingRoles(
 	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL,
@@ -386,7 +374,7 @@ CREATE TABLE UserModelingRoles(
 	UserId UNIQUEIDENTIFIER NOT NULL,
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),
 	DttmModified DATETIME2 DEFAULT (getutcdate()),
-	FOREIGN KEY (JobId) REFERENCES ModelingRoles(Id),
+	FOREIGN KEY (JobId) REFERENCES JobSubGroup(Id),
 	FOREIGN KEY (UserId) REFERENCES Users(Id),
 )
 GO

@@ -18,8 +18,7 @@ namespace StarGuddy.Business.Modules.Mapper
         {
             CreateMap<Accents, Models.AccentsDto>().ReverseMap();
             CreateMap<Language, Models.LanguageDto>().ReverseMap();
-            CreateMap<ActingRoles, Models.AuditionsAndJobsGroupDto>().ReverseMap();
-            CreateMap<ModelingRoles, Models.AuditionsAndJobsGroupDto>().ReverseMap();
+            CreateMap<JobSubGroup, Models.AuditionsAndJobsGroupDto>().ReverseMap();
             CreateMap<UserModeling, UserModelingModel>().ReverseMap();
             CreateMap<UserSettings, UserSettingDto>().ReverseMap();
             CreateMap<JobGroup, JobGroupModel>().ReverseMap();

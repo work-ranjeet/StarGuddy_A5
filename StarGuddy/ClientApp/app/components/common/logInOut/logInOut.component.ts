@@ -14,18 +14,22 @@ export class LogInOutComponent {
     private readonly accountService: AccountService;
     private readonly authenticateRoute: ActivatedRoute;
 
-    private isLoggedIn: boolean;
-    private showUserSettingMenu: boolean;
-    private subscription: Subscription;
+    private isLoggedIn: boolean = false;
+    private showUserSettingMenu: boolean = true;
+    private subscription: any;
 
     constructor(router: Router, authRoute: ActivatedRoute, accountService: AccountService) {
         this.router = router;
         this.authenticateRoute = authRoute;
-        this.accountService = accountService;
-
+        this.accountService = accountService;      
+    }
+    
+    ngOnInit() {
         this.subscription = this.accountService.IsLoggedIn.subscribe(val => this.isLoggedIn = val);
-        this.isLoggedIn = false;
-        this.showUserSettingMenu = true;
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     get UserFirstName() { return this.accountService.getUserFirstName(); }
@@ -34,11 +38,7 @@ export class LogInOutComponent {
     toggleUserSettingMenu() {
         this.showUserSettingMenu = !this.showUserSettingMenu;
     }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
-
+    
     logOut() {
         this.accountService.logOut();
         this.router.navigate(["/"]);

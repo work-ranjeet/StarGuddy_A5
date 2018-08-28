@@ -347,10 +347,10 @@ BEGIN
 	LEFT JOIN UserAccents UACC ON UACC.AccentsId = ACC.Id AND UACC.UserId = @UserId
 	WHERE ACC.IsActive = 1 AND ACC.IsDeleted = 0
 
-	SELECT JOB.Id, JOB.Code, JOB.Name, (CASE WHEN JOB.Id = UJOB.JobId THEN JOB.Code ELSE 0 END) AS SelectedCode
-	FROM ActingRoles JOB
+    SELECT JOB.Id, JOB.Code, JOB.Name, (CASE WHEN JOB.Id = UJOB.JobId THEN JOB.Code ELSE 0 END) AS SelectedCode
+	FROM JobSubGroup JOB
 	LEFT JOIN UserActingRoles UJOB ON UJOB.JobId = JOB.Id AND UJOB.UserId = @UserId
-	WHERE JOB.IsActive = 1 AND JOB.IsDeleted = 0
+	WHERE JOB.IsActive = 1 AND JOB.IsDeleted = 0  AND JOB.JobGroupCode= 1001
 END
 GO
 IF EXISTS (
@@ -451,7 +451,7 @@ BEGIN
 	SET XACT_ABORT ON;
 
 	DECLARE @Id BIGINT
-	SELECT @Id = Id FROM ActingRoles where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
+	SELECT @Id = Id FROM JobSubGroup where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
 
 	INSERT INTO UserActingRoles(Id, UserId, JobId, DttmCreated, DttmModified)
 	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())
@@ -480,11 +480,11 @@ BEGIN
 	LEFT JOIN AgentNeed AN ON AN.Code = UM.AgentNeedCode AND AN.IsActive = 1 AND AN.IsDeleted = 0
 	WHERE UM.UserId = @UserId AND UM.IsActive = 1 AND UM.IsDeleted = 0
 
-	SELECT MR.Id, MR.Code, MR.Name, (CASE WHEN MR.Id = UMR.JobId THEN MR.Code ELSE 0 END) AS SelectedCode, MR.IsActive, MR.IsDeleted
-	FROM ModelingRoles MR
-	LEFT JOIN UserModelingRoles UMR ON UMR.JobId = MR.Id AND UMR.UserId = @UserId
-	WHERE MR.IsActive = 1 AND MR.IsDeleted = 0 
-	Order by MR.[Name]
+	SELECT JSG.Id, JSG.Code, JSG.Name, (CASE WHEN JSG.Id = UMR.JobId THEN JSG.Code ELSE 0 END) AS SelectedCode, JSG.IsActive, JSG.IsDeleted
+	FROM JobSubGroup JSG
+	LEFT JOIN UserModelingRoles UMR ON UMR.JobId = JSG.Id AND UMR.UserId = @UserId
+	WHERE JSG.IsActive = 1 AND JSG.IsDeleted = 0 AND JSG.JobGroupCode = 1002 
+	Order by JSG.[Name]
 END
 
 GO
@@ -544,7 +544,7 @@ BEGIN
 	SET XACT_ABORT ON;
 
 	DECLARE @Id BIGINT
-	SELECT @Id = Id FROM ActingRoles where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
+	SELECT @Id = Id FROM JobSubGroup where Code = @JobCode AND IsActive = 1 AND IsDeleted = 0
 
 	INSERT INTO UserModelingRoles(Id, UserId, JobId, DttmCreated, DttmModified)
 	VALUES (NEWID(), @UserId, @Id, getutcdate(), getutcdate())

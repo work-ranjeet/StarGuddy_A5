@@ -177,7 +177,7 @@ namespace StarGuddy.Business.Modules.Profile
                     },
                     Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => string.IsNullOrWhiteSpace(x.SelectedAccent)),
                     Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
-                    ActingRoles = _mapper.Map<List<ActingRoles>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
+                    ActingRoles = _mapper.Map<List<JobSubGroup>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
                 };
 
                 return await _userActingRepository.PerformSaveAndUpdateOperationAsync(userActingDetail);
@@ -198,7 +198,7 @@ namespace StarGuddy.Business.Modules.Profile
                 var userModelingDetails = new UserModelingDetails
                 {
                     UserModeling = _mapper.Map<UserModeling>(userModelingModel),
-                    ModelingRoles = _mapper.Map<List<ModelingRoles>>(userModelingModel.ModelingRoles).Where(x => x.SelectedCode != 0)
+                    ModelingRoles = _mapper.Map<List<JobSubGroup>>(userModelingModel.ModelingRoles).Where(x => x.SelectedCode != 0)
                 };
 
                 userModelingDetails.UserModeling.UserId = UserContext.Current.UserId;

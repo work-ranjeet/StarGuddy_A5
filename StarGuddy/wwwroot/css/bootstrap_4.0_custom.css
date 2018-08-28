@@ -39,17 +39,19 @@
 
 .card-title {
     padding: 2px;
-    font-size:18px;
+    font-size: 18px;
 }
 
 .card-title-s {
     padding: 5px;
-    font-size: 20px;
+    font-size: 16px;
+    font-family: Papyrus, fantasy;
 }
 
 .card-title-m {
     padding: 10px;
-    font-size: 22px;
+    font-size: 18px;
+    font-family: Papyrus, fantasy;
 }
 
 .card-subtitle {
@@ -358,8 +360,8 @@
     visibility: hidden;
 }*/
 
-    input[type=checkbox]:checked + label {
-        left: 43px;
-    }
+input[type=checkbox]:checked + label {
+    left: 43px;
+}
 
 /* end .slideCheckBox */
