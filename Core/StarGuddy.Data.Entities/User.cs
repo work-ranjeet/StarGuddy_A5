@@ -43,7 +43,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The name of the user.
         /// </value>
-        public String UserName { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the access failed count.
@@ -59,7 +59,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The concurrency stamp.
         /// </value>
-        public String ConcurrencyStamp { get; set; }
+        public string ConcurrencyStamp { get; set; }
 
         /// <summary>
         /// Gets or sets the first name.
@@ -67,7 +67,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The first name.
         /// </value>
-        public String FirstName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the gender.
@@ -75,7 +75,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The gender.
         /// </value>
-        public String Gender { get; set; }
+        public string Gender { get; set; }
 
         /// <summary>
         /// Gets or sets the last name.
@@ -83,7 +83,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The last name.
         /// </value>
-        public String LastName { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [lockout enabled].
@@ -91,7 +91,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         ///   <c>true</c> if [lockout enabled]; otherwise, <c>false</c>.
         /// </value>
-        public Boolean LockoutEnabled { get; set; }
+        public bool LockoutEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets the lockout end.
@@ -107,7 +107,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The designation.
         /// </value>
-        public String Designation { get; set; }
+        public string Designation { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the ORG.
@@ -115,7 +115,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The name of the ORG.
         /// </value>
-        public String OrgName { get; set; }
+        public string OrgName { get; set; }
 
         /// <summary>
         /// Gets or sets the ORG website.
@@ -123,7 +123,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The ORG website.
         /// </value>
-        public String OrgWebsite { get; set; }
+        public string OrgWebsite { get; set; }
 
         /// <summary>
         /// Gets or sets the password hash.
@@ -131,7 +131,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The password hash.
         /// </value>
-        public String PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
 
         /// <summary>
         /// Gets or sets the security stamp.
@@ -139,7 +139,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         /// The security stamp.
         /// </value>
-        public String SecurityStamp { get; set; }
+        public string SecurityStamp { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is casting professional.
@@ -147,7 +147,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         ///   <c>true</c> if this instance is casting professional; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsCastingProfessional { get; set; }
+        public bool IsCastingProfessional { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is two factor enabled.
@@ -155,7 +155,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         ///   <c>true</c> if this instance is two factor enabled; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsTwoFactorEnabled { get; set; }
+        public bool IsTwoFactorEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -163,7 +163,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is deleted.
@@ -171,31 +171,7 @@ namespace StarGuddy.Data.Entities
         /// <value>
         ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
         /// </value>
-        public Boolean IsDeleted { get; set; }
-
-        /// <summary>
-        /// Gets or sets the address detail.
-        /// </summary>
-        /// <value>
-        /// The address detail.
-        /// </value>
-        public IUserAddress AddressDetail { get; set; }
-
-        /// <summary>
-        /// Gets or sets the email detail.
-        /// </summary>
-        /// <value>
-        /// The email detail.
-        /// </value>
-        public IUserEmails EmailDetail { get; set; }
-
-        /// <summary>
-        /// Gets or sets the phone details.
-        /// </summary>
-        /// <value>
-        /// The phone details.
-        /// </value>
-        public IUserPhones PhoneDetails { get; set; }
+        public bool IsDeleted { get; set; }       
 
         /// <summary>
         /// Gets or sets the DTTM created.

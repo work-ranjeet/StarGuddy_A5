@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Constants;
 using StarGuddy.Api.Models.Interface.Profile;
 using StarGuddy.Api.Models.Profile;
@@ -86,6 +87,20 @@ namespace StarGuddy.Api.Controllers.Profile
             }
 
             return StatusCode(HttpStatusCode.NotModified.GetHashCode(), HttpStatusText.NotModified);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Details")]
+        public async Task<IActionResult> GetUserDetails()
+        {
+            var result = await _userManager.GetUserDetails();
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using StarGuddy.Api.Models.Account;
+using StarGuddy.Api.Models.Dto;
 using StarGuddy.Api.Models.Profile;
 using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Data.Entities;
@@ -23,7 +24,11 @@ namespace StarGuddy.Business.Modules.Mapper
             CreateMap<UserSettings, UserSettingDto>().ReverseMap();
             CreateMap<JobGroup, JobGroupModel>().ReverseMap();
 
-            
+            CreateMap<User, AppUserDto>().ReverseMap();
+            CreateMap<UserAddress, AddressDto>().ReverseMap();
+            CreateMap<UserDetail, UserDetailDto>().ReverseMap();
+            CreateMap<UserEmails, EmailDto>().ReverseMap();
+            CreateMap<UserPhones, PhoneDto>().ReverseMap();
         }
     }
 }

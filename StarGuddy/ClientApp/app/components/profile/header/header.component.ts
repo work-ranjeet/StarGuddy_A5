@@ -1,7 +1,12 @@
 import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { DataValidator } from "../../../../Helper/DataValidator";
-import ILoginData = App.Client.Account.ILoginData;
+import * as _ from "lodash";
+import { ProfileService } from "../profile.Service";
+//import IAppUserDetail = App.Client.PublicProfile.IAppUserDetail;
+import IAppUser = App.Client.PublicProfile.IAppUser;
+import IAddress = App.Client.PublicProfile.IAddress;
+import IUserDetail = App.Client.PublicProfile.IUserDetail;
+import IPhone = App.Client.PublicProfile.IPhone;
+import IEmail = App.Client.PublicProfile.IEmail;
 
 @Component({
     selector: "profile-header",
@@ -11,16 +16,36 @@ import ILoginData = App.Client.Account.ILoginData;
 
 
 export class ProfileHeader {
-    loginData: ILoginData = {} as ILoginData;
-    router: Router;
-    authenticateRoute: ActivatedRoute;
+    private appUser: IAppUser = {} as IAppUser;
+    private address: IAddress = {} as IAddress;
+    private userDetail: IUserDetail = {} as IUserDetail;
+    private phone: IPhone = {} as IPhone;
+    private email: IEmail = {} as IEmail;
+    //private appUserDetail: IAppUserDetail = {} as IAppUserDetail;
 
-    private readonly dataValidator: DataValidator
+    constructor(private readonly profileService: ProfileService) {
 
-    constructor(router: Router, authRoute: ActivatedRoute, dataValidator: DataValidator) {
-        this.router = router;
-        this.authenticateRoute = authRoute;
-        this.dataValidator = dataValidator;
     }
 
+    ngOnInit() {
+        this.loadHeader();
+    }
+
+    loadHeader() {
+        this.profileService.GetUserDetails().subscribe(response => {
+            if (response != null) {
+                //this.appUserDetail = _.cloneDeep(response);
+
+                this.appUser = _.cloneDeep(response.applicationUser);
+                this.address = _.cloneDeep(response.currentAddress);
+                this.userDetail = _.cloneDeep(response.userDetails);
+                this.phone = _.cloneDeep(response.phone);
+                this.email = _.cloneDeep(response.email);
+
+            }
+            else {
+                console.info("Got empty result: ProfileHeader.loadHeader()");
+            }
+        });
+    }
 }

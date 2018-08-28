@@ -17,6 +17,8 @@
     {
         public UserEmailsRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.UserEmails) { }
 
+        public async Task<UserEmails> GetUserEmailAsync(Guid userId) => await FindActiveByUserIdAsync(userId);
+
         public async Task<bool> UpdateEmailAsync(Guid userId, string email)
         {
             try
@@ -33,30 +35,5 @@
                 throw ex;
             }
         }
-
-        //public async Task<IUserEmails> GetUserEmailAsync(string userId)
-        //{
-        //    return await Task.Factory.StartNew(() =>
-        //    {
-        //        try
-        //        {
-        //            using (var conn = base.GetOpenConnectionAsync)
-        //            {
-        //                var param = new
-        //                {
-
-        //                };
-
-        //                var userSocilaAddVMist = SqlMapper.QueryAsync<IUserEmails>(conn, "SelectUserAddress", param, commandType: CommandType.Text);
-
-        //                return userSocilaAddVMist.Result.FirstOrDefault();
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw ex;
-        //        }
-        //    });
-        //}
     }
 }

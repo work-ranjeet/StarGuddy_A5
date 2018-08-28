@@ -5,6 +5,7 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Business.Modules.Common
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using StarGuddy.Api.Models.Interface.Account;
@@ -20,12 +21,12 @@ namespace StarGuddy.Business.Modules.Common
         /// <summary>
         /// The user repository
         /// </summary>
-        private IUserRepository UserRepository { get; set; }
+        private readonly IUserRepository _userRepository;
 
         /// <summary>
         /// The security manager
         /// </summary>
-        private ISecurityManager SecurityManager { get; set; }
+        private readonly ISecurityManager _securityManager;
         #endregion
 
         /// <summary>
@@ -35,8 +36,8 @@ namespace StarGuddy.Business.Modules.Common
         /// <param name="securityManager">The security manager.</param>
         public PasswordManager(IUserRepository userRepository, ISecurityManager securityManager)
         {
-            this.UserRepository = userRepository;
-            this.SecurityManager = securityManager;
+            _userRepository = userRepository;
+            _securityManager = securityManager;
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace StarGuddy.Business.Modules.Common
         /// <returns>string values</returns>
         public async Task<string> GetHashedPassword(string password)
         {
-            return await this.SecurityManager.GetHashPassword(password);
+            return await _securityManager.GetHashPassword(password);
         }
 
         /// <summary>
@@ -57,15 +58,15 @@ namespace StarGuddy.Business.Modules.Common
         /// <returns>
         /// boolean value
         /// </returns>
-        public async Task<bool> IsValidPassword(string userId, string password)
+        public async Task<bool> IsValidPassword(Guid userId, string password)
         {
-            var user = this.UserRepository.FindById(userId);
+            var user = await _userRepository.FindByIdAsync(userId);
             if (user == null)
             {
                 return false;
             }
 
-            return await this.SecurityManager.VerifyHashedPassword(password, user.PasswordHash);
+            return await _securityManager.VerifyHashedPassword(user.PasswordHash, password);
         }
 
         /// <summary>
@@ -82,10 +83,10 @@ namespace StarGuddy.Business.Modules.Common
                     return false;
                 }
 
-                var isValidPwd = this.UserRepository.GetVerifiedUser(pwdModel.UserName, pwdModel.OldPassword).Where(x => !x.LockoutEnabled).Any();
+                var isValidPwd = _userRepository.GetVerifiedUser(pwdModel.UserName, pwdModel.OldPassword).Where(x => !x.LockoutEnabled).Any();
                 if (isValidPwd)
                 {
-                    var result = this.UserRepository.UpdatePassword(pwdModel.UserName, pwdModel.NewPassword);
+                    var result = _userRepository.UpdatePassword(pwdModel.UserName, pwdModel.NewPassword);
                     return result > decimal.Zero;
                 }
 

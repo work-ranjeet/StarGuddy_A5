@@ -55,7 +55,7 @@ namespace StarGuddy.Api
             //services.AddTransient<ILoginData, LoginData>();
             //services.AddTransient<IUser, User>();
 
-            //// Repository Injection
+            //// Repository Injection    
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserEmailsRepository, UserEmailsRepository>();
             services.AddTransient<IAccentsRepository, AccentsRepository>();
@@ -64,9 +64,11 @@ namespace StarGuddy.Api
             services.AddTransient<IUserCreditsRepository, UserCreditsRepository>();
             services.AddTransient<IUserDancingRepository, UserDancingRepository>();
             services.AddTransient<IUserActingRepository, UserActingRepository>();
-            services.AddTransient<IUserModelingRepository, UserModelingRepository>(); 
+            services.AddTransient<IUserModelingRepository, UserModelingRepository>();
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
             services.AddTransient<IJobGroupRepository, JobGroupRepository>();
+            services.AddTransient<IUserDetailRepository, UserDetailRepository>();
+            services.AddTransient<IUserPhonesRepository, UserPhonesRepository>();
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
 
 
@@ -79,7 +81,7 @@ namespace StarGuddy.Api
             services.AddTransient<ISecurityManager, SecurityManager>();
             services.AddTransient<IEmailManager, EmailManager>();
             services.AddTransient<IProfileManager, ProfileManager>();
-            services.AddTransient<IJobManager, JobManager>(); 
+            services.AddTransient<IJobManager, JobManager>();
             services.AddTransient<IProfileSettingManager, ProfileSettingManager>();
         }
     }

@@ -18,6 +18,7 @@
 namespace StarGuddy.Business.Interface.Account
 {
     using StarGuddy.Api.Models.Account;
+    using StarGuddy.Api.Models.AppUser;
     using StarGuddy.Api.Models.Interface.Account;
     using System;
     using System.Collections.Generic;
@@ -57,5 +58,7 @@ namespace StarGuddy.Business.Interface.Account
         Task<IApplicationUser> FindByIdAsync(string userId);
 
         Task<IApplicationUser> FindByUserNameAsync(string userName);
+
+        Task<AppUserDetail> GetUserDetails();
     }
 }

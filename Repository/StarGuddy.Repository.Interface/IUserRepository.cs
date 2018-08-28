@@ -36,7 +36,7 @@ namespace StarGuddy.Repository.Interface
         /// <returns>
         /// Application User
         /// </returns>
-        IUser FindById(string Id);
+        Task<User> FindByIdAsync(Guid userId);
 
         /// <summary>
         /// Finds the name of the by user.
@@ -71,7 +71,7 @@ namespace StarGuddy.Repository.Interface
         /// <returns>
         /// Application User
         /// </returns>
-        bool AddNewUser(IUser user);
+        bool AddNewUser(IUser user, string email);
 
         /// <summary>
         /// Updates the user.

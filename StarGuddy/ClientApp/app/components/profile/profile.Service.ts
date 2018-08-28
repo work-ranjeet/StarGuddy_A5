@@ -4,9 +4,10 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { DataConverter } from "../../../Helper/DataConverter";
 import { BaseService } from "../../../Services/BaseService";
-import IUserProfile = App.Client.PublicProfile.IUserProfile;
 import { Subject } from "rxjs/Subject";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import IUserProfile = App.Client.PublicProfile.IUserProfile;
+import IAppUserDetail = App.Client.PublicProfile.IAppUserDetail;
 
 @Injectable()
 export class ProfileService {
@@ -24,6 +25,21 @@ export class ProfileService {
         return this.baseService.HttpService.getData<IUserProfile>("Profile/" + profileUrl)
             .map(
                 (result: IUserProfile) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    GetUserDetails(): Observable<IAppUserDetail> {
+        return this.baseService.HttpService.getData<IAppUserDetail>("Profile/Details")
+            .map(
+            (result: IAppUserDetail) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

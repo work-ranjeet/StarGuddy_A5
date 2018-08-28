@@ -9,4 +9,72 @@
         acting: Profile.IUserActingModel;
         modeling: Profile.IUserModelingModel;
     }
+
+    export interface IAppUser {
+        id: string;
+        userName: string;
+        firstName: string;
+        gender: string;
+        lastName: string;
+        designation: string;
+        orgName: string;
+        orgWebsite: string;
+        isCastingProfessional: boolean;
+    }
+
+    export interface IAddress {
+        id: string;
+        userId: string;
+        isActive: boolean;
+        isDeleted: boolean;
+        accessFailedCount: number;
+        appOrHouseName: string;
+        cityOrTown: string;
+        country: string;
+        flat: string;
+        landMark: string;
+        lineOne: string;
+        lineTwo: string;
+        stateOrProvince: string;
+        zipOrPostalCode: string;
+    }
+
+    export interface IUserDetail {
+        id: string;
+        userId: string;
+        about: string;
+        age: number;
+        bloodGroup: number;
+        dateOfBirth: Date;
+        disability: string;
+        healthInfo: string;
+        maritalStatus: number;
+        motherTongue: string;
+        nickname: string;
+        profileAddress: string;
+        religion: string;
+    }
+
+    export interface IPhone {
+        userId: string;
+        phoneNumber: String;
+        isActive: Boolean;
+        isDeleted: Boolean;
+    }
+
+    export interface IEmail {
+        userId: string;
+        email: string;
+        emailConfirmed: boolean;
+        isActive: boolean;
+        isDeleted: boolean;
+    }
+
+    export interface IAppUserDetail {
+        applicationUser: IAppUser;
+        currentAddress: IAddress;
+        userDetails: IUserDetail;
+        phone: IPhone;
+        email: IEmail;
+    }
 }

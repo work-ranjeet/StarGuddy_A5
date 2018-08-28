@@ -36,6 +36,6 @@ namespace StarGuddy.Repository.Interface
         /// <returns>
         /// User Address
         /// </returns>
-        Task<IUserAddress> GetUserAddressAsync(string userId);
+        Task<UserAddress> GetUserAddressAsync(Guid userId);
     }
 }

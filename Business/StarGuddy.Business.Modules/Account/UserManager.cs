@@ -23,8 +23,11 @@ namespace StarGuddy.Business.Modules.Account
     using System.Threading.Tasks;
     using AutoMapper;
     using StarGuddy.Api.Models.Account;
+    using StarGuddy.Api.Models.AppUser;
+    using StarGuddy.Api.Models.Dto;
     using StarGuddy.Api.Models.Interface.Account;
     using StarGuddy.Business.Interface.Account;
+    using StarGuddy.Core.Context;
     using StarGuddy.Data.Entities;
     using StarGuddy.Data.Entities.Interface;
     using StarGuddy.Repository.Interface;
@@ -37,16 +40,31 @@ namespace StarGuddy.Business.Modules.Account
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
+        private readonly IUserPhonesRepository _userPhonesRepository;
+        private readonly IUserEmailsRepository _userEmailsRepository;
         private readonly IUserSettingsRepository _userSettingsRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SignupManager"/> class.
         /// </summary>
         /// <param name="signupManager">The user repository.</param>
-        public UserManager(IUserRepository userRepository, IUserSettingsRepository userSettingsRepository, IMapper mapper)
+        public UserManager(
+            IUserRepository userRepository,
+            IAddressRepository addressRepository,
+            IUserDetailRepository userDetailRepository,
+            IUserPhonesRepository userPhonesRepository,
+            IUserEmailsRepository userEmailsRepository,
+            IUserSettingsRepository userSettingsRepository,
+            IMapper mapper)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _addressRepository = addressRepository;
+            _userDetailRepository = userDetailRepository;
+            _userPhonesRepository = userPhonesRepository;
+            _userEmailsRepository = userEmailsRepository;
             _userSettingsRepository = userSettingsRepository;
         }
 
@@ -74,17 +92,10 @@ namespace StarGuddy.Business.Modules.Account
                     UserName = applicationUser.Email,
                     PasswordHash = applicationUser.Password,
                     SecurityStamp = Convert.ToString(Guid.NewGuid()),
-                    IsActive = true,
-                    EmailDetail = new UserEmails
-                    {
-                        Email = applicationUser.Email,
-                        IsActive = false,
-                        IsDeleted = false,
-                        UserId = applicationUser.UserId
-                    }
+                    IsActive = true
                 };
 
-                return _userRepository.AddNewUser(user);
+                return _userRepository.AddNewUser(user, applicationUser.Email);
             });
         }
 
@@ -110,11 +121,8 @@ namespace StarGuddy.Business.Modules.Account
                     OrgName = applicationUser.OrgName,
                     OrgWebsite = applicationUser.OrgWebsite,
                     UserName = applicationUser.Email,
-                    //Email = applicationUser.Email,
-                    //NormalizedEmail = applicationUser.Email,
-                    //NormalizedUserName = applicationUser.UserName,
                     PasswordHash = applicationUser.Password,
-                    SecurityStamp = "39d292dc-8713-4f03-9cfb-90784159f854",
+                    SecurityStamp = Convert.ToString(Guid.NewGuid())
                 };
 
                 return this._userRepository.UpdateUser(user);
@@ -126,7 +134,7 @@ namespace StarGuddy.Business.Modules.Account
             return await Task.Factory.StartNew(() =>
             {
                 var user = _userRepository.FindByUserName(userName);
-                if(user.IsNull())
+                if (user.IsNull())
                 {
                     return null;
                 }
@@ -142,7 +150,6 @@ namespace StarGuddy.Business.Modules.Account
                     OrgName = user.OrgName,
                     OrgWebsite = user.OrgWebsite,
                     UserName = user.UserName,
-                    Email = user.EmailDetail.IsNull() ? string.Empty : user.EmailDetail.Email,
                     SecurityStamp = user.SecurityStamp
                 };
             });
@@ -166,6 +173,38 @@ namespace StarGuddy.Business.Modules.Account
         public void ConfirmEmailAsync(string userId, string code)
         {
 
-        }        
+        }
+
+        public async Task<AppUserDetail> GetUserDetails()
+        {
+            var appUserTask = _userRepository.FindByIdAsync(UserContext.Current.UserId);
+            var addressTask = _addressRepository.GetUserAddressAsync(UserContext.Current.UserId);
+            var emalTask = _userEmailsRepository.GetUserEmailAsync(UserContext.Current.UserId);
+            var phoneTask = _userPhonesRepository.GetUserPhoneDetailByUserId(UserContext.Current.UserId);
+            var detailTask = _userDetailRepository.GetUserDetailByUserId(UserContext.Current.UserId);
+
+            var taskResult = Task.WhenAll(appUserTask, addressTask, emalTask, phoneTask, detailTask);
+            try
+            {
+                await taskResult.ConfigureAwait(false);
+                if (taskResult.IsCompletedSuccessfully)
+                {
+                    return new AppUserDetail
+                    {
+                        ApplicationUser = _mapper.Map<AppUserDto>(await appUserTask),
+                        CurrentAddress = _mapper.Map<AddressDto>(await addressTask),
+                        UserDetails = _mapper.Map<UserDetailDto>(await detailTask),
+                        Email = _mapper.Map<EmailDto>(await emalTask),
+                        Phone = _mapper.Map<PhoneDto>(await phoneTask)
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return null;
+        }
     }
 }

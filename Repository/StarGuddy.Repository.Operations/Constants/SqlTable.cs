@@ -82,6 +82,11 @@ namespace StarGuddy.Repository.Opertions.Constants
         public const string UserEmails = "UserEmails";
 
         /// <summary>
+        /// The user emails
+        /// </summary>
+        public const string UserPhones = "UserPhones";
+
+        /// <summary>
         /// The user credits
         /// </summary>
         public const string UserCredits = "UserCredits";

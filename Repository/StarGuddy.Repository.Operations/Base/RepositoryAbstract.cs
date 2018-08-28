@@ -253,43 +253,47 @@ namespace StarGuddy.Repository.Base
                 return SqlMapper.Query<T>(conn, "SELECT * FROM " + this.tableName + " WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text).FirstOrDefault();
             }
         }
-        public virtual async Task<T> FindByIdAsync(Guid id)
-        {
-            using (var conn = OpenConnectionAsync)
-            {
-                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE ID = @ID", new { ID = id }, commandType: CommandType.Text)).FirstOrDefault();
-            }
-        }
-
-        public virtual T FindByUserId(Guid userId)
-        {
-            using (var conn = OpenConnection)
-            {
-                return SqlMapper.Query<T>(
-                    conn,
-                    "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId",
-                    new { UserId = userId },
-                    commandType: CommandType.Text).FirstOrDefault();
-            }
-        }
-        public virtual async Task<T> FindByUserIdAsync(Guid userId)
+        public virtual async Task<T> FindActiveByIdAsync(Guid id)
         {
             using (var conn = OpenConnectionAsync)
             {
                 return (await SqlMapper.QueryAsync<T>(
-                    conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId",
-                    new { UserId = userId },
+                    conn,
+                    "SELECT * FROM " + this.tableName + " WHERE Id = @Id AND IsActive = @IsActive AND IsDeleted = @IsDeleted",
+                    new { Id = id, IsActive = 1, IsDeleted = 0 },
                     commandType: CommandType.Text)).FirstOrDefault();
             }
         }
 
-        public virtual async Task<IEnumerable<T>> FindAllByUserIdAsync(Guid userId)
-        {
-            using (var conn = OpenConnectionAsync)
-            {
-                return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text));
-            }
-        }
+        //public virtual T FindByUserId(Guid userId)
+        //{
+        //    using (var conn = OpenConnection)
+        //    {
+        //        return SqlMapper.Query<T>(
+        //            conn,
+        //            "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId",
+        //            new { UserId = userId },
+        //            commandType: CommandType.Text).FirstOrDefault();
+        //    }
+        //}
+        //public virtual async Task<T> FindByUserIdAsync(Guid userId)
+        //{
+        //    using (var conn = OpenConnectionAsync)
+        //    {
+        //        return (await SqlMapper.QueryAsync<T>(
+        //            conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId",
+        //            new { UserId = userId },
+        //            commandType: CommandType.Text)).FirstOrDefault();
+        //    }
+        //}
+
+        //public virtual async Task<IEnumerable<T>> FindAllByUserIdAsync(Guid userId)
+        //{
+        //    using (var conn = OpenConnectionAsync)
+        //    {
+        //        return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text));
+        //    }
+        //}
 
         public virtual async Task<T> FindActiveByUserIdAsync(Guid userId)
         {

@@ -57,26 +57,6 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// User Address
         /// </returns>
-        public async Task<IUserAddress> GetUserAddressAsync(string userId)
-        {
-            return await Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    using (var conn = base.OpenConnectionAsync)
-                    {
-                        var param = new DynamicParameters();
-                        param.Add("@UserId", userId);
-                        var userSocilaAddVMist = SqlMapper.QueryAsync<IUserAddress>(conn, "SelectUserAddress", param, commandType: CommandType.StoredProcedure);
-
-                        return userSocilaAddVMist.Result.FirstOrDefault();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            });
-        }
+        public async Task<UserAddress> GetUserAddressAsync(Guid userId) => await FindActiveByUserIdAsync(userId);
     }
 }

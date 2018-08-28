@@ -57,9 +57,9 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// Application User
         /// </returns>
-        public IUser FindById(string id)
+        public async Task<User> FindByIdAsync(Guid userId)
         {
-            return this.FindSingle("SELECT * FROM Users WHERE Id=@Id", new { Id = id });
+            return await FindActiveByIdAsync(userId).ConfigureAwait(false);
         }
 
 
@@ -132,7 +132,7 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// Application User
         /// </returns>
-        public bool AddNewUser(IUser user)
+        public bool AddNewUser(IUser user, string email)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace StarGuddy.Repository.Operations
                         ConcurrencyStamp = Guid.NewGuid(),
                         LockoutEnd = DateTime.UtcNow.AddSeconds(-1),
                         IsTwoFactorEnabled = false,
-                        user.EmailDetail.Email,
+                        Email = email,
                         user.FirstName,
                         user.Gender,
                         user.IsCastingProfessional,
