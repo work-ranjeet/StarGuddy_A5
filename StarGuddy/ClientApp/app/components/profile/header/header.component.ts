@@ -12,7 +12,7 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 
 export class ProfileHeader {
-    private jobGroupName: string = String.Empty;
+    private jobGroupName: string = "";
     private jobGroupNameArray: Array<string> = [];
     private profileHeader: IProfileHeader = {} as IProfileHeader;
 

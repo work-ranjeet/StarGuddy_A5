@@ -5,13 +5,16 @@
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 padding-top-20  hidden-sm hidden-xs">
         <div class="profile-info-detail">
-            <h2>{{profileHeader.displayName}}</h2>
+            <h2 class="display-inline-block">{{profileHeader.displayName}}</h2>
+            <a routerLink="/profile/name" class="fa fa-edit edit-icon-m"></a>
             <div class="text-muted">
-                {{jobGroupName}}&nbsp;<a routerLink="/profile/interests"><span class="fa fa-edit padding-5" style="font-size:20px;"></span></a>
+                <span class="display-inline-block">{{jobGroupName}}</span>
+                <a routerLink="/profile/interests" class="fa fa-edit edit-icon-m"></a>
             </div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
-                <span class="text-muted">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
+                <span class="text-muted display-inline-block">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
+                <a routerLink="/profile/address" class="fa fa-edit edit-icon-m"></a>
             </div>
         </div>
         <!--<div class="row">

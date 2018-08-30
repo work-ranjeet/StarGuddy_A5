@@ -16,6 +16,8 @@ namespace StarGuddy.Data.Entities
 
         public string CityOrTown { get; set; }
 
+        public string StateOrProvince { get; set; }
+
         public string Country { get; set; }
 
         public string PhoneNumber { get; set; }

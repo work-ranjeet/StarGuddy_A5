@@ -28,7 +28,7 @@ export class ProfileEditCreditsComponent {
 
     get UniqueNumber() { return Math.random().toString(36).slice(2); }
 
-    private readonly initCreditsClass = { id: String.Empty, action: String.Empty, workYear: "0", workPlace: String.Empty, workDetail: String.Empty } as ICredits;
+    private readonly initCreditsClass = { id: "", action: "", workYear: "0", workPlace: "", workDetail: "" } as ICredits;
 
     constructor(userProfileService: ProfileEditService, dataValidator: DataValidator, dbOperation: DbOperation) {
         this.userProfileService = userProfileService;
@@ -59,8 +59,8 @@ export class ProfileEditCreditsComponent {
 
     addToCreditList(frmEdit: NgForm) {
         let newCreditsObj = Object.assign({}, this.Credits);
-        if (newCreditsObj != undefined && newCreditsObj.workYear != "0" && newCreditsObj.workPlace != String.Empty) {
-            newCreditsObj.action = newCreditsObj.id == String.Empty ? this.dbOperation.Insert : this.dbOperation.Update;
+        if (newCreditsObj != undefined && newCreditsObj.workYear != "0" && newCreditsObj.workPlace != "") {
+            newCreditsObj.action = newCreditsObj.id == "" ? this.dbOperation.Insert : this.dbOperation.Update;
 
             let index = this.CreditsList.findIndex(x => x.workYear == newCreditsObj.workYear);
             if (index > -1) {
@@ -84,7 +84,7 @@ export class ProfileEditCreditsComponent {
     }
 
     editCreditList(selectedYear: string) {
-        if (selectedYear != undefined && selectedYear != String.Empty) {
+        if (selectedYear != undefined && selectedYear != "") {
             let creditsObj = this.CreditsList.find(x => x.workYear == selectedYear);
             if (creditsObj != undefined) {
                 this.Credits = Object.assign({}, creditsObj);
@@ -102,7 +102,7 @@ export class ProfileEditCreditsComponent {
             let index = this.CreditsList.findIndex(x => x.workYear == selectedYear);
             if (index > -1) {
                 let objForDelete = <ICredits>this.CreditsList.find(x => x.workYear == selectedYear);
-                if (objForDelete != undefined && objForDelete.id == String.Empty) {
+                if (objForDelete != undefined && objForDelete.id == "") {
                     this.CreditsList.splice(index, 1);
                     return;
                 }
@@ -135,7 +135,7 @@ export class ProfileEditCreditsComponent {
     }
 
     saveChanges() {
-        let editedCredits = this.CreditsList.filter(x => x.id == String.Empty || x.action == this.dbOperation.Insert || x.action == this.dbOperation.Update || x.action == this.dbOperation.Delete);
+        let editedCredits = this.CreditsList.filter(x => x.id == "" || x.action == this.dbOperation.Insert || x.action == this.dbOperation.Update || x.action == this.dbOperation.Delete);
         if (editedCredits != undefined && editedCredits.length > 0) {
             this.userProfileService.SaveUserCredits(editedCredits).subscribe(response => {
                 if (response != null && response) {
@@ -148,7 +148,7 @@ export class ProfileEditCreditsComponent {
     }
 
     isCreditsDirty(): boolean {
-        let editedCredits = this.CreditsList.filter(x => x.id == String.Empty ||
+        let editedCredits = this.CreditsList.filter(x => x.id == "" ||
             x.action == this.dbOperation.Insert || x.action == this.dbOperation.Update || x.action == this.dbOperation.Delete);
 
         return editedCredits != undefined && editedCredits.length > 0;

@@ -67,7 +67,7 @@ export class ProfileEditActingComponent {
         var checkboxIndex = this.actingDetailModel.languages.findIndex(x => x.code == checkEvent.target.value);
 
         if (checkboxIndex > -1) {
-            this.actingDetailModel.languages[checkboxIndex].selectedLanguageCode = checkEvent.target.checked ? checkEvent.target.value : String.Empty;
+            this.actingDetailModel.languages[checkboxIndex].selectedLanguageCode = checkEvent.target.checked ? checkEvent.target.value : "";
         }
     }
 
@@ -75,7 +75,7 @@ export class ProfileEditActingComponent {
         var checkboxIndex = this.actingDetailModel.accents.findIndex(x => x.code == checkEvent.target.value);
 
         if (checkboxIndex > -1) {
-            this.actingDetailModel.accents[checkboxIndex].selectedAccent = checkEvent.target.checked ? checkEvent.target.value : String.Empty;
+            this.actingDetailModel.accents[checkboxIndex].selectedAccent = checkEvent.target.checked ? checkEvent.target.value : "";
         }
     }
 

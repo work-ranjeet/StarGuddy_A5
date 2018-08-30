@@ -18,8 +18,8 @@ export class ProfileEditDancingComponent {
 
     private readonly dataValidator: DataValidator;
     private readonly userProfileService: ProfileEditService;
-    private readonly initDancingStyle = { id: String.Empty, name: String.Empty, selectedValue: 0, value: 0 } as IDancingStyle;
-    private readonly initCreditsClass = { id: String.Empty, agentNeed: 0, choreographyAbilities: 0, danceAbilities: 0, dnacingStyles: Array<IDancingStyle>(), experience: String.Empty, isAgent: false, isAttendedSchool: true, userId: String.Empty } as IDancingModel;
+    private readonly initDancingStyle = { id: "", name: "", selectedValue: 0, value: 0 } as IDancingStyle;
+    private readonly initCreditsClass = { id: "", agentNeed: 0, choreographyAbilities: 0, danceAbilities: 0, dnacingStyles: Array<IDancingStyle>(), experience: "", isAgent: false, isAttendedSchool: true, userId: "" } as IDancingModel;
 
     public showEditHtml: boolean = false;
     public dancingModel: IDancingModel;

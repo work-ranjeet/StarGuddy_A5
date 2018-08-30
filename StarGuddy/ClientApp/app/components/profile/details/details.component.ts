@@ -28,7 +28,7 @@ export class ProfileDetails {
     }
 
     loadProfileDetils() {
-        var profileUrl = String.Empty;
+        var profileUrl = "";
         this.activatedRoute.params.subscribe(param => profileUrl = param['profileUrl']);
 
         console.info("User ProfileUrl: " + profileUrl == undefined ? "" : profileUrl);

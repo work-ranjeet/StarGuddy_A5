@@ -2,6 +2,8 @@ import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 //// Providers
 import { AppConstant, DbOperation } from "../Constants/AppConstant";
@@ -26,15 +28,16 @@ import { ProfileSettingModuleShared } from "./components/profileSettings/profile
         AppComponent
     ],
     imports: [
+        BrowserAnimationsModule,
         CommonModule, HttpClientModule, //FormsModule, ReactiveFormsModule
         CommonModuleShared,
         HomeModuleShared,
         AccountModuleShared,
         ProfileEditModuleShared,
         ProfileSettingModuleShared,
-        ProfileModuleShared,
+        ProfileModuleShared,       
         RouterModule.forRoot([
-            { path: "", redirectTo: "home", pathMatch: "full"},
+            { path: "", redirectTo: "home", pathMatch: "full" },
             { path: "**", redirectTo: "home" }
         ])
     ],

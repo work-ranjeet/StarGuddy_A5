@@ -16,6 +16,7 @@ namespace StarGuddy.Api.Models.Profile
         public string DisplayName { get; set; }
 
         public string CityOrTown { get; set; }
+        public string StateOrProvince { get; set; }        
 
         public string Country { get; set; }
 

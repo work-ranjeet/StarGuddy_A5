@@ -13,7 +13,7 @@ import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
 
 
 export class ProfileEditHeader {
-    private jobGroupName: string = String.Empty;
+    private jobGroupName: string = "";
     private jobGroupNameArray: Array<string> = [];
     private profileHeader: IProfileHeader = {} as IProfileHeader;
 
@@ -28,8 +28,8 @@ export class ProfileEditHeader {
             if (response != null) {
                 this.profileHeader = _.cloneDeep(response);
                 this.filterJobGroupNames(this.profileHeader.jobGroups);
-                if (this.profileHeader.displayName == "") {
-                    this.profileHeader.displayName = this.profileHeader.firstName + " " + this.profileHeader.lastName;
+                if (this.profileHeader.displayName == "" || this.profileHeader.displayName == undefined) {
+                    this.profileHeader.displayName = response.firstName + " " + response.lastName;
                 }
             }
             else {

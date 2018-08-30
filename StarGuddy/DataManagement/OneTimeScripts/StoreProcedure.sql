@@ -622,7 +622,7 @@ BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.Country, UP.PhoneNumber, UE.Email
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email
 	FROM users U
 	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
 	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
@@ -652,7 +652,7 @@ BEGIN
 	FROM UserSettings
 	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0
 
-	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.Country, UP.PhoneNumber, UE.Email
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email
 	FROM users U
 	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
 	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
