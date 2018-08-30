@@ -46,15 +46,6 @@ namespace StarGuddy.Repository.Interface
         IUser FindByUserName(string userName);
 
         /// <summary>
-        /// Finds the by email identifier.
-        /// </summary>
-        /// <param name="emailId">The email identifier.</param>
-        /// <returns>
-        /// Application User
-        /// </returns>
-        IUser FindByEmailId(string emailId);
-
-        /// <summary>
         /// Gets the verified user.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
@@ -92,5 +83,9 @@ namespace StarGuddy.Repository.Interface
         int UpdatePassword(string userName, string password);
 
         Task<Guid> GetUserIdByProfilUrl(string profileUrl);
+
+        Task<UserProfileHeader> GetUserProfileHeaderByProfilUrl(string profileUrl);
+
+        Task<UserProfileHeader> GetUserProfileHeaderById(Guid userId);
     }
 }

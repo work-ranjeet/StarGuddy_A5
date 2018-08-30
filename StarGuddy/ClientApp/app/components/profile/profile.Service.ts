@@ -7,7 +7,8 @@ import { BaseService } from "../../../Services/BaseService";
 import { Subject } from "rxjs/Subject";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import IUserProfile = App.Client.PublicProfile.IUserProfile;
-import IAppUserDetail = App.Client.PublicProfile.IAppUserDetail;
+import IJobGroupModel = App.Client.Profile.IJobGroupModel;
+import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
 
 @Injectable()
 export class ProfileService {
@@ -34,12 +35,13 @@ export class ProfileService {
                         console.log("Server-side error occurred. Error:" + err.message);
                     }
                 });
-    }
+    } 
 
-    GetUserDetails(): Observable<IAppUserDetail> {
-        return this.baseService.HttpService.getData<IAppUserDetail>("Profile/Details")
+    // Profile Header
+    GetUserProfileHeader(): Observable<IProfileHeader> {
+        return this.baseService.HttpService.getData<IProfileHeader>("Profile/header/ranjeetkumar1783")
             .map(
-            (result: IAppUserDetail) => {
+            (result: IProfileHeader) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-md-3 col-lg-3 col-sm-4 profile-header-img profile-info  hidden-sm hidden-xs">
+    <!--<div class="col-md-3 col-lg-3 col-sm-4 profile-header-img profile-info  hidden-sm hidden-xs">
         <img src="../../../../../wwwroot/css/img/artiwa.jpg" />
-    </div>
+    </div>-->
     <div class="col-lg-9 col-md-9 col-sm-8 padding-top-20  hidden-sm hidden-xs">
         <div class="profile-info-detail">
-            <h2>{{appUser.firstName}}&nbsp;{{appUser.lastName}}</h2>
-            <div class="text-muted">Actor, Extra, Model, Teacher/Choreographer</div>
+            <h2>{{profileHeader.displayName}}</h2>
+            <div class="text-muted">{{jobGroupName}}</div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
-                <span class="text-muted">{{address.cityOrTown}},&nbsp;{{address.country}}</span>
+                <span class="text-muted">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
             </div>
         </div>
         <!--<div class="row">
@@ -33,11 +33,11 @@
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8  hidden-md hidden-lg ">
         <div class="profile-info-detail-mob text-center">
-            <h2>{{appUser.firstName}}&nbsp;{{appUser.lastName}}</h2>
-            <div class="text-muted">Actor, Extra, Model, Teacher/Choreographer</div>
+            <h2>{{profileHeader.displayName}}</h2>
+            <div class="text-muted">{{jobGroupName}}</div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
-                <span class="text-muted">{{address.cityOrTown}},&nbsp;{{address.country}}</span>
+                <span class="text-muted">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
             </div>
         </div>
         <!--<div class="row">

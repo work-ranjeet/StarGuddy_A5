@@ -80,9 +80,10 @@ namespace StarGuddy.Api
             services.AddTransient<IImageManager, ImageManager>();
             services.AddTransient<ISecurityManager, SecurityManager>();
             services.AddTransient<IEmailManager, EmailManager>();
-            services.AddTransient<IProfileManager, ProfileManager>();
+            services.AddTransient<IProfileEditManager, ProfileEditManager>();
             services.AddTransient<IJobManager, JobManager>();
             services.AddTransient<IProfileSettingManager, ProfileSettingManager>();
+            services.AddTransient<IProfileManager, ProfileManager>();
         }
     }
 

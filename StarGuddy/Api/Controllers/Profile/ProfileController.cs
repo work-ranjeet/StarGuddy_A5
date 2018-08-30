@@ -28,6 +28,7 @@ namespace StarGuddy.Api.Controllers.Profile
         private readonly IUserManager _userManager;
         private readonly IJobManager _jobManager;
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileEditController"/> class.
         /// </summary>
@@ -57,45 +58,19 @@ namespace StarGuddy.Api.Controllers.Profile
             }
 
             return Ok(profileResult);
-        }
+        }        
 
         [HttpGet]
-        [Route("Interests")]
-        public async Task<IActionResult> GetUserInterests()
+        [Route("header/{profileUrl}")]
+        public async Task<IActionResult> GetProfileHeader(string profileUrl)
         {
-            var result = await _jobManager.GetUserGobGroup();
-            if (result == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(result);
-        }
-
-        [HttpPost]
-        [Route("Interests")]
-        public async Task<IActionResult> SaveUserInterests([FromBody] List<JobGroupModel> jobGroups)
-        {
-            if (jobGroups.IsNull() || !jobGroups.Any())
+            if(string.IsNullOrWhiteSpace(profileUrl))
             {
                 return BadRequest();
             }
 
-            if (await _jobManager.SaveUserGobGroup(jobGroups))
-            {
-                return Ok(true);
-            }
-
-            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), HttpStatusText.NotModified);
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("Details")]
-        public async Task<IActionResult> GetUserDetails()
-        {
-            var result = await _userManager.GetUserDetails();
-            if (result == null)
+            var result = await _profileManager.GetProfileHeaderByProfileUrl(profileUrl);
+            if (result.IsNull())
             {
                 return NotFound();
             }

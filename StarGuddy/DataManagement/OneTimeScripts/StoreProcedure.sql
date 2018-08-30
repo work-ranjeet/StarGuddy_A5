@@ -607,6 +607,63 @@ BEGIN
 	VALUES (NEWID(), @JobGroupId, @UserId, getutcdate(), getutcdate())
 END
 
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetProfileEditHeader') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetProfileEditHeader
+GO
+--EXEC GetProfileHeader 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
+CREATE PROCEDURE GetProfileEditHeader (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.Country, UP.PhoneNumber, UE.Email
+	FROM users U
+	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
+	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
+	LEFT JOIN UserEmails UE ON UE.UserId = U.Id AND UE.IsActive = 1 AND UE.IsDeleted = 0
+	WHERE U.Id = @UserId
+
+	EXEC GetUserJobGroup @UserId
+END
+
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetProfileHeader') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetProfileHeader
+GO
+--EXEC GetProfileHeader 'D40B2C5D-2881-4E8B-844A-B503DEB090BE'
+CREATE PROCEDURE GetProfileHeader (@ProfileUrl NVARCHAR(350))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	DECLARE @UserId UNIQUEIDENTIFIER
+	SELECT @UserId = UserId
+	FROM UserSettings
+	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0
+
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.Country, UP.PhoneNumber, UE.Email
+	FROM users U
+	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
+	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
+	LEFT JOIN UserEmails UE ON UE.UserId = U.Id AND UE.IsActive = 1 AND UE.IsDeleted = 0
+	WHERE U.Id = @UserId
+
+	EXEC GetUserJobGroup @UserId
+END
+
+GO
+
 
 
 

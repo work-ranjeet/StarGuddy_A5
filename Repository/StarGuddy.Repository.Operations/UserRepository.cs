@@ -62,7 +62,6 @@ namespace StarGuddy.Repository.Operations
             return await FindActiveByIdAsync(userId).ConfigureAwait(false);
         }
 
-
         /// <summary>
         /// Finds the by user name.
         /// </summary>
@@ -73,18 +72,6 @@ namespace StarGuddy.Repository.Operations
         public IUser FindByUserName(string userName)
         {
             return this.FindSingle("SELECT * FROM Users WHERE UserName=@UserName", new { UserName = userName });
-        }
-
-        /// <summary>
-        /// Finds the by email identifier.
-        /// </summary>
-        /// <param name="emaiId">The email identifier.</param>
-        /// <returns>
-        /// Application User
-        /// </returns>
-        public IUser FindByEmailId(string emaiId)
-        {
-            return this.FindSingle("SELECT * FROM Users WHERE Email=@EmailId", new { EmailId = emaiId });
         }
 
         /// <summary>
@@ -119,6 +106,56 @@ namespace StarGuddy.Repository.Operations
             {
                 //return this.FindSingle("SELECT Id FROM Users WHERE ProfileUrl=@ProfileUrl", new { ProfileUrl = profileUrl });
                 return Guid.Parse("D40B2C5D-2881-4E8B-844A-B503DEB090BE");
+            }
+
+        }
+
+        public async Task<UserProfileHeader> GetUserProfileHeaderByProfilUrl(string profileUrl)
+        {
+            try
+            {
+                using (var conn = await Connection.OpenConnectionAsync())
+                {
+                    var param = new { ProfileUrl = profileUrl };
+
+                    using (var multi = await conn.QueryMultipleAsync(SpNames.User.GetProfileHeader, param, commandType: CommandType.StoredProcedure))
+                    {
+                        var header = multi.ReadFirstOrDefault<UserProfileHeader>();
+                        if (header.IsNotNull())
+                            header.JobGroups = multi.Read<JobGroup>();
+
+                        return header;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public async Task<UserProfileHeader> GetUserProfileHeaderById(Guid userId)
+        {
+            try
+            {
+                using (var conn = await Connection.OpenConnectionAsync())
+                {
+                    var param = new { UserId = userId };
+
+                    using (var multi = await conn.QueryMultipleAsync(SpNames.User.GetProfileEditHeader, param, commandType: CommandType.StoredProcedure))
+                    {
+                        var header = multi.ReadFirstOrDefault<UserProfileHeader>();
+                        if (header.IsNotNull())
+                            header.JobGroups = multi.Read<JobGroup>();
+
+                        return header;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }

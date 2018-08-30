@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { DataValidator } from "../../../../Helper/DataValidator";
+
+import * as _ from "lodash";
+import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
+import IJobGroupModel = App.Client.Profile.IJobGroupModel;
+import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
 
 @Component({
     selector: "profile-edit-header",
@@ -10,15 +13,33 @@ import { DataValidator } from "../../../../Helper/DataValidator";
 
 
 export class ProfileEditHeader {
-    router: Router;
-    authenticateRoute: ActivatedRoute;
+    private jobGroupName: string = String.Empty;
+    private jobGroupNameArray: Array<string> = [];
+    private profileHeader: IProfileHeader = {} as IProfileHeader;
 
-    private readonly dataValidator: DataValidator
+    constructor(private readonly profileService: ProfileEditService) { }
 
-    constructor(router: Router, authRoute: ActivatedRoute, dataValidator: DataValidator) {
-        this.router = router;
-        this.authenticateRoute = authRoute;
-        this.dataValidator = dataValidator;
+    ngOnInit() {
+        this.loadHeader();
     }
 
+    loadHeader() {
+        this.profileService.GetUserProfileHeader().subscribe(response => {
+            if (response != null) {
+                this.profileHeader = _.cloneDeep(response);
+                this.filterJobGroupNames(this.profileHeader.jobGroups);
+                if (this.profileHeader.displayName == "") {
+                    this.profileHeader.displayName = this.profileHeader.firstName + " " + this.profileHeader.lastName;
+                }
+            }
+            else {
+                console.info("Got empty result: ProfileHeader.loadHeader()");
+            }
+        });
+    }
+
+    filterJobGroupNames(jobGroups: Array<IJobGroupModel>) {
+        jobGroups.forEach(x => this.jobGroupNameArray.push(x.name));
+        this.jobGroupName = this.jobGroupNameArray.join(", ");
+    }
 }

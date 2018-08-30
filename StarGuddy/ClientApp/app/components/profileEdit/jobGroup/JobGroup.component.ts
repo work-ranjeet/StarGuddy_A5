@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import * as _ from "lodash";
 import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
 import IJobGroupModel = App.Client.Profile.IJobGroupModel;
-import { Router } from "@angular/router";
 
 @Component({
     selector: "job-group",
@@ -14,7 +14,9 @@ export class JobGroupComponent {
     public userInterestResetList: Array<IJobGroupModel> = [];
 
 
-    constructor(private readonly userProfileService: ProfileEditService, private readonly router: Router) {
+    constructor(
+        private readonly userProfileService: ProfileEditService,
+        private readonly router: Router) {
         this.userProfileService = userProfileService;
     }
 

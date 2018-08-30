@@ -45,6 +45,16 @@ namespace StarGuddy.Repository.Opertions.Constants
             /// The get verified user
             /// </summary>
             public const string GetVarifiedUser = "GetVarifiedUser";
+
+            /// <summary>
+            /// The get verified user
+            /// </summary>
+            public const string GetProfileEditHeader = "GetProfileEditHeader";
+
+            /// <summary>
+            /// The get verified user
+            /// </summary>
+            public const string GetProfileHeader = "GetProfileHeader";
         }
 
         public struct UserEmails

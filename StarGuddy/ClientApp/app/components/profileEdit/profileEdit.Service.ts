@@ -11,6 +11,7 @@ import IDancingStyle = App.Client.Profile.IDancingStyleModel;
 import IActingDetailModel = App.Client.Profile.IUserActingModel;
 import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
 import IJobGroupModel = App.Client.Profile.IJobGroupModel;
+import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
 
 @Injectable()
 export class ProfileEditService {
@@ -35,7 +36,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
     SaveUserPhysicalAppreance(physicalAppearance: IPhysicalAppearance): Observable<boolean> {
         return this.baseService.HttpService.postData<IPhysicalAppearance>("Profile/Operations/SavePhysicalApperance", physicalAppearance)
             .map(
@@ -50,7 +50,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
 
     // --------------- User Credits ------------------------//
     GetUserCredits(): Observable<IUserCredits[]> {
@@ -67,7 +66,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
     SaveUserCredits(credits: IUserCredits[]): Observable<boolean> {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Credit", credits)
             .map(
@@ -82,7 +80,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
     DeleteUserCredits(id: string): Observable<boolean> {
         //let httpParams = new HttpParams();
         // httpParams.append("Id", id);
@@ -101,7 +98,6 @@ export class ProfileEditService {
                 });
     }
 
-
     // --------------- User Dancing ------------------------//
     GetUserDanceDetail(): Observable<IDancingModel> {
         return this.baseService.HttpService.getData<IDancingModel>("Profile/Operations/Dancing")
@@ -117,7 +113,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
     SaveUserDancingChanges(dancingModel: IDancingModel) {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Dancing", dancingModel)
             .map(
@@ -132,7 +127,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
 
     // --------------- User Acting ------------------------//
     GetUserActingDetail(): Observable<IActingDetailModel> {
@@ -149,7 +143,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
     SaveUserActingDetails(reqPayLoad: IActingDetailModel) {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Acting", reqPayLoad)
             .map(
@@ -164,7 +157,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
 
     // --------------- User Modeling ------------------------//
     GetUserModelingDetail(): Observable<IModelingDetailModel> {
@@ -181,7 +173,6 @@ export class ProfileEditService {
                     }
                 });
     }
-
     SaveUserModelingDetails(reqPayLoad: IModelingDetailModel) {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Modeling", reqPayLoad)
             .map(
@@ -197,10 +188,9 @@ export class ProfileEditService {
                 });
     }
 
-
     // --------------- User Interests ------------------------//
     GetUserInterestDetail(): Observable<IJobGroupModel[]> {
-        return this.baseService.HttpService.getData<IJobGroupModel[]>("Profile/Interests")
+        return this.baseService.HttpService.getData<IJobGroupModel[]>("Profile/Operations/Interests")
             .map(
                 (result: IJobGroupModel[]) => {
                     return result;
@@ -213,11 +203,26 @@ export class ProfileEditService {
                     }
                 });
     }
-
     SaveUserInterestDetail(requestData: IJobGroupModel[]): Observable<boolean> {
-        return this.baseService.HttpService.postData<boolean>("Profile/Interests", requestData)
+        return this.baseService.HttpService.postData<boolean>("Profile/Operations/Interests", requestData)
             .map(
                 (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    // Profile Header
+    GetUserProfileHeader(): Observable<IProfileHeader> {
+        return this.baseService.HttpService.getData<IProfileHeader>("Profile/Operations/header")
+            .map(
+                (result: IProfileHeader) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

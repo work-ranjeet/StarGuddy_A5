@@ -1,29 +1,22 @@
-﻿// -------------------------------------------------------------------------------
-// <copyright file="ImageManager.cs" company="StarGuddy India">
-// Copyright (c) 2017. All rights reserved.
-// </copyright>
-// -------------------------------------------------------------------------------
+﻿using AutoMapper;
+using StarGuddy.Api.Models.Dto;
+using StarGuddy.Api.Models.Interface.Profile;
+using StarGuddy.Api.Models.Profile;
+using StarGuddy.Api.Models.UserJobs;
+using StarGuddy.Business.Interface.Profile;
+using StarGuddy.Core.Constants;
+using StarGuddy.Core.Context;
+using StarGuddy.Core.Enums;
+using StarGuddy.Repository.Interface;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace StarGuddy.Business.Modules.Profile
 {
-    using AutoMapper;
-    using StarGuddy.Api.Models.Dto;
-    using StarGuddy.Api.Models.Interface.Profile;
-    using StarGuddy.Api.Models.Profile;
-    using StarGuddy.Business.Interface.Profile;
-    using StarGuddy.Core.Constants;
-    using StarGuddy.Core.Context;
-    using StarGuddy.Core.Enums;
-    using StarGuddy.Data.Entities;
-    using StarGuddy.Data.Entities.Interface;
-    using StarGuddy.Repository.Interface;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Models = Api.Models.Dto;
-
     public class ProfileManager : IProfileManager
     {
         private readonly IUserRepository _userRepository;
@@ -52,163 +45,20 @@ namespace StarGuddy.Business.Modules.Profile
             _mapper = mapper;
         }
 
-        #region /// Physical Appearance
-        public async Task<IPhysicalAppearanceModal> GetPhysicalAppreance() => await FetchPhysicalAppreance(UserContext.Current.UserId);
-
-        public async Task<bool> PerformSave(IPhysicalAppearanceModal phyAppModal)
+        public async Task<ProfileHeader> GetProfileHeaderByProfileUrl(string profileUrl)
         {
-            var physicalAppreance = new PhysicalAppearance
+            var result = await _userRepository.GetUserProfileHeaderByProfilUrl(profileUrl);
+
+            if (result.IsNotNull())
             {
-                BodyType = phyAppModal.BodyType,
-                Chest = phyAppModal.Chest,
-                Ethnicity = phyAppModal.Ethnicity,
-                EyeColor = phyAppModal.EyeColor,
-                HairColor = phyAppModal.HairColor,
-                HairLength = phyAppModal.HairLength,
-                HairType = phyAppModal.HairType,
-                Height = phyAppModal.Height,
-                IsActive = true,
-                IsDeleted = false,
-                SkinColor = phyAppModal.SkinColor,
-                UserId = phyAppModal.UserId,
-                Weight = phyAppModal.Weight,
-                West = phyAppModal.West
-            };
+                var profileHeader = _mapper.Map<ProfileHeader>(result);
+                profileHeader.JobGroups = _mapper.Map<List<JobGroupModel>>(result.JobGroups).Where(x=>x.Code == x.SelectedCode);
 
-            return await this._physicalAppearanceRepository.PerformSaveOperation(physicalAppreance);
-        }
-        #endregion
-
-        #region /// User credits
-        public async Task<IEnumerable<IUserCreditModel>> GetUserCredits() => await FetchUserCredits(UserContext.Current.UserId);
-
-        public async Task<bool> SaveUserCredits(Guid UserId, List<UserCreditModel> userCreditModelList)
-        {
-            if (userCreditModelList != null && userCreditModelList.Any())
-            {
-                var saveUpdateBag = new ConcurrentBag<IUserCredits>();
-                userCreditModelList.AsParallel().ForAll(credit =>
-                {
-                    if (credit.Action == DbOperation.Insert || credit.Action == DbOperation.Update)
-                    {
-                        saveUpdateBag.Add(new UserCredits
-                        {
-                            UserId = UserId,
-                            Year = credit.WorkYear,
-                            WorkPlace = credit.WorkPlace,
-                            WorkDetail = credit.WorkDetail
-                        });
-                    }
-                });
-
-                if (saveUpdateBag.Any())
-                {
-                    return await this._userCreditsRepository.PerformMaultipleSaveOperation(saveUpdateBag);
-                }
+                return profileHeader;
             }
 
-            return false;
+            return null;
         }
-
-        public async Task<bool> DeleteUserCredits(Guid Id) => await this._userCreditsRepository.PerformDeleteOperation(Id);
-        #endregion
-
-        #region /// User dancing
-        public async Task<DancingModel> GetUserDancingAsync() => await FetchUserDancingAsync(UserContext.Current.UserId);
-
-        public async Task<bool> SaveUserDancingAsync(DancingModel dancingModel)
-        {
-            if (dancingModel != null)
-            {
-                var userDancing = new UserDancing
-                {
-                    Id = dancingModel.Id,
-                    UserId = UserContext.Current.UserId,
-                    ChoreographyAbilitiesCode = dancingModel.ChoreographyAbilities,
-                    AgentNeedCode = dancingModel.AgentNeed,
-                    Experiance = dancingModel.Experience,
-                    DanceAbilitiesCode = dancingModel.DanceAbilities,
-                    IsAttendedSchool = dancingModel.IsAttendedSchool,
-                    IsAgent = dancingModel.IsAgent,
-                    IsActive = true,
-                    IsDeleted = false
-                };
-
-                var danceStyleIds = new ConcurrentBag<long>();
-                if (dancingModel.DnacingStyles != null && dancingModel.DnacingStyles.Any())
-                {
-                    dancingModel.DnacingStyles.AsParallel().ForAll(x =>
-                    {
-                        if (x.SelectedValue != 0)
-                        {
-                            danceStyleIds.Add(x.SelectedValue ?? 0);
-                        }
-                    });
-                }
-
-                return await _userDancingRepository.PerformSaveAndUpdateOperationAsync(userDancing, danceStyleIds);
-            }
-
-            return false;
-        }
-        #endregion
-
-        #region /// User Acting
-        public async Task<UserActingModel> GetUserActingDetailAsync() => await FetchUserActingDetailAsync(UserContext.Current.UserId);
-
-        public async Task<bool> SaveUserActingDetailsAsync(UserActingModel userActingModel)
-        {
-            if (userActingModel.IsNotNull())
-            {
-                var userActingDetail = new UserActingDetail
-                {
-                    UserActing = new UserActing
-                    {
-                        Id = userActingModel.Id,
-                        UserId = userActingModel.UserId,
-                        ActingExperianceCode = userActingModel.ActingExperianceCode,
-                        ActingExperiance = userActingModel.ActingExperiance,
-                        AgentNeedCode = userActingModel.AgentNeedCode,
-                        AgentNeed = string.Empty,
-                        Experiance = userActingModel.Experiance,
-                        IsActive = true,
-                        IsDeleted = false,
-                        DttmModified = DateTime.UtcNow
-                    },
-                    Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => string.IsNullOrWhiteSpace(x.SelectedAccent)),
-                    Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
-                    ActingRoles = _mapper.Map<List<JobSubGroup>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
-                };
-
-                return await _userActingRepository.PerformSaveAndUpdateOperationAsync(userActingDetail);
-            }
-
-            return false;
-        }
-
-        #endregion
-
-        #region /// User Modeling
-        public async Task<UserModelingModel> GetUserModelingDetailAsync() => await FetchModelingDetailAsync(UserContext.Current.UserId);
-
-        public async Task<bool> SaveUserModelingDetailsAsync(UserModelingModel userModelingModel)
-        {
-            if (userModelingModel.IsNotNull())
-            {
-                var userModelingDetails = new UserModelingDetails
-                {
-                    UserModeling = _mapper.Map<UserModeling>(userModelingModel),
-                    ModelingRoles = _mapper.Map<List<JobSubGroup>>(userModelingModel.ModelingRoles).Where(x => x.SelectedCode != 0)
-                };
-
-                userModelingDetails.UserModeling.UserId = UserContext.Current.UserId;
-
-                return await _userModelingRepository.PerformSaveAndUpdateOperationAsync(userModelingDetails);
-            }
-
-            return false;
-        }
-        #endregion
 
         public async Task<UserProfile> GetUserProfile(string profileUrl)
         {
@@ -246,11 +96,10 @@ namespace StarGuddy.Business.Modules.Profile
             return null;
         }
 
-
-        #region Private Methods
-        private async Task<IEnumerable<IUserCreditModel>> FetchUserCredits(Guid userId)
+        #region TODO
+        public async Task<IEnumerable<IUserCreditModel>> FetchUserCredits(Guid userId)
         {
-            var result = await this._userCreditsRepository.GetUserCreditsById(userId);
+            var result = await _userCreditsRepository.GetUserCreditsById(userId);
             if (result != null && result.Any())
             {
                 var creditBag = new ConcurrentBag<IUserCreditModel>();
@@ -271,27 +120,15 @@ namespace StarGuddy.Business.Modules.Profile
 
             return null;
         }
-        private async Task<IPhysicalAppearanceModal> FetchPhysicalAppreance(Guid userId)
+        public async Task<IPhysicalAppearanceModal> FetchPhysicalAppreance(Guid userId)
         {
             var result = await this._physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
-            return new PhysicalAppearanceModal
-            {
-                BodyType = result.BodyType,
-                Chest = result.Chest,
-                Ethnicity = result.Ethnicity,
-                EyeColor = result.EyeColor,
-                HairColor = result.HairColor,
-                HairLength = result.HairLength,
-                HairType = result.HairType,
-                Height = result.Height,
-                SkinColor = result.SkinColor,
-                UserId = result.UserId,
-                Weight = result.Weight,
-                West = result.West
-            };
+            var mappedResult = _mapper.Map<PhysicalAppearanceModal>(result);
+
+            return mappedResult;
         }
 
-        private async Task<DancingModel> FetchUserDancingAsync(Guid userId)
+        public async Task<DancingModel> FetchUserDancingAsync(Guid userId)
         {
             var dancingModel = new DancingModel()
             {
@@ -350,7 +187,7 @@ namespace StarGuddy.Business.Modules.Profile
             return dancingModel;
         }
 
-        private async Task<UserActingModel> FetchUserActingDetailAsync(Guid userId)
+        public async Task<UserActingModel> FetchUserActingDetailAsync(Guid userId)
         {
             var result = await _userActingRepository.GetUserActingDetailAsync(userId);
             if (result.IsNotNull())
@@ -371,27 +208,15 @@ namespace StarGuddy.Business.Modules.Profile
 
             return new UserActingModel
             {
-                Accents = new List<Models.AccentsDto>(),
-                Languages = new List<Models.LanguageDto>(),
-                AuditionsAndJobsGroup = new List<Models.AuditionsAndJobsGroupDto>()
+                Accents = new List<AccentsDto>(),
+                Languages = new List<LanguageDto>(),
+                AuditionsAndJobsGroup = new List<AuditionsAndJobsGroupDto>()
             };
         }
 
-        private async Task<UserModelingModel> FetchModelingDetailAsync(Guid userId)
+        public async Task<UserModelingModel> FetchModelingDetailAsync(Guid userId)
         {
             var result = await _userModelingRepository.GetUserModelingDetailAsync(userId);
-            if (result.IsNotNull())
-            {
-                var userModelingModel = _mapper.Map<UserModelingModel>(result.UserModeling);
-                if (userModelingModel.IsNull())
-                {
-                    userModelingModel = new UserModelingModel { ModelingRoles = new List<AuditionsAndJobsGroupDto>() };
-                }
-
-                userModelingModel.ModelingRoles = _mapper.Map<List<AuditionsAndJobsGroupDto>>(result.ModelingRoles);
-
-                return userModelingModel;
-            }
 
             return new UserModelingModel { ModelingRoles = new List<AuditionsAndJobsGroupDto>() };
         }
@@ -399,5 +224,3 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
     }
 }
-
-

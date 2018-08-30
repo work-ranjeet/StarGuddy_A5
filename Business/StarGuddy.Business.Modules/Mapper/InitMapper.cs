@@ -23,12 +23,14 @@ namespace StarGuddy.Business.Modules.Mapper
             CreateMap<UserModeling, UserModelingModel>().ReverseMap();
             CreateMap<UserSettings, UserSettingDto>().ReverseMap();
             CreateMap<JobGroup, JobGroupModel>().ReverseMap();
+            CreateMap<PhysicalAppearance, PhysicalAppearanceModal>().ReverseMap();
 
             CreateMap<User, AppUserDto>().ReverseMap();
             CreateMap<UserAddress, AddressDto>().ReverseMap();
             CreateMap<UserDetail, UserDetailDto>().ReverseMap();
             CreateMap<UserEmails, EmailDto>().ReverseMap();
             CreateMap<UserPhones, PhoneDto>().ReverseMap();
+            CreateMap<UserProfileHeader, ProfileHeader>().ReverseMap();
         }
     }
 }
