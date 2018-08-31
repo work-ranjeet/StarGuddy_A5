@@ -28,7 +28,7 @@ import { ProfileModelingComponent } from "../profile/details/modeling/modeling.c
         CommonModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: "profile/:profileUrl", component: ProfileIndex }
+            { path: "profile/star/:profileUrl", component: ProfileIndex }
         ])
     ],
     providers: [ProfileService],
