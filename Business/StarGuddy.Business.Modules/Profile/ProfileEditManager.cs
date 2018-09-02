@@ -297,8 +297,8 @@ namespace StarGuddy.Business.Modules.Profile
                         IsDeleted = false,
                         DttmModified = DateTime.UtcNow
                     },
-                    Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => string.IsNullOrWhiteSpace(x.SelectedAccent)),
-                    Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
+                    Accents = _mapper.Map<List<Accents>>(userActingModel.Accents).Where(x => !string.IsNullOrWhiteSpace(x.SelectedAccent)),
+                    Languages = _mapper.Map<List<Language>>(userActingModel.Languages).Where(x => !string.IsNullOrWhiteSpace(x.SelectedLanguageCode)),
                     ActingRoles = _mapper.Map<List<JobSubGroup>>(userActingModel.AuditionsAndJobsGroup).Where(x => x.SelectedCode != 0)
                 };
 

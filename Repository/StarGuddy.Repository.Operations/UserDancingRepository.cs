@@ -71,6 +71,8 @@ namespace StarGuddy.Repository.Operations
                     {
                         try
                         {
+                            await conn.ExecuteAsync(SpNames.UserDancingStyle.Clear, param: new { userDancing.UserId }, transaction: tran, commandType: CommandType.StoredProcedure);
+
                             /* @UserId UNIQUEIDENTIFIER,
                                @DanceAbilitiesId INT = 0, 
 	                           @ChoreographyAbilitiesId INT = 0,
@@ -87,25 +89,19 @@ namespace StarGuddy.Repository.Operations
                             userDancingparam.Add("@AgentNeedCode", userDancing.AgentNeedCode, DbType.Int32, ParameterDirection.Input);
                             userDancingparam.Add("@IsAttendedSchool", userDancing.IsAttendedSchool, DbType.Boolean, ParameterDirection.Input);
                             userDancingparam.Add("@IsAgent", userDancing.IsAgent, DbType.Boolean, ParameterDirection.Input);
-                            userDancingparam.Add("@Experiance", userDancing.Experiance, DbType.String, ParameterDirection.Input);
-                            userDancingparam.Add("@UserDancingId", Guid.NewGuid(), dbType: DbType.Guid, direction: ParameterDirection.Output);
+                            userDancingparam.Add("@Experiance", userDancing.Experiance, DbType.String, ParameterDirection.Input);                          
 
                             var mainResult = await conn.ExecuteAsync(
                                 SpNames.UserDancing.SaveUpdate,
                                 param: userDancingparam,
                                 transaction: tran,
-                                commandType: CommandType.StoredProcedure);
-                            var userDancingId = userDancingparam.Get<Guid>("@UserDancingId");
-
-                            await conn.ExecuteAsync("DELETE FROM UserDancingStyle WHERE UserDancingId = @UserDancingId",
-                                param: new { UserDancingId = userDancingId },
-                                transaction: tran, commandType: CommandType.Text);
+                                commandType: CommandType.StoredProcedure);                          
 
                             var creditTask = danceStyleIds.Select(async id =>
                             {
                                 var param = new
                                 {
-                                    UserDancingId = userDancingId,
+                                    userDancing.UserId,
                                     DancingStyleId = id
                                 };
 

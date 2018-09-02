@@ -79,6 +79,7 @@ namespace StarGuddy.Repository.Opertions.Constants
 
         public struct UserDancingStyle
         {
+            public const string Clear = "UserDancingStyleClear";
             public const string Save = "UserDancingStyleSave";
         }
 

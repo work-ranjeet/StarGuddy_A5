@@ -228,19 +228,47 @@ GO
 IF EXISTS (
 		SELECT *
 		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UserDancingStyleClear') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UserDancingStyleClear
+GO
+
+CREATE PROCEDURE UserDancingStyleClear (@UserId UNIQUEIDENTIFIER)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+	DECLARE @UserDancingId UNIQUEIDENTIFIER = NULL
+	SELECT @UserDancingId = Id FROM UserDancing WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
+	
+	IF @UserDancingId IS NOT NULL
+	BEGIN
+		DELETE FROM  UserDancingStyle WHERE UserDancingId = @UserDancingId
+	END
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
 		WHERE object_id = OBJECT_ID(N'UserDancingStyleSave') AND type IN (N'P', N'PC')
 		)
 	DROP PROCEDURE UserDancingStyleSave
 GO
 
-CREATE PROCEDURE UserDancingStyleSave (@UserDancingId UNIQUEIDENTIFIER, @DancingStyleId BIGINT)
+CREATE PROCEDURE UserDancingStyleSave (@UserId UNIQUEIDENTIFIER, @DancingStyleId BIGINT)
 AS
 BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	INSERT INTO UserDancingStyle (Id, UserDancingId, DancingStyleId)
-	VALUES (newID(), @UserDancingId, @DancingStyleId)
+	DECLARE @UserDancingId UNIQUEIDENTIFIER  
+
+	SELECT @UserDancingId = Id FROM	UserDancing WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
+	IF @UserDancingId IS NOT NULL
+	BEGIN
+		INSERT INTO UserDancingStyle (Id, UserDancingId, DancingStyleId)
+		VALUES (newID(), @UserDancingId, @DancingStyleId)
+	END
 END
 GO
 
@@ -251,37 +279,29 @@ IF EXISTS (
 		)
 	DROP PROCEDURE UserDancingSaveUpdate
 GO
-
-CREATE PROCEDURE UserDancingSaveUpdate (@UserId UNIQUEIDENTIFIER, @DanceAbilitiesCode INT = 1, @ChoreographyAbilitiesCode INT = 1, @AgentNeedCode INT = 1, @IsAttendedSchool BIT = 0, @IsAgent BIT = 0, @Experiance NVARCHAR(2000), @UserDancingId UNIQUEIDENTIFIER OUTPUT)
+CREATE PROCEDURE UserDancingSaveUpdate (
+	@UserId UNIQUEIDENTIFIER, 
+	@DanceAbilitiesCode INT = 1, 
+	@ChoreographyAbilitiesCode INT =1, 
+	@AgentNeedCode INT = 1,
+	@IsAttendedSchool BIT = 0, 
+	@IsAgent BIT = 0, 
+	@Experiance NVARCHAR(2000))
 AS
 BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	IF (
-			EXISTS (
-				SELECT TOP 1 Id
-				FROM UserDancing
-				WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
-				)
-			)
+	IF (EXISTS (SELECT TOP 1 Id	FROM UserDancing WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0))
 	BEGIN
-		SET @UserDancingId = (
-				SELECT Id
-				FROM UserDancing
-				WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
-				)
-
 		UPDATE UserDancing
 		SET DanceAbilitiesCode = @DanceAbilitiesCode, ChoreographyAbilitiesCode = @ChoreographyAbilitiesCode, AgentNeedCode = @AgentNeedCode, IsAttendedSchool = @IsAttendedSchool, IsAgent = @IsAgent, Experiance = @Experiance, DttmModified = getutcdate()
-		WHERE id = @UserDancingId
+		WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
 	END
 	ELSE
 	BEGIN
-		SET @UserDancingId = NEWID()
-
 		INSERT INTO UserDancing (Id, UserId, DanceAbilitiesCode, ChoreographyAbilitiesCode, AgentNeedCode, IsAttendedSchool, IsAgent, Experiance, IsActive, IsDeleted, DttmCreated, DttmModified)
-		VALUES (@UserDancingId, @UserId, @DanceAbilitiesCode, @ChoreographyAbilitiesCode, @AgentNeedCode, @IsAttendedSchool, @IsAgent, @Experiance, 1, 0, getutcdate(), getutcdate())
+		VALUES (NEWID(), @UserId, @DanceAbilitiesCode, @ChoreographyAbilitiesCode, @AgentNeedCode, @IsAttendedSchool, @IsAgent, @Experiance, 1, 0, getutcdate(), getutcdate())
 	END
 END
 GO
@@ -300,20 +320,13 @@ BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	DECLARE @userDancingId UNIQUEIDENTIFIER
-
-	SELECT @userDancingId = Id
-	FROM UserDancing
-	WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0
-
-	SELECT DS.Id, DS.Id AS Value, DS.Style, COALESCE(UDS.DancingStyleId, 0) AS SelectedValue
-	FROM DancingStyle DS
-	LEFT JOIN UserDancingStyle UDS ON UDS.DancingStyleId = DS.Id
-	LEFT JOIN UserDancing UD ON UD.Id = UDS.UserDancingId AND Ud.IsActive = 1 AND UD.IsDeleted = 0 AND UD.UserId = @userDancingId AND UD.IsActive = 1 AND UD.IsDeleted = 0
-	WHERE DS.IsActive = 1 AND DS.IsDeleted = 0
+	SELECT DS.Id, DS.Id AS Value, DS.Style, (CASE WHEN  UDS.DancingStyleId IS NULL then 0 else UDS.DancingStyleId END) AS SelectedValue
+	FROM DancingStyle DS	
+	LEFT JOIN UserDancing UD ON  Ud.IsActive = 1 AND UD.IsDeleted = 0 AND UD.UserId = @UserId
+	LEFT JOIN UserDancingStyle UDS ON UDS.DancingStyleId = DS.Id AND UDS.UserDancingId = UD.Id
+	WHERE DS.IsActive = 1 AND DS.IsDeleted = 0  order by Style
 END
 GO
-
 
 ----------------------------------------------------------------------User Acting -----------------------------------------------------------------------
 IF EXISTS (
