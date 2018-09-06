@@ -635,11 +635,12 @@ BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email, UD.About
 	FROM users U
 	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
 	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
 	LEFT JOIN UserEmails UE ON UE.UserId = U.Id AND UE.IsActive = 1 AND UE.IsDeleted = 0
+	LEFT JOIN UserDetail UD ON UD.UserId = U.Id AND UD.IsActive = 1 AND UD.IsDeleted = 0
 	WHERE U.Id = @UserId
 
 	EXEC GetUserJobGroup @UserId
@@ -665,11 +666,12 @@ BEGIN
 	FROM UserSettings
 	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0
 
-	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email, UD.About
 	FROM users U
 	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
 	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
 	LEFT JOIN UserEmails UE ON UE.UserId = U.Id AND UE.IsActive = 1 AND UE.IsDeleted = 0
+	LEFT JOIN UserDetail UD ON UD.UserId = U.Id AND UD.IsActive = 1 AND UD.IsDeleted = 0
 	WHERE U.Id = @UserId
 
 	EXEC GetUserJobGroup @UserId

@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import * as _ from "lodash";
 import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
-import { DataValidator } from "../../../../Helper/DataValidator";
-import ILoginData = App.Client.Account.ILoginData;
+import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
+import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 @Component({
     selector: "profile-edit-index",
@@ -12,43 +12,47 @@ import ILoginData = App.Client.Account.ILoginData;
 
 
 export class ProfileEditIndex {
-    loginData: ILoginData = {} as ILoginData;
-    manageAccountService: ProfileEditService;
-    router: Router;
-    returnUrl: string;
-    authenticateRoute: ActivatedRoute;
+    private jobGroupName: string = "";
+    private aboutMe: string = "";
+    private selectedMenuCode: number = 0;
+    private selectedGroups: Array<IJobGroupModel> = [];
+    private jobGroupNameArray: Array<string> = [];
+    private profileHeader: IProfileHeader = {} as IProfileHeader;
+    private readonly profileService: ProfileEditService;
 
-    private readonly dataValidator: DataValidator
-
-    constructor(router: Router, authRoute: ActivatedRoute, manageAccountService: ProfileEditService, dataValidator: DataValidator) {
-        this.router = router;
-        this.authenticateRoute = authRoute;
-        this.manageAccountService = manageAccountService;
-        this.dataValidator = dataValidator;
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";
+    constructor(profileService: ProfileEditService) {    
+        this.profileService = profileService;
     }
 
+    ngOnInit() {
+        this.loadHeaderData();
+    }
 
-    //scrollTo(selector: string, parentSelector?: string, horizontal?: boolean) {
-    //    scrollTo(
-    //        selector,       // scroll to this
-    //        parentSelector, // scroll within (null if window scrolling)
-    //        horizontal,     // is it horizontal scrolling
-    //        0               // distance from top or left
-    //    );
-    //}
+    loadHeaderData() {
+        this.profileService.GetUserProfileHeader().subscribe(response => {
+            if (response != null) {
+                this.profileHeader = _.cloneDeep(response);
+                this.aboutMe = _.cloneDeep(response.about);
+                this.selectedGroups = _.cloneDeep(response.jobGroups);
+                this.filterData(response.jobGroups);                
+            }
+            else {
+                console.info("Got empty result: ProfileEditIndex.loadHeaderData()");
+            }
+        });
+    }
 
-    //login() {
-    //    if (this.dataValidator.IsValidObject(this.loginData)) {
-    //        this.accountService.login(this.loginData).subscribe(
-    //            result => {
-    //                this.router.navigate([this.returnUrl]);
-    //            },
-    //            error => {
-    //                console.error(error);
-    //            });
-    //    }
-    //}
+    filterData(jobGroups: Array<IJobGroupModel>) {
+        if (this.profileHeader.displayName == "" || this.profileHeader.displayName == undefined) {
+            this.profileHeader.displayName = this.profileHeader.firstName + " " + this.profileHeader.lastName;
+        }
+
+        jobGroups.forEach(x => this.jobGroupNameArray.push(x.name));
+        this.jobGroupName = this.jobGroupNameArray.join(", ");
+    }
+
+    changeMenuSelection(menuName: number) {
+        this.selectedMenuCode = menuName;
+    }
+
 }

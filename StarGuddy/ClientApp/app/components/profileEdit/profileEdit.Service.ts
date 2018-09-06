@@ -12,6 +12,7 @@ import IActingDetailModel = App.Client.Profile.IUserActingModel;
 import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
 import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
+import IUserNameModel = App.Client.Profile.IUserNameModel;
 
 @Injectable()
 export class ProfileEditService {
@@ -205,6 +206,37 @@ export class ProfileEditService {
     }
     SaveUserInterestDetail(requestData: IJobGroupModel[]): Observable<boolean> {
         return this.baseService.HttpService.postData<boolean>("Profile/Operations/Interests", requestData)
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    // Name
+    GetUserNameDetail(): Observable<IUserNameModel> {
+        return this.baseService.HttpService.getData<IUserNameModel>("Profile/Operations/name")
+            .map(
+            (result: IUserNameModel) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    SaveUserNameDetail(payLoad: IUserNameModel) {
+        return this.baseService.HttpService.patchData<boolean>("Profile/Operations/name", payLoad)
             .map(
                 (result: any) => {
                     return result;

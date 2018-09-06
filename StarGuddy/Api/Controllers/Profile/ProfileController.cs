@@ -1,17 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Constants;
-using StarGuddy.Api.Models.Interface.Profile;
-using StarGuddy.Api.Models.Profile;
-using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Profile;
 using StarGuddy.Business.Interface.UserJobs;
-using StarGuddy.Core.Context;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace StarGuddy.Api.Controllers.Profile

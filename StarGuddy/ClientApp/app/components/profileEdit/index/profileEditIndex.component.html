@@ -1,12 +1,25 @@
 
-<div id="userProfileIndexForm" class="form form-horizontal container">
-    <profile-edit-header></profile-edit-header>
-    <profile-edit-menu></profile-edit-menu>
-    <!--<profile-edit-photos></profile-edit-photos>-->
-    <profile-edit-physicalDetails></profile-edit-physicalDetails>
-    <profile-edit-credits></profile-edit-credits>
-    <profile-edit-acting></profile-edit-acting>
-    <profile-edit-dancing></profile-edit-dancing>
-    <profile-edit-modeling></profile-edit-modeling>    
+<div id="userProfileIndexForm" class="container">
+    <profile-edit-header [jobGroupNames]="jobGroupName" [profileHeader]="profileHeader"></profile-edit-header>
+    <profile-edit-menu [selectedJobGroup]="selectedGroups" [about]="aboutMe" (menuSelectionChange)="changeMenuSelection($event)"></profile-edit-menu>
+    <!--<div id="photos">
+        <profile-edit-photos></profile-edit-photos>
+    </div>-->
+
+    <div id="profileEditPhysicalDetails">
+        <profile-edit-physicalDetails></profile-edit-physicalDetails>
+    </div>
+    <div id="profileEditCredits" *ngIf="selectedMenuCode==0 || selectedMenuCode==1003">
+        <profile-edit-credits></profile-edit-credits>
+    </div>
+    <div id="profileEditActing" *ngIf="selectedMenuCode==0 || selectedMenuCode==1001">
+        <profile-edit-acting></profile-edit-acting>
+    </div>
+    <div id="profileEditDancing" *ngIf="selectedMenuCode==0 || selectedMenuCode==1008">
+        <profile-edit-dancing></profile-edit-dancing>
+    </div>
+    <div id="profileEditModeling" *ngIf="selectedMenuCode==0 || selectedMenuCode==1002">   
+        <profile-edit-modeling></profile-edit-modeling>
+    </div>
 </div>
 

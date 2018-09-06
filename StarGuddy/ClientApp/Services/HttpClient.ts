@@ -34,6 +34,14 @@ export class HttpService {
         return this.http.post<T>(this.UrlPrifix + Url, data);
     }
 
+    patchData<T>(Url: string, data: any) {
+        return this.http.patch<T>(this.UrlPrifix + Url, data);
+    }
+
+    putData<T>(Url: string, data: any) {
+        return this.http.put<T>(this.UrlPrifix + Url, data);
+    }
+
     deleteData<T>(Url: string, params: HttpParams) {
         return this.http.delete<T>(this.UrlPrifix + Url, {
             params: params

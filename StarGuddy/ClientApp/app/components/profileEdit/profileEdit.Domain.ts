@@ -108,4 +108,12 @@
         isActive: boolean;
         isDeleted: boolean;
     }
+
+    export interface IUserNameModel {
+        Id: string;
+        firstName: string;
+        lastName: string;
+        displayName: string;
+        orgName: string;
+    }
 }

@@ -14,6 +14,8 @@ namespace StarGuddy.Data.Entities
 
         public string DisplayName { get; set; }
 
+        public string About { get; set; }
+
         public string CityOrTown { get; set; }
 
         public string StateOrProvince { get; set; }

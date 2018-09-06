@@ -349,7 +349,28 @@ namespace StarGuddy.Business.Modules.Profile
         }
         #endregion
 
+        #region /// Name
+        public async Task<UserNameModel> GetNameDetailsByUserId(Guid userId)
+        {
+            var result = await _userRepository.FindByIdAsync(userId);
 
+            if (result.IsNotNull())
+            {
+                return new UserNameModel
+                {
+                    Id = result.Id,
+                    FirstName = result.FirstName,
+                    LastName = result.LastName,
+                    DisplayName = result.DisplayName,
+                    OrgName = result.OrgName
+                };
+            }
+
+            return null;
+        }
+        #endregion
+
+        #region /// profile header
         public async Task<ProfileHeader> GetProfileHeaderByUserId(Guid userId)
         {
             var result = await _userRepository.GetUserProfileHeaderById(userId);
@@ -364,6 +385,7 @@ namespace StarGuddy.Business.Modules.Profile
 
             return null;
         }
+        #endregion
     }
 }
 

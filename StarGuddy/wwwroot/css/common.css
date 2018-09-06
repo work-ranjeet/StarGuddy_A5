@@ -16,9 +16,12 @@ body {
     margin: 0px;
     margin-top: 52px;
 }
+.mob-only{
+    width:350px;
+    margin:auto!important;
+}
 
-.container-medium,
-.container-small {
+.container-medium, .container-small {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;

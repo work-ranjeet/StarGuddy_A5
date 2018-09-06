@@ -57,9 +57,9 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// Application User
         /// </returns>
-        public async Task<User> FindByIdAsync(Guid userId)
+        public async Task<User> FindByIdAsync(Guid id)
         {
-            return await FindActiveByIdAsync(userId).ConfigureAwait(false);
+            return await FindActiveByIdAsync(id).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
+import IUserNameModel = App.Client.Profile.IUserNameModel;
+import * as _ from 'lodash';
+
+
 
 /** @title Simple form field */
 @Component({
@@ -8,5 +12,55 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     styleUrls: ['././profileEditName.component.css']
 })
 export class ProfileEditNameComponent {
+
+    private fullName: string = "Ranjeet Kumar";
+    private shortName: string = "Ranjeet K";
+
+    private userNameModel: IUserNameModel = {} as IUserNameModel;
+
+    constructor(private readonly profileService: ProfileEditService) { }
+
+    ngOnInit() {
+        this.load();
+    }
+
+    load() {
+        this.profileService.GetUserNameDetail().subscribe(response => {
+            if (response != null) {
+                if (response.lastName == undefined || response.lastName == null) {
+                    response.lastName = "";
+                }
+
+                this.userNameModel = _.cloneDeep(response);
+                this.fullName = response.firstName + " " + response.lastName;
+                this.shortName = response.firstName + " " + (response.lastName != "" ? response.lastName.slice(0, 1) : "");
+            }
+            else {
+                console.info("Got empty result: IDancingModel");
+            }
+        });
+    }
+
+    save() {
+        this.profileService.SaveUserNameDetail(this.userNameModel).subscribe(response => {
+            if (response != null && response) {
+                console.info("Updated");
+            }
+            else {
+                console.warn(response.statusText);
+            }
+        });
+    }
+
+
+    firstNameChange(inputVal: string) {
+        this.fullName = inputVal + " " + this.userNameModel.lastName;
+        this.shortName = inputVal + " " + (this.userNameModel.lastName != "" ? this.userNameModel.lastName.slice(0, 1) : "");
+    }
+
+    lastNameChange(inputVal: string) {
+        this.fullName = this.userNameModel.firstName + " " + inputVal;
+        this.shortName = this.userNameModel.firstName + " " + (inputVal != "" ? inputVal.slice(0, 1) : "");
+    }
 
 }

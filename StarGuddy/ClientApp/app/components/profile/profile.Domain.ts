@@ -15,6 +15,7 @@
         firstName: string;
         lastName: string;
         displayName: string;
+        about: string;
         cityOrTown: string;
         country: string;
         phoneNumber: string;

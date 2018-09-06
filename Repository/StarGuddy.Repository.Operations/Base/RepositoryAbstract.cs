@@ -264,37 +264,6 @@ namespace StarGuddy.Repository.Base
                     commandType: CommandType.Text)).FirstOrDefault();
             }
         }
-
-        //public virtual T FindByUserId(Guid userId)
-        //{
-        //    using (var conn = OpenConnection)
-        //    {
-        //        return SqlMapper.Query<T>(
-        //            conn,
-        //            "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId",
-        //            new { UserId = userId },
-        //            commandType: CommandType.Text).FirstOrDefault();
-        //    }
-        //}
-        //public virtual async Task<T> FindByUserIdAsync(Guid userId)
-        //{
-        //    using (var conn = OpenConnectionAsync)
-        //    {
-        //        return (await SqlMapper.QueryAsync<T>(
-        //            conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId",
-        //            new { UserId = userId },
-        //            commandType: CommandType.Text)).FirstOrDefault();
-        //    }
-        //}
-
-        //public virtual async Task<IEnumerable<T>> FindAllByUserIdAsync(Guid userId)
-        //{
-        //    using (var conn = OpenConnectionAsync)
-        //    {
-        //        return (await SqlMapper.QueryAsync<T>(conn, "SELECT * FROM " + this.tableName + " WHERE UserId = @UserId", new { UserId = userId }, commandType: CommandType.Text));
-        //    }
-        //}
-
         public virtual async Task<T> FindActiveByUserIdAsync(Guid userId)
         {
             using (var conn = OpenConnectionAsync)

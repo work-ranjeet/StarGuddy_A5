@@ -29,6 +29,8 @@ namespace StarGuddy.Business.Interface.Profile
         Task<UserModelingModel> GetUserModelingDetailAsync();
         Task<bool> SaveUserModelingDetailsAsync(UserModelingModel userModelingModel);
 
+        Task<UserNameModel> GetNameDetailsByUserId(Guid userId);
+
         Task<ProfileHeader> GetProfileHeaderByUserId(Guid userId);
     }
 }

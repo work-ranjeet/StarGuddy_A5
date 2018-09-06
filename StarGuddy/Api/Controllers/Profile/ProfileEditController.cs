@@ -270,6 +270,39 @@ namespace StarGuddy.Api.Controllers.Profile
         }
         #endregion
 
+        #region Name
+        [HttpGet]
+        [Route("name")]
+        public async Task<IActionResult> GetName()
+        {
+            var result = await _profileEditManager.GetNameDetailsByUserId(UserContext.Current.UserId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("name")]
+        public async Task<IActionResult> SaveName([FromBody]UserNameModel nameModel)
+        {
+            if(nameModel.IsNull() || string.IsNullOrWhiteSpace(nameModel.FirstName) || string.IsNullOrWhiteSpace(nameModel.DisplayName))
+            {
+                return BadRequest();
+            }
+
+            var result = await _profileEditManager.GetNameDetailsByUserId(UserContext.Current.UserId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+        #endregion
+
         [HttpGet]
         [Route("header")]
         public async Task<IActionResult> GetProfileHeader()

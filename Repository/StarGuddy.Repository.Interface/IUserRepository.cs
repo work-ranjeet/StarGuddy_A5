@@ -32,11 +32,11 @@ namespace StarGuddy.Repository.Interface
         /// <summary>
         /// Finds the by email identifier.
         /// </summary>
-        /// <param name="emaiId">The email identifier.</param>
+        /// <param name="id">The email identifier.</param>
         /// <returns>
         /// Application User
         /// </returns>
-        Task<User> FindByIdAsync(Guid userId);
+        Task<User> FindByIdAsync(Guid id);
 
         /// <summary>
         /// Finds the name of the by user.
