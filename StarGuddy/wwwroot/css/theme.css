@@ -77,8 +77,12 @@ input.ng-invalid {
     border-left: 5px solid #a94442; /* red */
 }
 
+input.border-left-none {
+    border-left: 1px solid #CCC !important;
+}
+
 form.ng-invalid, form.ng-dirty, form.ng-touched {
-    border:none!important;
+    border: none !important;
 }
 
 

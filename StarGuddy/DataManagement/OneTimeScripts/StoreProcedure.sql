@@ -678,7 +678,47 @@ BEGIN
 END
 
 GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UpdateUserName') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UpdateUserName
+GO
+CREATE PROCEDURE UpdateUserName (
+	@UserId UNIQUEIDENTIFIER , 
+	@FirstName NVARCHAR(100),
+	@LastName NVARCHAR(100),
+	@OrgName NVARCHAR(150),
+	@DisplayName NVARCHAR(200))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
 
+	UPDATE Users SET FirstName =@FirstName, LastName = @LastName, OrgName = @OrgName, DisplayName =@DisplayName 
+	WHERE	Id =@UserId
+END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'UpdateAboutAndProfileAddress') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE UpdateAboutAndProfileAddress
+GO
+
+CREATE PROCEDURE UpdateAboutAndProfileAddress (
+	@UserId UNIQUEIDENTIFIER , 
+	@About NVARCHAR(1500),
+	@ProfileAddress NVARCHAR(200))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	UPDATE UserDetail SET About =@About, ProfileAddress = @ProfileAddress WHERE	UserId = @UserId
+END
 
 
 

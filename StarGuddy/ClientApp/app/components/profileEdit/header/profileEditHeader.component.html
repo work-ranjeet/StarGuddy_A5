@@ -41,13 +41,15 @@
     <div class="col-lg-9 col-md-9 col-sm-8  hidden-md hidden-lg ">
         <div class="profile-info-detail-mob text-center">
             <h2>{{profileHeader.displayName}}</h2>
+            <a routerLink="/profile/name" class="fa fa-edit edit-icon-s"></a>
             <div class="text-muted">
                 {{jobGroupNames}}&nbsp;
-                <a routerLink="/profile/interests"><span class="fa fa-edit padding-5" style="font-size:20px;"></span></a>
+                <a routerLink="/profile/interests" class="fa fa-edit edit-icon-s" ></a>
             </div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
                 <span class="text-muted">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
+                <a routerLink="/profile/address" class="fa fa-edit edit-icon-s"></a>
             </div>
         </div>
         <!--<div class="row">

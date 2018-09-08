@@ -107,7 +107,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return Ok(isSuccess);
             }
 
-            return StatusCode(Convert.ToInt32(HttpStatusCode.NotModified), this);
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
 
         [HttpDelete]
@@ -129,10 +129,10 @@ namespace StarGuddy.Api.Controllers.Profile
                     return Ok(isDeleted);
                 }
 
-                return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+                return StatusCode(StatusCodes.Status304NotModified, this);
             }
 
-            return StatusCode(HttpStatusCode.Unauthorized.GetHashCode(), this);
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
         #endregion
 
@@ -166,7 +166,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return Ok(isSuccess);
             }
 
-            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
         #endregion
 
@@ -200,7 +200,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return Ok(isSuccess);
             }
 
-            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
         #endregion
 
@@ -234,7 +234,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return Ok(isSuccess);
             }
 
-            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), this);
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
         #endregion
 
@@ -266,7 +266,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return Ok(true);
             }
 
-            return StatusCode(HttpStatusCode.NotModified.GetHashCode(), HttpStatusText.NotModified);
+            return StatusCode(StatusCodes.Status304NotModified, HttpStatusText.NotModified);
         }
         #endregion
 
@@ -292,14 +292,13 @@ namespace StarGuddy.Api.Controllers.Profile
             {
                 return BadRequest();
             }
-
-            var result = await _profileEditManager.GetNameDetailsByUserId(UserContext.Current.UserId);
-            if (result == null)
+            
+            if (await _profileEditManager.SaveNameDetails(nameModel))
             {
-                return NotFound();
+                return Ok(true);
             }
-
-            return Ok(result);
+           
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
         #endregion
 
@@ -314,6 +313,37 @@ namespace StarGuddy.Api.Controllers.Profile
             }
 
             return Ok(result);
+        }
+
+
+        [HttpGet]
+        [Route("detail")]
+        public async Task<IActionResult> GetProfileDetail()
+        {
+            var result = await _profileEditManager.GetProfileDetail();
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("intro")]
+        public async Task<IActionResult> SaveIntro([FromBody]UserDetailModel model)
+        {
+            if (model.IsNull() || string.IsNullOrWhiteSpace(model.About) || string.IsNullOrWhiteSpace(model.ProfileAddress))
+            {
+                return BadRequest();
+            }
+
+            if (await _profileEditManager.SaveUserIntro(model))
+            {
+                return Ok(true);
+            }
+
+            return StatusCode(StatusCodes.Status304NotModified, this);
         }
     }
 }

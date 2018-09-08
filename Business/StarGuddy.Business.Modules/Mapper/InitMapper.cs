@@ -31,6 +31,9 @@ namespace StarGuddy.Business.Modules.Mapper
             CreateMap<UserEmails, EmailDto>().ReverseMap();
             CreateMap<UserPhones, PhoneDto>().ReverseMap();
             CreateMap<UserProfileHeader, ProfileHeader>().ReverseMap();
+
+            CreateMap<UserDetailModel, UserDetail>().ReverseMap();
+
         }
     }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
 import IUserNameModel = App.Client.Profile.IUserNameModel;
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
 
 
 
@@ -18,7 +19,9 @@ export class ProfileEditNameComponent {
 
     private userNameModel: IUserNameModel = {} as IUserNameModel;
 
-    constructor(private readonly profileService: ProfileEditService) { }
+    constructor(
+        private readonly router: Router,
+        private readonly profileService: ProfileEditService) { }
 
     ngOnInit() {
         this.load();
@@ -45,9 +48,10 @@ export class ProfileEditNameComponent {
         this.profileService.SaveUserNameDetail(this.userNameModel).subscribe(response => {
             if (response != null && response) {
                 console.info("Updated");
+                this.router.navigate(["/profile"]);
             }
             else {
-                console.warn(response.statusText);
+                console.warn("not updated: SaveUserNameDetail()");
             }
         });
     }

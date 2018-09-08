@@ -82,6 +82,8 @@ namespace StarGuddy.Repository.Interface
         /// <returns></returns>
         int UpdatePassword(string userName, string password);
 
+        Task<bool> UpdateNameDetails(IUser user);
+
         Task<Guid> GetUserIdByProfilUrl(string profileUrl);
 
         Task<UserProfileHeader> GetUserProfileHeaderByProfilUrl(string profileUrl);

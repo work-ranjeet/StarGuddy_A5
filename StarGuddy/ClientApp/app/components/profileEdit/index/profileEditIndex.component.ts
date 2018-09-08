@@ -47,6 +47,10 @@ export class ProfileEditIndex {
             this.profileHeader.displayName = this.profileHeader.firstName + " " + this.profileHeader.lastName;
         }
 
+        if (this.aboutMe == undefined || this.aboutMe == "") {
+            this.aboutMe = "A brief introduction of who you are.";
+        }
+
         jobGroups.forEach(x => this.jobGroupNameArray.push(x.name));
         this.jobGroupName = this.jobGroupNameArray.join(", ");
     }

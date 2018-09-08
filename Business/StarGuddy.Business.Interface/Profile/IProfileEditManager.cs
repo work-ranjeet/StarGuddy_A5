@@ -30,7 +30,11 @@ namespace StarGuddy.Business.Interface.Profile
         Task<bool> SaveUserModelingDetailsAsync(UserModelingModel userModelingModel);
 
         Task<UserNameModel> GetNameDetailsByUserId(Guid userId);
+        Task<bool> SaveNameDetails(UserNameModel nameModel);
 
         Task<ProfileHeader> GetProfileHeaderByUserId(Guid userId);
+
+        Task<UserDetailModel> GetProfileDetail();
+        Task<bool> SaveUserIntro(UserDetailModel detailModel);
     }
 }

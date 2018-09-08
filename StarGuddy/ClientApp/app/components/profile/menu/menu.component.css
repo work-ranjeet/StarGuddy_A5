@@ -19,7 +19,7 @@
 
 
 .profile-info-about {
-    height: 80px;
+    min-height: 80px;
     font-size: 13px;
     line-height: 25px;
 }

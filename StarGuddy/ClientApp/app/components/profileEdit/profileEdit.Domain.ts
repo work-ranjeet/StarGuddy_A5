@@ -116,4 +116,19 @@
         displayName: string;
         orgName: string;
     }
+
+    export interface IUserDetailModel {
+        userId: string;
+        about: string;
+        profileAddress: string;
+        age: number;
+        bloodGroup: number;
+        dateOfBirth: Date;
+        disability: string;
+        healthInfo: string;
+        maritalStatus: number;
+        motherTongue: string;
+        nickname: string;
+        religion: string;
+    }
 }

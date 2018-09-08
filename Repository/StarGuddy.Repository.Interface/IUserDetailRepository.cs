@@ -1,4 +1,5 @@
 ﻿using StarGuddy.Data.Entities;
+using StarGuddy.Data.Entities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,7 @@ namespace StarGuddy.Repository.Interface
     public interface IUserDetailRepository
     {
         Task<UserDetail> GetUserDetailByUserId(Guid userId);
+
+        Task<bool> UpdateAboutIntro(IUserDetail userDetail);
     }
 }

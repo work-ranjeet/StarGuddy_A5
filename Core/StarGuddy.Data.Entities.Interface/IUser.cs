@@ -84,6 +84,8 @@ namespace StarGuddy.Data.Entities.Interface
         /// </value>
         string LastName { get; set; }
 
+        string DisplayName { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether [lockout enabled].
         /// </summary>

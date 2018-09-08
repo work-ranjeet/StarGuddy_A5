@@ -16,9 +16,10 @@ body {
     margin: 0px;
     margin-top: 52px;
 }
-.mob-only{
-    width:350px;
-    margin:auto!important;
+
+.mob-only {
+    width: 350px;
+    margin: auto !important;
 }
 
 .container-medium, .container-small {
@@ -668,21 +669,27 @@ margin-right-10 {
     vertical-align: text-bottom;
 }
 
-.edit-icon-l,
-.edit-icon-m {
+.edit-icon-l, .edit-icon-m, .edit-icon-s {
     font-size: 18px !important;
     padding: 5px !important;
     display: inline-block;
 }
 
-    .edit-icon-l
-    {
-        font-size:20px!important;
-    }
+.edit-icon-l {
+    font-size: 20px !important;
+}
 
-    .display-inline {
-        display: inline !important;
-    }
+.edit-icon-s {
+    font-size: 15px !important;
+}
+
+.display-inline {
+    display: inline !important;
+}
+
+.display-block {
+    display: block !important;
+}
 
 .display-inline-block {
     display: inline-block !important;

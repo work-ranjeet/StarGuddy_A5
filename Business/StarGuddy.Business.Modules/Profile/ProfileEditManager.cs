@@ -27,6 +27,7 @@ namespace StarGuddy.Business.Modules.Profile
     public class ProfileEditManager : IProfileEditManager
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserDetailRepository _userDetailRepository;
         private readonly IUserCreditsRepository _userCreditsRepository;
         private readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
         private readonly IUserDancingRepository _userDancingRepository;
@@ -36,6 +37,7 @@ namespace StarGuddy.Business.Modules.Profile
 
         public ProfileEditManager(
             IUserRepository userRepository,
+            IUserDetailRepository userDetailRepository,
             IPhysicalAppearanceRepository physicalAppearanceRepository,
             IUserCreditsRepository userCreditsRepository,
             IUserDancingRepository userDancingRepository,
@@ -44,6 +46,7 @@ namespace StarGuddy.Business.Modules.Profile
             IMapper mapper)
         {
             _userRepository = userRepository;
+            _userDetailRepository = userDetailRepository;
             _userDancingRepository = userDancingRepository;
             _userCreditsRepository = userCreditsRepository;
             _physicalAppearanceRepository = physicalAppearanceRepository;
@@ -368,6 +371,22 @@ namespace StarGuddy.Business.Modules.Profile
 
             return null;
         }
+
+        public async Task<bool> SaveNameDetails(UserNameModel nameModel)
+        {
+
+            var result = await _userRepository.UpdateNameDetails(
+                new User
+                {
+                    Id = UserContext.Current.UserId,
+                    FirstName = nameModel.FirstName,
+                    LastName = nameModel.LastName,
+                    OrgName = nameModel.OrgName,
+                    DisplayName = nameModel.DisplayName
+                });
+
+            return result;
+        }
         #endregion
 
         #region /// profile header
@@ -384,6 +403,29 @@ namespace StarGuddy.Business.Modules.Profile
             }
 
             return null;
+        }
+        #endregion
+
+        #region /// Profile Intro
+        public async Task<UserDetailModel> GetProfileDetail()
+        {
+            var result = await _userDetailRepository.GetUserDetailByUserId(UserContext.Current.UserId);
+
+            return _mapper.Map<UserDetailModel>(result);
+        }
+
+        public async Task<bool> SaveUserIntro(UserDetailModel detailModel)
+        {
+
+            var result = await _userDetailRepository.UpdateAboutIntro(
+                new UserDetail
+                {
+                    UserId = UserContext.Current.UserId,
+                    ProfileAddress = detailModel.ProfileAddress,
+                    About = detailModel.About
+                });
+
+            return result;
         }
         #endregion
     }

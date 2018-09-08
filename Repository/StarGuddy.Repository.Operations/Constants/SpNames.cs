@@ -41,6 +41,8 @@ namespace StarGuddy.Repository.Opertions.Constants
             /// </summary>
             public const string UpdateUser = "UpdateUser";
 
+            public const string UpdateUserName = "UpdateUserName";
+
             /// <summary>
             /// The get verified user
             /// </summary>
@@ -55,6 +57,11 @@ namespace StarGuddy.Repository.Opertions.Constants
             /// The get verified user
             /// </summary>
             public const string GetProfileHeader = "GetProfileHeader";
+        }
+
+        public struct UserDetail
+        {
+            public const string UpdateAboutAndProfileAddress = "UpdateAboutAndProfileAddress";
         }
 
         public struct UserEmails

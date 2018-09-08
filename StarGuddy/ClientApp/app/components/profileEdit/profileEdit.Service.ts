@@ -13,6 +13,7 @@ import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
 import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
 import IUserNameModel = App.Client.Profile.IUserNameModel;
+import IUserDetailModel = App.Client.Profile.IUserDetailModel;
 
 @Injectable()
 export class ProfileEditService {
@@ -223,7 +224,7 @@ export class ProfileEditService {
     GetUserNameDetail(): Observable<IUserNameModel> {
         return this.baseService.HttpService.getData<IUserNameModel>("Profile/Operations/name")
             .map(
-            (result: IUserNameModel) => {
+                (result: IUserNameModel) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {
@@ -255,6 +256,38 @@ export class ProfileEditService {
         return this.baseService.HttpService.getData<IProfileHeader>("Profile/Operations/header")
             .map(
                 (result: IProfileHeader) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+
+    // Intro
+    GetUserDetail(): Observable<IUserDetailModel> {
+        return this.baseService.HttpService.getData<IUserDetailModel>("Profile/Operations/detail")
+            .map(
+                (result: IUserDetailModel) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    SaveUserIntro(payLoad: IUserDetailModel) {
+        return this.baseService.HttpService.patchData<boolean>("Profile/Operations/intro", payLoad)
+            .map(
+                (result: any) => {
                     return result;
                 },
                 (err: HttpErrorResponse) => {

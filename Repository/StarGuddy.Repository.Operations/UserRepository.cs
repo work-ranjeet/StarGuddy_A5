@@ -270,6 +270,25 @@ namespace StarGuddy.Repository.Operations
                 return conn.Execute(query, commandType: CommandType.Text);
             }
         }
+
+        public async Task<bool> UpdateNameDetails(IUser user)
+        {
+            try
+            {
+                using (var conn = await Connection.OpenConnectionAsync())
+                {
+                    var param = new { UserId = user.Id, user.FirstName, user.LastName, user.DisplayName, user.OrgName };
+
+                    await SqlMapper.ExecuteAsync(conn, SpNames.User.UpdateUserName, param, commandType: CommandType.StoredProcedure);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
     }
 }
