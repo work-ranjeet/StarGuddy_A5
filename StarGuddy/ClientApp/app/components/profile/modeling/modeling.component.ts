@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
+import * as _ from "lodash";
 import { ProfileService } from "../profile.Service";
-
 import IModelingDetailModel = App.Client.Profile.IUserModelingModel;
-import IAuditionsAndJobsGroup = App.Client.Profile.IAuditionsAndJobsGroup;
 
 @Component({
     selector: "profile-modeling",
@@ -11,28 +10,23 @@ import IAuditionsAndJobsGroup = App.Client.Profile.IAuditionsAndJobsGroup;
 
 
 export class ProfileModelingComponent {
-    private subscription: any;
-    public showModeling: boolean = false;
     public modelingDetailModel: IModelingDetailModel = {} as IModelingDetailModel;
 
     constructor(private readonly profileService: ProfileService) {}
 
     ngOnInit() {
-        this.subscription = this.profileService.PublicProfileData.subscribe(x => this.loadModelingDetails(x.modeling));
+        this.loadModelingDetails(); 
     }
 
 
-    loadModelingDetails(model: IModelingDetailModel) {
-        try {
-            if (model != undefined) {
-                this.modelingDetailModel = model;
+    loadModelingDetails() {
+        this.profileService.GetUserModelingDetail().subscribe(response => {
+            if (response != null) {
+                this.modelingDetailModel = _.cloneDeep(response);
             }
             else {
-                console.info("Got empty result: ProfileModelingComponent.loadModelingDetails()");
+                console.info("Got empty result GetUserActingDetail(): IActingDetailModel");
             }
-        }
-        catch (ex) {
-            console.error("Got error ProfileModelingComponent.loadModelingDetails() : " + ex);
-        }
+        });
     }   
 }

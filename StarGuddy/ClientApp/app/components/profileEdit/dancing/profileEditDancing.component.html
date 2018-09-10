@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         <label class="profile-edit-label">Styles of dancing</label>
-                        <div class="padding-top-10">
+                        <div class="profile-edit-container row">
                             <div *ngFor="let danceStyle of dancingModel.dnacingStyles" class="col-xs-6 col-sm-3 margin-bottom-5">
                                 <input type="checkbox" value="{{danceStyle.id}}" name="{{danceStyle.id}}"
                                        [checked]="danceStyle.id==danceStyle.selectedValue"
@@ -84,9 +84,9 @@
                     </div>
                     <hr class="seperator" />
                     <div class="form-group">
-                        <span>Dance school</span>
-                        <div class="padding-top-10">
-                            <div class="col-xs-12 col-sm-6 form-group">
+                        <label class="profile-edit-label">Dance school</label>
+                        <div class="profile-edit-container row">
+                            <div class="col-xs-12 col-sm-6">
                                 <input id="chkDanceSchool" type="checkbox" [checked]="dancingModel.isAttendedSchool" (change)="chkDanceSchoolChange()" class="padding-5 v-text-top">
                                 <label for="chkDanceSchool" class="padding-5 text-l">I have attended a dance school</label>
                             </div>

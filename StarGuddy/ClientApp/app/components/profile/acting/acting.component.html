@@ -1,4 +1,4 @@
-<div id="acting" class="row">
+<div id="acting" class="row  margin-top-15">
     <!--*ngIf="showActing"-->
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="card">
@@ -10,16 +10,16 @@
                 <div class="padding-top-5 padding-left-20 text-l">{{actingDetailModel.actingExperiance}}</div>
                 <hr />
                 <div class="experiance padding-top-10">Language</div>
-                <div class="padding-top-5 padding-left-15 text-l">
-                    <span class="d-block padding-5" *ngFor="let language of actingDetailModel.languages">
+                <div class="padding-top-5 padding-left-15">
+                    <span class="padding-5" *ngFor="let language of actingDetailModel.languages">
                         <i *ngIf="language.code==language.selectedLanguageCode" class="fa fa-hand-o-right text-success"></i>
                         <span *ngIf="language.code==language.selectedLanguageCode">{{language.name}}</span>
                     </span>
                 </div>
                 <hr />
                 <div class="experiance padding-top-10">Accents</div>
-                <div class="padding-top-5 padding-left-15 text-l">
-                    <span class="d-block padding-5" *ngFor="let accent of actingDetailModel.accents">
+                <div class="padding-top-5 padding-left-15">
+                    <span class="padding-5" *ngFor="let accent of actingDetailModel.accents">
                         <i *ngIf="accent.code==accent.selectedAccent" class="fa fa-hand-o-right text-success"></i>
                         <span *ngIf="accent.code==accent.selectedAccent">{{accent.name}}</span>
                     </span>

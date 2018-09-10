@@ -726,6 +726,26 @@ BEGIN
 	UPDATE UserDetail SET About =@About, ProfileAddress = @ProfileAddress WHERE	UserId = @UserId
 	UPDATE UserSettings SET ProfileUrl = @ProfileAddress WHERE	UserId = @UserId
 END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetProfileUserId') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetProfileUserId
+GO
+CREATE PROCEDURE GetProfileUserId (@ProfileUrl NVARCHAR(350))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+	
+	SELECT  UserId
+	FROM UserSettings
+	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0
+	
+END
+
 
 
 

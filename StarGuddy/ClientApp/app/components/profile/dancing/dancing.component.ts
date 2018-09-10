@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import * as _ from "lodash";
 import { ProfileService } from "../../profile/profile.Service";
 import IDancingModel = App.Client.Profile.IDancingModel;
 
@@ -9,31 +10,22 @@ import IDancingModel = App.Client.Profile.IDancingModel;
 
 
 export class ProfileDancingComponent {
-    private subscription: any;
-    public showDancing: boolean = false;
-    public dancingResult: IDancingModel = {} as IDancingModel;
+    public dancingModel: IDancingModel = {} as IDancingModel;
 
     constructor(private readonly profileService: ProfileService) { }
 
     ngOnInit() {
-        
+        this.loadDancingDetails();   
     }
 
-    ngOnDestroy() {
-       
-    }
-
-    loadDancingDetails(model: IDancingModel) {
-        try {
-            if (model != undefined) {
-                this.dancingResult = model;
+    loadDancingDetails() {
+        this.profileService.GetUserDanceDetail().subscribe(response => {
+            if (response != null) {
+                this.dancingModel = _.cloneDeep(response);
             }
             else {
-                console.info("Got empty result: ProfileDancingComponent.loadDancingDetails()");
+                console.info("Got empty result: IDancingModel");
             }
-        }
-        catch (ex) {
-            console.error("Got error ProfileDancingComponent.loadDancingDetails() : " + ex);
-        }
+        });
     }
 }

@@ -8,19 +8,25 @@ import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 })
 
 
-export class PhysicalDetailsComponent {    
-    private subscription: any;
+export class PhysicalDetailsComponent {
     private showPhysicalAppearance: boolean = false;
     private PhysicalAppearanceResult: IPhysicalAppearance = {} as IPhysicalAppearance;
 
     constructor(private readonly profileService: ProfileService) { }
 
     ngOnInit() {
-        this.subscription = this.profileService.PublicProfileData.subscribe(x => this.bindResultToView(x.physicalAppearance));
+        this.loadData();
     }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+    loadData() {
+        this.profileService.GetUserPhysicalAppreance().subscribe(result => {
+            if (result != null) {
+                this.bindResultToView(result);
+            }
+            else {
+                console.error("GetUserPhysicalAppreance: Error occurred.")
+            }
+        });
     }
 
     bindResultToView(physicalAppearance: IPhysicalAppearance) {

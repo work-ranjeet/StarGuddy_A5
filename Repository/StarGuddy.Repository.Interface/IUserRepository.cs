@@ -84,8 +84,6 @@ namespace StarGuddy.Repository.Interface
 
         Task<bool> UpdateNameDetails(IUser user);
 
-        Task<Guid> GetUserIdByProfilUrl(string profileUrl);
-
         Task<UserProfileHeader> GetUserProfileHeaderByProfilUrl(string profileUrl);
 
         Task<UserProfileHeader> GetUserProfileHeaderById(Guid userId);

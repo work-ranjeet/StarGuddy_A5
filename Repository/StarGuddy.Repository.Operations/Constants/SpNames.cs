@@ -64,6 +64,11 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string UpdateAboutAndProfileAddress = "UpdateAboutAndProfileAddress";
         }
 
+        public struct UserSettings
+        {
+            public const string GetProfileUserId = "GetProfileUserId";
+        }
+
         public struct UserEmails
         {
             public const string UpdateEmail = "UpdateEmail";

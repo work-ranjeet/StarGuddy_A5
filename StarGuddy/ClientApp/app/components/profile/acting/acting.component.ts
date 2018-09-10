@@ -15,30 +15,20 @@ export class ProfileActingComponent {
     private showActing: boolean = false;
     public actingDetailModel: IActingDetailModel = {} as IActingDetailModel;
 
-    constructor(private readonly profileService: ProfileService) {
-        
+    constructor(private readonly profileService: ProfileService) {}
+
+    ngOnInit() {       
+        this.loadActingDetails();
     }
 
-    ngOnInit() {
-       
-        
-    }
-
-    ngOnDestroy() {
-     
-    }
-
-    loadActingDetails(actingDetails: IActingDetailModel) {
-        try {           
-            if (actingDetails != undefined && actingDetails != null) {
-                this.actingDetailModel = actingDetails;
+    loadActingDetails() {
+        this.profileService.GetUserActingDetail().subscribe(response => {
+            if (response != null) {
+                this.actingDetailModel = _.cloneDeep(response);
             }
             else {
-                console.info("Got empty result: ProfileActingComponent.loadActingDetails()");
+                console.info("Got empty result GetUserActingDetail(): IActingDetailModel");
             }
-        }
-        catch (ex) {
-            console.error("Got error ProfileActingComponent.loadActingDetails() : " + ex);
-        }
+        });
     }
 }

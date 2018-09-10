@@ -9,5 +9,7 @@ namespace StarGuddy.Repository.Interface
     public interface IUserSettingsRepository
     {
         Task<IUserSettings> GetUsetSettingByUserIdAsync(Guid userId);
+
+        Task<Guid> GetUserIdByProfilUrl(string profileUrl);
     }
 }

@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ProfileService } from "../../profile/profile.Service";
 import { ProfileIndexAbstract } from "../../../comBase/profileIndexAbstract";
 import * as _ from "lodash";
+import { ActivatedRoute } from "@angular/router";
 @Component({
     selector: "profile-index",
     templateUrl: "././index.component.html",
@@ -9,11 +10,13 @@ import * as _ from "lodash";
 })
 
 
-export class ProfileIndex extends ProfileIndexAbstract{
-
-    constructor(private readonly profileService: ProfileService) { super();}
+export class ProfileIndex extends ProfileIndexAbstract {
+    constructor(
+        private readonly activatedRoute: ActivatedRoute,
+        private readonly profileService: ProfileService) { super(); }
 
     ngOnInit() {
+        this.activatedRoute.params.subscribe(param => this.profileService.ProfileUrl = param['profileUrl']);
         this.loadHeaderData();
     }
 
@@ -25,6 +28,7 @@ export class ProfileIndex extends ProfileIndexAbstract{
                 this.SelectedGroups = _.cloneDeep(response.jobGroups);
                 this.FilterData(response.jobGroups);
                 this.LoadSection();
+
             }
             else {
                 console.info("Got empty result: ProfileIndex.loadHeaderData()");

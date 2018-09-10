@@ -91,24 +91,7 @@ namespace StarGuddy.Repository.Operations
             };
 
             return this.GetProcedureData("GetVarifiedUser", parameter);
-        }
-
-        /// <summary>
-        /// Gets the verified user.
-        /// </summary>
-        /// <param name="profileUrl">Profile url of user.</param>
-        /// <returns>
-        /// Application User Id
-        /// </returns>
-        public async Task<Guid> GetUserIdByProfilUrl(string profileUrl)
-        {
-            using (var conn = await Connection.OpenConnectionAsync())
-            {
-                //return this.FindSingle("SELECT Id FROM Users WHERE ProfileUrl=@ProfileUrl", new { ProfileUrl = profileUrl });
-                return Guid.Parse("D40B2C5D-2881-4E8B-844A-B503DEB090BE");
-            }
-
-        }
+        }        
 
         public async Task<UserProfileHeader> GetUserProfileHeaderByProfilUrl(string profileUrl)
         {

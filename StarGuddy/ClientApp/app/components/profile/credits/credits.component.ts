@@ -18,25 +18,20 @@ export class ProfileCreditsComponent {
     constructor(private readonly profileService: ProfileService) { }
 
     ngOnInit() {
-      
+        this.loadCredits();
     }
 
-    ngOnDestroy() {
-        
-    }
-
-    loadCredits(creditsList: Array<ICredits>) {
-        try {
-            if (creditsList != undefined && creditsList.length > 0) {
-                this.CreditsList = creditsList;
+    loadCredits() {
+        this.profileService.GetUserCredits().subscribe(response => {
+            if (response != null && response.length > 0) {
+                this.CreditsList = response;
             }
             else {
-                console.info("Got empty result: ProfileCreditsComponent.loadCredits()");
+                console.info("Got empty result:" + response.toString());
             }
-        }
-        catch (ex) {
-            console.error("Got error ProfileCreditsComponent.loadCredits() : " + ex);
-        }
+        });
+
+        this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
     }
 
 
