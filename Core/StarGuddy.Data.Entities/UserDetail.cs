@@ -116,14 +116,6 @@ namespace StarGuddy.Data.Entities
         public String Nickname { get; set; }
 
         /// <summary>
-        /// Gets or sets the profile address.
-        /// </summary>
-        /// <value>
-        /// The profile address.
-        /// </value>
-        public String ProfileAddress { get; set; }
-
-        /// <summary>
         /// Gets or sets the religion.
         /// </summary>
         /// <value>

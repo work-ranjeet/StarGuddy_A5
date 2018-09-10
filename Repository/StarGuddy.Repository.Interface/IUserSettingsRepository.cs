@@ -8,6 +8,6 @@ namespace StarGuddy.Repository.Interface
 {
     public interface IUserSettingsRepository
     {
-        Task<IUserSettings> GetUsetSettingByuserIdAsync(Guid userId);
+        Task<IUserSettings> GetUsetSettingByUserIdAsync(Guid userId);
     }
 }

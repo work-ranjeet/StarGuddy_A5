@@ -1,14 +1,21 @@
+
 <div class="row">
-    <!--<div class="col-md-3 col-lg-3 col-sm-4 profile-header-img profile-info  hidden-sm hidden-xs">
-        <img src="../../../../../wwwroot/css/img/artiwa.jpg" />
-    </div>-->
+    <div class="col-md-3 col-lg-3 col-sm-4 profile-header-img profile-info  hidden-sm hidden-xs">
+        <img src="../../../../../wwwroot/css/img/arti.jpg" />
+        <img src="" />
+    </div>
     <div class="col-lg-9 col-md-9 col-sm-8 padding-top-20  hidden-sm hidden-xs">
         <div class="profile-info-detail">
-            <h2>{{profileHeader.displayName}}</h2>
-            <div class="text-muted">{{jobGroupName}}</div>
+            <h2 class="display-inline-block">{{profileHeader.displayName}}</h2>
+            <a routerLink="/profile/name" class="fa fa-edit edit-icon-m"></a>
+            <div class="text-muted">
+                <span class="display-inline-block">{{jobGroupNames}}</span>
+                <a routerLink="/profile/interests" class="fa fa-edit edit-icon-m"></a>
+            </div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
-                <span class="text-muted">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
+                <span class="text-muted display-inline-block">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
+                <a routerLink="/profile/address" class="fa fa-edit edit-icon-m"></a>
             </div>
         </div>
         <!--<div class="row">
@@ -29,15 +36,20 @@
     </div>
 
     <div class="col-md-3 col-lg-3 col-sm-4 profile-header-mob-img profile-info-mob  hidden-lg hidden-md">
-        <img src="../../../../../wwwroot/css/img/arti.jpg" />
+        <!--<img src="../../../../../wwwroot/css/img/arti.jpg" />-->
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8  hidden-md hidden-lg ">
         <div class="profile-info-detail-mob text-center">
             <h2>{{profileHeader.displayName}}</h2>
-            <div class="text-muted">{{jobGroupName}}</div>
+            <a routerLink="/profile/name" class="fa fa-edit edit-icon-s"></a>
+            <div class="text-muted">
+                {{jobGroupNames}}&nbsp;
+                <a routerLink="/profile/interests" class="fa fa-edit edit-icon-s"></a>
+            </div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
                 <span class="text-muted">{{profileHeader.cityOrTown}},&nbsp;{{profileHeader.country}}</span>
+                <a routerLink="/profile/address" class="fa fa-edit edit-icon-s"></a>
             </div>
         </div>
         <!--<div class="row">

@@ -1,4 +1,5 @@
 <div class="container">
-    <profile-header></profile-header>
-    <!--<profile-menu></profile-menu>-->
+    <profile-header [jobGroupNames]="GroupNames" [profileHeader]="ProfileHeader"></profile-header>
+    <profile-menu [selectedJobGroup]="SelectedGroups" [about]="AboutMe" (menuSelectionChange)="ChangeMenuSelection($event)"></profile-menu>
+
 </div>

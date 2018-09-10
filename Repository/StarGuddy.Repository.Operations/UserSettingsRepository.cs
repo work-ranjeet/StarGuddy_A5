@@ -17,7 +17,7 @@ namespace StarGuddy.Repository.Operations
         {
         }
 
-        public async Task<IUserSettings> GetUsetSettingByuserIdAsync(Guid userId)
+        public async Task<IUserSettings> GetUsetSettingByUserIdAsync(Guid userId)
         {
             return await base.FindActiveByUserIdAsync(userId);
         }

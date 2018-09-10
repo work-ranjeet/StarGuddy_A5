@@ -29,7 +29,7 @@ namespace StarGuddy.Business.Modules.Profile
 
         public async Task<UserSettingDto> GetUserSettings(Guid userId)
         {
-            var result = await _userSettingsRepository.GetUsetSettingByuserIdAsync(userId);
+            var result = await _userSettingsRepository.GetUsetSettingByUserIdAsync(userId);
             if (result.IsNotNull())
             {
                 return _mapper.Map<UserSettingDto>(result);

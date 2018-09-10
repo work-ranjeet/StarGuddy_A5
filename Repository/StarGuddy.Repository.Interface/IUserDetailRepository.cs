@@ -11,6 +11,6 @@ namespace StarGuddy.Repository.Interface
     {
         Task<UserDetail> GetUserDetailByUserId(Guid userId);
 
-        Task<bool> UpdateAboutIntro(IUserDetail userDetail);
+        Task<bool> UpdateAboutIntro(string profileUrl, IUserDetail userDetail);
     }
 }

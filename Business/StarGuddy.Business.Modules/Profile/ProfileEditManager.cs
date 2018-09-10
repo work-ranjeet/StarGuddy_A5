@@ -28,6 +28,7 @@ namespace StarGuddy.Business.Modules.Profile
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserDetailRepository _userDetailRepository;
+        private readonly IUserSettingsRepository _userSettingsRepository;
         private readonly IUserCreditsRepository _userCreditsRepository;
         private readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
         private readonly IUserDancingRepository _userDancingRepository;
@@ -38,6 +39,7 @@ namespace StarGuddy.Business.Modules.Profile
         public ProfileEditManager(
             IUserRepository userRepository,
             IUserDetailRepository userDetailRepository,
+            IUserSettingsRepository userSettingsRepository,
             IPhysicalAppearanceRepository physicalAppearanceRepository,
             IUserCreditsRepository userCreditsRepository,
             IUserDancingRepository userDancingRepository,
@@ -47,6 +49,7 @@ namespace StarGuddy.Business.Modules.Profile
         {
             _userRepository = userRepository;
             _userDetailRepository = userDetailRepository;
+            _userSettingsRepository = userSettingsRepository;
             _userDancingRepository = userDancingRepository;
             _userCreditsRepository = userCreditsRepository;
             _physicalAppearanceRepository = physicalAppearanceRepository;
@@ -409,19 +412,38 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// Profile Intro
         public async Task<UserDetailModel> GetProfileDetail()
         {
-            var result = await _userDetailRepository.GetUserDetailByUserId(UserContext.Current.UserId);
+            var details = _userDetailRepository.GetUserDetailByUserId(UserContext.Current.UserId);
+            var settings = _userSettingsRepository.GetUsetSettingByUserIdAsync(UserContext.Current.UserId);
 
-            return _mapper.Map<UserDetailModel>(result);
+            var taskResult = Task.WhenAll(details, settings);
+
+            UserDetailModel detailModel = null;
+            try
+            {
+                await taskResult.ConfigureAwait(false);
+                if (taskResult.IsCompletedSuccessfully)
+                {
+                    detailModel = _mapper.Map<UserDetailModel>(await details);
+                    if (detailModel != null)
+                    {
+                        detailModel.ProfileAddress = (await settings).ProfileUrl;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return detailModel;
         }
 
         public async Task<bool> SaveUserIntro(UserDetailModel detailModel)
         {
-
-            var result = await _userDetailRepository.UpdateAboutIntro(
+            var result = await _userDetailRepository.UpdateAboutIntro(detailModel.ProfileAddress, 
                 new UserDetail
                 {
                     UserId = UserContext.Current.UserId,
-                    ProfileAddress = detailModel.ProfileAddress,
                     About = detailModel.About
                 });
 

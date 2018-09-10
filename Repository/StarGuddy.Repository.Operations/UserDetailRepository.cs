@@ -19,11 +19,11 @@ namespace StarGuddy.Repository.Operations
 
         public async Task<UserDetail> GetUserDetailByUserId(Guid userId) => await FindActiveByUserIdAsync(userId);
 
-        public async Task<bool> UpdateAboutIntro(IUserDetail userDetail)
+        public async Task<bool> UpdateAboutIntro(string profileUrl, IUserDetail userDetail)
         {
             using (var conn = await Connection.OpenConnectionAsync())
             {
-                var param = new { userDetail.UserId, userDetail.About, userDetail.ProfileAddress };
+                var param = new { userDetail.UserId, userDetail.About, ProfileAddress = profileUrl };
 
                 await SqlMapper.ExecuteAsync(conn, SpNames.UserDetail.UpdateAboutAndProfileAddress, param, commandType: CommandType.StoredProcedure);
 
