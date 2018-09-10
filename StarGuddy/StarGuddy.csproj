@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\comBase\profileIndexAbstract.ts" />
     <None Remove="ClientApp\app\components\account\account.module.shared.ts" />
     <None Remove="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
     <None Remove="ClientApp\app\components\common\pageHeading\pageSubHeadingComponent.ts" />
@@ -64,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\comBase\profileIndexAbstract.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\account.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\common\headings\headingComponent.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
