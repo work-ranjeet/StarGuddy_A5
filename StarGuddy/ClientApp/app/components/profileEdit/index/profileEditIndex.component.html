@@ -6,19 +6,18 @@
         <profile-edit-photos></profile-edit-photos>
     </div>-->
 
-    <div id="profileEditPhysicalDetails">
-        <profile-edit-physicalDetails></profile-edit-physicalDetails>
-    </div>
-    <div id="profileEditCredits" *ngIf="selectedMenuCode==0 || selectedMenuCode==1003">
+
+    <profile-edit-physicalDetails></profile-edit-physicalDetails>
+    <div id="1003"  *ngIf="setionVisbility.showExtras">
         <profile-edit-credits></profile-edit-credits>
     </div>
-    <div id="profileEditActing" *ngIf="selectedMenuCode==0 || selectedMenuCode==1001">
+    <div id="1001" *ngIf="setionVisbility.showActing">
         <profile-edit-acting></profile-edit-acting>
     </div>
-    <div id="profileEditDancing" *ngIf="selectedMenuCode==0 || selectedMenuCode==1008">
+    <div id="1008"  *ngIf="setionVisbility.showDancing">
         <profile-edit-dancing></profile-edit-dancing>
     </div>
-    <div id="profileEditModeling" *ngIf="selectedMenuCode==0 || selectedMenuCode==1002">   
+    <div id="1002"  *ngIf="setionVisbility.showModeling">
         <profile-edit-modeling></profile-edit-modeling>
     </div>
 </div>

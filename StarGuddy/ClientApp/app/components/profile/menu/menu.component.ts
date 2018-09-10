@@ -1,7 +1,6 @@
-import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { DataValidator } from "../../../../Helper/DataValidator";
-import ILoginData = App.Client.Account.ILoginData;
+import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { ProfileService } from "../../profile/profile.Service";
+import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 @Component({
     selector: "profile-menu",
@@ -11,16 +10,18 @@ import ILoginData = App.Client.Account.ILoginData;
 
 
 export class ProfileMenu {
-    loginData: ILoginData = {} as ILoginData;
-    router: Router;
-    authenticateRoute: ActivatedRoute;
+    private readonly profileService: ProfileService;
 
-    private readonly dataValidator: DataValidator
+    @Input() selectedJobGroup: Array<IJobGroupModel> = [];
+    @Input() about: string = "";
 
-    constructor(router: Router, authRoute: ActivatedRoute, dataValidator: DataValidator) {
-        this.router = router;
-        this.authenticateRoute = authRoute;
-        this.dataValidator = dataValidator;
+    @Output() menuSelectionChange = new EventEmitter();
+
+    constructor(profileEditService: ProfileService) {
+        this.profileService = profileEditService;
     }
 
+    menuSelectionChanged(menuCode: string) {
+        this.menuSelectionChange.emit(menuCode);
+    }
 }

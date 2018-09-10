@@ -16,7 +16,6 @@
     <Compile Remove="Api\Security\**" />
     <Compile Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <Compile Remove="ClientApp\app\components\navmenu\**" />
-    <Compile Remove="ClientApp\app\components\profile\details\trainings\**" />
     <Compile Remove="wwwroot\css\NewFolder\**" />
     <Content Remove="Api\Security\**" />
     <Content Remove="ClientApp\**" />
@@ -24,12 +23,10 @@
     <EmbeddedResource Remove="Api\Security\**" />
     <EmbeddedResource Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
-    <EmbeddedResource Remove="ClientApp\app\components\profile\details\trainings\**" />
     <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
     <None Remove="Api\Security\**" />
     <None Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <None Remove="ClientApp\app\components\navmenu\**" />
-    <None Remove="ClientApp\app\components\profile\details\trainings\**" />
     <None Remove="wwwroot\css\NewFolder\**" />
   </ItemGroup>
 

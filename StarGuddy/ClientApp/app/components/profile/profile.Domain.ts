@@ -93,4 +93,18 @@
     //    phone: IPhone;
     //    email: IEmail;
     //}
+
+    export interface ISectionVesbility {
+        showActing: boolean;
+        showModeling: boolean;
+        showExtras: boolean;
+        showPresenter: boolean;
+        showMusician: boolean;
+        showPhotography: boolean;
+        showTVReality: boolean;
+        showDancing: boolean;
+        showFilmStageCrew: boolean;
+        showHairMakeupStyling: boolean;
+        showSurvivalJobs: boolean;
+    }
 }

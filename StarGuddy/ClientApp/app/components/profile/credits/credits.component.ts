@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ProfileService } from "../../../profile/profile.Service";
+import { ProfileService } from "../../profile/profile.Service";
 import ICredits = App.Client.Profile.ICredits;
 
 
@@ -18,11 +18,11 @@ export class ProfileCreditsComponent {
     constructor(private readonly profileService: ProfileService) { }
 
     ngOnInit() {
-        this.subscription = this.profileService.PublicProfileData.subscribe(x => this.loadCredits(x.userCredits));
+      
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        
     }
 
     loadCredits(creditsList: Array<ICredits>) {

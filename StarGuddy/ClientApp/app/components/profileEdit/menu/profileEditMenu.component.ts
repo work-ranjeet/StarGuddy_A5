@@ -17,12 +17,11 @@ export class ProfileEditMenu {
 
     @Output() menuSelectionChange = new EventEmitter();
 
-    constructor(profileEditService: ProfileEditService) {       
+    constructor(profileEditService: ProfileEditService) {
         this.profileEditService = profileEditService;
     }
 
-    menuSelectionChanged(menuCode: number) {
+    menuSelectionChanged(menuCode: string) {
         this.menuSelectionChange.emit(menuCode);
     }
-
 }

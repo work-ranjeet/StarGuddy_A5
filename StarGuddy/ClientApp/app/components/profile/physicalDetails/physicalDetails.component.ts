@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ProfileService } from "../../profile.Service";
+import { ProfileService } from "../profile.Service";
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 
 @Component({

@@ -69,9 +69,9 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// User data object
         /// </returns>
-        public IUser FindByUserName(string userName)
+        public async Task<IUser> FindByUserName(string userName)
         {
-            return this.FindSingle("SELECT * FROM Users WHERE UserName=@UserName", new { UserName = userName });
+            return await FindSingleAsync("SELECT * FROM Users WHERE UserName=@UserName", new { UserName = userName }).ConfigureAwait(false);
         }
 
         /// <summary>

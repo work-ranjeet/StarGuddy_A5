@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ProfileService } from "../../../profile/profile.Service";
+import { ProfileService } from "../../profile/profile.Service";
 import IDancingModel = App.Client.Profile.IDancingModel;
 
 @Component({
@@ -16,11 +16,11 @@ export class ProfileDancingComponent {
     constructor(private readonly profileService: ProfileService) { }
 
     ngOnInit() {
-        this.subscription = this.profileService.PublicProfileData.subscribe(x => this.loadDancingDetails(x.dancing));
+        
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+       
     }
 
     loadDancingDetails(model: IDancingModel) {

@@ -43,7 +43,7 @@ namespace StarGuddy.Repository.Interface
         /// </summary>
         /// <param name="username">The user name.</param>
         /// <returns>User details</returns>
-        IUser FindByUserName(string userName);
+        Task<IUser> FindByUserName(string userName);
 
         /// <summary>
         /// Gets the verified user.

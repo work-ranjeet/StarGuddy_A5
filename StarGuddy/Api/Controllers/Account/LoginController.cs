@@ -30,7 +30,7 @@ namespace StarGuddy.Api.Controllers.Account
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginData loginData)
         {
-            if (loginData.IsNull())
+            if (loginData.IsNull() || string.IsNullOrWhiteSpace(loginData.UserName) || string.IsNullOrWhiteSpace(loginData.Password))
             {
                 return BadRequest();
             }

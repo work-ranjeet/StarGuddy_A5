@@ -3,23 +3,21 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { ProfileService } from "../profile/profile.Service";
-import { ProfileDetails } from "../profile/details/details.component";
 import { ProfileHeader } from "../profile/header/header.component";
 import { ProfileIndex } from "../profile/index/index.component";
 import { ProfileMenu } from "../profile/menu/menu.component";
-import { ProfilePhotosComponent } from "../profile/details/photos/photos.component";
-import { PhysicalDetailsComponent } from "../profile/details/physicalDetails/physicalDetails.component";
-import { ProfileCreditsComponent } from "../profile/details/credits/credits.component";
-import { ProfileActingComponent } from "../profile/details/acting/acting.component";
-import { ProfileDancingComponent } from "../profile/details/dancing/dancing.component";
-import { ProfileModelingComponent } from "../profile/details/modeling/modeling.component";
+import { ProfilePhotosComponent } from "../profile/photos/photos.component";
+import { PhysicalDetailsComponent } from "../profile/physicalDetails/physicalDetails.component";
+import { ProfileCreditsComponent } from "../profile/credits/credits.component";
+import { ProfileActingComponent } from "../profile/acting/acting.component";
+import { ProfileDancingComponent } from "../profile/dancing/dancing.component";
+import { ProfileModelingComponent } from "../profile/modeling/modeling.component";
 
 @NgModule({
     declarations: [
         ProfileIndex,
         ProfileHeader,
         ProfileMenu,
-        ProfileDetails,
         ProfilePhotosComponent, PhysicalDetailsComponent, ProfileCreditsComponent,
         ProfileActingComponent, ProfileDancingComponent, ProfileModelingComponent
     ],
@@ -33,7 +31,7 @@ import { ProfileModelingComponent } from "../profile/details/modeling/modeling.c
     ],
     providers: [ProfileService],
     exports: [
-        ProfileIndex, ProfileHeader, ProfileMenu, ProfileDetails,
+        ProfileIndex, ProfileHeader, ProfileMenu, 
         ProfilePhotosComponent, PhysicalDetailsComponent, ProfileCreditsComponent,
         ProfileActingComponent, ProfileDancingComponent, ProfileModelingComponent
     ]

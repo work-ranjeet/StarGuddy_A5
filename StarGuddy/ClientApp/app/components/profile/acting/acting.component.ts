@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import * as _ from "lodash";
-import { ProfileService } from "../../../profile/profile.Service";
+import { ProfileService } from "../../profile/profile.Service";
 import IActingDetailModel = App.Client.Profile.IUserActingModel;
 
 @Component({
@@ -20,12 +20,12 @@ export class ProfileActingComponent {
     }
 
     ngOnInit() {
-        this.actingDetailModel = {} as IActingDetailModel;
-        this.subscription = this.profileService.PublicProfileData.subscribe(x => this.loadActingDetails(x.acting));
+       
+        
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+     
     }
 
     loadActingDetails(actingDetails: IActingDetailModel) {

@@ -131,28 +131,25 @@ namespace StarGuddy.Business.Modules.Account
 
         public async Task<IApplicationUser> FindByUserNameAsync(string userName)
         {
-            return await Task.Factory.StartNew(() =>
+            var user = await _userRepository.FindByUserName(userName);
+            if (user.IsNull())
             {
-                var user = _userRepository.FindByUserName(userName);
-                if (user.IsNull())
-                {
-                    return null;
-                }
+                return null;
+            }
 
-                return new ApplicationUser
-                {
-                    UserId = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Gender = user.Gender,
-                    IsCastingProfessional = user.IsCastingProfessional,
-                    Designation = user.Designation,
-                    OrgName = user.OrgName,
-                    OrgWebsite = user.OrgWebsite,
-                    UserName = user.UserName,
-                    SecurityStamp = user.SecurityStamp
-                };
-            });
+            return new ApplicationUser
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                IsCastingProfessional = user.IsCastingProfessional,
+                Designation = user.Designation,
+                OrgName = user.OrgName,
+                OrgWebsite = user.OrgWebsite,
+                UserName = user.UserName,
+                SecurityStamp = user.SecurityStamp
+            };
         }
 
         /// <summary>
