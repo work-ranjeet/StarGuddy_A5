@@ -10,14 +10,24 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 
 export class ProfileHeader {
-    private _jobGroupName: string = "";
+    private _jobGroupName: string = "";   
     private _profileHeader: IProfileHeader = {} as IProfileHeader
+
+    private showAddress: boolean = false;
+    private computedAddress: string = "Address not update.";
 
     @Input()
     set jobGroupNames(jobGroupNames: string) { this._jobGroupName = jobGroupNames; }
     get jobGroupNames(): string { return this._jobGroupName; }
 
     @Input()
-    set profileHeader(profileHeader: IProfileHeader) { this._profileHeader = profileHeader; console.info(this._profileHeader.cityOrTown); }
+    set profileHeader(profileHeader: IProfileHeader) {
+        if (JSON.stringify(profileHeader) != "{}") {
+            this._profileHeader = profileHeader;
+
+            this.showAddress = profileHeader.cityOrTown != null && profileHeader.stateOrProvince != null && profileHeader.country != null;
+            this.computedAddress = profileHeader.cityOrTown + ", " + profileHeader.stateOrProvince + ", " + profileHeader.country;
+        }
+    }
     get profileHeader() { return this._profileHeader; }
 }
