@@ -19,6 +19,7 @@ namespace StarGuddy.Business.Interface.Account
 {
     using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.AppUser;
+    using StarGuddy.Api.Models.Dto;
     using StarGuddy.Api.Models.Interface.Account;
     using System;
     using System.Collections.Generic;
@@ -59,6 +60,10 @@ namespace StarGuddy.Business.Interface.Account
 
         Task<IApplicationUser> FindByUserNameAsync(string userName);
 
-        Task<AppUserDetail> GetUserDetails();
+        Task<AppUserDetail> GetUserDetails(Guid userId);
+
+        Task<AddressDto> GetCurrentAddress();
+
+        Task<bool> UpdateCurrentAddress(AddressDto address);
     }
 }

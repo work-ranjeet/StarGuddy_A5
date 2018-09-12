@@ -73,7 +73,7 @@ namespace StarGuddy.Api
 
 
             //// Business Injection
-            services.AddTransient<IProfileFacade, ProfileFacade>();            
+            //services.AddTransient<IProfileFacade, ProfileFacade>();            
             services.AddTransient<IAccountManager, AccountManager>();
             services.AddTransient<ISignupManager, SignupManager>();
             services.AddTransient<IUserManager, UserManager>();

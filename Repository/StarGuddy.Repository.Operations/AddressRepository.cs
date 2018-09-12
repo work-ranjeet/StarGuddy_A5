@@ -57,6 +57,41 @@ namespace StarGuddy.Repository.Operations
         /// <returns>
         /// User Address
         /// </returns>
-        public async Task<UserAddress> GetUserAddressAsync(Guid userId) => await FindActiveByUserIdAsync(userId);
+        public async Task<IUserAddress> GetAsync(Guid userId) => await FindActiveByUserIdAsync(userId);
+
+        public async Task<bool> UpdateAsync(IUserAddress address)
+        {
+            try
+            {
+
+
+                using (var conn = await Connection.OpenConnectionAsync())
+                {
+                    //@UserId UNIQUEIDENTIFIER, @AppOrHouseName NVARCHAR(150), @CityOrTown NVARCHAR(100), @Country NVARCHAR(50), @Flat NVARCHAR(50), 
+                    //@LandMark NVARCHAR(200), @LineOne NVARCHAR(200), @LineTwo NVARCHAR(200), @StateOrProvince NVARCHAR(100), @ZipOrPostalCode NVARCHAR(10)
+                    var param = new
+                    {
+                        address.UserId,
+                        address.AppOrHouseName,
+                        address.CityOrTown,
+                        address.Country,
+                        address.Flat,
+                        address.LandMark,
+                        address.LineOne,
+                        address.LineTwo,
+                        address.StateOrProvince,
+                        address.ZipOrPostalCode
+                    };
+
+                    await SqlMapper.ExecuteAsync(conn, SpNames.Address.InsertOrUpdateAddress, param, commandType: CommandType.StoredProcedure);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

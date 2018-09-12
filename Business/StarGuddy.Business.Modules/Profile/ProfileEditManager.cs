@@ -24,21 +24,9 @@ namespace StarGuddy.Business.Modules.Profile
     using System.Threading.Tasks;
     using Models = Api.Models.Dto;
 
-    public class ProfileEditManager : IProfileEditManager
+    public class ProfileEditManager : ProfileAbstract, IProfileEditManager
     {
-        private readonly IProfileFacade _profileFacade;
-        private readonly IUserRepository _userRepository;
-        private readonly IUserDetailRepository _userDetailRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
-        private readonly IUserCreditsRepository _userCreditsRepository;
-        private readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
-        private readonly IUserDancingRepository _userDancingRepository;
-        private readonly IUserActingRepository _userActingRepository;
-        private readonly IUserModelingRepository _userModelingRepository;
-        private readonly IMapper _mapper;
-
         public ProfileEditManager(
-            IProfileFacade profileFacade,
             IUserRepository userRepository,
             IUserDetailRepository userDetailRepository,
             IUserSettingsRepository userSettingsRepository,
@@ -47,24 +35,22 @@ namespace StarGuddy.Business.Modules.Profile
             IUserDancingRepository userDancingRepository,
             IUserActingRepository userActingRepository,
             IUserModelingRepository userModelingRepository,
-            IMapper mapper)
-        {
-            _profileFacade = profileFacade;
-            _userRepository = userRepository;
-            _userDetailRepository = userDetailRepository;
-            _userSettingsRepository = userSettingsRepository;
-            _userDancingRepository = userDancingRepository;
-            _userCreditsRepository = userCreditsRepository;
-            _physicalAppearanceRepository = physicalAppearanceRepository;
-            _userActingRepository = userActingRepository;
-            _userModelingRepository = userModelingRepository;
-            _mapper = mapper;
-        }
+            IMapper mapper) : base(
+                userRepository,
+                userDetailRepository,
+                userSettingsRepository,
+                physicalAppearanceRepository,
+                userCreditsRepository,
+                userDancingRepository,
+                userActingRepository,
+                userModelingRepository,
+                mapper)
+        { }
 
         #region /// Physical Appearance
         public async Task<IPhysicalAppearanceModal> GetPhysicalAppreance()
         {
-            return await _profileFacade.FetchPhysicalAppreance(UserContext.Current.UserId);
+            return await FetchPhysicalAppreance(UserContext.Current.UserId);
         }
 
         public async Task<bool> PerformSave(IPhysicalAppearanceModal phyAppModal)
@@ -94,10 +80,10 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// User credits
         public async Task<IEnumerable<IUserCreditModel>> GetUserCredits()
         {
-            return await _profileFacade.FetchUserCredits(UserContext.Current.UserId);
+            return await FetchUserCredits(UserContext.Current.UserId);
         }
 
-        public async Task<bool> SaveUserCredits(Guid UserId, List<UserCreditModel> userCreditModelList)
+        public async Task<bool> SaveUserCredits(List<UserCreditModel> userCreditModelList)
         {
             if (userCreditModelList != null && userCreditModelList.Any())
             {
@@ -108,7 +94,7 @@ namespace StarGuddy.Business.Modules.Profile
                     {
                         saveUpdateBag.Add(new UserCredits
                         {
-                            UserId = UserId,
+                            UserId = UserContext.Current.UserId,
                             Year = credit.WorkYear,
                             WorkPlace = credit.WorkPlace,
                             WorkDetail = credit.WorkDetail
@@ -131,7 +117,7 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// User dancing
         public async Task<DancingModel> GetUserDancingAsync()
         {
-            return await _profileFacade.FetchUserDancingAsync(UserContext.Current.UserId);
+            return await FetchUserDancingAsync(UserContext.Current.UserId);
         }
 
         public async Task<bool> SaveUserDancingAsync(DancingModel dancingModel)
@@ -174,7 +160,7 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// User Acting
         public async Task<UserActingModel> GetUserActingDetailAsync()
         {
-           return await _profileFacade.FetchUserActingDetailAsync(UserContext.Current.UserId);
+            return await FetchUserActingDetailAsync(UserContext.Current.UserId);
         }
 
         public async Task<bool> SaveUserActingDetailsAsync(UserActingModel userActingModel)
@@ -212,7 +198,7 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// User Modeling
         public async Task<UserModelingModel> GetUserModelingDetailAsync()
         {
-            return await _profileFacade.FetchUserModelingDetailAsync(UserContext.Current.UserId);
+            return await FetchUserModelingDetailAsync(UserContext.Current.UserId);
         }
 
         public async Task<bool> SaveUserModelingDetailsAsync(UserModelingModel userModelingModel)
@@ -237,7 +223,7 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// Name
         public async Task<UserNameModel> GetNameDetailsByUserId(Guid userId)
         {
-            return await _profileFacade.FetchNameDetailsByUserId(UserContext.Current.UserId);
+            return await FetchNameDetailsByUserId(UserContext.Current.UserId);
         }
 
         public async Task<bool> SaveNameDetails(UserNameModel nameModel)
@@ -260,19 +246,19 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// profile header
         public async Task<ProfileHeader> GetProfileHeaderByUserId(Guid userId)
         {
-            return await _profileFacade.FetchProfileHeaderByUserId(UserContext.Current.UserId);
+            return await FetchProfileHeaderByUserId(UserContext.Current.UserId);
         }
         #endregion
 
         #region /// Profile Intro
         public async Task<UserDetailModel> GetProfileDetail()
         {
-            return await _profileFacade.FetchProfileDetail(UserContext.Current.UserId);
+            return await FetchProfileDetail(UserContext.Current.UserId);
         }
 
         public async Task<bool> SaveUserIntro(UserDetailModel detailModel)
         {
-            var result = await _userDetailRepository.UpdateAboutIntro(detailModel.ProfileAddress, 
+            var result = await _userDetailRepository.UpdateAboutIntro(detailModel.ProfileAddress,
                 new UserDetail
                 {
                     UserId = UserContext.Current.UserId,

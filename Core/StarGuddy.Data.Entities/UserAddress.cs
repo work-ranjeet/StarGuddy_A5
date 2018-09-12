@@ -61,14 +61,6 @@ namespace StarGuddy.Data.Entities
         public Boolean IsDeleted { get; set; }
 
         /// <summary>
-        /// Gets or sets the access failed count.
-        /// </summary>
-        /// <value>
-        /// The access failed count.
-        /// </value>
-        public Int32 AccessFailedCount { get; set; }
-
-        /// <summary>
         /// Gets or sets the name of the application or house.
         /// </summary>
         /// <value>

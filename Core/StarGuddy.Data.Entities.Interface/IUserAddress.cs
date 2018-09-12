@@ -35,8 +35,6 @@ namespace StarGuddy.Data.Entities.Interface
 
          Boolean IsDeleted { get; set; }
 
-         Int32 AccessFailedCount { get; set; }
-
          String AppOrHouseName { get; set; }
 
          String CityOrTown { get; set; }

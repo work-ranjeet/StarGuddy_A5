@@ -17,6 +17,7 @@
         displayName: string;
         about: string;
         cityOrTown: string;
+        stateOrProvince: string;
         country: string;
         phoneNumber: string;
         email: string;

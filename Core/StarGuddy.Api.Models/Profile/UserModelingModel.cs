@@ -8,6 +8,7 @@ namespace StarGuddy.Api.Models.Profile
     public class UserModelingModel
     {
         public Guid Id { get; set; }
+        public Guid UserId { get; set; }
         public int ExpCode { get; set; }
         public string ExpText { get; set; }
         public int AgentNeedCode { get; set; }

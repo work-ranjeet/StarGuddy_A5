@@ -14,7 +14,7 @@ namespace StarGuddy.Business.Interface.Profile
 
         Task<IEnumerable<IUserCreditModel>> GetUserCredits();
 
-        Task<bool> SaveUserCredits(Guid UserId, List<UserCreditModel> userCreditModelList);
+        Task<bool> SaveUserCredits(List<UserCreditModel> userCreditModelList);
 
         Task<bool> DeleteUserCredits(Guid userId);
 

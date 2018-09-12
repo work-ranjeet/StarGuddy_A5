@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Constants;
+using StarGuddy.Api.Models.Dto;
 using StarGuddy.Api.Models.Profile;
 using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Business.Interface.Account;
@@ -24,6 +25,7 @@ namespace StarGuddy.Api.Controllers.Profile
         /// <summary>
         /// The account manager
         /// </summary>
+        private readonly IUserManager _userManager;
         private readonly IAccountManager _accountManager;
         private readonly IProfileEditManager _profileEditManager;
         private readonly IJobManager _jobManager;
@@ -34,8 +36,9 @@ namespace StarGuddy.Api.Controllers.Profile
         /// </summary>
         /// <param name="accountManager">The account manager.</param>
         /// <param name="profileEditManager">The profile manager.</param>
-        public ProfileEditController(IAccountManager accountManager, IProfileEditManager profileEditManager, IJobManager jobManager)
+        public ProfileEditController(IUserManager userManager, IAccountManager accountManager, IProfileEditManager profileEditManager, IJobManager jobManager)
         {
+            _userManager = userManager;
             _accountManager = accountManager;
             _profileEditManager = profileEditManager;
             _jobManager = jobManager;
@@ -101,7 +104,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return BadRequest(HttpStatusText.InvalidRequest);
             }
 
-            var isSuccess = await _profileEditManager.SaveUserCredits(UserContext.Current.UserId, credits);
+            var isSuccess = await _profileEditManager.SaveUserCredits(credits);
             if (isSuccess)
             {
                 return Ok(isSuccess);
@@ -339,6 +342,39 @@ namespace StarGuddy.Api.Controllers.Profile
             }
 
             if (await _profileEditManager.SaveUserIntro(model))
+            {
+                return Ok(true);
+            }
+
+            return StatusCode(StatusCodes.Status304NotModified, this);
+        }
+
+
+        [HttpGet]
+        [Route("address")]
+        public async Task<IActionResult> GetCurrentAddress()
+        {
+            var result = await _userManager.GetCurrentAddress();
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("address")]
+        public async Task<IActionResult> UpdateAddress([FromBody]AddressDto model)
+        {
+            if (model.IsNull() || 
+                string.IsNullOrWhiteSpace(model.CityOrTown) || string.IsNullOrWhiteSpace(model.Country)    || 
+                string.IsNullOrWhiteSpace(model.StateOrProvince) || string.IsNullOrWhiteSpace(model.ZipOrPostalCode))
+            {
+                return BadRequest();
+            }
+
+            if (await _userManager.UpdateCurrentAddress(model))
             {
                 return Ok(true);
             }

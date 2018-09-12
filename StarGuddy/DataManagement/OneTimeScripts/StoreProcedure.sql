@@ -742,10 +742,38 @@ BEGIN
 	
 	SELECT  UserId
 	FROM UserSettings
-	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0
-	
+	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0	
 END
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'InsertOrUpdateAddress') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE InsertOrUpdateAddress
+GO
 
+CREATE PROCEDURE InsertOrUpdateAddress (@UserId UNIQUEIDENTIFIER, @AppOrHouseName NVARCHAR(150), @CityOrTown NVARCHAR(100), @Country NVARCHAR(50), @Flat NVARCHAR(50), @LandMark NVARCHAR(200), @LineOne NVARCHAR(200), @LineTwo NVARCHAR(200), @StateOrProvince NVARCHAR(100), @ZipOrPostalCode NVARCHAR(10))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	IF (NOT EXISTS (SELECT TOP 1 Id FROM UserAddress WHERE UserId = @UserId AND IsActive =1 AND IsDeleted = 0) )
+		BEGIN
+			INSERT INTO UserAddress(Id, UserId, AppOrHouseName, CityOrTown, Country, Flat, LandMark, LineOne, LineTwo, StateOrProvince, ZipOrPostalCode, IsActive, IsDeleted)
+			VALUES(NEWID(), @UserId, @AppOrHouseName, @CityOrTown, @Country, @Flat, @LandMark, @LineOne, @LineTwo, @StateOrProvince, @ZipOrPostalCode, 1, 0)
+		END
+	ELSE
+		BEGIN
+			UPDATE UserAddress
+			SET AppOrHouseName = @AppOrHouseName, CityOrTown = @CityOrTown, Country = @Country, Flat = @Flat, LandMark = @LandMark, LineOne = @LineOne, LineTwo = @LineTwo, StateOrProvince = @StateOrProvince, ZipOrPostalCode = @ZipOrPostalCode, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+			WHERE UserId = @UserId
+		END
+	END	
+
+
+GO
 
 
 

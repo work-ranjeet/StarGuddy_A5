@@ -10,12 +10,6 @@ namespace StarGuddy.Api.Models.Dto
 
         public Guid UserId { get; set; }
 
-        public bool IsActive { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public int AccessFailedCount { get; set; }
-
         public string AppOrHouseName { get; set; }
 
         public string CityOrTown { get; set; }

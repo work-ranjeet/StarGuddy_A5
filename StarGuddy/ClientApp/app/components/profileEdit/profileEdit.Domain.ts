@@ -131,4 +131,18 @@
         nickname: string;
         religion: string;
     }
+
+    export interface IAddressDto {
+        id: string;
+        userId: string;
+        appOrHouseName: string;
+        cityOrTown: string;
+        country: string;
+        flat: string;
+        landMark: string;
+        lineOne: string;
+        lineTwo: string;
+        stateOrProvince: string;
+        zipOrPostalCode: string;
+    }
 }

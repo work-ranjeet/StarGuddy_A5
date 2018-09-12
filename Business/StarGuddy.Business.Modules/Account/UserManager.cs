@@ -172,13 +172,13 @@ namespace StarGuddy.Business.Modules.Account
 
         }
 
-        public async Task<AppUserDetail> GetUserDetails()
+        public async Task<AppUserDetail> GetUserDetails(Guid userId)
         {
-            var appUserTask = _userRepository.FindByIdAsync(UserContext.Current.UserId);
-            var addressTask = _addressRepository.GetUserAddressAsync(UserContext.Current.UserId);
-            var emalTask = _userEmailsRepository.GetUserEmailAsync(UserContext.Current.UserId);
-            var phoneTask = _userPhonesRepository.GetUserPhoneDetailByUserId(UserContext.Current.UserId);
-            var detailTask = _userDetailRepository.GetUserDetailByUserId(UserContext.Current.UserId);
+            var appUserTask = _userRepository.FindByIdAsync(userId);
+            var addressTask = _addressRepository.GetAsync(userId);
+            var emalTask = _userEmailsRepository.GetUserEmailAsync(userId);
+            var phoneTask = _userPhonesRepository.GetUserPhoneDetailByUserId(userId);
+            var detailTask = _userDetailRepository.GetUserDetailByUserId(userId);
 
             var taskResult = Task.WhenAll(appUserTask, addressTask, emalTask, phoneTask, detailTask);
             try
@@ -202,6 +202,38 @@ namespace StarGuddy.Business.Modules.Account
             }
 
             return null;
+        }
+
+        public async Task<AddressDto> GetCurrentAddress()
+        {
+            var addressTask = await _addressRepository.GetAsync(UserContext.Current.UserId);
+            try
+            {
+
+                if (addressTask.IsNotNull())
+                {
+                    return _mapper.Map<AddressDto>(addressTask);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return null;
+        }
+
+        public async Task<bool> UpdateCurrentAddress(AddressDto address)
+        {
+            address.UserId = UserContext.Current.UserId;
+
+            var userAddress = _mapper.Map<UserAddress>(address);
+            if (userAddress.IsNotNull())
+            {
+                return await _addressRepository.UpdateAsync(userAddress);
+            }
+
+            return false;
         }
     }
 }

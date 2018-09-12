@@ -6,6 +6,8 @@ using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Business.Interface.Profile;
 using StarGuddy.Core.Constants;
 using StarGuddy.Core.Enums;
+using StarGuddy.Data.Entities;
+using StarGuddy.Data.Entities.Interface;
 using StarGuddy.Repository.Interface;
 using System;
 using System.Collections.Concurrent;
@@ -16,19 +18,19 @@ using System.Threading.Tasks;
 
 namespace StarGuddy.Business.Modules.Profile
 {
-    public class ProfileFacade: IProfileFacade
+    public class ProfileAbstract
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IUserDetailRepository _userDetailRepository;
-        private readonly IUserSettingsRepository _userSettingsRepository;
-        private readonly IUserCreditsRepository _userCreditsRepository;
-        private readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
-        private readonly IUserDancingRepository _userDancingRepository;
-        private readonly IUserActingRepository _userActingRepository;
-        private readonly IUserModelingRepository _userModelingRepository;
-        private readonly IMapper _mapper;
+        protected readonly IUserRepository _userRepository;
+        protected readonly IUserDetailRepository _userDetailRepository;
+        protected readonly IUserSettingsRepository _userSettingsRepository;
+        protected readonly IUserCreditsRepository _userCreditsRepository;
+        protected readonly IPhysicalAppearanceRepository _physicalAppearanceRepository;
+        protected readonly IUserDancingRepository _userDancingRepository;
+        protected readonly IUserActingRepository _userActingRepository;
+        protected readonly IUserModelingRepository _userModelingRepository;
+        protected readonly IMapper _mapper;
 
-        public ProfileFacade(
+        public ProfileAbstract(
             IUserRepository userRepository,
             IUserDetailRepository userDetailRepository,
             IUserSettingsRepository userSettingsRepository,
@@ -50,8 +52,9 @@ namespace StarGuddy.Business.Modules.Profile
             _mapper = mapper;
         }
 
+
         #region /// Physical Appearance
-        public async Task<IPhysicalAppearanceModal> FetchPhysicalAppreance(Guid userId)
+        public virtual async Task<IPhysicalAppearanceModal> FetchPhysicalAppreance(Guid userId)
         {
             var result = await _physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
             return new PhysicalAppearanceModal
@@ -73,7 +76,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// User credits
-        public async Task<IEnumerable<IUserCreditModel>> FetchUserCredits(Guid userId)
+        public virtual  async Task<IEnumerable<IUserCreditModel>> FetchUserCredits(Guid userId)
         {
             var result = await this._userCreditsRepository.GetUserCreditsById(userId);
             if (result != null && result.Any())
@@ -99,7 +102,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// User dancing
-        public async Task<DancingModel> FetchUserDancingAsync(Guid userId)
+        public virtual async Task<DancingModel> FetchUserDancingAsync(Guid userId)
         {
             var dancingModel = new DancingModel()
             {
@@ -160,7 +163,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// User Acting
-        public async Task<UserActingModel> FetchUserActingDetailAsync(Guid userId)
+        public virtual async Task<UserActingModel> FetchUserActingDetailAsync(Guid userId)
         {
             var result = await _userActingRepository.GetUserActingDetailAsync(userId);
             if (result.IsNotNull())
@@ -190,7 +193,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// User Modeling
-        public async Task<UserModelingModel> FetchUserModelingDetailAsync(Guid userId)
+        public virtual async Task<UserModelingModel> FetchUserModelingDetailAsync(Guid userId)
         {
             var result = await _userModelingRepository.GetUserModelingDetailAsync(userId);
             if (result.IsNotNull())
@@ -211,7 +214,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// Name
-        public async Task<UserNameModel> FetchNameDetailsByUserId(Guid userId)
+        public virtual async Task<UserNameModel> FetchNameDetailsByUserId(Guid userId)
         {
             var result = await _userRepository.FindByIdAsync(userId);
 
@@ -232,7 +235,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// profile header
-        public async Task<ProfileHeader> FetchProfileHeaderByUserId(Guid userId)
+        public virtual async Task<ProfileHeader> FetchProfileHeaderByUserId(Guid userId)
         {
             var result = await _userRepository.GetUserProfileHeaderById(userId);
 
@@ -249,7 +252,7 @@ namespace StarGuddy.Business.Modules.Profile
         #endregion
 
         #region /// Profile Intro
-        public async Task<UserDetailModel> FetchProfileDetail(Guid userId)
+        public virtual async Task<UserDetailModel> FetchProfileDetail(Guid userId)
         {
             var details = _userDetailRepository.GetUserDetailByUserId(userId);
             var settings = _userSettingsRepository.GetUsetSettingByUserIdAsync(userId);

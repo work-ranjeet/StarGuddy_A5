@@ -124,6 +124,11 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string ClearJobGroups = "UserJobGroupsClear";
             public const string UserJobGroupSave = "UserJobGroupSave";
         }
-        
+
+        public struct Address
+        {
+            public const string InsertOrUpdateAddress = "InsertOrUpdateAddress";
+        }
+
     }
 }

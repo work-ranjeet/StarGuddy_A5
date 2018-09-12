@@ -14,6 +14,7 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
 import IUserNameModel = App.Client.Profile.IUserNameModel;
 import IUserDetailModel = App.Client.Profile.IUserDetailModel;
+import IAddress = App.Client.Profile.IAddressDto;
 
 @Injectable()
 export class ProfileEditService {
@@ -286,6 +287,36 @@ export class ProfileEditService {
 
     SaveUserIntro(payLoad: IUserDetailModel) {
         return this.baseService.HttpService.patchData<boolean>("Profile/Operations/intro", payLoad)
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+
+    //Address
+    GetUserCurrentAddress(): Observable<IAddress> {
+        return this.baseService.HttpService.getData<IAddress>("Profile/Operations/address")
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
+    UpdateUserAddress(payLoad: IAddress) {
+        return this.baseService.HttpService.patchData<boolean>("Profile/Operations/address", payLoad)
             .map(
                 (result: any) => {
                     return result;
