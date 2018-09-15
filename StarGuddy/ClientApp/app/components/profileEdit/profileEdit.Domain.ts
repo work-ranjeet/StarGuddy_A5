@@ -145,4 +145,14 @@
         stateOrProvince: string;
         zipOrPostalCode: string;
     }
+
+    export interface IImageModel {
+        id: string;
+        userId: string;
+        name: string;
+        size: number;
+        caption: string;
+        imageUrl: string;
+        fileToUpload: File;
+    }
 }

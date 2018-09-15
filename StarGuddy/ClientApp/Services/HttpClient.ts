@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { HttpClient,  HttpParams } from '@angular/common/http';
+import { HttpClient,  HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { isPlatformBrowser } from "@angular/common";
 
@@ -32,6 +32,16 @@ export class HttpService {
 
     postData<T>(Url: string, data: any) {
         return this.http.post<T>(this.UrlPrifix + Url, data);
+    } 
+
+    postDataWithProgress<T>(Url: string, data: any) {
+        return this.http.request<T>(
+            new HttpRequest('POST', this.UrlPrifix + Url, data, { reportProgress: true })
+        );
+    }
+
+    postSimple(Url: string, data: any) {
+        return this.http.post(this.UrlPrifix + Url, data);
     }
 
     patchData<T>(Url: string, data: any) {
@@ -46,9 +56,5 @@ export class HttpService {
         return this.http.delete<T>(this.UrlPrifix + Url, {
             params: params
         });
-    }
-
-    postSimple(Url: string, data: any) {
-        return this.http.post(this.UrlPrifix + Url, data);
     }
 }

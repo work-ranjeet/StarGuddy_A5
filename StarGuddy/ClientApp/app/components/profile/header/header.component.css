@@ -1,29 +1,46 @@
-﻿.profile-header-img > img {
-    width: 230px;
-    height: 260px;
-    border-radius: 50%;
-    margin-top: 2px;
-    border: 5px solid #fcf9f9;
+﻿.profile-img-container {
+    width: 255px;
+    height: 280px;
+    z-index: 9;
 }
 
-.profile-header-mob-img > img {
+    .profile-img-container .profile-img {
+        width: inherit;
+        height: inherit;
+    }
+
+        .profile-img-container .profile-img .img-size {
+            width: inherit;
+            height: inherit;
+            border-radius: 50%;
+            border: 5px solid #fcf9f9;
+        }
+
+.profile-img-container-mob {
     width: 150px;
     height: 170px;
-    border-radius: 50%;
-    margin-top: 2px;
-    border: 5px solid #fcf9f9;
+    margin: auto;
 }
 
+    .profile-img-container-mob .profile-img {
+        width: inherit;
+        height: inherit;
+        z-index: -1;
+    }
 
-.profile-info {
-    text-align: center;
-    padding: 0 20px;
-    z-index: 1;
-}
+        .profile-img-container-mob .profile-img .img-size {
+            width: inherit;
+            height: inherit;
+            border-radius: 50%;
+            border: 5px solid #fcf9f9;
+        }
 
-.profile-info-mob {
-    text-align: center;
-    z-index: 1;
+
+
+@media (max-width: 767px) {
+    .profile-info-detail-mob {
+        text-align: center;
+    }
 }
 
 .profile-info-detail > h2 {
@@ -41,15 +58,11 @@
 .profile-info-detail-mob > div {
     padding: 5px 0 5px 0;
     font-size: 13px;
-    text-align: center !important;
 }
 
 .profile-info-detail .profile-address {
     margin-top: 10px;
 }
-
-
-
 
 .profile-info-menu {
     padding-top: 40px;

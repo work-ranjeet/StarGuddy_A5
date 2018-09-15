@@ -17,6 +17,23 @@
             margin-left: 260px;
         }
 
+@media (min-width: 768px) {
+    .profile-menu > a:first-child {
+        margin-left: 180px;
+    }
+}
+
+@media (min-width: 992px) {
+    .profile-menu > a:first-child {
+        margin-left: 240px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .profile-menu > a:first-child {
+        margin-left: 250px;
+    }
+}
 
 .profile-info-about {
     min-height: 80px;

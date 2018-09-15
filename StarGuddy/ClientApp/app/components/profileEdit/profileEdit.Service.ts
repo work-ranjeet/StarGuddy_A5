@@ -1,4 +1,4 @@
-﻿import { HttpErrorResponse, HttpParams } from "@angular/common/http";
+﻿import { HttpErrorResponse, HttpParams, HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
@@ -15,12 +15,15 @@ import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
 import IUserNameModel = App.Client.Profile.IUserNameModel;
 import IUserDetailModel = App.Client.Profile.IUserDetailModel;
 import IAddress = App.Client.Profile.IAddressDto;
+import IHeadShot = App.Client.Profile.IImageModel;
+import { Event } from "@angular/router";
+import {  HttpEvent } from "@angular/common/http/src/response";
 
 @Injectable()
 export class ProfileEditService {
-
+   
     constructor(
-        @Inject(BaseService) private readonly baseService: BaseService,
+        @Inject(BaseService) private readonly baseService: BaseService, private http: HttpClient, 
         private readonly dataConverter: DataConverter) {
     }
 
@@ -329,4 +332,39 @@ export class ProfileEditService {
                     }
                 });
     }
+
+    // Image upload
+    //GetHeadShotDetails():
+    UploadHeadShotImage(headShot: IHeadShot): Observable<any> {
+        return this.baseService.HttpService.postDataWithProgress<any>("Profile/Image/headshot", headShot)
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("UploadHeadShotImage. Error:" + err.message);
+                    } else {
+                        console.log("UploadHeadShotImage. Error:" + err.message);
+                    }
+                });
+    }  
+
+    //UploadHeadShotImage(caption: string, fileToUpload: File) {
+    //    const formData: FormData = new FormData
+    //    formData.append('Image', fileToUpload, fileToUpload.name);
+    //    formData.append('ImageCaption', caption);
+    //    return this.baseService.HttpService.postData<boolean>("Profile/Image/UploadImage", formData)
+    //        .map(
+    //            (result: any) => {
+    //                return result;
+    //            },
+    //            (err: HttpErrorResponse) => {
+    //                if (err.error instanceof Error) {
+    //                    console.log("Client-side error occurred. Error:" + err.message);
+    //                } else {
+    //                    console.log("Server-side error occurred. Error:" + err.message);
+    //                }
+    //            });
+    //}
 }

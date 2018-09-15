@@ -19,13 +19,15 @@ import { ProfileEditIntroComponent } from "./intro/profileEditIntro.component";
 import { ProfileEditAddressComponent } from "./address/profileEditAddress.component";
 import { ProfileEditIndex } from "./index/profileEditIndex.component";
 import { JobGroupComponent } from "./jobGroup/JobGroup.component";
+import { ProfileHeadShotComponent } from "./headShot/headShot.component";
 import { AuthGuard } from "../../../Services/AuthenticationGuard";
 
 @NgModule({
     declarations: [
         ProfileEditActingComponent, ProfileEditCreditsComponent, ProfileEditDancingComponent, ProfileEditModelingComponent,
         ProfileEditPhotosComponent, ProfileEditTrainingsComponent, ProfileEditPhysicalComponent, ProfileEditAddressComponent,
-        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu, JobGroupComponent, ProfileEditNameComponent, ProfileEditIntroComponent
+        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu, JobGroupComponent, ProfileEditNameComponent, ProfileEditIntroComponent,
+        ProfileHeadShotComponent
     ],
     imports: [
         RouterModule,
@@ -41,7 +43,8 @@ import { AuthGuard } from "../../../Services/AuthenticationGuard";
                     { path: "name", component: ProfileEditNameComponent, canActivate: [AuthGuard] },
                     { path: "intro", component: ProfileEditIntroComponent, canActivateChild: [AuthGuard] },
                     { path: "address", component: ProfileEditAddressComponent, canActivateChild: [AuthGuard] },
-                    { path: "interests", component: JobGroupComponent, canActivateChild: [AuthGuard] }
+                    { path: "interests", component: JobGroupComponent, canActivateChild: [AuthGuard] },
+                    { path: "head-shot/:?gender", component: ProfileHeadShotComponent, canActivateChild: [AuthGuard] }
                 ]
             }
         ])
@@ -51,7 +54,8 @@ import { AuthGuard } from "../../../Services/AuthenticationGuard";
 
         ProfileEditActingComponent, ProfileEditCreditsComponent, ProfileEditDancingComponent, ProfileEditModelingComponent,
         ProfileEditPhotosComponent, ProfileEditTrainingsComponent, ProfileEditPhysicalComponent, ProfileEditAddressComponent,
-        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu, JobGroupComponent, ProfileEditNameComponent, ProfileEditIntroComponent
+        ProfileEditIndex, ProfileEditHeader, ProfileEditMenu, JobGroupComponent, ProfileEditNameComponent, ProfileEditIntroComponent,
+        ProfileHeadShotComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

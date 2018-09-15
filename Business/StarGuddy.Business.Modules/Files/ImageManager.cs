@@ -67,8 +67,6 @@ namespace StarGuddy.Business.Modules.Files
                                             .Select(fi => new ImageModel
                                             {
                                                 Name = fi.Name,
-                                                Created = fi.CreationTime,
-                                                Modified = fi.LastWriteTime,
                                                 Size = fi.Length / 1024
                                             })
                                             .ToList();

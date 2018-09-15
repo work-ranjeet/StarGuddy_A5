@@ -100,8 +100,8 @@ namespace StarGuddy
                     policy.RequireClaim(JwtRegisteredClaimNames.Email);
                 });
             });
+            services.AddHttpContextAccessor();
 
-            //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             /* Swagger */
             //services.AddSwaggerGen(x =>
@@ -113,6 +113,7 @@ namespace StarGuddy
             /* End Swagger */
 
             //// Dependency Injection
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             Api.Injection.Inject(services, Configuration);
         }
 

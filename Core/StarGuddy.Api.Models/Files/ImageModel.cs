@@ -5,10 +5,11 @@
 // -------------------------------------------------------------------------------
 namespace StarGuddy.Api.Models.Files
 {
+    
     #region name-space
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.Internal;
     #endregion
 
     /// <summary>
@@ -16,36 +17,18 @@ namespace StarGuddy.Api.Models.Files
     /// </summary>
     public class ImageModel
     {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
+        public Guid Id { get; set; }
+
+        public Guid UserId { get; set; }
+
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the created.
-        /// </summary>
-        /// <value>
-        /// The created.
-        /// </value>
-        public DateTime Created { get; set; }
+        public string Caption { get; set; }
 
-        /// <summary>
-        /// Gets or sets the modified.
-        /// </summary>
-        /// <value>
-        /// The modified.
-        /// </value>
-        public DateTime Modified { get; set; }
+        public string ImageUrl { get; set; }
 
-        /// <summary>
-        /// Gets or sets the size.
-        /// </summary>
-        /// <value>
-        /// The size.
-        /// </value>
         public long Size { get; set; }
+
+        //public FormFile FileToUpload { get; set; }
     }
 }
