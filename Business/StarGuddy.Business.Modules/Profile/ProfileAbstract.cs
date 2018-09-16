@@ -57,26 +57,31 @@ namespace StarGuddy.Business.Modules.Profile
         public virtual async Task<IPhysicalAppearanceModal> FetchPhysicalAppreance(Guid userId)
         {
             var result = await _physicalAppearanceRepository.GetPhysicalAppreanceById(userId);
-            return new PhysicalAppearanceModal
+            if (result.IsNotNull())
             {
-                BodyType = result.BodyType,
-                Chest = result.Chest,
-                Ethnicity = result.Ethnicity,
-                EyeColor = result.EyeColor,
-                HairColor = result.HairColor,
-                HairLength = result.HairLength,
-                HairType = result.HairType,
-                Height = result.Height,
-                SkinColor = result.SkinColor,
-                UserId = result.UserId,
-                Weight = result.Weight,
-                West = result.West
-            };
+                return new PhysicalAppearanceModal
+                {
+                    BodyType = result.BodyType,
+                    Chest = result.Chest,
+                    Ethnicity = result.Ethnicity,
+                    EyeColor = result.EyeColor,
+                    HairColor = result.HairColor,
+                    HairLength = result.HairLength,
+                    HairType = result.HairType,
+                    Height = result.Height,
+                    SkinColor = result.SkinColor,
+                    UserId = result.UserId,
+                    Weight = result.Weight,
+                    West = result.West
+                };
+            }
+
+            return null;
         }
         #endregion
 
         #region /// User credits
-        public virtual  async Task<IEnumerable<IUserCreditModel>> FetchUserCredits(Guid userId)
+        public virtual async Task<IEnumerable<IUserCreditModel>> FetchUserCredits(Guid userId)
         {
             var result = await this._userCreditsRepository.GetUserCreditsById(userId);
             if (result != null && result.Any())
@@ -116,13 +121,10 @@ namespace StarGuddy.Business.Modules.Profile
             };
 
             var userDancing = await _userDancingRepository.GetUserDancingAsync(userId);
-
             var dancingStyle = await _userDancingRepository.GetDancingStyleSelectedAsync(userId);
 
-            //await Task.WhenAll(userDancing, dancingStyle);
-
-            if (userDancing != null)//&& userDancing.IsCompletedSuccessfully)
-            {
+            if (userDancing.IsNotNull())
+            {               
                 dancingModel = new DancingModel
                 {
                     Id = userDancing.Id,
@@ -139,9 +141,8 @@ namespace StarGuddy.Business.Modules.Profile
                 };
             }
 
-            if (dancingStyle != null)// && dancingStyle.IsCompletedSuccessfully)
+            if (dancingStyle.IsNotNull())
             {
-
                 var danceStyle = dancingStyle.Select(x =>
                 {
                     return new DancingStyleDto
@@ -172,9 +173,9 @@ namespace StarGuddy.Business.Modules.Profile
                 {
                     Id = result.UserActing?.Id ?? Guid.Empty,
                     UserId = userId,
-                    ActingExperianceCode = result.UserActing?.ActingExperianceCode ?? 0,
+                    ActingExperianceCode = result.UserActing?.ActingExperianceCode ?? 200,
                     ActingExperiance = result.UserActing?.ActingExperiance ?? string.Empty,
-                    AgentNeedCode = result.UserActing?.AgentNeedCode ?? 0,
+                    AgentNeedCode = result.UserActing?.AgentNeedCode ?? 1,
                     Experiance = result.UserActing?.Experiance ?? string.Empty,
                     Accents = _mapper.Map<List<AccentsDto>>(result.Accents),
                     Languages = _mapper.Map<List<LanguageDto>>(result.Languages),
@@ -182,12 +183,7 @@ namespace StarGuddy.Business.Modules.Profile
                 };
             }
 
-            return new UserActingModel
-            {
-                Accents = new List<AccentsDto>(),
-                Languages = new List<LanguageDto>(),
-                AuditionsAndJobsGroup = new List<AuditionsAndJobsGroupDto>()
-            };
+            return null;
         }
 
         #endregion
@@ -209,7 +205,7 @@ namespace StarGuddy.Business.Modules.Profile
                 return userModelingModel;
             }
 
-            return new UserModelingModel { ModelingRoles = new List<AuditionsAndJobsGroupDto>() };
+            return null;
         }
         #endregion
 

@@ -672,7 +672,7 @@ margin-right-10 {
 .edit-icon-l, .edit-icon-m, .edit-icon-s {
     font-size: 18px !important;
     padding: 5px !important;
-    display: inline-block;
+    display: inline!important;
 }
 
 .edit-icon-l {

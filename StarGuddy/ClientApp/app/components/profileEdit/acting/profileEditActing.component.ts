@@ -22,6 +22,9 @@ export class ProfileEditActingComponent {
     private readonly dataValidator: DataValidator;
     private userProfileService: ProfileEditService;
 
+    public showLanguage: boolean = true;
+    public showAccents: boolean = true;
+    public showActing: boolean = false;
     public showEditHtml: boolean = false;
     public actingDetailModel: IActingDetailModel;
     public actingDetailReset: IActingDetailModel;
@@ -43,16 +46,31 @@ export class ProfileEditActingComponent {
     }
 
     loadActingDetails() {
-        this.userProfileService.GetUserActingDetail().subscribe(response => {
-            if (response != null) {
-                this.actingDetailModel = _.cloneDeep(response);
-                this.actingDetailReset = _.cloneDeep(response);
-                this.showEditHtml = false;
-            }
-            else {
-                console.info("Got empty result GetUserActingDetail(): IActingDetailModel");
-            }
-        });
+        this.userProfileService.GetUserActingDetail().subscribe(
+            response => {
+                if (response != null) {
+                    this.filterResponse(response);
+                    this.actingDetailModel = _.cloneDeep(response);
+                    this.actingDetailReset = _.cloneDeep(response);
+                    this.showActing = true;
+                    this.showEditHtml = false;
+                }
+            },
+            err => { this.showActing = false; console.error(err.error) });
+    }
+
+    filterResponse(response: IActingDetailModel) {
+        if (response.actingExperiance == "") {
+            response.actingExperianceCode = 200;
+            response.actingExperiance = ActingExperiance[response.actingExperianceCode];
+        }
+        if (response.languages.length > 0 && response.languages.findIndex(x => x.selectedLanguageCode != "") < 0) {
+            this.showLanguage = false;
+        }
+
+        if (response.accents.length > 0 && response.accents.findIndex(x => x.selectedAccent != "") < 0) {
+            this.showAccents = false;
+        }
     }
 
     updateSelectedJobGroup(checkEvent: any) {

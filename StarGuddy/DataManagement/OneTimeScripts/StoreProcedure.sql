@@ -67,25 +67,15 @@ BEGIN
 		INSERT INTO UserSettings(UserId, ProfileUrl, Visibility, IsCommnetAlowed, IsActive, IsDeleted)
 	    VALUES (@userId, NEWID(), 0, 0, 1, 0)
 
+		DECLARE @imageUrl NVARCHAR(200) = (CASE WHEN @Gender ='M' THEN '/css/icons/mail.png' WHEN @Gender ='F' THEN '/css/icons/femail.png' ELSE '/css/icons/other.png' END) 
+		INSERT INTO UserImage(Id, UserId, Name, Caption, ImageUrl, DataUrl, ImageType, IsActive, IsDeleted)
+	    VALUES (NEWID(), @userId, 'initial image', '', @imageUrl, '', 1, 1, 0)
+
 		COMMIT TRANSACTION
 	END TRY
 
 	BEGIN CATCH
 		ROLLBACK TRANSACTION
-			--INSERT INTO ErrorLog (
-			--	ErrorType,
-			--	ErrorName,
-			--	CustomMesage,
-			--	ErrorNumber,
-			--	ErrorMessage
-			--	)
-			--VALUES (
-			--	1,
-			--	'Select20InterNews',
-			--	'Error from Select20InterNews Store Procedure',
-			--	ERROR_NUMBER(),
-			--	ERROR_MESSAGE()
-			--	)
 	END CATCH
 END
 GO
@@ -641,12 +631,13 @@ BEGIN
 	SET NOCOUNT ON;
 	SET XACT_ABORT ON;
 
-	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email, UD.About
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email, UD.About, UI.ImageUrl, UI.DataUrl
 	FROM users U
 	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
 	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
 	LEFT JOIN UserEmails UE ON UE.UserId = U.Id AND UE.IsActive = 1 AND UE.IsDeleted = 0
 	LEFT JOIN UserDetail UD ON UD.UserId = U.Id AND UD.IsActive = 1 AND UD.IsDeleted = 0
+	LEFT JOIN UserImage UI ON UI.UserId = U.Id AND UI.IsActive = 1 AND UI.IsDeleted = 0 AND UI.ImageType = 1
 	WHERE U.Id = @UserId
 
 	EXEC GetUserJobGroup @UserId
@@ -672,12 +663,13 @@ BEGIN
 	FROM UserSettings
 	WHERE ProfileUrl = @ProfileUrl AND IsActive = 1 AND IsDeleted = 0
 
-	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email, UD.About
+	SELECT U.Id, U.FirstName, U.LastName, U.DisplayName, UA.CityOrTown, UA.StateOrProvince, UA.Country, UP.PhoneNumber, UE.Email, UD.About, UI.ImageUrl, UI.DataUrl
 	FROM users U
 	LEFT JOIN UserAddress UA ON UA.UserId = U.Id AND UA.IsActive = 1 AND UA.IsDeleted = 0
 	LEFT JOIN UserPhones UP ON UP.UserId = U.Id AND UP.IsActive = 1 AND UP.IsDeleted = 0
 	LEFT JOIN UserEmails UE ON UE.UserId = U.Id AND UE.IsActive = 1 AND UE.IsDeleted = 0
 	LEFT JOIN UserDetail UD ON UD.UserId = U.Id AND UD.IsActive = 1 AND UD.IsDeleted = 0
+	LEFT JOIN UserImage UI ON UI.UserId = U.Id AND UI.IsActive = 1 AND UI.IsDeleted = 0 AND UI.ImageType = 1
 	WHERE U.Id = @UserId
 
 	EXEC GetUserJobGroup @UserId
@@ -771,9 +763,33 @@ BEGIN
 			WHERE UserId = @UserId
 		END
 	END	
-
-
 GO
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'HeadShotImageSaveUpdate') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE HeadShotImageSaveUpdate
+GO
+CREATE PROCEDURE HeadShotImageSaveUpdate (@UserId UNIQUEIDENTIFIER, @Name NVARCHAR(450), @Caption NVARCHAR(200), @ImageUrl NVARCHAR(1000), @Size BIGINT, @DataUrl NVARCHAR(MAX), @ImageType INT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	IF (EXISTS (SELECT TOP 1 Id  FROM UserImage WHERE UserId = @UserId AND IsActive = 1 AND IsDeleted = 0 AND ImageType = @ImageType))
+	BEGIN
+		UPDATE UserImage
+		SET Name = @Name, Caption = @Caption, ImageUrl = @ImageUrl, Size = @Size, DataUrl = @DataUrl, IsActive = 1, IsDeleted = 0, DttmModified = getutcdate()
+		WHERE UserId = @UserId AND ImageType = @ImageType
+	END
+	ELSE
+	BEGIN
+		INSERT INTO UserImage (Id, UserId, Name, Caption, ImageUrl, Size, DataUrl, ImageType, IsActive, IsDeleted)
+		VALUES (NEWID(), @UserId, @Name, @Caption, @ImageUrl, @Size, @DataUrl, @ImageType, 1, 0)
+	END
+END
 
 
 

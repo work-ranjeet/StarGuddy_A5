@@ -9,26 +9,37 @@
                 </span>
             </div>
             <div *ngIf="!showEditHtml" class="card-body">
-                <div class="experiance">Acting experience</div>
-                <div class="padding-top-5 padding-left-20">{{actingDetailModel.actingExperiance}}</div>
-                <hr />
-                <div class="experiance padding-top-10">Language</div>
-                <div class="padding-top-5 padding-left-15 text-l">
-                    <span class="padding-5" *ngFor="let language of actingDetailModel.languages">
-                        <i *ngIf="language.code==language.selectedLanguageCode" class="fa fa-hand-o-right text-success"></i>
-                        <span *ngIf="language.code==language.selectedLanguageCode">{{language.name}}</span>
-                    </span>
+                <div *ngIf="showActing">
+                    <div class="experiance">Acting experience</div>
+                    <div class="padding-top-5 padding-left-20 text-muted text-l">{{actingDetailModel.actingExperiance}}</div>
+                    <div *ngIf="showLanguage">
+                        <hr class="seperator" />
+                        <div class="experiance padding-top-10">Language</div>
+                        <div class="padding-top-5 padding-left-15 text-l">
+                            <span class="padding-5" *ngFor="let language of actingDetailModel.languages">
+                                <i *ngIf="language.code==language.selectedLanguageCode" class="fa fa-hand-o-right text-success"></i>
+                                <span *ngIf="language.code==language.selectedLanguageCode">{{language.name}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="showAccents">
+                        <hr class="seperator" />
+                        <div class="experiance padding-top-10">Accents</div>
+                        <div class="padding-top-5 padding-left-15">
+                            <span class=" padding-5" *ngFor="let accent of actingDetailModel.accents">
+                                <i *ngIf="accent.code==accent.selectedAccent" class="fa fa-hand-o-right text-success"></i>
+                                <span *ngIf="accent.code==accent.selectedAccent">{{accent.name}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="actingDetailModel.experiance!=''">
+                        <hr class="seperator" />
+                        <p class="padding-top-10 text-l text-muted">{{actingDetailModel.experiance}}</p>
+                    </div>
                 </div>
-                <hr />
-                <div class="experiance padding-top-10">Accents</div>
-                <div class="padding-top-5 padding-left-15">
-                    <span class=" padding-5" *ngFor="let accent of actingDetailModel.accents">
-                        <i *ngIf="accent.code==accent.selectedAccent" class="fa fa-hand-o-right text-success"></i>
-                        <span *ngIf="accent.code==accent.selectedAccent">{{accent.name}}</span>
-                    </span>
+                <div *ngIf="!showActing">
+                    <span class="text-info text-m">Please enter your acting detail.</span>
                 </div>
-                <hr />
-                <p class="padding-top-10 text-l text-muted">{{actingDetailModel.experiance}}</p>
             </div>
             <div id="physicalAppreanceEdit" *ngIf="showEditHtml" class="card-body text-muted">
                 <form action="#" method="post" class="form" role="form">

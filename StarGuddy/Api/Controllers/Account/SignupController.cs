@@ -71,10 +71,10 @@ namespace StarGuddy.Api.Controllers.Account
 
                 // send mail for email verification
 
-                return StatusCode(StatusCodes.Status200OK, "We sent you detail to your email. Please verify.");
+                return Ok("We sent you detail to your email. Please verify.");
             }
 
-            return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));
+            return BadRequest();
         }
 
         //[HttpPost("change-password")]

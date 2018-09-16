@@ -54,21 +54,16 @@ namespace StarGuddy.Business.Modules.Common
 
         public static bool VerifyHashedPasswordInternal(string hashedPassword, string password)
         {
-            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
-
-            if (decodedHashedPassword.Length == 0)
-            {
-                return false;
-            }
-
             try
             {
+                var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+
+                if (decodedHashedPassword.Length == 0)
+                    return false;
+
                 // Verify hashing format.
                 if (decodedHashedPassword[0] != 0x01)
-                {
-                    // Unknown format header.
                     return false;
-                }
 
                 // Read hashing algorithm version.
                 var prf = (KeyDerivationPrf)ReadNetworkByteOrder(decodedHashedPassword, 1);
@@ -81,9 +76,7 @@ namespace StarGuddy.Business.Modules.Common
 
                 // Verify the salt size: >= 128 bits.
                 if (saltLength < 128 / 8)
-                {
                     return false;
-                }
 
                 // Read the salt.
                 var salt = new byte[saltLength];
@@ -92,9 +85,7 @@ namespace StarGuddy.Business.Modules.Common
                 // Verify the SUBKEY length >= 128 bits.
                 var subkeyLength = decodedHashedPassword.Length - 13 - salt.Length;
                 if (subkeyLength < 128 / 8)
-                {
                     return false;
-                }
 
                 // Read the SUBKEY.
                 var expectedSubkey = new byte[subkeyLength];
@@ -118,7 +109,7 @@ namespace StarGuddy.Business.Modules.Common
                 | ((uint)(buffer[offset + 2]) << 8)
                 | ((uint)(buffer[offset + 3]));
         }
-      
+
         private static void WriteNetworkByteOrder(byte[] buffer, int offset, uint value)
         {
             buffer[offset + 0] = (byte)(value >> 24);
@@ -180,7 +171,7 @@ namespace StarGuddy.Business.Modules.Common
                 return text;
             });
         }
-       
+
         public static async Task<string> DecryptText(string encryptedText, string securityStamp)
         {
             return await Task.Factory.StartNew(() =>

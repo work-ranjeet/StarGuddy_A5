@@ -3,7 +3,7 @@
     <div class="col-lg-3 col-md-4">
         <div class=" profile-img-container">
             <div class="profile-img">
-                <img class="img-size" src="../../../../../wwwroot/css/img/arti.jpg" />
+                <img class="img-size" [src]="imageUrl" />
             </div>
         </div>
     </div>
@@ -11,15 +11,12 @@
     <div class="col-lg-9 col-md-8 padding-top-5">
         <div class="profile-info-detail">
             <h2 class="display-inline-block">{{profileHeader.displayName}}</h2>
-            <a routerLink="/profile/name" class="fa fa-edit edit-icon-m"></a>
             <div class="text-muted">
                 <span class="display-inline-block">{{jobGroupNames}}</span>
-                <a routerLink="/profile/interests" class="fa fa-edit edit-icon-m"></a>
             </div>
             <div class="profile-address">
                 <i class="fa fa-map-marker"></i>
                 <span class="text-muted display-inline-block">{{computedAddress}}</span>
-                <a routerLink="/profile/address" class="fa fa-edit edit-icon-m"></a>
             </div>
         </div>
         <!--<div class="row">
@@ -44,7 +41,7 @@
     <div class="col-sm-4 col-xs-12 ">
         <div class="profile-img-container-mob">
             <div class="profile-img">
-                <img class="img-size" src="../../../../../wwwroot/css/img/arti.jpg" />
+                <img class="img-size"  [src]="imageUrl" />
             </div>
         </div>
     </div>

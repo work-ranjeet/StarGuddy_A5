@@ -16,7 +16,7 @@ export class ProfileHeadShotComponent {
     private _gender: string = "";
 
     //private imageUrl: string = "/css/icons/mail.png";
-    //private fileToUpload: File = {} as File;
+    private fileToUpload: File = {} as File;
     private fileReader: FileReader = new FileReader();
     private headShotModel: IHeadShot = {} as IHeadShot;
 
@@ -37,24 +37,30 @@ export class ProfileHeadShotComponent {
     ngOnInit() {
         this.activatedRoute.params.subscribe(param => this.Gender = param['gender']);
         this.fileReader.onload = (event: any) => {
-            this.headShotModel.imageUrl = event.target.result;
+            this.headShotModel.dataUrl = event.target.result;
         };
+
+        this.load();
     }
 
     handleFileInput(files: FileList) {
         var file = files.item(0);
         if (file != null) {
-            this.headShotModel.fileToUpload = file;
+            this.fileToUpload = file;
             this.headShotModel.name = file.name;
             this.headShotModel.size = file.size;
-            this.fileReader.readAsDataURL(this.headShotModel.fileToUpload);
+            this.fileReader.readAsDataURL(this.fileToUpload);
         }
     }
 
     load() {
-        this.profileService.GetUserDetail().subscribe(response => {
+        this.profileService.GetHeadShotDetails().subscribe(response => {
             if (response != null) {
+                if (response.dataUrl == null || response.dataUrl == "") {
+                    response.dataUrl = response.imageUrl;
+                }
 
+                this.headShotModel = _.cloneDeep(response);
             }
             else {
                 console.info("Got empty result: ProfileHeadShotComponent.load()");
@@ -75,8 +81,8 @@ export class ProfileHeadShotComponent {
         //    else if (event.type === HttpEventType.Response)
         //        this.message = event.body.toString();
         //});
-     
 
+        this.headShotModel.imageType = 1;
         this.profileService.UploadHeadShotImage(this.headShotModel).subscribe((event: any) => {
             if (event.type === HttpEventType.UploadProgress)
                 this.progress = Math.round(100 * event.loaded / event.total);

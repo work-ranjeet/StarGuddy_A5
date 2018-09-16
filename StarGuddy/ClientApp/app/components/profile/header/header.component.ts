@@ -10,6 +10,7 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 
 export class ProfileHeader {
+    private imageUrl: string = "";
     private _jobGroupName: string = "";   
     private _profileHeader: IProfileHeader = {} as IProfileHeader
 
@@ -27,6 +28,8 @@ export class ProfileHeader {
 
             this.showAddress = profileHeader.cityOrTown != null && profileHeader.stateOrProvince != null && profileHeader.country != null;
             this.computedAddress = profileHeader.cityOrTown + ", " + profileHeader.stateOrProvince + ", " + profileHeader.country;
+
+            this.imageUrl = profileHeader.dataUrl == "" ? profileHeader.imageUrl : profileHeader.dataUrl;
         }
     }
     get profileHeader() { return this._profileHeader; }

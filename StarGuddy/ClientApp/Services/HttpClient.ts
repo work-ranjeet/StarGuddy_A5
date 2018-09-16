@@ -22,7 +22,7 @@ export class HttpService {
         return this.http.get(this.UrlPrifix + Url);
     }
 
-    getData<T>(Url: string): Observable<T> {
+    getData<T>(Url: string) {
         return this.http.get<T>(this.UrlPrifix + Url);
     }
 
@@ -41,7 +41,7 @@ export class HttpService {
     }
 
     postSimple(Url: string, data: any) {
-        return this.http.post(this.UrlPrifix + Url, data);
+        return this.http.post<any>(this.UrlPrifix + Url, data);
     }
 
     patchData<T>(Url: string, data: any) {

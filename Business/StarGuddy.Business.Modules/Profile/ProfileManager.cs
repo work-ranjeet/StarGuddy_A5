@@ -50,7 +50,7 @@ namespace StarGuddy.Business.Modules.Profile
                 var profileHeader = _mapper.Map<ProfileHeader>(result);
                 profileHeader.JobGroups = _mapper.Map<List<JobGroupModel>>(result.JobGroups).Where(x => x.Code == x.SelectedCode);
 
-                return profileHeader;
+                return profileHeader.IsNull() ? null : profileHeader;
             }
 
             return null;
@@ -99,7 +99,8 @@ namespace StarGuddy.Business.Modules.Profile
             var userId = await _userSettingsRepository.GetUserIdByProfilUrl(profileUrl);
             if (userId != Guid.Empty)
             {
-                return await FetchPhysicalAppreance(userId);
+                var result =  await FetchPhysicalAppreance(userId);
+                if (result.IsNotNull()) { return result; }
             }
 
             return null;
@@ -110,7 +111,8 @@ namespace StarGuddy.Business.Modules.Profile
             var userId = await _userSettingsRepository.GetUserIdByProfilUrl(profileUrl);
             if (userId != Guid.Empty)
             {
-                return await FetchUserCredits(userId);
+                var result =  await FetchUserCredits(userId);
+                if (result.IsNotNull()) { return result; }
             }
 
             return null;
@@ -120,7 +122,8 @@ namespace StarGuddy.Business.Modules.Profile
             var userId = await _userSettingsRepository.GetUserIdByProfilUrl(profileUrl);
             if (userId != Guid.Empty)
             {
-                return await FetchUserDancingAsync(userId);
+                var result = await FetchUserDancingAsync(userId);
+                if (result.IsNotNull()) { return result; }
             }
 
             return null;
@@ -131,7 +134,8 @@ namespace StarGuddy.Business.Modules.Profile
             var userId = await _userSettingsRepository.GetUserIdByProfilUrl(profileUrl);
             if (userId != Guid.Empty)
             {
-                return await FetchUserActingDetailAsync(userId);
+                var result =  await FetchUserActingDetailAsync(userId);
+                if (result.IsNotNull()) { return result; }
             }
 
             return null;
@@ -142,7 +146,8 @@ namespace StarGuddy.Business.Modules.Profile
             var userId = await _userSettingsRepository.GetUserIdByProfilUrl(profileUrl);
             if (userId != Guid.Empty)
             {
-                return await FetchUserModelingDetailAsync(userId);
+                var result = await FetchUserModelingDetailAsync(userId);
+                if (result.IsNotNull()) { return result; }
             }
 
             return null;

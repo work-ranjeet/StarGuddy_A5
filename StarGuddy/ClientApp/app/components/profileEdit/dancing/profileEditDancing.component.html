@@ -9,26 +9,31 @@
                 </a>
             </div>
             <div *ngIf="!showEditHtml" class="card-body">
-                <div class="experiance">Dancing ability</div>
-                <div class="padding-top-5 padding-left-20 text-l">{{dancingResult.danceAbilitiesText}}</div>
-                <hr />
-                <div *ngIf="dancingResult.choreographyAbilitiesText!=''">
-                    <div class="experiance">Teaching or Choreography ability</div>
-                    <div class="padding-top-5 padding-left-20 text-l">{{dancingResult.choreographyAbilitiesText}}</div>
-                </div>
-                <div *ngIf="dancingResult.hasDanceStyle">
+                <div *ngIf="showDancing">
+                    <div class="experiance">Dancing ability</div>
+                    <div class="padding-top-5 padding-left-20 text-l">{{dancingResult.danceAbilitiesText}}</div>
                     <hr />
-                    <div class="experiance padding-top-10">Dance styles</div>
-                    <div class="padding-top-5 padding-left-15 text-l">
-                        <span class="d-block padding-5" *ngFor="let danceStyle of dancingResult.dnacingStyles">
-                            <i class="fa fa-hand-o-right text-success" *ngIf="danceStyle.id==danceStyle.selectedValue"></i>
-                            <span *ngIf="danceStyle.id==danceStyle.selectedValue">{{danceStyle.name}}</span>
-                        </span>
+                    <div *ngIf="dancingResult.choreographyAbilitiesText!=''">
+                        <div class="experiance">Teaching or Choreography ability</div>
+                        <div class="padding-top-5 padding-left-20 text-l">{{dancingResult.choreographyAbilitiesText}}</div>
+                    </div>
+                    <div *ngIf="dancingResult.hasDanceStyle">
+                        <hr />
+                        <div class="experiance padding-top-10">Dance styles</div>
+                        <div class="padding-top-5 padding-left-15 text-l">
+                            <span class="d-block padding-5" *ngFor="let danceStyle of dancingResult.dnacingStyles">
+                                <i class="fa fa-hand-o-right text-success" *ngIf="danceStyle.id==danceStyle.selectedValue"></i>
+                                <span *ngIf="danceStyle.id==danceStyle.selectedValue">{{danceStyle.name}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="dancingResult.experience!= null && dancingResult.experience!=''">
+                        <hr />
+                        <p class="padding-top-10 text-l text-muted">{{dancingResult.experience}}</p>
                     </div>
                 </div>
-                <div *ngIf="dancingResult.experience!= null && dancingResult.experience!=''">
-                    <hr />
-                    <p class="padding-top-10 text-l text-muted">{{dancingResult.experience}}</p>
+                <div *ngIf="!showDancing">
+                    <span class="text-info text-m">Please enter your dancing detail.</span>
                 </div>
             </div>
             <div *ngIf="showEditHtml" class="card-body text-muted">
@@ -120,21 +125,21 @@
                         <div class="profile-edit-container row">
                             <div class="col-xs-6 col-sm-3">
                                 <input id="agentNeed_1" type="radio" name="agentGroup" class="padding-5 v-text-top"
-                                       [checked]="dancingModel.agentNeed==1"
+                                       [checked]="dancingModel.agentNeed==100"
                                        [value]="1"
                                        (change)="onAgentGroupSelectionChange($event)">
                                 <label for="agentNeed_1" class="padding-5 text-l">I don't have an agent</label>
                             </div>
                             <div class="col-xs-6 col-sm-3">
                                 <input id="agentNeed_10" type="radio" name="agentGroup" class="padding-5 v-text-top"
-                                       [checked]="dancingModel.agentNeed==10"
+                                       [checked]="dancingModel.agentNeed==101"
                                        [value]="10"
                                        (change)="onAgentGroupSelectionChange($event)">
                                 <label for="agentNeed_10" class="padding-5 text-l">I want an agent</label>
                             </div>
                             <div class="col-xs-6 col-sm-3">
                                 <input id="agentNeed_20" type="radio" name="agentGroup" class="padding-5 v-text-top"
-                                       [checked]="dancingModel.agentNeed==20"
+                                       [checked]="dancingModel.agentNeed==102"
                                        [value]="20"
                                        (change)="onAgentGroupSelectionChange($event)">
                                 <label for="agentNeed_20" class="padding-5 text-l">I have an agent</label>

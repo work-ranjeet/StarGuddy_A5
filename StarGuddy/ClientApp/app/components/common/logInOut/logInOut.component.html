@@ -5,7 +5,7 @@
     </div>
     <div *ngIf="isLoggedIn">
         <ul class="pull-right nav-logout-menu">
-            <li class="hidden-sm hidden-xs">
+            <!--<li class="hidden-sm hidden-xs">
                 <a class="menu-link-button" href="#">
                     <div class="fa fa-briefcase">
                         <span class="menu-link-count-container">
@@ -31,9 +31,9 @@
                         </span>
                     </div>
                 </a>
-            </li>
+            </li>-->
             <li (click)="toggleUserSettingMenu()" [style.background-color]="!showUserSettingMenu? 'white':null" [style.color]="!showUserSettingMenu? '#F88017':null">
-                <span>Ranjeet</span><!--{{UserFirstName}}-->
+                <span>{{UserFirstName}}</span>
                 <div [hidden]="showUserSettingMenu" class="user-setting-menu">
 
                     <!--<div class="heading">
@@ -43,7 +43,7 @@
                         <ul>
                             <li class="pull-left"><a class="fa fa-user-o" [routerLink]="['/profile']"> &nbsp;&nbsp; My Profile</a></li>
                             <!--<li class="pull-left"><a class="fa fa-bell-o" [routerLink]="['/Notification']"> &nbsp;&nbsp; Notifications</a></li>-->
-                            <li class="pull-left"><a class="fa fa-gears"  [routerLink]="['/profileSetting']"> &nbsp;&nbsp; Settings</a></li>
+                            <li class="pull-left"><a class="fa fa-gears" [routerLink]="['/profileSetting']"> &nbsp;&nbsp; Settings</a></li>
                             <li class="pull-left">
                                 <span class="fa fa-sign-out">&nbsp;</span>
                                 <a style="font-size: 13px; color: #CC0000;" (click)="logOut()">Sign Out</a>

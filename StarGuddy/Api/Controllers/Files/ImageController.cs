@@ -25,11 +25,34 @@ namespace StarGuddy.Api.Controllers.Files
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [HttpGet]
+        [Route("headshot")]
+        public async Task<IActionResult> GetHeadShotDetails()
+        {
+
+            var result = await _imageManager.GetHeadShotImageDetail();
+            if(result.IsNull())
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+             
+        }
+
         [HttpPost]
         [Route("headshot")]
-        public IActionResult SaveHeadShotDetails([FromBody]ImageModel imageModel)
-        {           
-            return Json("Upload Successful.");
+        public async Task<IActionResult> SaveHeadShotDetails([FromBody]ImageModel imageModel)
+        {
+            if (imageModel.IsNull() || imageModel.DataUrl == string.Empty)
+                return BadRequest();
+
+            if (await _imageManager.SaveUpdateHeadShot(imageModel))
+            {
+                return Ok("Upload Successful.");
+            }
+
+            return StatusCode(StatusCodes.Status304NotModified, "Oops! there are some error occurred. Please try after some times");
         }
 
         //[HttpPost]

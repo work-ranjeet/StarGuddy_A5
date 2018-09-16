@@ -18,6 +18,8 @@ export class ProfileEditModelingComponent {
     private readonly dataValidator: DataValidator;
     private profileEditService: ProfileEditService;
 
+    public showExperiance: boolean = true;
+    public showWebsite: boolean = true;
     public showEditHtml: boolean = false;
     public modelingDetailModel: IModelingDetailModel;
     public modelingDetailReset: IModelingDetailModel;
@@ -38,15 +40,30 @@ export class ProfileEditModelingComponent {
     }
 
     loadModelingDetails() {
-        this.profileEditService.GetUserModelingDetail().subscribe(response => {
-            if (response != null) {
-                this.modelingDetailModel = _.cloneDeep(response);
-                this.modelingDetailReset = _.cloneDeep(response);
-            }
-            else {
-                console.info("Got empty result GetUserActingDetail(): IActingDetailModel");
-            }
-        });
+        this.profileEditService.GetUserModelingDetail().subscribe(
+            response => {
+                if (response != null) {
+                    this.filterResponse(response);
+                    this.modelingDetailModel = _.cloneDeep(response);
+                    this.modelingDetailReset = _.cloneDeep(response);
+                }
+            },
+            err => { console.error(err.error); });
+    }
+
+    filterResponse(response: IModelingDetailModel) {
+        if (response.expText == "" || response.expText == null) {
+            response.expCode = 300;
+            response.expText = ModelingExperiance[response.expCode];
+        }
+
+        if (response.webSite == "" || response.webSite == null) {
+            this.showWebsite = false;
+        }
+
+        if (response.experiance == "" || response.experiance == null) {
+            this.showExperiance = false;
+        }
     }
 
     updateSelectedJobGroup(checkEvent: any) {

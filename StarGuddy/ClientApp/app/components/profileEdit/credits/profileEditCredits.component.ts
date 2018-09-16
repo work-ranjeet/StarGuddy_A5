@@ -21,6 +21,7 @@ export class ProfileEditCreditsComponent {
     private userProfileService: ProfileEditService;
 
     public showEditHtml: boolean = false;
+    public showCredits: boolean = false;
     public hasCredits: boolean = false;
     public enableSaveButton: boolean = false;
     public Credits: ICredits;
@@ -122,14 +123,15 @@ export class ProfileEditCreditsComponent {
     }
 
     loadCredits() {
-        this.userProfileService.GetUserCredits().subscribe(response => {
-            if (response != null && response.length > 0) {
+        this.userProfileService.GetUserCredits().subscribe(
+            response => {
+                this.showCredits = response.length > 0;
                 this.CreditsList = response;
-            }
-            else {
-                console.info("Got empty result:" + response.toString());
-            }
-        });
+            },
+            error => {
+                this.showCredits = false;
+                console.info("User credits not found");
+            });
 
         this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
     }

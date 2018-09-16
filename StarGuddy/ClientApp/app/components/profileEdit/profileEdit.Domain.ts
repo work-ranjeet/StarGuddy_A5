@@ -153,6 +153,7 @@
         size: number;
         caption: string;
         imageUrl: string;
-        fileToUpload: File;
+        dataUrl: string;
+        imageType: number;
     }
 }

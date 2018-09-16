@@ -19,14 +19,18 @@ export class PhysicalDetailsComponent {
     }
 
     loadData() {
-        this.profileService.GetUserPhysicalAppreance().subscribe(result => {
-            if (result != null) {
-                this.bindResultToView(result);
-            }
-            else {
-                console.error("GetUserPhysicalAppreance: Error occurred.")
-            }
-        });
+        this.profileService.GetUserPhysicalAppreance().subscribe(
+            result => {
+                if (result != null) {
+                    this.bindResultToView(result);
+                }
+                else {
+                    console.error("GetUserPhysicalAppreance: Error occurred.")
+                }
+            },
+            error => {
+                this.showPhysicalAppearance = false;
+            });
     }
 
     bindResultToView(physicalAppearance: IPhysicalAppearance) {

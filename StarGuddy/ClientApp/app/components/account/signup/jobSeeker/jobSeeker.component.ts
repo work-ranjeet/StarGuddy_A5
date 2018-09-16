@@ -31,11 +31,9 @@ export class SignUpJobSeekerComponent {
                     if (result != undefined) {
                         this.router.navigate(["/profile/interests"]);
                     }
-                    else {
-                        this.router.navigate(["/error"]);
-                    }
                 },
                 error => {
+                    //this.router.navigate(["/error"]);
                 });
         }
     }

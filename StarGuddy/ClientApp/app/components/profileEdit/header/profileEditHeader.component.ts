@@ -11,6 +11,7 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 export class ProfileEditHeader {
 
+    private imageUrl: string = "";
     private computedAddress: string = "Address not update.";
     private _jobGroupName: string = "";
     private _profileHeader: IProfileHeader = {} as IProfileHeader
@@ -26,6 +27,9 @@ export class ProfileEditHeader {
 
             this.computedAddress = profileHeader.cityOrTown != null && profileHeader.stateOrProvince != null && profileHeader.country != null ?
                 profileHeader.cityOrTown + ", " + profileHeader.stateOrProvince + ", " + profileHeader.country : "Address not update.";
+
+            this.imageUrl = profileHeader.dataUrl == "" ? profileHeader.imageUrl : profileHeader.dataUrl;
+            var v = "";
         }
     }
     get profileHeader() { return this._profileHeader; }

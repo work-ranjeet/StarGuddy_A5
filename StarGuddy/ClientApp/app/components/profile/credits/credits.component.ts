@@ -22,19 +22,18 @@ export class ProfileCreditsComponent {
     }
 
     loadCredits() {
-        this.profileService.GetUserCredits().subscribe(response => {
-            if (response != null && response.length > 0) {
+        this.profileService.GetUserCredits().subscribe(
+            response => {
+                this.hasCredits = response.length > 0;
                 this.CreditsList = response;
-            }
-            else {
-                console.info("Got empty result:" + response.toString());
-            }
-        });
+            },
+            error => {
+                this.hasCredits = false;
+                console.info("User credits not found");
+            });
 
         this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
     }
-
-
 
     public workYearJson = [
         { key: "2016", value: "2016" },

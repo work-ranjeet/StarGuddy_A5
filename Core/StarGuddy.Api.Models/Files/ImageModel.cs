@@ -27,8 +27,10 @@ namespace StarGuddy.Api.Models.Files
 
         public string ImageUrl { get; set; }
 
-        public long Size { get; set; }
+        public string DataUrl { get; set; }
 
-        //public FormFile FileToUpload { get; set; }
+        public string ImageType { get; set; }
+
+        public long Size { get; set; }
     }
 }

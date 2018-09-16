@@ -13,10 +13,14 @@ namespace StarGuddy.Business.Modules.Files
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using AutoMapper;
     using StarGuddy.Api.Models.ActionResult;
     using StarGuddy.Api.Models.Files;
     using StarGuddy.Api.Models.Interface.ActionResult;
     using StarGuddy.Business.Interface.Files;
+    using StarGuddy.Core.Context;
+    using StarGuddy.Data.Entities;
+    using StarGuddy.Repository.Interface;
     #endregion
 
     /// <summary>
@@ -24,6 +28,9 @@ namespace StarGuddy.Business.Modules.Files
     /// </summary>
     public class ImageManager : IImageManager
     {
+        private readonly IImageRepository _imageRepository;
+        protected readonly IMapper _mapper;
+
         /// <summary>
         /// Gets or sets the working folder.
         /// </summary>
@@ -35,9 +42,10 @@ namespace StarGuddy.Business.Modules.Files
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageManager"/> class.
         /// </summary>
-        public ImageManager()
+        public ImageManager(IImageRepository imageRepository, IMapper mapper)
         {
-
+            _imageRepository = imageRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -48,6 +56,27 @@ namespace StarGuddy.Business.Modules.Files
         {
             this.WorkingFolder = workingFolder;
             this.CheckTargetDirectory();
+        }
+
+
+        public async Task<ImageModel> GetHeadShotImageDetail()
+        {
+            var userImage =  await _imageRepository.GetUserHeadShotImages(UserContext.Current.UserId, 1);
+            if (userImage.IsNotNull())
+            {
+                return _mapper.Map<ImageModel>(userImage);
+            }
+
+            return null;
+        }
+
+        public async Task<bool> SaveUpdateHeadShot(ImageModel imageModel)
+        {
+            imageModel.UserId = UserContext.Current.UserId;
+
+            var userImage = _mapper.Map<UserImage>(imageModel);
+
+            return await _imageRepository.PerformSaveAndUpdateOperationAsync(userImage);
         }
 
         /// <summary>

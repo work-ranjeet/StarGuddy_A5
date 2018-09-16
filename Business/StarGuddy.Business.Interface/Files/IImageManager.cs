@@ -11,6 +11,7 @@ namespace StarGuddy.Business.Interface.Files
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using StarGuddy.Api.Models.Files;
     using StarGuddy.Api.Models.Interface.ActionResult;
     #endregion
 
@@ -19,6 +20,11 @@ namespace StarGuddy.Business.Interface.Files
     /// </summary>
     public interface IImageManager
     {
+
+        Task<ImageModel> GetHeadShotImageDetail();
+
+        Task<bool> SaveUpdateHeadShot(ImageModel imageModel);
+
         /// <summary>
         /// Gets this instance.
         /// </summary>

@@ -160,7 +160,13 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// User Acting
         public async Task<UserActingModel> GetUserActingDetailAsync()
         {
-            return await FetchUserActingDetailAsync(UserContext.Current.UserId);
+            var result = await FetchUserActingDetailAsync(UserContext.Current.UserId);
+            if (result.IsNotNull())
+            {
+                return result;
+            }
+
+            return null;
         }
 
         public async Task<bool> SaveUserActingDetailsAsync(UserActingModel userActingModel)
@@ -198,7 +204,13 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// User Modeling
         public async Task<UserModelingModel> GetUserModelingDetailAsync()
         {
-            return await FetchUserModelingDetailAsync(UserContext.Current.UserId);
+            var userModeling = await FetchUserModelingDetailAsync(UserContext.Current.UserId);
+            if (userModeling.IsNotNull())
+            {
+                return userModeling;
+            }
+
+            return null;
         }
 
         public async Task<bool> SaveUserModelingDetailsAsync(UserModelingModel userModelingModel)
@@ -223,7 +235,13 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// Name
         public async Task<UserNameModel> GetNameDetailsByUserId(Guid userId)
         {
-            return await FetchNameDetailsByUserId(UserContext.Current.UserId);
+            var userNameModeling = await FetchNameDetailsByUserId(UserContext.Current.UserId);
+            if (userNameModeling.IsNotNull())
+            {
+                return userNameModeling;
+            }
+
+            return null;
         }
 
         public async Task<bool> SaveNameDetails(UserNameModel nameModel)
@@ -246,14 +264,17 @@ namespace StarGuddy.Business.Modules.Profile
         #region /// profile header
         public async Task<ProfileHeader> GetProfileHeaderByUserId(Guid userId)
         {
-            return await FetchProfileHeaderByUserId(UserContext.Current.UserId);
+            var profileHeader = await FetchProfileHeaderByUserId(UserContext.Current.UserId);
+            return profileHeader.IsNotNull() ? profileHeader : null;
         }
         #endregion
 
         #region /// Profile Intro
         public async Task<UserDetailModel> GetProfileDetail()
         {
-            return await FetchProfileDetail(UserContext.Current.UserId);
+            var userDetails =  await FetchProfileDetail(UserContext.Current.UserId);
+
+            return userDetails.IsNull() ? null : userDetails;
         }
 
         public async Task<bool> SaveUserIntro(UserDetailModel detailModel)

@@ -16,7 +16,7 @@ namespace StarGuddy.Api.Controllers.Profile
         /// <summary>
         /// The account manager
         /// </summary>       
-        private readonly IAccountManager _accountManager;
+        //private readonly IAccountManager _accountManager;
         private readonly IProfileManager _profileManager;
         private readonly IUserManager _userManager;
         private readonly IJobManager _jobManager;
@@ -27,9 +27,9 @@ namespace StarGuddy.Api.Controllers.Profile
         /// </summary>
         /// <param name="accountManager">The account manager.</param>
         /// <param name="profileManager">The profile manager.</param>
-        public ProfileController(IAccountManager accountManager, IProfileManager profileManager, IUserManager userManager, IJobManager jobManager)
+        public ProfileController(IProfileManager profileManager, IUserManager userManager, IJobManager jobManager)
         {           
-            _accountManager = accountManager;
+           // _accountManager = accountManager;
             _profileManager = profileManager;
             _userManager = userManager;
             _jobManager = jobManager;

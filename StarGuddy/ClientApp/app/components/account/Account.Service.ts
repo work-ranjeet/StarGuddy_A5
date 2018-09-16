@@ -8,6 +8,8 @@ import { DataConverter } from "../../../Helper/DataConverter";
 import IJwtPacket = App.Client.Account.IJwtPacket;
 import ILoginData = App.Client.Account.ILoginData;
 import IUserData = App.Client.Account.IApplicationUser;
+import { Observer } from "rxjs/Observer";
+import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
@@ -31,9 +33,9 @@ export class AccountService {
         return this.dataConverter.ConvertToString(this.baseService.UserFirstName);
     }
 
-    login(loginData: ILoginData) {
+    login(loginData: ILoginData): Observable<any> {
         return this.baseService.HttpService.postSimple("Account/login", loginData).map(response => {
-            if (response!= null) {
+            if (response != null && response.token != null && response.token != "") {
                 this.isLoggedInSource.next(true);
                 this.baseService.authenticate(response);
             }
@@ -45,14 +47,12 @@ export class AccountService {
         this.baseService.cancleAuthention();
     }
 
-    signup(userData: any) {
+    signup(userData: any): Observable<any> {
         return this.baseService.HttpService.postSimple("Account/signup", userData).map(response => {
-            //if (response != undefined) {
-            //    this.isLoggedInSource.next(true);
-            //    this.baseService.authenticate(response);
-            //}
-
-            return response;
+            if (response != null && response.token != null && response.token != "") {
+                this.isLoggedInSource.next(true);
+                this.baseService.authenticate(response);
+            }
         });
     }
 

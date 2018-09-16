@@ -1,4 +1,4 @@
-﻿import { HttpErrorResponse, HttpParams, HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
+﻿import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
@@ -16,8 +16,6 @@ import IUserNameModel = App.Client.Profile.IUserNameModel;
 import IUserDetailModel = App.Client.Profile.IUserDetailModel;
 import IAddress = App.Client.Profile.IAddressDto;
 import IHeadShot = App.Client.Profile.IImageModel;
-import { Event } from "@angular/router";
-import {  HttpEvent } from "@angular/common/http/src/response";
 
 @Injectable()
 export class ProfileEditService {
@@ -31,10 +29,10 @@ export class ProfileEditService {
     GetUserPhysicalAppreance(): Observable<IPhysicalAppearance> {
         return this.baseService.HttpService.getData<IPhysicalAppearance>("Profile/Operations/PhysicalApperance")
             .map(
-                (result: IPhysicalAppearance) => {
+                (result: any) => {
                     return result;
                 },
-                (err: HttpErrorResponse) => {
+                (err: any) => {
                     if (err.error instanceof Error) {
                         console.log("Client-side error occurred. Error:" + err.message);
                     } else {
@@ -334,7 +332,20 @@ export class ProfileEditService {
     }
 
     // Image upload
-    //GetHeadShotDetails():
+    GetHeadShotDetails(): Observable<IHeadShot> {
+        return this.baseService.HttpService.getData<IHeadShot>("Profile/Image/headshot")
+            .map(
+                (result: any) => {
+                    return result;
+                },
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                        console.log("Client-side error occurred. Error:" + err.message);
+                    } else {
+                        console.log("Server-side error occurred. Error:" + err.message);
+                    }
+                });
+    }
     UploadHeadShotImage(headShot: IHeadShot): Observable<any> {
         return this.baseService.HttpService.postDataWithProgress<any>("Profile/Image/headshot", headShot)
             .map(

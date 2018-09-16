@@ -68,6 +68,8 @@ namespace StarGuddy.Api
             services.AddTransient<IUserSettingsRepository, UserSettingsRepository>();
             services.AddTransient<IJobGroupRepository, JobGroupRepository>();
             services.AddTransient<IUserDetailRepository, UserDetailRepository>();
+            services.AddTransient<IUserDetailRepository, UserDetailRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
             services.AddTransient<IUserPhonesRepository, UserPhonesRepository>();
             services.AddTransient<IPhysicalAppearanceRepository, PhysicalAppearanceRepository>();
 

@@ -130,5 +130,10 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string InsertOrUpdateAddress = "InsertOrUpdateAddress";
         }
 
+        public struct UserImage
+        {
+            public const string HeadShotImageSaveUpdate = "HeadShotImageSaveUpdate";
+        }
+
     }
 }

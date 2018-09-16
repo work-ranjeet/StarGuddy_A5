@@ -10,45 +10,45 @@
             </div>
             <div class="card-body">
                 <div *ngIf="!showEditHtml" class="row">
-                    <div *ngIf="PhysicalAppearanceResult.height" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Height&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.height}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.height || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.skinColor" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Skin color&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.skinColor}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.skinColor || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.weight" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Weight&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.weight}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.weight || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.ethnicity" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Ethnicity&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6"> {{PhysicalAppearanceResult.ethnicity}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6"> {{PhysicalAppearanceResult.ethnicity || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.eyeColor" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Eye color&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.eyeColor}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.eyeColor || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.chest" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Chest&nbsp;:</div>
-                        <div class="col-md-8  col-sm-8 col-xs-6">{{PhysicalAppearanceResult.chest}}</div>
+                        <div class="col-md-8  col-sm-8 col-xs-6">{{PhysicalAppearanceResult.chest || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.bodyType" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Body Type&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.bodyType}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.bodyType || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.hairLength" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">HairLength&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.hairLength}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.hairLength || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.hairType" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Hair Type&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.hairType}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.hairType || '--'}}</div>
                     </div>
-                    <div *ngIf="PhysicalAppearanceResult.hairColor" class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  padding-10">
                         <div class="col-md-3 col-sm-4 col-xs-6">Hair color&nbsp;:</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.hairColor}}</div>
+                        <div class="col-md-8 col-sm-8 col-xs-6">{{PhysicalAppearanceResult.hairColor || '--'}}</div>
                     </div>
 
                 </div>

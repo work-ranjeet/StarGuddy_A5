@@ -6,9 +6,9 @@ export enum Expertlavel {
 };
 
 export enum AgentNeed {
-    "I don't have an agent" = 1,
-    "I want an agent" = 10,
-    "I have an agent" = 20
+    "I don't have an agent" = 100,
+    "I want an agent" = 101,
+    "I have an agent" = 102
 };
 
 export enum ActingExperiance {

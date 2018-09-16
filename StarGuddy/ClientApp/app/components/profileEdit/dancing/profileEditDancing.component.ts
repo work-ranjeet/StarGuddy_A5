@@ -21,6 +21,7 @@ export class ProfileEditDancingComponent {
     private readonly initDancingStyle = { id: "", name: "", selectedValue: 0, value: 0 } as IDancingStyle;
     private readonly initCreditsClass = { id: "", agentNeed: 0, choreographyAbilities: 0, danceAbilities: 0, dnacingStyles: Array<IDancingStyle>(), experience: "", isAgent: false, isAttendedSchool: true, userId: "" } as IDancingModel;
 
+    public showDancing: boolean = false;
     public showEditHtml: boolean = false;
     public dancingModel: IDancingModel;
     public dancingResult: IDancingModel;
@@ -44,16 +45,19 @@ export class ProfileEditDancingComponent {
     }
 
     loadDancingDetails() {
-        this.userProfileService.GetUserDanceDetail().subscribe(response => {
-            if (response != null) {
-                this.dancingModel = _.cloneDeep(response);
-                this.dancingResult = _.cloneDeep(response);
-                this.resultReset = _.cloneDeep(response);
-            }
-            else {
-                console.info("Got empty result: IDancingModel");
-            }
-        });
+        this.userProfileService.GetUserDanceDetail().subscribe(
+            response => {
+                if (response != null) {
+                    this.dancingModel = _.cloneDeep(response);
+                    this.dancingResult = _.cloneDeep(response);
+                    this.resultReset = _.cloneDeep(response);
+                    this.showDancing = true;
+                }
+            },
+            err => {
+                console.info(err.error);
+                this.showDancing = false;
+            });
     }
 
     updateSelectedDanceStyle(checkEvent: any) {
@@ -88,7 +92,7 @@ export class ProfileEditDancingComponent {
         this.dancingModel.isAttendedSchool = !this.dancingModel.isAttendedSchool;
     }
 
-    saveChanges() {       
+    saveChanges() {
         this.userProfileService.SaveUserDancingChanges(this.dancingModel).subscribe(response => {
             if (response != null && response) {
                 console.info("Updated");

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Business.Interface.Account;
@@ -38,10 +39,10 @@ namespace StarGuddy.Api.Controllers.Account
             var userResult = await _signUpManager.PasswordSignInAsync(loginData.UserName, loginData.Password, rememberMe: false, lockoutOnFailure: false);
             if (userResult.IsNull())
             {
-                return NotFound("Oops! Invalid entry. Please try again.");
+                return StatusCode(StatusCodes.Status401Unauthorized, "Oops! Invalid entry. Please try again.");
             }
 
-            return Ok(await this._securityManager.CreateJwtPacketAsync(userResult));
+            return Ok(await _securityManager.CreateJwtPacketAsync(userResult));
         }
     }
 }

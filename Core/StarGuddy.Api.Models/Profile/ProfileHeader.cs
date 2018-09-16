@@ -26,6 +26,10 @@ namespace StarGuddy.Api.Models.Profile
 
         public string Email { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        public string DataUrl { get; set; }
+
         public IEnumerable<JobGroupModel> JobGroups { get; set; }
     }
 }

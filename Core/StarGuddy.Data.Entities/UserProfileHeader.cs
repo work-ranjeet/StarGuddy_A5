@@ -26,6 +26,10 @@ namespace StarGuddy.Data.Entities
 
         public string Email { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        public string DataUrl { get; set; }
+
 
         public IEnumerable<JobGroup> JobGroups { get; set; }
     }

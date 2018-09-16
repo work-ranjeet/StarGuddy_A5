@@ -21,6 +21,8 @@
         country: string;
         phoneNumber: string;
         email: string;
+        imageUrl: string;
+        dataUrl: string;
         jobGroups: Profile.IJobGroupModel[];
     }
 

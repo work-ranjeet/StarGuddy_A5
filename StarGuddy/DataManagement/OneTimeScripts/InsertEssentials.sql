@@ -32,6 +32,8 @@ INSERT INTO DancingStyle (Style, Detail, DisplayOrder) VALUES('Hip Hop','Hip Hop
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (1,'Beginner', 'Beginner')
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (2,'Intermediate', 'Intermediate')
 INSERT INTO ExpertLavel(Code, Lavel, Detail) VALUES (3,'Expert', 'Expert')
+-------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO ImageType(Code,Name,[Description]) VALUES(1, 'HeadShotActive', 'Head Shot Active image to show in profile')
 
 ---------------------------------------------Experience-----------------------------------------------------------------------------------
 ----Exp Type-
