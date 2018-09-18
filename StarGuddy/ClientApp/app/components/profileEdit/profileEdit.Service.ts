@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { DataConverter } from "../../../Helper/DataConverter";
 import { BaseService } from "../../../Services/BaseService";
-import IUserCredits = App.Client.Profile.ICredits;
+import IUserCredits = App.Client.Profile.IUserCreditModel;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 import IDancingModel = App.Client.Profile.IDancingModel;
 import IDancingStyle = App.Client.Profile.IDancingStyleModel;
@@ -16,6 +16,7 @@ import IUserNameModel = App.Client.Profile.IUserNameModel;
 import IUserDetailModel = App.Client.Profile.IUserDetailModel;
 import IAddress = App.Client.Profile.IAddressDto;
 import IHeadShot = App.Client.Profile.IImageModel;
+import IUserCreditRequest = App.Client.Profile.IUserCreditRequest;
 
 @Injectable()
 export class ProfileEditService {
@@ -88,7 +89,7 @@ export class ProfileEditService {
         //let httpParams = new HttpParams();
         // httpParams.append("Id", id);
 
-        return this.baseService.HttpService.deleteData<boolean>("Profile/Operations/Credit", new HttpParams().append("Id", id))
+        return this.baseService.HttpService.deleteData<boolean>("Profile/Operations/Credit", new HttpParams().append("userId", id))
             .map(
                 (result: any) => {
                     return result;

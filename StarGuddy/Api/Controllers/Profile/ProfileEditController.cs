@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Constants;
 using StarGuddy.Api.Models.Dto;
+using StarGuddy.Api.Models.Interface.Profile;
 using StarGuddy.Api.Models.Profile;
 using StarGuddy.Api.Models.UserJobs;
 using StarGuddy.Business.Interface.Account;
@@ -26,7 +27,7 @@ namespace StarGuddy.Api.Controllers.Profile
         /// The account manager
         /// </summary>
         private readonly IUserManager _userManager;
-       // private readonly IAccountManager _accountManager;
+        private readonly IAccountManager _accountManager;
         private readonly IProfileEditManager _profileEditManager;
         private readonly IJobManager _jobManager;
         //private read only IHttpContextAccessor httpContextAccessor;
@@ -36,10 +37,10 @@ namespace StarGuddy.Api.Controllers.Profile
         /// </summary>
         /// <param name="accountManager">The account manager.</param>
         /// <param name="profileEditManager">The profile manager.</param>
-        public ProfileEditController(IUserManager userManager, IProfileEditManager profileEditManager, IJobManager jobManager)
+        public ProfileEditController(IUserManager userManager, IProfileEditManager profileEditManager, IJobManager jobManager, IAccountManager accountManager)
         {
             _userManager = userManager;
-           // _accountManager = accountManager;
+            _accountManager = accountManager;
             _profileEditManager = profileEditManager;
             _jobManager = jobManager;
         }
@@ -87,12 +88,7 @@ namespace StarGuddy.Api.Controllers.Profile
                 return Ok(creditResult);
             }
 
-            if (!creditResult.IsNull() && !creditResult.Any())
-            {
-                return NoContent();
-            }
-
-            return NotFound(creditResult);
+            return StatusCode(StatusCodes.Status204NoContent, new List<IUserCreditModel>());
         }
 
         [HttpPost]
@@ -122,20 +118,14 @@ namespace StarGuddy.Api.Controllers.Profile
                 return BadRequest(HttpStatusText.InvalidRequest);
             }
 
-            if (UserContext.Current.UserId.Equals(userId))
+            var isDeleted = await _profileEditManager.DeleteUserCredits(userId);
+
+            if (isDeleted)
             {
-
-                var isDeleted = await _profileEditManager.DeleteUserCredits(userId);
-
-                if (isDeleted)
-                {
-                    return Ok(isDeleted);
-                }
-
-                return StatusCode(StatusCodes.Status304NotModified, this);
+                return Ok(isDeleted);
             }
 
-            return StatusCode(StatusCodes.Status304NotModified, this);
+            return StatusCode(StatusCodes.Status304NotModified, false);
         }
         #endregion
 
@@ -291,16 +281,16 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("name")]
         public async Task<IActionResult> SaveName([FromBody]UserNameModel nameModel)
         {
-            if(nameModel.IsNull() || string.IsNullOrWhiteSpace(nameModel.FirstName) || string.IsNullOrWhiteSpace(nameModel.DisplayName))
+            if (nameModel.IsNull() || string.IsNullOrWhiteSpace(nameModel.FirstName) || string.IsNullOrWhiteSpace(nameModel.DisplayName))
             {
                 return BadRequest();
             }
-            
+
             if (await _profileEditManager.SaveNameDetails(nameModel))
             {
                 return Ok(true);
             }
-           
+
             return StatusCode(StatusCodes.Status304NotModified, this);
         }
         #endregion
@@ -367,8 +357,8 @@ namespace StarGuddy.Api.Controllers.Profile
         [Route("address")]
         public async Task<IActionResult> UpdateAddress([FromBody]AddressDto model)
         {
-            if (model.IsNull() || 
-                string.IsNullOrWhiteSpace(model.CityOrTown) || string.IsNullOrWhiteSpace(model.Country)    || 
+            if (model.IsNull() ||
+                string.IsNullOrWhiteSpace(model.CityOrTown) || string.IsNullOrWhiteSpace(model.Country) ||
                 string.IsNullOrWhiteSpace(model.StateOrProvince) || string.IsNullOrWhiteSpace(model.ZipOrPostalCode))
             {
                 return BadRequest();

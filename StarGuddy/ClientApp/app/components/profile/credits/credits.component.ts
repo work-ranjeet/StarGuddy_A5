@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ProfileService } from "../../profile/profile.Service";
-import ICredits = App.Client.Profile.ICredits;
+import ICredits = App.Client.Profile.IUserCreditModel;
 
 
 @Component({

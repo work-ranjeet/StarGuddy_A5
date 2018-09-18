@@ -23,7 +23,7 @@
             </div>
 
             <div id="creditEdit" *ngIf="showEditHtml" class="card-body text-muted">
-                <form id="frmCreditEdit" #frmCreditEdit="ngForm">
+                <form #frmCreditEdit="ngForm">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -61,13 +61,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <button id="btnPhysicalAppearance" [disabled]="!frmCreditEdit.form.valid" (click)="addToCreditList(frmPhysicalAppreanceEdit)" class="btn btn-success" style="width:250px;">Add to Credit list</button>
+                            <button id="btnPhysicalAppearance" type="button" [disabled]="!frmCreditEdit.form.valid" (click)="addToCreditList(frmCreditEdit)" class="btn btn-success" style="width:250px;">Add to Credit list</button>
                         </div>
                     </div>
                 </form>
                 <div *ngIf="hasCredits">
                     <hr class="style-four margin-left-right-minus-13" />
-                    <form id="frmCreditSave" #frmCreditSave="ngForm" class="form padding-10">
+                    <form #frmCreditSave="ngForm" class="padding-10">
                         <div class="row">
                             <ng-container *ngFor="let credit of CreditsList" class="border-bottom">
                                 <div *ngIf="credit.action!='DELETE'" class="padding-15">
@@ -81,13 +81,11 @@
                             </ng-container>
                         </div>
                         <div class="col-sm-12 text-center padding-15">
-                            <button id="btnSave" (click)="saveChanges()" [disabled]="!enableSaveButton"  class="btn-profile-save btn btn-success">Finish Editing</button>
+                            <button id="btnSave" type="button" (click)="saveChanges()" [disabled]="!enableSaveButton" class="btn-profile-save btn btn-success">Finish Editing</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

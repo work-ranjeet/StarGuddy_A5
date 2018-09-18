@@ -1,11 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
-import { DataValidator } from "../../../../Helper/DataValidator";
+import { Component } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { DbOperation } from "../../../../Constants/AppConstant";
-import ICredits = App.Client.Profile.ICredits;
-import { Form, NgForm } from "@angular/forms";
-
+import { DataValidator } from "../../../../Helper/DataValidator";
+import { ProfileEditService } from "../../profileEdit/profileEdit.Service";
+import ICredits = App.Client.Profile.IUserCreditModel;
+import IUserCreditRequest = App.Client.Profile.IUserCreditRequest;
 
 @Component({
     selector: "profile-edit-credits",
@@ -19,17 +18,19 @@ export class ProfileEditCreditsComponent {
     private readonly dataValidator: DataValidator;
     private readonly dbOperation: DbOperation;
     private userProfileService: ProfileEditService;
+    private EmptyGuid: string = "00000000-0000-0000-0000-000000000000";
 
     public showEditHtml: boolean = false;
     public showCredits: boolean = false;
-    public hasCredits: boolean = false;
+    public hasCredits: boolean = true;
     public enableSaveButton: boolean = false;
     public Credits: ICredits;
     public CreditsList: Array<ICredits> = [];
 
+
     get UniqueNumber() { return Math.random().toString(36).slice(2); }
 
-    private readonly initCreditsClass = { id: "", action: "", workYear: "0", workPlace: "", workDetail: "" } as ICredits;
+    private readonly initCreditsClass = { id: this.EmptyGuid, action: "", workYear: 0, workPlace: "", workDetail: "" } as ICredits;
 
     constructor(userProfileService: ProfileEditService, dataValidator: DataValidator, dbOperation: DbOperation) {
         this.userProfileService = userProfileService;
@@ -59,9 +60,11 @@ export class ProfileEditCreditsComponent {
     }
 
     addToCreditList(frmEdit: NgForm) {
+        if (this.Credits.id == "") this.Credits.id = this.EmptyGuid;
+
         let newCreditsObj = Object.assign({}, this.Credits);
-        if (newCreditsObj != undefined && newCreditsObj.workYear != "0" && newCreditsObj.workPlace != "") {
-            newCreditsObj.action = newCreditsObj.id == "" ? this.dbOperation.Insert : this.dbOperation.Update;
+        if (newCreditsObj != undefined && newCreditsObj.workYear != 0 && newCreditsObj.workPlace != "") {
+            newCreditsObj.action = newCreditsObj.id == this.EmptyGuid ? this.dbOperation.Insert : this.dbOperation.Update;
 
             let index = this.CreditsList.findIndex(x => x.workYear == newCreditsObj.workYear);
             if (index > -1) {
@@ -86,7 +89,7 @@ export class ProfileEditCreditsComponent {
 
     editCreditList(selectedYear: string) {
         if (selectedYear != undefined && selectedYear != "") {
-            let creditsObj = this.CreditsList.find(x => x.workYear == selectedYear);
+            let creditsObj = this.CreditsList.find(x => x.workYear == parseInt(selectedYear));
             if (creditsObj != undefined) {
                 this.Credits = Object.assign({}, creditsObj);
             }
@@ -100,10 +103,10 @@ export class ProfileEditCreditsComponent {
         var actionResult = confirm("Do you want to delete this entry?")
         if (actionResult && selectedYear != undefined && selectedYear != ";") {
 
-            let index = this.CreditsList.findIndex(x => x.workYear == selectedYear);
+            let index = this.CreditsList.findIndex(x => x.workYear == parseInt(selectedYear));
             if (index > -1) {
-                let objForDelete = <ICredits>this.CreditsList.find(x => x.workYear == selectedYear);
-                if (objForDelete != undefined && objForDelete.id == "") {
+                let objForDelete = <ICredits>this.CreditsList.find(x => x.workYear == parseInt(selectedYear));
+                if (objForDelete != undefined && objForDelete.id == this.EmptyGuid) {
                     this.CreditsList.splice(index, 1);
                     return;
                 }
@@ -139,13 +142,17 @@ export class ProfileEditCreditsComponent {
     saveChanges() {
         let editedCredits = this.CreditsList.filter(x => x.id == "" || x.action == this.dbOperation.Insert || x.action == this.dbOperation.Update || x.action == this.dbOperation.Delete);
         if (editedCredits != undefined && editedCredits.length > 0) {
-            this.userProfileService.SaveUserCredits(editedCredits).subscribe(response => {
-                if (response != null && response) {
-                    console.info("Updated");
-                }
+            this.userProfileService.SaveUserCredits(editedCredits).subscribe(
+                response => {
+                    if (response != null && response) {
+                        console.info("Updated");
+                    }
 
-                this.showEditHtml = false;
-            });
+                    this.showEditHtml = false;
+                },
+                err => {
+                    //console.warn(err.error);
+                });
         }
     }
 

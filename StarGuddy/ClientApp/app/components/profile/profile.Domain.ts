@@ -4,7 +4,7 @@
 
     export interface IUserProfile {
         physicalAppearance: Profile.IPhysicalAppearanceModal;
-        userCredits: Array<Profile.ICredits>;
+        userCredits: Array<Profile.IUserCreditModel>;
         dancing: Profile.IDancingModel;
         acting: Profile.IUserActingModel;
         modeling: Profile.IUserModelingModel;

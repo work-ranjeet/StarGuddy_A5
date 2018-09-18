@@ -15,12 +15,16 @@
         ethnicity: string;
     }
 
-    export interface ICredits {
+    export interface IUserCreditModel {
         id: string;
         action: string;
-        workYear: string;
+        workYear: number;
         workPlace: string;
         workDetail: string;
+    }
+
+    export interface IUserCreditRequest {
+        userCreditList:Array<IUserCreditModel>;
     }
 
     export interface IDancingStyleModel {

@@ -8,7 +8,7 @@ import { BaseService } from "../../../Services/BaseService";
 import IUserProfile = App.Client.PublicProfile.IUserProfile;
 import IUserModelingModel = App.Client.Profile.IUserModelingModel;
 import IProfileHeader = App.Client.PublicProfile.IProfileHeader;
-import IUserCredits = App.Client.Profile.ICredits;
+import IUserCredits = App.Client.Profile.IUserCreditModel;
 import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 import IDancingModel = App.Client.Profile.IDancingModel;
 import IActingDetailModel = App.Client.Profile.IUserActingModel;

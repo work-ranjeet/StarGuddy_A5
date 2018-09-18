@@ -43,12 +43,13 @@ insert into ExperienceType([Type], Code) values('ActingExperiance', 10001)
 ----Acting
 INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('No previous acting experience',200, 10001, 'No previous acting experience', 1)
 INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Credits',201, 10001, 'Credits', 2)
-INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Previous unpaid speaking roles',203, 10001, 'Previous unpaid speaking roles', 3)
-INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Previous paid speaking roles',204, 10001, 'Previous paid speaking roles', 4)
+INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Previous paid speaking roles',202, 10001, 'Previous paid speaking roles', 3)
+INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Previous unpaid speaking roles',203, 10001, 'Previous unpaid speaking roles', 4)
+
 ----Modeling
 INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Beginner, starting out',300, 10002, 'Beginner, starting out', 1)
 INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Part-time model - paid commercial work',301, 10002, 'Part-time model - paid commercial work', 2)
-INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Full-time model - paid commercial work',303, 10002, 'Full-time model - paid commercial work', 3)
+INSERT INTO Experience (Name, Code, ExpTypeCode, Detail, DisplayOrder) values('Full-time model - paid commercial work',302, 10002, 'Full-time model - paid commercial work', 3)
 
 
 ---------------------------------------------Acting AuditionsAndJobs--------------------------------------------------------------------

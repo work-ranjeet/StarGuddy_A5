@@ -7,14 +7,19 @@ namespace StarGuddy.Api.Models.Profile
 {
     public class UserCreditModel : IUserCreditModel
     {
+        public UserCreditModel()
+        {
+            Id = Guid.Empty;
+        }
         public Guid Id { get; set; }
 
         public string Action { get; set; }
 
-        public Int32 WorkYear { get; set; }
+        public int WorkYear { get; set; }
 
-        public String WorkPlace { get; set; }
+        public string WorkPlace { get; set; }
 
-        public String WorkDetail { get; set; }
+        public string WorkDetail { get; set; }
     }
+
 }
