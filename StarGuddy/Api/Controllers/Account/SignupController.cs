@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
+using StarGuddy.Business.Interface.Network;
 using System;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace StarGuddy.Api.Controllers.Account
         private readonly IUserManager _userManager;
         private readonly IPasswordManager _passwordManager;
         private readonly ISecurityManager _securityManager;
+        private readonly IEmailManager _emailManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SignupController"/> class.
@@ -25,12 +27,13 @@ namespace StarGuddy.Api.Controllers.Account
         /// <param name="userManager">The user manager.</param>
         /// <param name="passwordManager">The password manager.</param>
         /// <param name="ISecurityManager">The JWT packet manager.</param>
-        public SignupController(ISignupManager signupManager, IUserManager userManager, IPasswordManager passwordManager, ISecurityManager securityManager)
+        public SignupController(ISignupManager signupManager, IUserManager userManager, IPasswordManager passwordManager, ISecurityManager securityManager, IEmailManager emailManager)
         {
-            this._signUpManager = signupManager;
-            this._userManager = userManager;
-            this._passwordManager = passwordManager;
-            this._securityManager = securityManager;
+            _signUpManager = signupManager;
+            _userManager = userManager;
+            _passwordManager = passwordManager;
+            _securityManager = securityManager;
+            _emailManager = emailManager;
         }
 
 
@@ -60,18 +63,16 @@ namespace StarGuddy.Api.Controllers.Account
 
             if (await _userManager.CreateAsync(applicationUser))
             {
-                //var userResult = await this._signUpManager.PasswordSignInAsync(applicationUser.UserName, password, rememberMe: false, lockoutOnFailure: false);
+                var userResult = await _signUpManager.PasswordSignInAsync(applicationUser.UserName, password, rememberMe: false, lockoutOnFailure: false);                
 
-                //if (userResult.UserId == Guid.Empty)
-                //{
-                //    return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));
-                //}
+                var emailVerificationToken = _securityManager.GetEmailVerificationCodeAsync(userResult);
 
-                //return Ok(this._securityManager.CreateJwtPacketAsync(userResult));
+                if (await _emailManager.SendMail("StarGuddy - email verification code - expire in 24 hours", $"<h1>testing</h1><div>{emailVerificationToken}</div>", "er.ranjeetkumar@gmail.com"))
+                {
+                    return Ok($"We sent you verification link to your email. Please verify it to proceed....");
+                }
 
-                // send mail for email verification
-
-                return Ok("We sent you detail to your email. Please verify.");
+                return Ok("There are some error. Please try again...");
             }
 
             return BadRequest();
@@ -92,17 +93,17 @@ namespace StarGuddy.Api.Controllers.Account
 
         //    var userName = "er.ranjeetkumar@gmail.com";
 
-        //    //var result = 2; // await this._signUpManager.CreateAsync(changePasswordModel);
+        //    //var result = 2; // await _signUpManager.CreateAsync(changePasswordModel);
         //    //if (result > 0)
         //    //{
-        //    //    var userResult = await this._accountManager.PasswordSignInAsync(applicationUser.Email, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
+        //    //    var userResult = await _accountManager.PasswordSignInAsync(applicationUser.Email, applicationUser.Password, rememberMe: false, lockoutOnFailure: false);
 
         //    //    if (userResult.Id == Guid.Empty)
         //    //    {
         //    //        return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect")); 
         //    //    }
 
-        //    //    return Ok(this._jwtPacketManager.CreateJwtPacketAsync(userResult));
+        //    //    return Ok(_jwtPacketManager.CreateJwtPacketAsync(userResult));
         //    //}
 
         //    return StatusCode(StatusCodes.Status204NoContent, NotFound("email or password incorrect"));

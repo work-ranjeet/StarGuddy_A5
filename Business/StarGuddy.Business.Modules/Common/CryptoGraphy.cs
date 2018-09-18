@@ -217,7 +217,7 @@ namespace StarGuddy.Business.Modules.Common
             }
 
         }
-        public static dynamic DecryptObject(string base64String)
+        public static dynamic DecryptObject<T>(string base64String)
         {
             var bytes = Convert.FromBase64String(base64String);
             using (var ms = new MemoryStream(bytes, 0, bytes.Length))
@@ -225,7 +225,7 @@ namespace StarGuddy.Business.Modules.Common
                 ms.Write(bytes, 0, bytes.Length);
                 ms.Position = 0;
 
-                return new BinaryFormatter().Deserialize(ms);
+                return (T)new BinaryFormatter().Deserialize(ms);
             }
         }
         #endregion

@@ -89,7 +89,7 @@ namespace StarGuddy.Business.Modules.Account
                 OrgName = user.OrgName,
                 OrgWebsite = user.OrgWebsite,
                 UserName = user.UserName,
-                Email = string.Empty, // TODO
+                Email = user.Email,
                 SecurityStamp = user.SecurityStamp
             };
         }

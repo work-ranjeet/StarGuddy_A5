@@ -110,6 +110,8 @@ namespace StarGuddy.Data.Entities.Interface
         /// </value>
         string Designation { get; set; }
 
+        string Email { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the ORG.
         /// </summary>

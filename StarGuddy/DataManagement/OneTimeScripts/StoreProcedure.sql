@@ -790,10 +790,18 @@ BEGIN
 		VALUES (NEWID(), @UserId, @Name, @Caption, @ImageUrl, @Size, @DataUrl, @ImageType, 1, 0)
 	END
 END
-
-
-
-	
-
-
-	
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetSettingsByKey') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetSettingsByKey
+GO
+CREATE PROCEDURE GetSettingsByKey (@Key NVARCHAR(350))
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;	
+	SELECT * FROM SettingsMaster WHERE [Key] = @Key 
+END

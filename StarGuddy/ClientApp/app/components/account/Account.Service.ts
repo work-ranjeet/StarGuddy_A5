@@ -49,10 +49,12 @@ export class AccountService {
 
     signup(userData: any): Observable<any> {
         return this.baseService.HttpService.postSimple("Account/signup", userData).map(response => {
-            if (response != null && response.token != null && response.token != "") {
-                this.isLoggedInSource.next(true);
-                this.baseService.authenticate(response);
-            }
+            //if (response != null)// && response.token != null && response.token != "") {
+            //    this.isLoggedInSource.next(true);
+            //    this.baseService.authenticate(response);
+            //}
+
+            return response;
         });
     }
 

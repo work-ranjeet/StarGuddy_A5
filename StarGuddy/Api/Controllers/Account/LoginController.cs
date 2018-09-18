@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using StarGuddy.Api.Models.Account;
 using StarGuddy.Business.Interface.Account;
 using StarGuddy.Business.Interface.Common;
+using StarGuddy.Business.Interface.Network;
 using System;
 using System.Threading.Tasks;
 
@@ -15,16 +16,18 @@ namespace StarGuddy.Api.Controllers.Account
     {
         private readonly ISignupManager _signUpManager;
         private readonly ISecurityManager _securityManager;
+        private readonly IEmailManager _emailManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginController"/> class.
         /// </summary>
         /// <param name="signUpManager">The sign up manager.</param>
         /// <param name="jwtPacketManager">The JWT packet manager.</param>
-        public LoginController(ISignupManager signUpManager, ISecurityManager securityManager)
+        public LoginController(ISignupManager signUpManager, ISecurityManager securityManager, IEmailManager emailManager)
         {
-            this._signUpManager = signUpManager;
-            this._securityManager = securityManager;
+            _signUpManager = signUpManager;
+            _securityManager = securityManager;
+            _emailManager = emailManager;
         }
 
         [AllowAnonymous]

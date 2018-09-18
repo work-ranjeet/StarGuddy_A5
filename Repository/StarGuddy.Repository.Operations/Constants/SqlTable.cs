@@ -121,5 +121,11 @@ namespace StarGuddy.Repository.Opertions.Constants
         /// The user Job Group
         /// </summary>
         public const string JobGroup = "JobGroup";
+
+        /// <summary>
+        /// The user emails
+        /// </summary>
+        public const string SettingsMaster = "SettingsMaster";
+
     }
 }

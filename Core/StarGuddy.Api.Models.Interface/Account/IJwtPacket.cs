@@ -66,6 +66,5 @@ namespace StarGuddy.Api.Models.Interface.Account
         /// The email.
         /// </value>
         string Email { get; set; }
-
     }
 }

@@ -135,5 +135,10 @@ namespace StarGuddy.Repository.Opertions.Constants
             public const string HeadShotImageSaveUpdate = "HeadShotImageSaveUpdate";
         }
 
+        public struct SettingsMaaster
+        {
+            public const string GetSettingsByKey = "GetSettingsByKey";
+        }
+
     }
 }

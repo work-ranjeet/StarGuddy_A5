@@ -40,13 +40,17 @@ namespace StarGuddy.Repository.Operations
     /// <seealso cref="StarGuddy.Repository.Interfaces.IUserRepository" />
     public class UserRepository : RepositoryAbstract<User>, IUserRepository
     {
+
+        private readonly IUserEmailsRepository _userEmailsRepository;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository" /> class.
         /// </summary>
         /// <param name="configurationSingleton">The configuration singleton.</param>
         /// <inheritdoc />
-        public UserRepository(IConfigurationSingleton configurationSingleton) : base(configurationSingleton, SqlTable.Users)
+        public UserRepository(IConfigurationSingleton configurationSingleton, IUserEmailsRepository userEmailsRepository) : base(configurationSingleton, SqlTable.Users)
         {
+            _userEmailsRepository = userEmailsRepository;
         }
 
         #region /// Select
@@ -71,7 +75,17 @@ namespace StarGuddy.Repository.Operations
         /// </returns>
         public async Task<IUser> FindByUserName(string userName)
         {
-            return await FindSingleAsync("SELECT * FROM Users WHERE UserName=@UserName", new { UserName = userName }).ConfigureAwait(false);
+            var userObj =  await FindSingleAsync("SELECT * FROM Users WHERE UserName=@UserName", new { UserName = userName }).ConfigureAwait(false);
+            if(userObj.IsNotNull())
+            {
+                var emailObj = await _userEmailsRepository.GetUserEmailAsync(userObj.Id).ConfigureAwait(false);
+                if(emailObj.IsNotNull())
+                {
+                    userObj.Email = emailObj.Email;
+                }
+            }
+
+            return userObj;
         }
 
         /// <summary>

@@ -14,8 +14,10 @@ namespace StarGuddy.Business.Modules.Common
     using Microsoft.IdentityModel.Tokens;
     using StarGuddy.Api.Models.Account;
     using StarGuddy.Api.Models.Interface.Account;
+    using StarGuddy.Api.Models.Security;
     using StarGuddy.Business.Interface.Common;
     using StarGuddy.Core.Constants;
+    using StarGuddy.Repository.Interface;
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
@@ -30,17 +32,10 @@ namespace StarGuddy.Business.Modules.Common
     public class SecurityManager : ISecurityManager
     {
         #region /// Properties
-        /// <summary>
-        /// Gets or sets the configuration.
-        /// </summary>
-        /// <value>
-        /// The configuration.
-        /// </value>
-        private IConfiguration _configuration { get; set; }
 
-        //private readonly IHttpContextAccessor _httpContextAccessor;
-
-        private string SeceretKey => this._configuration.GetAppSettingValue(AppSettings.JwtSecret);
+        private IConfiguration _configuration;
+        private readonly ISettingsMasterRepository _settingsMaseterRepository;
+        private string SeceretKey => _configuration.GetAppSettingValue(AppSettings.JwtSecret);
 
 
         #endregion
@@ -50,9 +45,23 @@ namespace StarGuddy.Business.Modules.Common
         /// Initializes a new instance of the <see cref="SecurityManager"/> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        public SecurityManager(IConfiguration configuration)
+        public SecurityManager(IConfiguration configuration, ISettingsMasterRepository settingsMaseterRepository)
         {
             _configuration = configuration;
+            _settingsMaseterRepository = settingsMaseterRepository;
+        }
+        #endregion
+
+        #region /// Settings Master
+        public async Task<string> GetSettingsValue(string key)
+        {
+            var settings = await _settingsMaseterRepository.GetValue(key);
+            if (settings.IsNotNull())
+            {
+                return settings.Value;
+            }
+
+            return string.Empty;
         }
         #endregion
 
@@ -64,7 +73,7 @@ namespace StarGuddy.Business.Modules.Common
         /// <param name="securityStamp">The security stamp.</param>
         /// <returns></returns>
         public async Task<IJwtPacket> CreateJwtPacketAsync(IApplicationUser applicationUser)
-        {           
+        {
             return new JwtPacket()
             {
                 UserId = applicationUser.UserId.ToString(),
@@ -74,6 +83,21 @@ namespace StarGuddy.Business.Modules.Common
             };
         }
 
+        public async Task<string> GetEmailVerificationCodeAsync(IApplicationUser applicationUser)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                return CryptoGraphy.EncryptObject(
+                     new EmailVerification
+                     {
+                         UserId = applicationUser.UserId.ToString(),
+                         Email = applicationUser.Email,
+                         SecurityStamp = applicationUser.SecurityStamp,
+                         ExpiryHour = DateTime.UtcNow
+                     });
+            });
+        }
+
         /// <summary>
         /// Encrypts the JWT security token asynchronous.
         /// </summary>
@@ -81,7 +105,7 @@ namespace StarGuddy.Business.Modules.Common
         /// <returns>
         /// JWT Packet
         /// </returns>
-        public async Task<string> GetJwtSecurityTokenAsync(IApplicationUser appUser)
+        private async Task<string> GetJwtSecurityTokenAsync(IApplicationUser appUser)
         {
             return await Task.Factory.StartNew(() =>
             {

@@ -45,6 +45,8 @@ namespace StarGuddy.Data.Entities
         /// </value>
         public string UserName { get; set; }
 
+        public string Email { get; set; }
+
         /// <summary>
         /// Gets or sets the access failed count.
         /// </summary>
