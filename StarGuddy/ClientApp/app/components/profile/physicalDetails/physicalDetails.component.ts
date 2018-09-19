@@ -9,8 +9,8 @@ import IPhysicalAppearance = App.Client.Profile.IPhysicalAppearanceModal;
 
 
 export class PhysicalDetailsComponent {
-    private showPhysicalAppearance: boolean = false;
-    private PhysicalAppearanceResult: IPhysicalAppearance = {} as IPhysicalAppearance;
+    public showPhysicalAppearance: boolean = false;
+    public PhysicalAppearanceResult: IPhysicalAppearance = {} as IPhysicalAppearance;
 
     constructor(private readonly profileService: ProfileService) { }
 

@@ -14,9 +14,9 @@ export class LogInOutComponent {
     private readonly accountService: AccountService;
     private readonly authenticateRoute: ActivatedRoute;
 
-    private isLoggedIn: boolean = false;
-    private showUserSettingMenu: boolean = true;
-    private subscription: any;
+    public isLoggedIn: boolean = false;
+    public showUserSettingMenu: boolean = true;
+    public subscription: any;
 
     constructor(router: Router, authRoute: ActivatedRoute, accountService: AccountService) {
         this.router = router;

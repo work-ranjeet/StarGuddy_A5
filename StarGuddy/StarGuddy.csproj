@@ -14,18 +14,15 @@
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="Api\Security\**" />
-    <Compile Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <Compile Remove="ClientApp\app\components\navmenu\**" />
     <Compile Remove="wwwroot\css\NewFolder\**" />
     <Content Remove="Api\Security\**" />
     <Content Remove="ClientApp\**" />
     <Content Remove="wwwroot\css\NewFolder\**" />
     <EmbeddedResource Remove="Api\Security\**" />
-    <EmbeddedResource Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <EmbeddedResource Remove="ClientApp\app\components\navmenu\**" />
     <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
     <None Remove="Api\Security\**" />
-    <None Remove="ClientApp\app\components\account\forgotPwdConfirmation\**" />
     <None Remove="ClientApp\app\components\navmenu\**" />
     <None Remove="wwwroot\css\NewFolder\**" />
   </ItemGroup>

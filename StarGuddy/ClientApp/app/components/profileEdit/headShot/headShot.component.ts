@@ -18,7 +18,7 @@ export class ProfileHeadShotComponent {
     //private imageUrl: string = "/css/icons/mail.png";
     private fileToUpload: File = {} as File;
     private fileReader: FileReader = new FileReader();
-    private headShotModel: IHeadShot = {} as IHeadShot;
+    public headShotModel: IHeadShot = {} as IHeadShot;
 
 
     public progress: number = 0;

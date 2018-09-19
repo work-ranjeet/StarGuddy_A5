@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProfileSettingsService } from "../../profileSettings/profileSettings.Service";
 import { DataValidator } from "../../../../Helper/DataValidator";
-import ILoginData = App.Client.Account.ILoginData;
+import IChangePassword = App.Client.Account.IChangePassword;
 
 @Component({
     selector: "account-management-change-password",
@@ -14,7 +14,7 @@ export class ChangePwdComponent {
     router: Router;
     returnUrl: string;
     authenticateRoute: ActivatedRoute;
-    loginData: ILoginData = {} as ILoginData;
+    changePwd: IChangePassword = {} as IChangePassword;
     manageAccountService: ProfileSettingsService;
 
     private readonly dataValidator: DataValidator
@@ -30,7 +30,7 @@ export class ChangePwdComponent {
     }
 
     ngOnInit() {
-        this.loginData = {} as ILoginData;
+        this.changePwd = {} as IChangePassword;
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.authenticateRoute.snapshot.queryParams["returnUrl"] || "/";

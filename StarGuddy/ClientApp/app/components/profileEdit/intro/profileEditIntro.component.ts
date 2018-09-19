@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileEditIntroComponent {
 
-    private userDetailModel: IUserDetailModel = {} as IUserDetailModel;
+    public userDetailModel: IUserDetailModel = {} as IUserDetailModel;
     private userDetailReset: IUserDetailModel = {} as IUserDetailModel;
 
     constructor(

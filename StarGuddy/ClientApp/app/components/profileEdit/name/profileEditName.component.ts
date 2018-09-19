@@ -14,10 +14,9 @@ import { Router } from '@angular/router';
 })
 export class ProfileEditNameComponent {
 
-    private fullName: string = "Ranjeet Kumar";
-    private shortName: string = "Ranjeet K";
-
-    private userNameModel: IUserNameModel = {} as IUserNameModel;
+    public fullName: string = "Ranjeet Kumar";
+    public shortName: string = "Ranjeet K";
+    public userNameModel: IUserNameModel = {} as IUserNameModel;
 
     constructor(
         private readonly router: Router,

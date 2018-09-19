@@ -11,9 +11,9 @@ import ICredits = App.Client.Profile.IUserCreditModel;
 
 export class ProfileCreditsComponent {
 
-    private subscription: any;
-    private hasCredits: boolean = false;
-    private CreditsList: Array<ICredits> = [];
+    public subscription: any;
+    public hasCredits: boolean = false;
+    public CreditsList: Array<ICredits> = [];
 
     constructor(private readonly profileService: ProfileService) { }
 

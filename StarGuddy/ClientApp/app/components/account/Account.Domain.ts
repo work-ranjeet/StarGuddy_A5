@@ -13,6 +13,13 @@
         RememberMe: boolean;
     }
 
+    export interface IChangePassword {
+        UserName: string;
+        Password: string;
+        NewPassword: string;
+        CnfPassword: string;
+    }
+
     export interface IApplicationUser {
         UserId: string;
         UserName: string;

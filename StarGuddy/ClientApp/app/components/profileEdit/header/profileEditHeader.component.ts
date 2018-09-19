@@ -11,8 +11,8 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 export class ProfileEditHeader {
 
-    private imageUrl: string = "";
-    private computedAddress: string = "Address not update.";
+    public imageUrl: string = "";
+    public computedAddress: string = "Address not update.";
     private _jobGroupName: string = "";
     private _profileHeader: IProfileHeader = {} as IProfileHeader
 

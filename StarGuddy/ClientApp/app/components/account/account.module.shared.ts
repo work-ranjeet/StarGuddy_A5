@@ -11,9 +11,9 @@ import { SignUpJobSeekerComponent } from "./signup/jobSeeker/jobSeeker.component
 
 import { AccountConfirmEmailComponent } from "./confirmEmail/confirmEmail.component";
 import { AccountConfirmEmailSentComponent } from "./confirmEmail/confirmEmailSent.component";
-import { AccountForgotPwdComponent } from "./forgotPwd/forgotPwd.component";
-import { AccountSendCodeComponent } from "./sendCode/sendCode.component";
-import { AccountVerifyCodeComponent } from "./verifyCode/verifyCode.component";
+//import { AccountForgotPwdComponent } from "./forgotPwd/forgotPwd.component";
+//import { AccountSendCodeComponent } from "./sendCode/sendCode.component";
+//import { AccountVerifyCodeComponent } from "./verifyCode/verifyCode.component";
 
 
 @NgModule({
@@ -23,8 +23,8 @@ import { AccountVerifyCodeComponent } from "./verifyCode/verifyCode.component";
         SignUpJobProviderComponent,
         SignUpJobSeekerComponent,
         AccountConfirmEmailComponent,
-        AccountConfirmEmailSentComponent,
-        AccountForgotPwdComponent
+        AccountConfirmEmailSentComponent
+        //AccountForgotPwdComponent
         //AccountSendCodeComponent,
         //AccountVerifyCodeComponent
     ],
@@ -38,8 +38,8 @@ import { AccountVerifyCodeComponent } from "./verifyCode/verifyCode.component";
             { path: "jobseeker", component: SignUpJobSeekerComponent },
             { path: "jobprovider", component: SignUpJobProviderComponent },
             { path: "acc-cnf-email", component: AccountConfirmEmailComponent },
-            { path: "acc-cnf-email-sent", component: AccountConfirmEmailSentComponent },
-            { path: "acc-forgot-pwd", component: AccountForgotPwdComponent }
+            { path: "acc-cnf-email-sent", component: AccountConfirmEmailSentComponent }
+            //{ path: "acc-forgot-pwd", component: AccountForgotPwdComponent }
             //{ path: "acc-send-code", component: AccountSendCodeComponent },
             //{ path: "acc-verify-code", component: AccountVerifyCodeComponent }
         ])
@@ -51,8 +51,8 @@ import { AccountVerifyCodeComponent } from "./verifyCode/verifyCode.component";
         SignUpJobProviderComponent,
         SignUpJobSeekerComponent,
         AccountConfirmEmailComponent,
-        AccountConfirmEmailSentComponent,
-        AccountForgotPwdComponent
+        AccountConfirmEmailSentComponent
+        //AccountForgotPwdComponent
         //AccountSendCodeComponent,
         //AccountVerifyCodeComponent
     ]

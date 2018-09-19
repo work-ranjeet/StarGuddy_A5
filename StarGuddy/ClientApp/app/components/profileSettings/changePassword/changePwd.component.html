@@ -7,23 +7,23 @@
         <div class="card-body">
             <div class="form-group">
                 <!--<label class="required  label-control">Old Password</label>-->
-                <input type="password" id="OldPassword" class="form-control" [(ngModel)]="loginData.Email" #oldPassword="ngModel" placeholder="Enter Old Password" required />
+                <input type="password" id="OldPassword" class="form-control" [(ngModel)]="changePwd.Password" #oldPassword="ngModel" placeholder="Enter Old Password" required />
                 <div *ngIf="oldPassword.errors && (oldPassword.dirty || oldPassword.touched)" class="error">
                     <div [hidden]="!oldPassword.hasError('required')">Required.</div>
                 </div>
             </div>
             <div class="form-group margin-top-20">
                 <!--<label class="required  label-control">New Password</label>-->
-                <input type="password" id="newPassword" class="form-control" [(ngModel)]="loginData.Email" #newPassword="ngModel" placeholder="Enter New Password" required />
+                <input type="password" id="newPassword" class="form-control" [(ngModel)]="changePwd.NewPassword" #newPassword="ngModel" placeholder="Enter New Password" required />
                 <div *ngIf="newPassword.errors && (newPassword.dirty || newPassword.touched)" class="error">
-                    <div [hidden]="!newPassword.hasError('required')">Email is required.</div>
+                    <div [hidden]="!newPassword.hasError('required')">Required.</div>
                 </div>
             </div>
             <div class="form-group margin-top-20">
                 <!--<label class="required  label-control">Confirm Password</label>-->
-                <input type="Password" id="confirmPassword" class="form-control" [(ngModel)]="loginData.Email" #confirmPassword="ngModel" placeholder="Enter Confirm Password" required />
+                <input type="Password" id="confirmPassword" class="form-control" [(ngModel)]="changePwd.CnfPassword" #confirmPassword="ngModel" placeholder="Enter Confirm Password" required />
                 <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="error">
-                    <div [hidden]="!confirmPassword.hasError('required')">Email is required.</div>
+                    <div [hidden]="!confirmPassword.hasError('required')">Required.</div>
                 </div>
             </div>
         </div>

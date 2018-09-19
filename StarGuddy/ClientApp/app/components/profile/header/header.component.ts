@@ -10,12 +10,12 @@ import IJobGroupModel = App.Client.Profile.IJobGroupModel;
 
 
 export class ProfileHeader {
-    private imageUrl: string = "";
-    private _jobGroupName: string = "";   
-    private _profileHeader: IProfileHeader = {} as IProfileHeader
+    public imageUrl: string = "";
+    public _jobGroupName: string = "";   
+    public _profileHeader: IProfileHeader = {} as IProfileHeader
 
-    private showAddress: boolean = false;
-    private computedAddress: string = "Address not update.";
+    public showAddress: boolean = false;
+    public computedAddress: string = "Address not update.";
 
     @Input()
     set jobGroupNames(jobGroupNames: string) { this._jobGroupName = jobGroupNames; }

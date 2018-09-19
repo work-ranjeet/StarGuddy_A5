@@ -14,7 +14,7 @@ import IAddress = App.Client.Profile.IAddressDto;import * as _ from "lodash";
 export class ProfileEditAddressComponent {
 
     private addressReset: IAddress = {} as IAddress;
-    private address: IAddress = {} as IAddress;
+    public address: IAddress = {} as IAddress;
 
     constructor(
         private readonly router: Router,
