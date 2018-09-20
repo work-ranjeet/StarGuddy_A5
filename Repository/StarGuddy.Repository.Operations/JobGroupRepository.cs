@@ -85,5 +85,14 @@ namespace StarGuddy.Repository.Operations
                 throw ex;
             }
         }
+
+        public async Task<IEnumerable<IJobGroup>> GetTalentGroup()
+        {
+            using (var conn = await Connection.OpenConnectionAsync())
+            {
+                return await SqlMapper.QueryAsync<JobGroup>(conn, SpNames.JobGroup.GetTalentGroup, commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }
 }

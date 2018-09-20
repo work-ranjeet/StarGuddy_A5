@@ -10,4 +10,8 @@ export class NavMenuComponent {
     toggleState() { // click handler
         this.isIn = !this.isIn;
     }
+
+    toggleStateOut() {
+        this.isIn = !this.isIn;
+    }
 }

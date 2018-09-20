@@ -7,10 +7,14 @@ import { AppConstant } from "../Constants/AppConstant";
 import { HttpService } from "../Services/HttpClient";
 import { HttpHeaders } from '@angular/common/http';
 import IJwtPacket = App.Client.Account.IJwtPacket;
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 
 export class BaseService {
+    public isLoggedInSource = new BehaviorSubject<boolean>(false);
+
     private readonly httpService: HttpService;
     private readonly appConstant: AppConstant;
     private readonly router: Router;
@@ -22,11 +26,15 @@ export class BaseService {
         this.httpService = httpService;
         this.appConstant = appConstant;
         this.router = router;
+        this.isLoggedInSource.next(this.IsAuthenticated);
     }
 
-    get IsAuthenticated() {
-        var token = isPlatformBrowser(this.platformId) && sessionStorage.length > 0 ? sessionStorage.getItem(this.appConstant.TOKEN_KEY) : "";
+   
 
+    get IsLoggedIn(): Observable<boolean> { return this.isLoggedInSource.asObservable(); }
+
+    get IsAuthenticated(): boolean {
+        var token = isPlatformBrowser(this.platformId) && sessionStorage.length > 0 ? sessionStorage.getItem(this.appConstant.TOKEN_KEY) : "";
         return token != undefined && token != null && token.length > 0;
     }
 
@@ -38,7 +46,7 @@ export class BaseService {
         return isPlatformBrowser(this.platformId) && sessionStorage.length > 0 ? sessionStorage.getItem(this.appConstant.USER_FIRST_NAME) : "";
     }
 
-    get HttpService() {
+    get HttpService(): HttpService {
         return this.httpService;
     }
 
@@ -53,6 +61,7 @@ export class BaseService {
     cancleAuthention() {
         if (isPlatformBrowser(this.platformId)) {
             sessionStorage.clear();
+            this.isLoggedInSource.next(false);
         }
     }
 

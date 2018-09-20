@@ -13,6 +13,8 @@ namespace StarGuddy.Data.Entities
         public int SelectedCode { get; set; }
         public string Detail { get; set; }
         public int DisplayOrder { get; set; }
+        public int MemberCount { get; set; }
+        public string ImageUrl { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DttmCreated { get; set; }

@@ -24,15 +24,13 @@ export class ProfileCreditsComponent {
     loadCredits() {
         this.profileService.GetUserCredits().subscribe(
             response => {
-                this.hasCredits = response.length > 0;
                 this.CreditsList = response;
+                this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
             },
             error => {
                 this.hasCredits = false;
                 console.info("User credits not found");
-            });
-
-        this.hasCredits = this.CreditsList != undefined && this.CreditsList.length > 0;
+            });        
     }
 
     public workYearJson = [

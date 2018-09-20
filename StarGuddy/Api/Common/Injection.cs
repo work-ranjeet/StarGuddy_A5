@@ -22,12 +22,14 @@ using StarGuddy.Business.Interface.Common;
 using StarGuddy.Business.Interface.Files;
 using StarGuddy.Business.Interface.Network;
 using StarGuddy.Business.Interface.Profile;
+using StarGuddy.Business.Interface.Search;
 using StarGuddy.Business.Interface.UserJobs;
 using StarGuddy.Business.Modules.Account;
 using StarGuddy.Business.Modules.Common;
 using StarGuddy.Business.Modules.Files;
 using StarGuddy.Business.Modules.Network;
 using StarGuddy.Business.Modules.Profile;
+using StarGuddy.Business.Modules.Search;
 using StarGuddy.Business.Modules.UserJobs;
 using StarGuddy.Repository.Configuration;
 using StarGuddy.Repository.Interface;
@@ -88,6 +90,8 @@ namespace StarGuddy.Api
             services.AddTransient<IJobManager, JobManager>();
             services.AddTransient<IProfileSettingManager, ProfileSettingManager>();
             services.AddTransient<IProfileManager, ProfileManager>();
+            services.AddTransient<ISearchManager, SearchManager>();
+            
         }
     }
 

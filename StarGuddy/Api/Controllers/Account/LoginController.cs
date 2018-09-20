@@ -34,18 +34,27 @@ namespace StarGuddy.Api.Controllers.Account
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginData loginData)
         {
-            if (loginData.IsNull() || string.IsNullOrWhiteSpace(loginData.UserName) || string.IsNullOrWhiteSpace(loginData.Password))
+            try
             {
-                return BadRequest();
+                if (loginData.IsNull() || string.IsNullOrWhiteSpace(loginData.UserName) || string.IsNullOrWhiteSpace(loginData.Password))
+                {
+                    return BadRequest();
+                }
+
+                var userResult = await _signUpManager.PasswordSignInAsync(loginData.UserName, loginData.Password, rememberMe: false, lockoutOnFailure: false);
+                if (userResult.IsNull())
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Oops! Invalid entry. Please try again.");
+                }
+
+                return Ok(await _securityManager.CreateJwtPacketAsync(userResult));
+            }
+            catch (Exception ex)
+            {
+                //logger ex;
             }
 
-            var userResult = await _signUpManager.PasswordSignInAsync(loginData.UserName, loginData.Password, rememberMe: false, lockoutOnFailure: false);
-            if (userResult.IsNull())
-            {
-                return StatusCode(StatusCodes.Status401Unauthorized, "Oops! Invalid entry. Please try again.");
-            }
-
-            return Ok(await _securityManager.CreateJwtPacketAsync(userResult));
+            return StatusCode(StatusCodes.Status401Unauthorized, "Oops! Invalid entry. Please try again.");
         }
     }
 }

@@ -1,31 +1,25 @@
 ﻿//import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Injectable, Inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BaseService } from "../../../Services/BaseService";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
 import { DataConverter } from "../../../Helper/DataConverter";
+import { BaseService } from "../../../Services/BaseService";
 import IJwtPacket = App.Client.Account.IJwtPacket;
 import ILoginData = App.Client.Account.ILoginData;
 import IUserData = App.Client.Account.IApplicationUser;
-import { Observer } from "rxjs/Observer";
-import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
 export class AccountService {
 
-    private isLoggedInSource = new BehaviorSubject<boolean>(false);
-
     constructor(
         @Inject(BaseService) private readonly baseService: BaseService,
         private readonly router: Router,
         private readonly dataConverter: DataConverter) {
-        this.IsAuthenticated ? this.isLoggedInSource.next(true) : this.isLoggedInSource.next(false);
-    }
-
-
-    get IsLoggedIn() { return this.isLoggedInSource.asObservable(); }
+        this.IsAuthenticated ? baseService.isLoggedInSource.next(true) : baseService.isLoggedInSource.next(false);
+    }   
 
     get IsAuthenticated() { return this.baseService.IsAuthenticated; }
 
@@ -36,14 +30,14 @@ export class AccountService {
     login(loginData: ILoginData): Observable<any> {
         return this.baseService.HttpService.postSimple("Account/login", loginData).map(response => {
             if (response != null && response.token != null && response.token != "") {
-                this.isLoggedInSource.next(true);
+                this.baseService.isLoggedInSource.next(true);
                 this.baseService.authenticate(response);
             }
         });
     }
 
     logOut() {
-        this.isLoggedInSource.next(false);
+        this.baseService.isLoggedInSource.next(false);
         this.baseService.cancleAuthention();
     }
 

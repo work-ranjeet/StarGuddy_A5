@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { Subscription } from "rxjs/Subscription";
-import { Router, ActivatedRoute } from "@angular/router";
-import { AccountService } from "../../account/Account.Service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BaseService } from "../../../../../ClientApp/Services/BaseService";
 
 @Component({
     selector: "log-in-out",
@@ -10,29 +9,25 @@ import { AccountService } from "../../account/Account.Service";
 })
 
 export class LogInOutComponent {
-    private readonly router: Router;
-    private readonly accountService: AccountService;
-    private readonly authenticateRoute: ActivatedRoute;
 
     public isLoggedIn: boolean = false;
     public showUserSettingMenu: boolean = true;
     public subscription: any;
 
-    constructor(router: Router, authRoute: ActivatedRoute, accountService: AccountService) {
-        this.router = router;
-        this.authenticateRoute = authRoute;
-        this.accountService = accountService;      
-    }
+    constructor(
+        private readonly router: Router,
+        private readonly authenticateRoute: ActivatedRoute,
+        private readonly baseService: BaseService) { }
     
     ngOnInit() {
-        this.subscription = this.accountService.IsLoggedIn.subscribe(val => this.isLoggedIn = val);
+        this.subscription = this.baseService.IsLoggedIn.subscribe((val: boolean) => this.isLoggedIn = val);
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
-    get UserFirstName() { return this.accountService.getUserFirstName(); }
+    get UserFirstName() { return this.baseService.UserFirstName; }
 
 
     toggleUserSettingMenu() {
@@ -40,7 +35,9 @@ export class LogInOutComponent {
     }
     
     logOut() {
-        this.accountService.logOut();
+        this.baseService.isLoggedInSource.next(false);
+        this.baseService.cancleAuthention();
+        this.subscription.unsubscribe();
         this.router.navigate(["/"]);
     }
 }

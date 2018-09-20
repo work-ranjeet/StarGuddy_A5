@@ -13,5 +13,7 @@ namespace StarGuddy.Repository.Interface
         Task<IEnumerable<JobGroup>> GetUserJobGroupByUserIdAsync(Guid userId);
 
         Task<bool> PerformSaveAndUpdateOperationAsync(Guid userId, IEnumerable<JobGroup> jobGroups);
+
+        Task<IEnumerable<IJobGroup>> GetTalentGroup();
     }
 }

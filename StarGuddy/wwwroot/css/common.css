@@ -672,7 +672,7 @@ margin-right-10 {
 .edit-icon-l, .edit-icon-m, .edit-icon-s {
     font-size: 18px !important;
     padding: 5px !important;
-    display: inline!important;
+    display: inline !important;
 }
 
 .edit-icon-l {
@@ -693,4 +693,53 @@ margin-right-10 {
 
 .display-inline-block {
     display: inline-block !important;
+}
+
+.rounded {
+    border-radius: 50%;
+}
+
+.item-avatar-50, .item-avatar-80 {
+    margin: auto;
+    position: relative;
+    border: solid 5px white;
+}
+
+.item-avatar-50 {
+    width: 55px;
+    height: 55px;
+}
+
+.item-avatar-80 {
+    width: 85px;
+    height: 85px;
+}
+
+    .item-avatar-50 img, .item-avatar-80 img {
+        padding: 5px 2px 5px 2px;
+    }
+
+.item-avatar-50 img {
+    width: 55px;
+    height: 55px;
+}
+
+.item-avatar-80 img {
+    width: 85px;
+    height: 85px;
+}
+
+.item-avatar-50 .member-count, .item-avatar-80 .member-count {
+    border-radius: 10px;
+    border-width: 1px;
+    font-size: 11px;
+    line-height: 17px;
+    padding: 1px 8px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: #367bb7;
+    border: solid 2px white;
+    color: white;
+    margin-right: -10px;
 }

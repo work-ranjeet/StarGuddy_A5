@@ -33,47 +33,51 @@ namespace StarGuddy.Api.Controllers
         #region /// Private methods
         private void SetUserContext()
         {
-            if (string.IsNullOrWhiteSpace(JwtToken))
+            try
             {
-                throw new UnauthorizedAccessException("Invalid tokens.");
-            }
-
-            var innerJwtTokenArr = JwtToken.Split(' ');
-            if (innerJwtTokenArr.Length != 2 || !innerJwtTokenArr[0].ToLowerInvariant().Equals("bearer"))
-            {
-                throw new UnauthorizedAccessException("Invalid tokens.");
-            }
-
-            var jwtHandler = new JwtSecurityTokenHandler();
-
-            var jwtTokenInput = innerJwtTokenArr[1];
-            var readableToken = jwtHandler.CanReadToken(jwtTokenInput);
-
-            if (readableToken)
-            {
-                var userPayloadToken = jwtHandler.ReadJwtToken(jwtTokenInput);
-                //string userData = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == ClaimTypes.UserData).Value;
-
-                var userId = Guid.Parse((userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value);
-                if (userId == Guid.Empty)
+                if (!string.IsNullOrWhiteSpace(JwtToken))
                 {
-                    throw new UnauthorizedAccessException("Oops! you are not suppose to here. Please login before proceed.");
+                    var innerJwtTokenArr = JwtToken.Split(' ');
+                    if (innerJwtTokenArr.Length != 2 || !innerJwtTokenArr[0].ToLowerInvariant().Equals("bearer"))
+                    {
+                        throw new UnauthorizedAccessException("Invalid tokens.");
+                    }
+
+                    var jwtHandler = new JwtSecurityTokenHandler();
+
+                    var jwtTokenInput = innerJwtTokenArr[1];
+                    var readableToken = jwtHandler.CanReadToken(jwtTokenInput);
+
+                    if (readableToken)
+                    {
+                        var userPayloadToken = jwtHandler.ReadJwtToken(jwtTokenInput);
+                        //string userData = ((userPayloadToken)).Claims.FirstOrDefault(m => m.Type == ClaimTypes.UserData).Value;
+
+                        var userId = Guid.Parse((userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Sid).Value);
+                        if (userId == Guid.Empty)
+                        {
+                            throw new UnauthorizedAccessException("Oops! you are not suppose to here. Please login before proceed.");
+                        }
+
+                        UserContext.Current.IsAuthenticated = true;
+                        UserContext.Current.UserId = userId;
+                        UserContext.Current.UserName = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
+                        UserContext.Current.Email = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
+
+                        //var applicationUser = DecryptObject<ApplicationUser>(userData);
+                        //if(applicationUser != null)
+                        //{
+                        //    UserContext.FirstName = applicationUser.FirstName;
+                        //    UserContext.LastName = applicationUser.LastName;
+                        //    UserContext.IsCastingProfessional = applicationUser.IsCastingProfessional;
+                        //}
+                    }
                 }
-
-                UserContext.Current.IsAuthenticated = true;
-                UserContext.Current.UserId = userId;
-                UserContext.Current.UserName = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
-                UserContext.Current.Email = (userPayloadToken).Claims.FirstOrDefault(m => m.Type == JwtRegisteredClaimNames.Email).Value;
-
-                //var applicationUser = DecryptObject<ApplicationUser>(userData);
-                //if(applicationUser != null)
-                //{
-                //    UserContext.FirstName = applicationUser.FirstName;
-                //    UserContext.LastName = applicationUser.LastName;
-                //    UserContext.IsCastingProfessional = applicationUser.IsCastingProfessional;
-                //}
             }
-
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

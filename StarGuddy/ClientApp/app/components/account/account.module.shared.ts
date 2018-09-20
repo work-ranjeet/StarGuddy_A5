@@ -9,6 +9,8 @@ import { SignUpComponent } from "./signup/signup.component";
 import { SignUpJobProviderComponent } from "./signup/jobProvider/jobProvider.component";
 import { SignUpJobSeekerComponent } from "./signup/jobSeeker/jobSeeker.component";
 
+
+
 import { AccountConfirmEmailComponent } from "./confirmEmail/confirmEmail.component";
 import { AccountConfirmEmailSentComponent } from "./confirmEmail/confirmEmailSent.component";
 //import { AccountForgotPwdComponent } from "./forgotPwd/forgotPwd.component";

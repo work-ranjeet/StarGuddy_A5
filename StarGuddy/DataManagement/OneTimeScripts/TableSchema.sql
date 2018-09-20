@@ -286,6 +286,7 @@ CREATE TABLE JobGroup
 	Code INT NOT NULL,
 	Detail NVARCHAR(500) NULL,
 	DisplayOrder int NOT null,
+	ImageUrl nvarchar(350) null,
 	IsActive BIT NOT NULL DEFAULT(1),
 	IsDeleted BIT NOT NULL DEFAULT(0),
 	DttmCreated DATETIME2 DEFAULT (getutcdate()),

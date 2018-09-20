@@ -5,6 +5,11 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>true</IsPackable>
+    <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+    <Version>0.0.1</Version>
+    <Copyright>StarGuddy</Copyright>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <FileVersion>0.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +47,7 @@
   <ItemGroup>
     <None Remove="ClientApp\app\comBase\profileIndexAbstract.ts" />
     <None Remove="ClientApp\app\components\account\account.module.shared.ts" />
+    <None Remove="ClientApp\app\components\account\Account.Service.ts" />
     <None Remove="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
     <None Remove="ClientApp\app\components\common\pageHeading\pageSubHeadingComponent.ts" />
     <None Remove="ClientApp\app\components\profileEdit\ProfileEdit.Domain.ts" />
@@ -50,6 +56,9 @@
     <None Remove="ClientApp\app\components\profile\profile.Domain.ts" />
     <None Remove="ClientApp\app\components\profile\profile.module.shared.ts" />
     <None Remove="ClientApp\app\components\profileSettings\ProfileSettings.Domain.ts" />
+    <None Remove="ClientApp\app\components\profile\profile.Service.ts" />
+    <None Remove="ClientApp\app\components\search\search.Domain.ts" />
+    <None Remove="ClientApp\app\components\search\search.module.shared.ts" />
     <None Remove="ClientApp\Directives\pageHeadingDirectives.ts" />
     <None Remove="ClientApp\Directives\ValidateEqual.ts" />
     <None Remove="ClientApp\Enums\enums.ts" />
@@ -59,6 +68,11 @@
     <None Remove="ClientApp\Interceptor\jwt.interceptor.ts" />
     <None Remove="ClientApp\Services\HttpClient.ts" />
     <None Remove="ClientApp\Services\ToastrService.ts" />
+    <None Remove="Views\Shared\_FooterPartial.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\_FooterPartial.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +91,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\comBase\profileIndexAbstract.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\account.module.shared.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\Account.Service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\common\headings\headingComponent.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\common\pageHeading\pageHeadingComponent.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\profile\profile.Domain.ts" />
@@ -85,6 +100,9 @@
     <TypeScriptCompile Include="ClientApp\app\components\profileSettings\profileSettings.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\profileEdit\profileEdit.Domain.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\profileEdit\profileEdit.module.shared.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\profile\profile.Service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\search\search.Domain.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\search\search.module.shared.ts" />
     <TypeScriptCompile Include="ClientApp\Directives\ValidateEqual.ts" />
     <TypeScriptCompile Include="ClientApp\Enums\enums.ts" />
     <TypeScriptCompile Include="ClientApp\Extension\StringExtension.ts" />

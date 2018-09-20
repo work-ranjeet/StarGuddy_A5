@@ -41,40 +41,48 @@ namespace StarGuddy.Api.Controllers.Account
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody]ApplicationUser applicationUser)
         {
-            if (applicationUser.IsNull())
+            try
             {
-                return BadRequest();
-            }
 
-            if (applicationUser.Password != applicationUser.CnfPassword)
-            {
-                return StatusCode(StatusCodes.Status204NoContent, NotFound("Password and Confirm password is not matching."));
-            }
-
-            var existUser = await _userManager.FindByUserNameAsync(applicationUser.Email);
-            if (existUser.IsNotNull())
-            {
-                return StatusCode(StatusCodes.Status409Conflict, BadRequest("User name already register with us."));
-            }
-
-            string password = applicationUser.Password;
-            applicationUser.UserName = applicationUser.Email;
-            applicationUser.Password = await _passwordManager.GetHashedPassword(password);
-
-            if (await _userManager.CreateAsync(applicationUser))
-            {
-                var userResult = await _signUpManager.PasswordSignInAsync(applicationUser.UserName, password, rememberMe: false, lockoutOnFailure: false);                
-
-                var emailVerificationToken = _securityManager.GetEmailVerificationCodeAsync(userResult);
-
-                if (await _emailManager.SendMail("StarGuddy - email verification code - expire in 24 hours", $"<h1>testing</h1><div>{emailVerificationToken}</div>", "er.ranjeetkumar@gmail.com"))
+                if (applicationUser.IsNull())
                 {
-                    return Ok($"We sent you verification link to your email. Please verify it to proceed....");
+                    return BadRequest();
                 }
 
-                return Ok("There are some error. Please try again...");
-            }
+                if (applicationUser.Password != applicationUser.CnfPassword)
+                {
+                    return StatusCode(StatusCodes.Status204NoContent, NotFound("Password and Confirm password is not matching."));
+                }
 
+                var existUser = await _userManager.FindByUserNameAsync(applicationUser.Email);
+                if (existUser.IsNotNull())
+                {
+                    return StatusCode(StatusCodes.Status409Conflict, BadRequest("User name already register with us."));
+                }
+
+                string password = applicationUser.Password;
+                applicationUser.UserName = applicationUser.Email;
+                applicationUser.Password = await _passwordManager.GetHashedPassword(password);
+
+                if (await _userManager.CreateAsync(applicationUser))
+                {
+                    var userResult = await _signUpManager.PasswordSignInAsync(applicationUser.UserName, password, rememberMe: false, lockoutOnFailure: false);
+
+                    var emailVerificationToken = _securityManager.GetEmailVerificationCodeAsync(userResult);
+
+                    if (await _emailManager.SendMail("StarGuddy - email verification code - expire in 24 hours", $"<h1>testing</h1><div>{emailVerificationToken}</div>", "er.ranjeetkumar@gmail.com"))
+                    {
+                        return Ok($"We sent you verification link to your email. Please verify it to proceed....");
+                    }
+
+                    return StatusCode(StatusCodes.Status417ExpectationFailed, "There are some error. Please try again...");
+                }
+
+            }
+            catch (Exception ex)
+            {
+              
+            }
             return BadRequest();
         }
 

@@ -5,22 +5,23 @@ import { RouterModule } from "@angular/router";
 
 import { NavMenuComponent } from "./navmenu/navmenu.component";
 import { FooterComponent } from "./footer/footer.component";
-import { LogInOutComponent } from "./logInOut/logInOut.component";
 
 import { PageHeadingComponent } from "../common/pageHeading/pageHeadingComponent";
 import { HeadingComponent } from "../common/headings/headingComponent";
 
+import { LogInOutComponent } from "./logInOut/logInOut.component";
+
 
 @NgModule({
     declarations: [
-        LogInOutComponent,
         NavMenuComponent,
         FooterComponent,
         PageHeadingComponent,
-        HeadingComponent
+        HeadingComponent,
+        LogInOutComponent
     ],
     imports: [RouterModule, CommonModule, FormsModule],
-    exports: [LogInOutComponent, NavMenuComponent, FooterComponent, PageHeadingComponent, HeadingComponent]
+    exports: [NavMenuComponent, FooterComponent, PageHeadingComponent, HeadingComponent, LogInOutComponent]
 })
 
 export class CommonModuleShared {

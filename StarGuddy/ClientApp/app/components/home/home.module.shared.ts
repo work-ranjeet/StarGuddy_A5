@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-
+import { CommonModule } from "@angular/common";
 import { HomeComponent } from "./home.component";
 import { HomeSearchComponent } from "./search/search.component";
 import { HomeProfileComponent } from "./profile/profile.component";
@@ -21,6 +21,7 @@ import { HomeJoblistComponent } from "./joblist/joblist.component";
         HomeJoblistComponent
     ],
     imports: [
+        CommonModule,
         RouterModule.forRoot([ 
             { path: "home", component: HomeComponent }
         ])

@@ -805,3 +805,26 @@ BEGIN
 	SET XACT_ABORT ON;	
 	SELECT * FROM SettingsMaster WHERE [Key] = @Key 
 END
+------------------------------------------------------------------------------------------------------------------------------
+GO
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE object_id = OBJECT_ID(N'GetTalentGroup') AND type IN (N'P', N'PC')
+		)
+	DROP PROCEDURE GetTalentGroup
+GO
+CREATE PROCEDURE GetTalentGroup
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SET XACT_ABORT ON;
+
+	SELECT JB.Id, JB.Code, JB.Name, JB.Detail, JB.ImageUrl, JB.DisplayOrder, JB.IsActive, JB.IsDeleted, count(UJB.UserId) AS MemberCount
+	FROM JobGroup JB
+	LEFT JOIN UserJobGroup UJB ON UJB.JobGroupId = JB.Id
+	WHERE JB.IsActive = 1
+		AND JB.IsDeleted = 0
+	GROUP BY JB.Id, JB.Code, JB.Name, JB.Detail, JB.ImageUrl, JB.DisplayOrder, JB.IsActive, JB.IsDeleted
+	ORDER BY JB.DisplayOrder
+END
