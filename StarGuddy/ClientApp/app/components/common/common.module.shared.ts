@@ -11,7 +11,6 @@ import { HeadingComponent } from "../common/headings/headingComponent";
 
 import { LogInOutComponent } from "./logInOut/logInOut.component";
 
-
 @NgModule({
     declarations: [
         NavMenuComponent,

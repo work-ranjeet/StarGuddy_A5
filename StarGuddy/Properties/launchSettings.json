@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://StarGuddy.com/",
+      "applicationUrl": "http://localhost:9062/",
       "sslPort": 0
     }
   },
@@ -20,7 +20,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://StarGuddy.com/"
+      "applicationUrl": "http://localhost:9062/"
     }
   }
 }

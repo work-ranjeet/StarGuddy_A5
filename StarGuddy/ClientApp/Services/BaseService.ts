@@ -1,14 +1,12 @@
-﻿import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
-
-import { RequestOptions, Headers } from "@angular/http";
+﻿import { isPlatformBrowser } from "@angular/common";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { Router } from "@angular/router";
-import { AppConstant } from "../Constants/AppConstant";
-import { HttpService } from "../Services/HttpClient";
-import { HttpHeaders } from '@angular/common/http';
-import IJwtPacket = App.Client.Account.IJwtPacket;
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
+import { AppConstant } from "../Constants/AppConstant";
+import { HttpService } from "../Services/HttpClient";
+
+import IJwtPacket = App.Client.Account.IJwtPacket;
 
 @Injectable()
 
